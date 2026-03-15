@@ -6,7 +6,10 @@
   <title>Workspace | Utility Forge AI</title>
 
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Utility Forge AI Workspace — one place to polish emails, generate ideas, build resume bullets, and summarize text." />
+  <meta
+    name="description"
+    content="Utility Forge AI Workspace — one place to polish emails, generate ideas, build resume bullets, and summarize text."
+  />
 
   <style>
     * {
@@ -140,11 +143,21 @@
       box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       white-space: nowrap;
+      border: none;
     }
 
     .nav-cta:hover {
       transform: translateY(-2px);
       box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+
+    .nav-cta.pro-active {
+      background: rgba(255,255,255,0.06);
+      color: #d9ffff;
+      border: 1px solid rgba(142,241,255,0.24);
+      box-shadow: none;
+      cursor: default;
+      pointer-events: none;
     }
 
     .page {
@@ -218,6 +231,26 @@
       margin-bottom: 14px;
       letter-spacing: 0.4px;
       text-transform: uppercase;
+    }
+
+    .plan-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.88);
+    }
+
+    .plan-badge.pro {
+      background: linear-gradient(90deg,#89f7c8,#8ef1ff);
+      color: #081018;
+      border: none;
     }
 
     .tool-list {
@@ -306,6 +339,13 @@
       border-radius: 14px;
       background: rgba(255,255,255,0.035);
       border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sidebar-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.56);
+      margin-top: 8px;
+      line-height: 1.5;
     }
 
     .main-panel {
@@ -520,6 +560,12 @@
       color: rgba(255,255,255,0.92);
     }
 
+    .result.empty {
+      display: flex;
+      align-items: center;
+      color: rgba(255,255,255,0.55);
+    }
+
     .note {
       color: rgba(255,255,255,0.72);
       font-size: .92rem;
@@ -591,7 +637,7 @@
         <a href="index.html#pricing">Pricing</a>
       </nav>
 
-      <a href="index.html#pricing" class="nav-cta">Upgrade to Pro</a>
+      <a href="index.html#pricing" class="nav-cta" id="upgradeBtn">Upgrade to Pro</a>
     </div>
   </header>
 
@@ -610,6 +656,7 @@
     <div class="workspace-shell">
       <aside class="sidebar">
         <div class="sidebar-title">Select a Tool</div>
+        <div class="plan-badge" id="planBadge">Free Plan</div>
         <div class="tool-list" id="toolList"></div>
 
         <div class="sidebar-card">
@@ -620,8 +667,13 @@
 
           <div class="plan-list">
             <div>Free: 5 daily runs per tool</div>
+            <div>Free: standard input limits</div>
             <div>Pro: unlimited tool usage</div>
             <div>Pro: higher input limits for larger tasks</div>
+          </div>
+
+          <div class="sidebar-note">
+            Secure payments via Stripe • Pro unlocks automatically after checkout
           </div>
         </div>
       </aside>
@@ -664,7 +716,7 @@
         </div>
 
         <div class="result-title" id="resultTitle">Output</div>
-        <div class="result" id="result">Your output will appear here.</div>
+        <div class="result empty" id="result">Your output will appear here after you run a tool.</div>
         <div class="note" id="toolNote">Tip: more specific input usually creates better results.</div>
       </section>
     </div>
@@ -688,6 +740,30 @@
       return id;
     }
 
+    function updatePlanUi() {
+      const workspaceStatus = document.getElementById("workspaceStatus");
+      const planBadge = document.getElementById("planBadge");
+      const upgradeBtn = document.getElementById("upgradeBtn");
+
+      if (isProUserState) {
+        workspaceStatus.textContent = "Pro Workspace";
+        workspaceStatus.style.background = "linear-gradient(90deg,#89f7c8,#8ef1ff)";
+        workspaceStatus.style.color = "#081018";
+        workspaceStatus.style.border = "none";
+
+        planBadge.textContent = "Pro Active";
+        planBadge.classList.add("pro");
+
+        upgradeBtn.textContent = "Pro Active";
+        upgradeBtn.classList.add("pro-active");
+      } else {
+        workspaceStatus.textContent = "Ready to create";
+        workspaceStatus.style.background = "rgba(255,255,255,0.05)";
+        workspaceStatus.style.color = "#d9ffff";
+        workspaceStatus.style.border = "1px solid rgba(255,255,255,0.08)";
+      }
+    }
+
     async function checkProStatus() {
       try {
         const userId = getUserId();
@@ -704,10 +780,10 @@
 
         if (data.pro) {
           isProUserState = true;
-          workspaceStatus.textContent = "Pro Workspace";
-          workspaceStatus.style.background = "linear-gradient(90deg,#89f7c8,#8ef1ff)";
-          workspaceStatus.style.color = "#081018";
+          updatePlanUi();
           switchTool(activeToolKey);
+        } else {
+          updatePlanUi();
         }
       } catch (error) {
         console.error("Pro status check failed:", error);
@@ -858,7 +934,6 @@
     const charCount = document.getElementById("charCount");
     const charLimit = document.getElementById("charLimit");
     const statusText = document.getElementById("statusText");
-    const workspaceStatus = document.getElementById("workspaceStatus");
 
     let activeToolKey = "email";
     let lastOutput = "";
@@ -897,9 +972,9 @@
           workspaceInput.value = example;
           updateCharCount();
           workspaceInput.focus();
-          result.textContent = "Your output will appear here.";
+          result.textContent = "Your output will appear here after you run a tool.";
+          result.classList.add("empty");
           statusText.textContent = "Example loaded";
-          workspaceStatus.textContent = isProUserState ? "Pro Workspace" : `${tool.name} ready`;
           lastOutput = "";
           copyBtn.disabled = true;
         });
@@ -933,10 +1008,9 @@
       workspaceInput.maxLength = currentLimit;
       charLimit.textContent = String(currentLimit);
       runBtn.textContent = tool.buttonText;
-      result.textContent = "Your output will appear here.";
-      statusText.textContent = isProUserState
-        ? "Pro limits active"
-        : "Ready to generate";
+      result.textContent = "Your output will appear here after you run a tool.";
+      result.classList.add("empty");
+      statusText.textContent = isProUserState ? "Pro limits active" : "Ready to generate";
       lastOutput = "";
       copyBtn.disabled = true;
 
@@ -972,7 +1046,8 @@
     clearBtn.addEventListener("click", () => {
       workspaceInput.value = "";
       updateCharCount();
-      result.textContent = "Your output will appear here.";
+      result.textContent = "Your output will appear here after you run a tool.";
+      result.classList.add("empty");
       statusText.textContent = isProUserState ? "Pro limits active" : "Ready to generate";
       lastOutput = "";
       copyBtn.disabled = true;
@@ -985,6 +1060,7 @@
 
       if (!input) {
         result.textContent = `Please enter ${tool.inputLabel.toLowerCase()} first.`;
+        result.classList.remove("empty");
         statusText.textContent = "Missing input";
         return;
       }
@@ -993,8 +1069,8 @@
       copyBtn.disabled = true;
       runBtn.textContent = "Working...";
       statusText.textContent = `${tool.name} is running...`;
-      workspaceStatus.textContent = isProUserState ? "Pro Workspace" : "Generating output...";
       result.textContent = "Forging your output...";
+      result.classList.remove("empty");
 
       try {
         const payload = tool.buildPayload(input, option);
@@ -1012,19 +1088,18 @@
         if (!response.ok) {
           result.textContent = "Error: " + (data.error || "Something went wrong.");
           statusText.textContent = "Request failed";
-          workspaceStatus.textContent = isProUserState ? "Pro Workspace" : "Error returned";
           return;
         }
 
         lastOutput = data.result || "";
         result.textContent = lastOutput || "No output returned.";
+        result.classList.remove("empty");
         statusText.textContent = "Output generated";
-        workspaceStatus.textContent = isProUserState ? "Pro Workspace" : `${tool.name} complete`;
         copyBtn.disabled = !lastOutput;
       } catch (err) {
         result.textContent = "Error: " + err.message;
+        result.classList.remove("empty");
         statusText.textContent = "Network error";
-        workspaceStatus.textContent = isProUserState ? "Pro Workspace" : "Request failed";
       } finally {
         runBtn.disabled = false;
         runBtn.textContent = tool.buttonText;
