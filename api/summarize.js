@@ -1,6 +1,6 @@
 import { isProUser } from "./proStore.js";
 
-const dailyUsage = globalThis.__ufResumeUsage || (globalThis.__ufResumeUsage = {});
+const dailyUsage = globalThis.__ufSummaryUsage || (globalThis.__ufSummaryUsage = {});
 
 function getClientIp(req) {
   const forwarded = req.headers["x-forwarded-for"];
@@ -51,22 +51,22 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Text is required." });
     }
 
-    if (text.trim().length > 1800) {
-      return res.status(400).json({ error: "Text must be 1800 characters or fewer." });
+    if (text.trim().length > 2500) {
+      return res.status(400).json({ error: "Text must be 2500 characters or fewer." });
     }
 
     if (!process.env.OPENAI_KEY) {
       return res.status(500).json({ error: "OPENAI_KEY is missing in environment variables." });
     }
 
-    const allowedStyles = ["professional", "ats", "strong", "concise"];
-    const selectedStyle = allowedStyles.includes(style) ? style : "professional";
+    const allowedStyles = ["clear", "concise", "bullets", "keypoints"];
+    const selectedStyle = allowedStyles.includes(style) ? style : "clear";
 
     const styleInstructions = {
-      professional: "Write polished, professional resume bullets with clear wording and strong readability.",
-      ats: "Write ATS-friendly resume bullets using clear action verbs and searchable professional language.",
-      strong: "Write strong resume bullets with impactful action verbs and confident phrasing.",
-      concise: "Write concise resume bullets that stay short, clear, and professional."
+      clear: "Write a clear, readable summary in paragraph form.",
+      concise: "Write a very concise summary using only the most important points.",
+      bullets: "Summarize the text as clean bullet points.",
+      keypoints: "Summarize the text as key takeaways that highlight the most important ideas."
     };
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -81,10 +81,9 @@ export default async function handler(req, res) {
           {
             role: "system",
             content:
-              "You turn rough job duties into strong resume bullet points. " +
-              "Return 3 to 5 resume bullets. " +
-              "Each bullet should start with a bullet symbol. " +
-              "Do not include extra commentary or headings. " +
+              "You summarize text clearly and accurately. " +
+              "Keep the meaning intact, remove unnecessary detail, and make the result easy to understand. " +
+              "Do not add extra commentary or labels unless the requested format needs them. " +
               styleInstructions[selectedStyle]
           },
           {
@@ -92,7 +91,7 @@ export default async function handler(req, res) {
             content: text.trim()
           }
         ],
-        temperature: 0.5
+        temperature: 0.3
       })
     });
 
