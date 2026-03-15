@@ -766,30 +766,35 @@
 
     async function checkProStatus() {
       try {
-        const userId = getUserId();
 
-        const res = await fetch("/api/pro-status", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ userId })
-        });
+  const res = await fetch("/api/pro-status", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ userId })
+  });
 
-        const data = await res.json();
+  const raw = await res.text();
+  let data;
 
-        if (data.pro) {
-          isProUserState = true;
-          updatePlanUi();
-          switchTool(activeToolKey);
-        } else {
-          updatePlanUi();
-        }
-      } catch (error) {
-        console.error("Pro status check failed:", error);
-      }
-    }
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error(raw || "Server returned an invalid response.");
+  }
 
+  if (data.pro) {
+    isProUserState = true;
+    updatePlanUi();
+    switchTool(activeToolKey);
+  } else {
+    updatePlanUi();
+  }
+
+} catch (error) {
+  console.error("Pro status check failed:", error);
+}
     const tools = {
       email: {
         key: "email",
