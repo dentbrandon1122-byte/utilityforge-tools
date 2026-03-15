@@ -37,6 +37,7 @@ export default async function handler(req, res) {
   try {
     const { text, style, userId } = req.body || {};
     const pro = userId ? await isProUser(userId) : false;
+    const maxLength = pro ? 8000 : 2500;
 
     if (!pro) {
       const ip = getClientIp(req);
@@ -51,8 +52,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Text is required." });
     }
 
-    if (text.trim().length > 2500) {
-      return res.status(400).json({ error: "Text must be 2500 characters or fewer." });
+    if (text.trim().length > maxLength) {
+      return res.status(400).json({ error: `Text must be ${maxLength} characters or fewer.` });
     }
 
     if (!process.env.OPENAI_KEY) {
