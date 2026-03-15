@@ -14,22 +14,27 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing userId" });
     }
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      req.headers.origin ||
-      "http://localhost:3000";
+    if (!process.env.STRIPE_PRICE_ID) {
+      return res.status(500).json({ error: "Missing STRIPE_PRICE_ID" });
+    }
+
+    if (!process.env.NEXT_PUBLIC_SITE_URL && !process.env.SITE_URL) {
+      return res.status(500).json({ error: "Missing site URL environment variable." });
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
       mode: "subscription",
+      payment_method_types: ["card"],
       line_items: [
         {
           price: process.env.STRIPE_PRICE_ID,
           quantity: 1
         }
       ],
-      success_url: `${baseUrl}/success.html`,
-      cancel_url: `${baseUrl}/cancel.html`,
+      success_url: `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}/cancel.html`,
       metadata: {
         userId
       }
@@ -37,7 +42,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ url: session.url });
   } catch (error) {
-    console.error("Stripe checkout error:", error);
-    return res.status(500).json({ error: error.message || "Checkout failed." });
+    return res.status(500).json({
+      error: error.message || "Checkout failed."
+    });
   }
 }
