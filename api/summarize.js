@@ -1,5 +1,4 @@
-import { isProUser } from "./proStore.js";
-
+import { isProUser } from "../lib/proStore.js";
 const dailyUsage = globalThis.__ufSummaryUsage || (globalThis.__ufSummaryUsage = {});
 
 function getClientIp(req) {
