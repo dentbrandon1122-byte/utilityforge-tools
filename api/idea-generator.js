@@ -53,11 +53,15 @@ export default async function handler(req, res) {
     }
 
     if (prompt.trim().length > maxLength) {
-      return res.status(400).json({ error: `Prompt must be ${maxLength} characters or fewer.` });
+      return res.status(400).json({
+        error: `Prompt must be ${maxLength} characters or fewer.`
+      });
     }
 
     if (!process.env.OPENAI_KEY) {
-      return res.status(500).json({ error: "OPENAI_KEY is missing in environment variables." });
+      return res.status(500).json({
+        error: "OPENAI_KEY is missing in environment variables."
+      });
     }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
