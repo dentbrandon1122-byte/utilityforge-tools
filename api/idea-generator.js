@@ -37,6 +37,7 @@ export default async function handler(req, res) {
   try {
     const { prompt, userId } = req.body || {};
     const pro = userId ? await isProUser(userId) : false;
+    const maxLength = pro ? 5000 : 1500;
 
     if (!pro) {
       const ip = getClientIp(req);
@@ -51,8 +52,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Prompt is required." });
     }
 
-    if (prompt.trim().length > 1500) {
-      return res.status(400).json({ error: "Prompt must be 1500 characters or fewer." });
+    if (prompt.trim().length > maxLength) {
+      return res.status(400).json({ error: `Prompt must be ${maxLength} characters or fewer.` });
     }
 
     if (!process.env.OPENAI_KEY) {
