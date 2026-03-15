@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI Workspace — one place to polish emails, generate ideas, build resume bullets, and summarize text."
+    content="Utility Forge AI Workspace — one place to polish emails, generate ideas, build resume bullets, write cover letters, analyze job descriptions, generate LinkedIn summaries, write cold emails, and summarize text."
   />
 
   <style>
@@ -647,7 +647,7 @@
         <div class="workspace-badge">Shared AI Workspace</div>
         <h1>One place for all your tools</h1>
         <p>
-          Switch between email polishing, idea generation, resume bullets, and summaries without leaving the page.
+          Switch between email polishing, idea generation, resume bullets, cover letters, job description analysis, LinkedIn summaries, cold emails, and summaries without leaving the page.
         </p>
       </div>
       <div class="status-pill" id="workspaceStatus">Ready to create</div>
@@ -853,6 +853,37 @@
         }
       },
 
+      resume: {
+        key: "resume",
+        name: "Resume Bullet Generator",
+        icon: "📄",
+        desc: "Create stronger resume bullets from plain job duties.",
+        inputLabel: "Job duties",
+        optionLabel: "Style",
+        resultTitle: "Generated Resume Bullets",
+        placeholder: "Example: answered phones, helped customers, handled scheduling, completed paperwork",
+        buttonText: "Generate Bullets",
+        statusMode: "ATS Ready",
+        freeCharLimit: 1800,
+        proCharLimit: 5000,
+        endpoint: "/api/resume-bullet",
+        note: "Tip: include tasks, responsibilities, and tools used for better resume bullets.",
+        options: [
+          { value: "professional", label: "Professional" },
+          { value: "ats", label: "ATS-Friendly" },
+          { value: "strong", label: "Strong Action Verbs" },
+          { value: "concise", label: "Concise" }
+        ],
+        examples: [
+          "answered phones, scheduled appointments, greeted customers, handled paperwork",
+          "stocked shelves, helped customers, ran register, kept store clean",
+          "entered data, organized files, responded to emails, supported office staff"
+        ],
+        buildPayload(input, option) {
+          return { text: input, style: option, userId: getUserId() };
+        }
+      },
+
       cover: {
         key: "cover",
         name: "Cover Letter Generator",
@@ -884,32 +915,93 @@
         }
       },
 
-      
-      resume: {
-        key: "resume",
-        name: "Resume Bullet Generator",
-        icon: "📄",
-        desc: "Create stronger resume bullets from plain job duties.",
-        inputLabel: "Job duties",
-        optionLabel: "Style",
-        resultTitle: "Generated Resume Bullets",
-        placeholder: "Example: answered phones, helped customers, handled scheduling, completed paperwork",
-        buttonText: "Generate Bullets",
-        statusMode: "ATS Ready",
-        freeCharLimit: 1800,
-        proCharLimit: 5000,
-        endpoint: "/api/resume-bullet",
-        note: "Tip: include tasks, responsibilities, and tools used for better resume bullets.",
+      job: {
+        key: "job",
+        name: "Job Description Analyzer",
+        icon: "🎯",
+        desc: "Break down a job post into skills, ATS keywords, and what to emphasize.",
+        inputLabel: "Job description",
+        optionLabel: "Analysis focus",
+        resultTitle: "Job Analysis",
+        placeholder: "Paste the job posting here...",
+        buttonText: "Analyze Job Description",
+        statusMode: "Hiring Insights",
+        freeCharLimit: 3000,
+        proCharLimit: 8000,
+        endpoint: "/api/job-analyzer",
+        note: "Tip: paste the full job post for better skill extraction and ATS keyword analysis.",
         options: [
-          { value: "professional", label: "Professional" },
-          { value: "ats", label: "ATS-Friendly" },
-          { value: "strong", label: "Strong Action Verbs" },
-          { value: "concise", label: "Concise" }
+          { value: "balanced", label: "Balanced" },
+          { value: "ats", label: "ATS Keywords" },
+          { value: "resume", label: "Resume Focus" },
+          { value: "coverletter", label: "Cover Letter Focus" }
         ],
         examples: [
-          "answered phones, scheduled appointments, greeted customers, handled paperwork",
-          "stocked shelves, helped customers, ran register, kept store clean",
-          "entered data, organized files, responded to emails, supported office staff"
+          "We are seeking an administrative assistant with strong communication skills, scheduling experience, Microsoft Office proficiency, and the ability to manage multiple priorities in a fast-paced environment.",
+          "Looking for a cybersecurity intern familiar with networking, Python, incident response fundamentals, and security best practices. Strong analytical thinking required.",
+          "Customer service representative needed. Must have strong communication, phone support experience, problem-solving ability, and experience working with customers in high-volume settings."
+        ],
+        buildPayload(input, option) {
+          return { text: input, style: option, userId: getUserId() };
+        }
+      },
+
+      linkedin: {
+        key: "linkedin",
+        name: "LinkedIn Summary Generator",
+        icon: "💼",
+        desc: "Generate a LinkedIn headline and summary from your background.",
+        inputLabel: "Your background or profile notes",
+        optionLabel: "Style",
+        resultTitle: "LinkedIn Profile Copy",
+        placeholder: "Example: I have customer service experience, scheduling experience, office support experience, and I am taking cybersecurity and Python classes. I want my LinkedIn summary to sound professional and motivated.",
+        buttonText: "Generate LinkedIn Summary",
+        statusMode: "Profile Ready",
+        freeCharLimit: 2200,
+        proCharLimit: 6000,
+        endpoint: "/api/linkedin-summary",
+        note: "Tip: include your experience, goals, strengths, and industry direction for a stronger summary.",
+        options: [
+          { value: "professional", label: "Professional" },
+          { value: "confident", label: "Confident" },
+          { value: "concise", label: "Concise" },
+          { value: "personalbrand", label: "Personal Brand" }
+        ],
+        examples: [
+          "I have experience in customer service, scheduling, communication, and handling office responsibilities. I want a polished LinkedIn summary for administrative and support roles.",
+          "I am studying cybersecurity and Python and want my LinkedIn profile to show motivation, learning, and future career focus.",
+          "I need a professional LinkedIn headline and summary that make me sound reliable, capable, and ready for new opportunities."
+        ],
+        buildPayload(input, option) {
+          return { text: input, style: option, userId: getUserId() };
+        }
+      },
+
+      coldemail: {
+        key: "coldemail",
+        name: "Cold Email Generator",
+        icon: "📬",
+        desc: "Write cold outreach emails for networking, opportunities, or collaboration.",
+        inputLabel: "Your outreach goal or context",
+        optionLabel: "Style",
+        resultTitle: "Cold Email",
+        placeholder: "Example: I want to email a hiring manager about possible opportunities. I want the message to be professional, short, and show interest without sounding pushy.",
+        buttonText: "Generate Cold Email",
+        statusMode: "Outreach Ready",
+        freeCharLimit: 2000,
+        proCharLimit: 5000,
+        endpoint: "/api/cold-email",
+        note: "Tip: include who you are contacting, why you are reaching out, and the tone you want.",
+        options: [
+          { value: "professional", label: "Professional" },
+          { value: "friendly", label: "Friendly" },
+          { value: "concise", label: "Concise" },
+          { value: "outreach", label: "Networking / Outreach" }
+        ],
+        examples: [
+          "I want to email a hiring manager to express interest in future openings and briefly mention my background.",
+          "I want to reach out to someone on LinkedIn for networking and ask if they would be open to connecting.",
+          "I need a short professional outreach email for a freelance collaboration opportunity."
         ],
         buildPayload(input, option) {
           return { text: input, style: option, userId: getUserId() };
