@@ -53,7 +53,9 @@ export default async function handler(req, res) {
     }
 
     if (text.trim().length > maxLength) {
-      return res.status(400).json({ error: `Text must be ${maxLength} characters or fewer.` });
+      return res.status(400).json({
+        error: `Text must be ${maxLength} characters or fewer.`
+      });
     }
 
     if (!process.env.OPENAI_KEY) {
