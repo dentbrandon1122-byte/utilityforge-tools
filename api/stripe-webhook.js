@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { markProUser } from "./proStore.js";
+import { isProUser } from "../lib/proStore.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
