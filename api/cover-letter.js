@@ -1,4 +1,4 @@
-import { isProUser } from "./proStore.js";
+import { isProUser } from "../lib/proStore.js";
 
 const dailyUsage = globalThis.__ufCoverLetterUsage || (globalThis.__ufCoverLetterUsage = {});
 
