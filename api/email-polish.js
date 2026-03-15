@@ -53,12 +53,14 @@ export default async function handler(req, res) {
     }
 
     if (text.trim().length > maxLength) {
-      return res.status(400).json({ error: `Text must be ${maxLength} characters or fewer.` });
+      return res.status(400).json({
+        error: `Text must be ${maxLength} characters or fewer.`
+      });
     }
 
     if (!process.env.OPENAI_KEY) {
       return res.status(500).json({
-        error: "OPENAI_KEY is missing in Vercel environment variables."
+        error: "OPENAI_KEY is missing in environment variables."
       });
     }
 
@@ -86,7 +88,7 @@ export default async function handler(req, res) {
             content:
               "You rewrite rough emails. Keep the user's meaning the same. " +
               "Improve grammar, clarity, tone, and flow. " +
-              "Do not add extra facts. Do not turn it into a long letter unless needed. " +
+              "Do not add extra facts. " +
               "Return only the polished email text with no intro, no labels, and no quotation marks. " +
               toneInstructions[selectedTone]
           },
