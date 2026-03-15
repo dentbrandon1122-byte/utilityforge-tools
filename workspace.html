@@ -853,6 +853,38 @@
         }
       },
 
+      cover: {
+        key: "cover",
+        name: "Cover Letter Generator",
+        icon: "🖊️",
+        desc: "Generate polished cover letters from rough job notes or experience.",
+        inputLabel: "Your background or job notes",
+        optionLabel: "Style",
+        resultTitle: "Generated Cover Letter",
+        placeholder: "Example: I am applying for a customer service role. I have experience helping customers, answering phones, handling scheduling, and working in fast-paced environments. I want the letter to sound professional and confident.",
+        buttonText: "Generate Cover Letter",
+        statusMode: "Application Ready",
+        freeCharLimit: 2200,
+        proCharLimit: 6000,
+        endpoint: "/api/cover-letter",
+        note: "Tip: include the role, your experience, and the tone you want for stronger cover letters.",
+        options: [
+          { value: "professional", label: "Professional" },
+          { value: "confident", label: "Confident" },
+          { value: "concise", label: "Concise" },
+          { value: "tailored", label: "Tailored to role" }
+        ],
+        examples: [
+          "I am applying for a customer service position. I have experience helping customers, answering phones, handling scheduling, and working in fast-paced environments.",
+          "I want a cover letter for an administrative assistant role. I have experience with paperwork, communication, scheduling, and supporting office operations.",
+          "I need a professional cover letter for a cybersecurity internship. I am taking cybersecurity and Python classes and want to highlight my motivation to learn."
+        ],
+        buildPayload(input, option) {
+          return { text: input, style: option, userId: getUserId() };
+        }
+      },
+
+      
       resume: {
         key: "resume",
         name: "Resume Bullet Generator",
