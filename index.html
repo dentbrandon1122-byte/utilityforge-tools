@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, cover letter writing, resume bullet writing, and text summarization."
+    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, cover letter writing, resume bullet writing, text summarization, and workspace-based career tools."
   />
   <meta property="og:title" content="Utility Forge AI" />
   <meta property="og:description" content="Clean AI tools built for real productivity." />
@@ -1037,8 +1037,7 @@
 
         <p>
           Utility Forge AI brings focused tools into one clean workspace so users
-          can write, polish, summarize, generate, and move faster without the
-          clutter of bloated software.
+          can write, polish, analyze, summarize, and move faster without the clutter of bloated software.
         </p>
 
         <div class="hero-buttons">
@@ -1111,7 +1110,7 @@
     <section id="tools" class="section">
       <h2 class="section-title">Tools</h2>
       <p class="section-subtitle">
-        Every tool includes a free daily allowance, with Pro unlocking higher limits and a smoother workflow across the full platform.
+        Every tool includes a free daily allowance, with Pro unlocking higher limits and a smoother workflow across the full platform. The workspace also includes advanced tools like job description analysis, LinkedIn summary generation, and cold outreach writing.
       </p>
 
       <div class="card-grid">
@@ -1179,6 +1178,19 @@
           <p>Condense longer content into clean, useful takeaways.</p>
           <div class="tool-access">Summarize class readings, notes, and articles with daily free use or unlimited Pro access.</div>
         </a>
+
+        <a class="card" href="workspace.html">
+          <div class="card-top">
+            <div class="tool-icon">⚙️</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Workspace</span>
+              <span class="plan-badge pro">Advanced</span>
+            </div>
+          </div>
+          <h3>Advanced Career Tools</h3>
+          <p>Use workspace-only tools like Job Description Analyzer, LinkedIn Summary Generator, and Cold Email Generator.</p>
+          <div class="tool-access">Built for job seekers, outreach, profile writing, and stronger application workflows.</div>
+        </a>
       </div>
     </section>
 
@@ -1202,6 +1214,7 @@
             <li>Cover Letter Generator</li>
             <li>Resume Bullet Generator</li>
             <li>Text Summarizer</li>
+            <li>Workspace advanced tools included</li>
           </ul>
           <a href="workspace.html" class="secondary-link">Start Free</a>
           <div class="pricing-note">Best for trying the platform and handling quick daily tasks.</div>
@@ -1216,6 +1229,7 @@
             <li>Faster AI responses</li>
             <li>Priority processing</li>
             <li>All current and future tools</li>
+            <li>Higher input limits</li>
             <li>Early feature access</li>
           </ul>
           <button onclick="startCheckout()">Upgrade to Pro</button>
@@ -1294,20 +1308,28 @@
         output: "Dear Hiring Manager,\n\nI am writing to express my interest in the customer service position. With experience supporting customers, managing communication, and handling scheduling in fast-paced environments, I have developed strong interpersonal and organizational skills that would allow me to contribute positively to your team.\n\nSincerely,\n[Your Name]"
       },
       {
-        label: "Resume Bullet Generator",
-        badge: "Career Mode",
-        action: "Build Bullets",
-        secondary: "ATS Ready",
-        input: "worked front desk, answered phones, helped customers, handled scheduling",
-        output: "• Managed front-desk operations and customer support in a fast-paced environment\n• Coordinated scheduling and handled incoming calls with professionalism\n• Improved daily workflow by supporting efficient communication and organization"
+        label: "Job Description Analyzer",
+        badge: "Hiring Insights",
+        action: "Analyze Job",
+        secondary: "ATS Focus",
+        input: "Looking for a cybersecurity intern familiar with networking, Python, incident response fundamentals, and security best practices.",
+        output: "Key Skills\n• Networking fundamentals\n• Python\n• Security best practices\n\nATS Keywords\n• cybersecurity\n• incident response\n• networking\n• Python"
       },
       {
-        label: "Text Summarizer",
-        badge: "Fast Summary",
-        action: "Summarize Text",
-        secondary: "Clear Output",
-        input: "This article explains how small businesses can use AI to save time by automating repetitive admin tasks, improving customer communication, and generating content faster.",
-        output: "AI helps small businesses save time by automating repetitive tasks, improving communication, and speeding up content creation."
+        label: "LinkedIn Summary Generator",
+        badge: "Profile Ready",
+        action: "Build Profile",
+        secondary: "Professional",
+        input: "I have customer service, scheduling, and office support experience and I am studying cybersecurity and Python.",
+        output: "Headline\nCustomer Support and Administrative Professional | Cybersecurity Student | Communication and Organization Skills\n\nSummary\nI bring experience in customer support, scheduling, and office operations while continuing to grow my technical skills through cybersecurity and Python study..."
+      },
+      {
+        label: "Cold Email Generator",
+        badge: "Outreach Ready",
+        action: "Write Email",
+        secondary: "Concise",
+        input: "I want a short professional email to a hiring manager expressing interest in future opportunities.",
+        output: "Hi [Name],\n\nI hope you're doing well. I wanted to reach out to express interest in future opportunities with your team..."
       }
     ];
 
