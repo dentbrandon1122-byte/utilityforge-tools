@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, resume bullet writing, and text summarization."
+    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, cover letter writing, resume bullet writing, and text summarization."
   />
   <meta property="og:title" content="Utility Forge AI" />
   <meta property="og:description" content="Clean AI tools built for real productivity." />
@@ -545,7 +545,7 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
     }
 
@@ -1153,7 +1153,7 @@
           <p>Generate polished cover letters from rough experience, job notes, or application details.</p>
           <div class="tool-access">Create stronger application letters faster with daily free use or unlimited Pro access.</div>
         </a>
-        
+
         <a class="card" href="resume-bullet-generator.html">
           <div class="card-top">
             <div class="tool-icon">📄</div>
@@ -1199,6 +1199,7 @@
             <li>5 generations per day</li>
             <li>Email Polisher</li>
             <li>Idea Generator</li>
+            <li>Cover Letter Generator</li>
             <li>Resume Bullet Generator</li>
             <li>Text Summarizer</li>
           </ul>
@@ -1285,6 +1286,14 @@
         output: "1. AI follow-up assistant for contractors\n2. Automated estimate writer for landscapers\n3. Review-response generator for local businesses\n4. Appointment reminder system for salons and clinics"
       },
       {
+        label: "Cover Letter Generator",
+        badge: "Application Ready",
+        action: "Generate Letter",
+        secondary: "Tailored",
+        input: "I am applying for a customer service role. I have experience helping customers, handling calls, managing schedules, and working in fast-paced environments.",
+        output: "Dear Hiring Manager,\n\nI am writing to express my interest in the customer service position. With experience supporting customers, managing communication, and handling scheduling in fast-paced environments, I have developed strong interpersonal and organizational skills that would allow me to contribute positively to your team.\n\nSincerely,\n[Your Name]"
+      },
+      {
         label: "Resume Bullet Generator",
         badge: "Career Mode",
         action: "Build Bullets",
@@ -1361,35 +1370,35 @@
       }
     }
 
-   async function startCheckout() {
-    try {
-      let userId = localStorage.getItem("uf_user_id");
+    async function startCheckout() {
+      try {
+        let userId = localStorage.getItem("uf_user_id");
 
-      if (!userId) {
-        userId = crypto.randomUUID();
-        localStorage.setItem("uf_user_id", userId);
+        if (!userId) {
+          userId = crypto.randomUUID();
+          localStorage.setItem("uf_user_id", userId);
+        }
+
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId })
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert("Something went wrong starting checkout.");
       }
-
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ userId })
-      });
-
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert(data.error || "Unable to start checkout.");
-      }
-    } catch (error) {
-      console.error("Checkout error:", error);
-      alert("Something went wrong starting checkout.");
     }
-  }
 
     window.addEventListener("scroll", toggleFloatingUpgrade);
     window.addEventListener("load", toggleFloatingUpgrade);
