@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utility Forge AI</title>
+
+  <link rel="icon" href="logo.png" type="image/png" />
+  <meta
+    name="description"
+    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, resume bullet writing, and text summarization."
+  />
+  <meta property="og:title" content="Utility Forge AI" />
+  <meta property="og:description" content="Clean AI tools built for real productivity." />
+  <meta property="og:image" content="logo-main.png" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at top left, rgba(0, 255, 255, 0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0, 140, 255, 0.06), transparent 35%),
+        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
+    }
+
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
+    }
+
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      left: 50%;
+      top: 32%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 18px 40px;
+      background: rgba(8, 12, 24, 0.58);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+      min-width: 0;
+    }
+
+    .top-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.18));
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #f3efe4;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #8df7ff;
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      font-weight: 800;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      min-height: 92vh;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 80px 50px 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 70px;
+    }
+
+    .hero-left {
+      flex: 1;
+      max-width: 650px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-left h1 {
+      font-size: 5rem;
+      line-height: 0.98;
+      margin-bottom: 24px;
+      color: #f3efe4;
+      letter-spacing: -1.5px;
+    }
+
+    .hero-left h1 .accent {
+      color: #92ffb8;
+      text-shadow: 0 0 14px rgba(146, 255, 184, 0.12);
+    }
+
+    .hero-left p {
+      font-size: 1.35rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.86);
+      margin-bottom: 32px;
+      max-width: 620px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      padding: 15px 26px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: white;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-tags span {
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 520px;
+    }
+
+    .logo-panel {
+      width: 100%;
+      max-width: 560px;
+      min-height: 530px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(120, 255, 255, 0.11);
+      box-shadow:
+        0 0 34px rgba(0, 255, 255, 0.05),
+        inset 0 0 24px rgba(255, 255, 255, 0.018);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+    }
+
+    .logo-panel::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(95, 244, 255, 0.14), transparent 68%);
+      filter: blur(10px);
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: glowPulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .logo-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.03) 32%, transparent 58%);
+      transform: translateX(-130%);
+      animation: panelSweep 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        opacity: 0.55;
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateX(-50%) scale(1.04);
+      }
+    }
+
+    @keyframes panelSweep {
+      0% {
+        transform: translateX(-130%);
+      }
+      100% {
+        transform: translateX(130%);
+      }
+    }
+
+    .hero-logo {
+      width: 280px;
+      max-width: 82%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.18));
+    }
+
+    .panel-title {
+      position: relative;
+      z-index: 2;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #dcffff;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .app-preview {
+      width: 100%;
+      max-width: 430px;
+      position: relative;
+      z-index: 2;
+      border-radius: 22px;
+      background: rgba(6, 16, 30, 0.76);
+      border: 1px solid rgba(120, 255, 255, 0.12);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+      overflow: hidden;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .app-preview.is-transitioning {
+      opacity: 0.78;
+      transform: translateY(4px);
+    }
+
+    .app-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .app-top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.28);
+    }
+
+    .app-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.74);
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .app-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #081018;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+    }
+
+    .app-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .mock-field-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.56);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .mock-box {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      padding: 14px;
+      color: rgba(255,255,255,0.84);
+      font-size: 1rem;
+      line-height: 1.55;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .mock-box.output {
+      background: rgba(92, 245, 255, 0.06);
+      border-color: rgba(120, 255, 255, 0.12);
+    }
+
+    #typedInput,
+    #typedOutput {
+      min-height: 92px;
+    }
+
+    .typing-cursor::after {
+      content: "|";
+      display: inline-block;
+      margin-left: 2px;
+      color: #8ef1ff;
+      animation: blinkCursor 0.8s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    .app-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .app-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: default;
+    }
+
+    .app-btn.primary {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+    }
+
+    .app-btn.secondary {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.84);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .feature-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-pill {
+      min-width: 110px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .feature-pill strong {
+      display: block;
+      color: #8ef1ff;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .feature-pill span {
+      display: block;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .section {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 90px 50px;
+    }
+
+    .section-title {
+      font-size: 2.7rem;
+      margin-bottom: 14px;
+      color: #f3efe4;
+    }
+
+    .section-subtitle {
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1.08rem;
+      margin-bottom: 34px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card-grid a.card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.015);
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      min-height: 215px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(142,241,255,0.22);
+      box-shadow: 0 0 26px rgba(142,241,255,0.08);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 12px rgba(255,255,255,0.02);
+      flex-shrink: 0;
+    }
+
+    .plan-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .plan-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .plan-badge.free {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.86);
+    }
+
+    .plan-badge.pro {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #eaffff;
+    }
+
+    .card p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .tool-access {
+      color: rgba(255,255,255,0.64);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      position: relative;
+      min-height: 100%;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 26px rgba(142,241,255,0.12);
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(142, 241, 255, 0.24);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.07);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.featured::before {
+      content: "Most Popular";
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+    }
+
+    .pricing-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: #f3efe4;
+    }
+
+    .pricing-desc {
+      color: rgba(255,255,255,0.76);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      min-height: 48px;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #92ffb8;
+    }
+
+    .price small {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.64);
+      margin-left: 2px;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin-bottom: 22px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .pricing-card li {
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.5;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .pricing-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #8ef1ff;
+      font-weight: 900;
+    }
+
+    .pricing-note {
+      margin-top: 16px;
+      color: rgba(255,255,255,0.62);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .pricing-card a,
+    .pricing-card button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+
+    .pricing-card .secondary-link {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    .pricing-card .disabled-button {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .pricing-summary {
+      margin-top: 26px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.78);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .about-box {
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.05rem;
+    }
+
+    .footer {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 30px 50px 50px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .footer-trust {
+      margin-top: 6px;
+      opacity: 0.6;
+      font-size: 0.85rem;
+    }
+
+    .floating-upgrade {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 90;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28), 0 0 24px rgba(142,241,255,0.18);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .floating-upgrade.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .floating-upgrade:hover {
+      box-shadow: 0 16px 34px rgba(0,0,0,0.32), 0 0 28px rgba(142,241,255,0.26);
+      transform: translateY(-2px);
+    }
+
+    .floating-upgrade .bolt {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 1200px) {
+      .card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .hero {
+        gap: 45px;
+      }
+
+      .hero-left h1 {
+        font-size: 4rem;
+      }
+
+      .hero-left p {
+        font-size: 1.18rem;
+      }
+
+      .logo-panel {
+        max-width: 470px;
+        min-height: 500px;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.featured {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-shell {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero-left {
+        max-width: 100%;
+      }
+
+      .hero-left p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons,
+      .hero-tags {
+        justify-content: center;
+      }
+
+      .hero-right {
+        min-height: auto;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .nav-links {
+        gap: 18px;
+      }
+
+      .hero,
+      .section,
+      .footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero-left h1 {
+        font-size: 3rem;
+        letter-spacing: -1px;
+      }
+
+      .hero-left p {
+        font-size: 1.03rem;
+      }
+
+      .logo-panel {
+        max-width: 100%;
+        min-height: 430px;
+        border-radius: 24px;
+        padding: 24px 18px;
+      }
+
+      .hero-logo {
+        width: 240px;
+      }
+
+      .section-title {
+        font-size: 2.1rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.featured::before {
+        position: static;
+        display: inline-block;
+        margin-bottom: 14px;
+      }
+
+      .floating-upgrade {
+        right: 14px;
+        left: 14px;
+        bottom: 14px;
+        justify-content: center;
+        border-radius: 16px;
+        padding: 14px 16px;
+        font-size: 0.92rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+
+      .hero-left h1 {
+        font-size: 2.45rem;
+      }
+
+      .feature-pill {
+        min-width: 95px;
+      }
+
+      .card-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .plan-badges {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#tools">Tools</a>
+        <a href="workspace.html">Workspace</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <a href="workspace.html" class="nav-cta">Get Started</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-badge">Built for fast, practical AI workflows</div>
+
+        <h1>
+          Smarter AI tools
+          <br />
+          for <span class="accent">real productivity</span>
+        </h1>
+
+        <p>
+          Utility Forge AI brings focused tools into one clean workspace so users
+          can write, polish, summarize, generate, and move faster without the
+          clutter of bloated software.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="workspace.html" class="btn-primary">Open Workspace</a>
+          <a href="#pricing" class="btn-secondary">Upgrade to Pro</a>
+        </div>
+
+        <div class="hero-tags">
+          <span>Fast results</span>
+          <span>Clean AI workflow</span>
+          <span>Built for productivity</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="logo-panel">
+          <img src="logo-main.png" alt="Utility Forge AI main logo" class="hero-logo" />
+
+          <div class="panel-title">Utility Forge AI live app preview</div>
+
+          <div class="app-preview" id="appPreview">
+            <div class="app-topbar">
+              <div class="app-top-left">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="app-label" id="toolLabel">Email Polisher</span>
+              </div>
+              <span class="app-badge" id="toolBadge">AI Active</span>
+            </div>
+
+            <div class="app-body">
+              <div>
+                <div class="mock-field-label">Input</div>
+                <div class="mock-box" id="typedInput"></div>
+              </div>
+
+              <div class="app-actions">
+                <button class="app-btn primary" id="actionBtn">Polish Email</button>
+                <button class="app-btn secondary" id="toneBtn">Professional</button>
+              </div>
+
+              <div>
+                <div class="mock-field-label">Output</div>
+                <div class="mock-box output" id="typedOutput"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <div class="feature-pill">
+              <strong>AI</strong>
+              <span>Smart workflows</span>
+            </div>
+
+            <div class="feature-pill">
+              <strong>Fast</strong>
+              <span>Less busywork</span>
+            </div>
+
+            <div class="feature-pill">
+              <strong>Clean</strong>
+              <span>Modern interface</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="section">
+      <h2 class="section-title">Tools</h2>
+      <p class="section-subtitle">
+        Every tool includes a free daily allowance, with Pro unlocking higher limits and a smoother workflow across the full platform.
+      </p>
+
+      <div class="card-grid">
+        <a class="card" href="email-polisher.html">
+          <div class="card-top">
+            <div class="tool-icon">✉️</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Email Polisher</h3>
+          <p>Improve wording, tone, and clarity for emails fast.</p>
+          <div class="tool-access">Free plan includes daily usage. Pro removes the cap and keeps the workflow moving.</div>
+        </a>
+
+        <a class="card" href="idea-generator.html">
+          <div class="card-top">
+            <div class="tool-icon">💡</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Idea Generator</h3>
+          <p>Turn rough thoughts into usable ideas and concepts.</p>
+          <div class="tool-access">Use free daily generations or upgrade for expanded brainstorming without interruptions.</div>
+        </a>
+
+        <a class="card" href="resume-bullet-generator.html">
+          <div class="card-top">
+            <div class="tool-icon">📄</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Resume Bullet Generator</h3>
+          <p>Create stronger resume bullets from plain job duties.</p>
+          <div class="tool-access">Free users can test it daily. Pro is built for repeated edits and job-application workflows.</div>
+        </a>
+
+        <a class="card" href="text-summarizer.html">
+          <div class="card-top">
+            <div class="tool-icon">📝</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Text Summarizer</h3>
+          <p>Condense longer content into clean, useful takeaways.</p>
+          <div class="tool-access">Summarize class readings, notes, and articles with daily free use or unlimited Pro access.</div>
+        </a>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <h2 class="section-title">Pricing</h2>
+
+      <p class="section-subtitle">
+        Simple pricing designed for individuals who want powerful AI tools without the complexity.
+      </p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <div class="pricing-desc">A simple free plan for trying the platform and getting real work done.</div>
+          <div class="price">$0</div>
+          <ul>
+            <li>Access to all core AI tools</li>
+            <li>5 generations per day</li>
+            <li>Email Polisher</li>
+            <li>Idea Generator</li>
+            <li>Resume Bullet Generator</li>
+            <li>Text Summarizer</li>
+          </ul>
+          <a href="workspace.html" class="secondary-link">Start Free</a>
+          <div class="pricing-note">Best for trying the platform and handling quick daily tasks.</div>
+        </div>
+
+        <div class="pricing-card featured">
+          <h3>Pro</h3>
+          <div class="pricing-desc">The best option for regular users who want faster, smoother, less limited AI workflows.</div>
+          <div class="price">$9<small>/mo</small></div>
+          <ul>
+            <li>Unlimited generations</li>
+            <li>Faster AI responses</li>
+            <li>Priority processing</li>
+            <li>All current and future tools</li>
+            <li>Early feature access</li>
+          </ul>
+          <button onclick="startCheckout()">Upgrade to Pro</button>
+          <div class="pricing-note">Best for everyday productivity, repeated edits, and uninterrupted use.</div>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Business</h3>
+          <div class="pricing-desc">Built for future team workflows, shared workspaces, and expanded access.</div>
+          <div class="price">Coming Soon</div>
+          <ul>
+            <li>Team collaboration tools</li>
+            <li>Higher usage limits</li>
+            <li>Shared AI workspace</li>
+            <li>Team management</li>
+          </ul>
+          <button class="disabled-button" disabled>Coming Soon</button>
+          <div class="pricing-note">Best for teams once collaborative features are released.</div>
+        </div>
+      </div>
+
+      <div class="pricing-summary">
+        Free users can still access every major tool, but usage is intentionally limited to keep the experience lightweight. Pro is designed to remove those limits and let Utility Forge AI work like a true daily productivity platform.
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2 class="section-title">About</h2>
+      <p class="section-subtitle">
+        Utility Forge AI is built to feel modern, fast, and practical.
+      </p>
+
+      <div class="about-box">
+        Utility Forge AI is designed around one idea: useful AI should feel clean,
+        focused, and easy to use. Instead of burying users in clutter, it brings
+        essential tools together in a workspace that supports speed, clarity, and
+        real productivity.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2026 Utility Forge AI. All rights reserved.
+    <div class="footer-trust">Powered by advanced AI models</div>
+  </footer>
+
+  <button class="floating-upgrade" id="floatingUpgrade" onclick="startCheckout()">
+    <span class="bolt">⚡</span>
+    <span>Unlock Unlimited Tools — Upgrade to Pro</span>
+  </button>
+
+  <script>
+    const previewTools = [
+      {
+        label: "Email Polisher",
+        badge: "AI Active",
+        action: "Polish Email",
+        secondary: "Professional",
+        input: "hi Sarah, just checking in about the application and wanted to see if there are any updates. thanks.",
+        output: "Hi Sarah, I hope you’re doing well. I wanted to follow up on my application and see whether there have been any updates regarding the position. Thank you for your time and consideration."
+      },
+      {
+        label: "Idea Generator",
+        badge: "Creative Mode",
+        action: "Generate Ideas",
+        secondary: "Business",
+        input: "business ideas using AI for small local service companies",
+        output: "1. AI follow-up assistant for contractors\n2. Automated estimate writer for landscapers\n3. Review-response generator for local businesses\n4. Appointment reminder system for salons and clinics"
+      },
+      {
+        label: "Resume Bullet Generator",
+        badge: "Career Mode",
+        action: "Build Bullets",
+        secondary: "ATS Ready",
+        input: "worked front desk, answered phones, helped customers, handled scheduling",
+        output: "• Managed front-desk operations and customer support in a fast-paced environment\n• Coordinated scheduling and handled incoming calls with professionalism\n• Improved daily workflow by supporting efficient communication and organization"
+      },
+      {
+        label: "Text Summarizer",
+        badge: "Fast Summary",
+        action: "Summarize Text",
+        secondary: "Clear Output",
+        input: "This article explains how small businesses can use AI to save time by automating repetitive admin tasks, improving customer communication, and generating content faster.",
+        output: "AI helps small businesses save time by automating repetitive tasks, improving communication, and speeding up content creation."
+      }
+    ];
+
+    const toolLabel = document.getElementById("toolLabel");
+    const toolBadge = document.getElementById("toolBadge");
+    const typedInput = document.getElementById("typedInput");
+    const typedOutput = document.getElementById("typedOutput");
+    const actionBtn = document.getElementById("actionBtn");
+    const toneBtn = document.getElementById("toneBtn");
+    const appPreview = document.getElementById("appPreview");
+    const floatingUpgrade = document.getElementById("floatingUpgrade");
+
+    let previewIndex = 0;
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function toggleFloatingUpgrade() {
+      const shouldShow = window.scrollY > 500;
+      floatingUpgrade.classList.toggle("show", shouldShow);
+    }
+
+    async function typeText(element, text, speed = 18) {
+      element.textContent = "";
+      element.classList.add("typing-cursor");
+
+      for (let i = 0; i < text.length; i++) {
+        element.textContent += text[i];
+        await sleep(speed);
+      }
+
+      element.classList.remove("typing-cursor");
+    }
+
+    async function runPreviewCycle() {
+      while (true) {
+        const tool = previewTools[previewIndex];
+
+        appPreview.classList.add("is-transitioning");
+        await sleep(220);
+
+        toolLabel.textContent = tool.label;
+        toolBadge.textContent = tool.badge;
+        actionBtn.textContent = tool.action;
+        toneBtn.textContent = tool.secondary;
+
+        typedInput.textContent = "";
+        typedOutput.textContent = "";
+
+        appPreview.classList.remove("is-transitioning");
+
+        await sleep(300);
+        await typeText(typedInput, tool.input, 15);
+        await sleep(700);
+        await typeText(typedOutput, tool.output, 9);
+        await sleep(2600);
+
+        previewIndex = (previewIndex + 1) % previewTools.length;
+      }
+    }
+
+   async function startCheckout() {
+    try {
+      let userId = localStorage.getItem("uf_user_id");
+
+      if (!userId) {
+        userId = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", userId);
+      }
+
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId })
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || "Unable to start checkout.");
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Something went wrong starting checkout.");
+    }
+  }
+
+    window.addEventListener("scroll", toggleFloatingUpgrade);
+    window.addEventListener("load", toggleFloatingUpgrade);
+
+    runPreviewCycle();
+  </script>
+</body>
+</html>

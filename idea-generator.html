@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Idea Generator | Utility Forge AI</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+    linear-gradient(180deg,#0a0f1d 0%,#0d1326 100%);
+  color:#f2f7ff;
+  min-height:100vh;
+  padding:40px 20px;
+}
+
+.container{
+  max-width:920px;
+  margin:auto;
+}
+
+.back{
+  display:inline-block;
+  margin-bottom:24px;
+  color:#8ef1ff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.panel{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:30px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 24px rgba(0,0,0,.18);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+  font-size:2.4rem;
+  color:#f3efe4;
+}
+
+.subtext{
+  text-align:center;
+  color:rgba(255,255,255,0.78);
+  margin-bottom:22px;
+  line-height:1.6;
+}
+
+.examples-wrap{
+  margin-bottom:22px;
+}
+
+.examples-label{
+  display:block;
+  font-size:.9rem;
+  font-weight:700;
+  color:#d7f8ff;
+  margin-bottom:10px;
+}
+
+.example-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.example-chip{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.05);
+  color:#e9fcff;
+  font-size:.88rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.example-chip:hover{
+  transform:translateY(-1px);
+  border-color:rgba(142,241,255,0.35);
+  background:rgba(142,241,255,0.08);
+}
+
+label{
+  display:block;
+  font-size:.9rem;
+  font-weight:700;
+  color:#d7f8ff;
+  margin-bottom:8px;
+}
+
+textarea{
+  width:100%;
+  min-height:210px;
+  padding:16px;
+  font-size:16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.04);
+  color:white;
+  resize:vertical;
+  outline:none;
+}
+
+textarea::placeholder{
+  color:rgba(255,255,255,0.45);
+}
+
+textarea:focus{
+  border-color:rgba(142,241,255,0.6);
+  box-shadow:0 0 0 1px rgba(142,241,255,0.25);
+}
+
+.meta-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  margin-bottom:20px;
+  color:rgba(255,255,255,0.72);
+  font-size:.92rem;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+
+button{
+  padding:14px 22px;
+  border:none;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.primary-btn{
+  background:linear-gradient(90deg,#89f7c8,#8ef1ff);
+  color:#081018;
+}
+
+.primary-btn:hover{
+  transform:translateY(-1px);
+}
+
+.secondary-btn{
+  background:rgba(255,255,255,0.06);
+  color:white;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.secondary-btn:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.result{
+  min-height:180px;
+  background:rgba(92,245,255,0.06);
+  border:1px solid rgba(120,255,255,0.12);
+  padding:18px;
+  border-radius:18px;
+  white-space:pre-wrap;
+  line-height:1.65;
+  color:rgba(255,255,255,0.92);
+}
+
+.result-title{
+  font-weight:800;
+  color:#dcffff;
+  margin-bottom:10px;
+}
+
+.note{
+  color:rgba(255,255,255,0.72);
+  font-size:.92rem;
+  margin-top:8px;
+}
+
+@media (max-width: 760px){
+  h1{
+    font-size:2rem;
+  }
+
+  .panel{
+    padding:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <a class="back" href="index.html">← Back to home</a>
+
+  <div class="panel">
+    <h1>Idea Generator</h1>
+
+    <p class="subtext">
+      Describe what you want ideas for and generate fresh concepts instantly.
+    </p>
+
+    <div class="examples-wrap">
+      <div class="examples-label">Quick start examples</div>
+      <div class="example-chips">
+        <button type="button" class="example-chip" data-example="business ideas using AI for small local service companies">Business ideas</button>
+        <button type="button" class="example-chip" data-example="mobile app ideas for busy college students">App ideas</button>
+        <button type="button" class="example-chip" data-example="content ideas for a YouTube channel about science and space">Content ideas</button>
+        <button type="button" class="example-chip" data-example="passive income ideas using digital products and automation">Passive income ideas</button>
+      </div>
+    </div>
+
+    <label for="ideaInput">Topic or prompt</label>
+    <textarea id="ideaInput" maxlength="1500" placeholder="Example: business ideas using AI for small businesses"></textarea>
+
+    <div class="meta-row">
+      <div><span id="charCount">0</span>/1500 characters</div>
+      <div id="statusText">Ready to generate</div>
+    </div>
+
+    <div class="actions">
+      <button id="generateBtn" class="primary-btn">Generate Ideas</button>
+      <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
+      <button id="clearBtn" class="secondary-btn">Clear</button>
+    </div>
+
+    <div class="result-title">Generated Ideas</div>
+    <div class="result" id="result">Your generated ideas will appear here.</div>
+    <div class="note">Tip: more specific prompts usually give better results.</div>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById("ideaInput");
+const button = document.getElementById("generateBtn");
+const copyBtn = document.getElementById("copyBtn");
+const clearBtn = document.getElementById("clearBtn");
+const result = document.getElementById("result");
+const charCount = document.getElementById("charCount");
+const statusText = document.getElementById("statusText");
+const exampleChips = document.querySelectorAll(".example-chip");
+
+let lastOutput = "";
+
+function updateCharCount() {
+  charCount.textContent = input.value.length;
+}
+
+exampleChips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    input.value = chip.dataset.example || "";
+    updateCharCount();
+    input.focus();
+    result.textContent = "Your generated ideas will appear here.";
+    statusText.textContent = "Example loaded";
+    lastOutput = "";
+    copyBtn.disabled = true;
+  });
+});
+
+input.addEventListener("input", updateCharCount);
+
+copyBtn.addEventListener("click", async () => {
+  if (!lastOutput) return;
+
+  try {
+    await navigator.clipboard.writeText(lastOutput);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Result";
+    }, 1400);
+  } catch {
+    copyBtn.textContent = "Copy failed";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Result";
+    }, 1400);
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  input.value = "";
+  updateCharCount();
+  result.textContent = "Your generated ideas will appear here.";
+  statusText.textContent = "Ready to generate";
+  lastOutput = "";
+  copyBtn.disabled = true;
+});
+
+button.addEventListener("click", async () => {
+  const prompt = input.value.trim();
+
+  if (!prompt) {
+    result.textContent = "Please enter a topic first.";
+    statusText.textContent = "Missing prompt";
+    return;
+  }
+
+  button.disabled = true;
+  copyBtn.disabled = true;
+  button.textContent = "Generating...";
+  statusText.textContent = "Generating ideas...";
+  result.textContent = "Forging new ideas...";
+
+  try {
+    const response = await fetch("/api/idea-generator", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      result.textContent = "Error: " + (data.error || "Something went wrong.");
+      statusText.textContent = "Request failed";
+      return;
+    }
+
+    lastOutput = data.result || "";
+    result.textContent = lastOutput || "No ideas returned.";
+    statusText.textContent = "Ideas generated";
+    copyBtn.disabled = !lastOutput;
+  } catch (err) {
+    result.textContent = "Error: " + err.message;
+    statusText.textContent = "Network error";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Generate Ideas";
+  }
+});
+
+updateCharCount();
+</script>
+</body>
+</html>

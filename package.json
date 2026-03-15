@@ -1,0 +1,10 @@
+{
+  "name": "utilityforge-tools",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "@upstash/redis": "^1.37.0",
+    "stripe": "^14.0.0"
+  }
+}

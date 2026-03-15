@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Summarizer | Utility Forge AI</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+    linear-gradient(180deg,#0a0f1d 0%,#0d1326 100%);
+  color:#f2f7ff;
+  min-height:100vh;
+  padding:40px 20px;
+}
+
+.container{
+  max-width:920px;
+  margin:auto;
+}
+
+.back{
+  display:inline-block;
+  margin-bottom:24px;
+  color:#8ef1ff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.panel{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:30px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 24px rgba(0,0,0,.18);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+  font-size:2.4rem;
+  color:#f3efe4;
+}
+
+.subtext{
+  text-align:center;
+  color:rgba(255,255,255,0.78);
+  margin-bottom:22px;
+  line-height:1.6;
+}
+
+.examples-wrap{
+  margin-bottom:22px;
+}
+
+.examples-label{
+  display:block;
+  font-size:.9rem;
+  font-weight:700;
+  color:#d7f8ff;
+  margin-bottom:10px;
+}
+
+.example-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.example-chip{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.05);
+  color:#e9fcff;
+  font-size:.88rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.example-chip:hover{
+  transform:translateY(-1px);
+  border-color:rgba(142,241,255,0.35);
+  background:rgba(142,241,255,0.08);
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr 220px;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+label{
+  display:block;
+  font-size:.9rem;
+  font-weight:700;
+  color:#d7f8ff;
+  margin-bottom:8px;
+}
+
+textarea{
+  width:100%;
+  min-height:240px;
+  padding:16px;
+  font-size:16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.04);
+  color:white;
+  resize:vertical;
+  outline:none;
+}
+
+textarea::placeholder{
+  color:rgba(255,255,255,0.45);
+}
+
+textarea:focus{
+  border-color:rgba(142,241,255,0.6);
+  box-shadow:0 0 0 1px rgba(142,241,255,0.25);
+}
+
+select{
+  width:100%;
+  padding:14px 42px 14px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:
+    rgba(255,255,255,0.04)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23cfffff' viewBox='0 0 20 20'%3E%3Cpath d='M5 7l5 6 5-6H5z'/%3E%3C/svg%3E")
+    no-repeat right 14px center;
+  background-size:14px;
+  color:white;
+  outline:none;
+  appearance:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:all .2s ease;
+}
+
+select:hover{
+  border-color:rgba(142,241,255,0.35);
+}
+
+select:focus{
+  border-color:rgba(142,241,255,0.7);
+  box-shadow:0 0 12px rgba(142,241,255,0.35);
+  transform:scale(1.01);
+}
+
+select option{
+  background:#0d1326;
+  color:white;
+}
+
+.meta-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  margin-bottom:20px;
+  color:rgba(255,255,255,0.72);
+  font-size:.92rem;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+
+button{
+  padding:14px 22px;
+  border:none;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.primary-btn{
+  background:linear-gradient(90deg,#89f7c8,#8ef1ff);
+  color:#081018;
+}
+
+.primary-btn:hover{
+  transform:translateY(-1px);
+}
+
+.secondary-btn{
+  background:rgba(255,255,255,0.06);
+  color:white;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.secondary-btn:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.result-title{
+  font-weight:800;
+  color:#dcffff;
+  margin-bottom:10px;
+}
+
+.result{
+  min-height:180px;
+  background:rgba(92,245,255,0.06);
+  border:1px solid rgba(120,255,255,0.12);
+  padding:18px;
+  border-radius:18px;
+  white-space:pre-wrap;
+  line-height:1.65;
+  color:rgba(255,255,255,0.92);
+}
+
+.note{
+  color:rgba(255,255,255,0.72);
+  font-size:.92rem;
+  margin-top:8px;
+}
+
+@media (max-width: 760px){
+  .controls{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:2rem;
+  }
+
+  .panel{
+    padding:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <a class="back" href="index.html">← Back to home</a>
+
+  <div class="panel">
+    <h1>Text Summarizer</h1>
+
+    <p class="subtext">
+      Paste longer text and turn it into a shorter, clearer summary in seconds.
+    </p>
+
+    <div class="examples-wrap">
+      <div class="examples-label">Quick start examples</div>
+      <div class="example-chips">
+        <button type="button" class="example-chip" data-example="Artificial intelligence can help businesses automate repetitive tasks, improve customer communication, analyze data faster, and support content creation. Small businesses can save time and reduce manual work by using AI tools for scheduling, drafting messages, and handling simple administrative processes.">Business article</button>
+        <button type="button" class="example-chip" data-example="The chapter explains that social structure shapes individual behavior through institutions, cultural norms, and role expectations. It also discusses how inequality influences opportunity, identity, and access to resources.">Class reading</button>
+        <button type="button" class="example-chip" data-example="Our team reviewed the current workflow, identified bottlenecks in communication, and recommended simplifying approval steps. We also proposed clearer role ownership and more consistent status updates to reduce delays.">Meeting notes</button>
+        <button type="button" class="example-chip" data-example="Climate change refers to long-term shifts in temperatures and weather patterns. Human activity, especially burning fossil fuels, has been the main driver of climate change, causing rising global temperatures and more frequent extreme weather events.">General topic</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div>
+        <label for="summaryInput">Text to summarize</label>
+        <textarea id="summaryInput" maxlength="2500" placeholder="Paste your text here..."></textarea>
+      </div>
+
+      <div>
+        <label for="summaryStyle">Summary style</label>
+        <select id="summaryStyle">
+          <option value="clear">Clear summary</option>
+          <option value="concise">Very concise</option>
+          <option value="bullets">Bullet points</option>
+          <option value="keypoints">Key takeaways</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="meta-row">
+      <div><span id="charCount">0</span>/2500 characters</div>
+      <div id="statusText">Ready to summarize</div>
+    </div>
+
+    <div class="actions">
+      <button id="summarizeBtn" class="primary-btn">Summarize Text</button>
+      <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
+      <button id="clearBtn" class="secondary-btn">Clear</button>
+    </div>
+
+    <div class="result-title">Summary</div>
+    <div class="result" id="result">Your summary will appear here.</div>
+    <div class="note">Tip: longer and more detailed text usually produces stronger summaries.</div>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById("summaryInput");
+const styleSelect = document.getElementById("summaryStyle");
+const summarizeBtn = document.getElementById("summarizeBtn");
+const copyBtn = document.getElementById("copyBtn");
+const clearBtn = document.getElementById("clearBtn");
+const result = document.getElementById("result");
+const charCount = document.getElementById("charCount");
+const statusText = document.getElementById("statusText");
+const exampleChips = document.querySelectorAll(".example-chip");
+
+let lastOutput = "";
+
+function updateCharCount() {
+  charCount.textContent = input.value.length;
+}
+
+exampleChips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    input.value = chip.dataset.example || "";
+    updateCharCount();
+    input.focus();
+    result.textContent = "Your summary will appear here.";
+    statusText.textContent = "Example loaded";
+    lastOutput = "";
+    copyBtn.disabled = true;
+  });
+});
+
+input.addEventListener("input", updateCharCount);
+
+copyBtn.addEventListener("click", async () => {
+  if (!lastOutput) return;
+
+  try {
+    await navigator.clipboard.writeText(lastOutput);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Result";
+    }, 1400);
+  } catch {
+    copyBtn.textContent = "Copy failed";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Result";
+    }, 1400);
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  input.value = "";
+  updateCharCount();
+  result.textContent = "Your summary will appear here.";
+  statusText.textContent = "Ready to summarize";
+  lastOutput = "";
+  copyBtn.disabled = true;
+});
+
+summarizeBtn.addEventListener("click", async () => {
+  const text = input.value.trim();
+  const style = styleSelect.value;
+
+  if (!text) {
+    result.textContent = "Please enter text first.";
+    statusText.textContent = "Missing input";
+    return;
+  }
+
+  summarizeBtn.disabled = true;
+  copyBtn.disabled = true;
+  summarizeBtn.textContent = "Summarizing...";
+  statusText.textContent = "Summarizing text...";
+  result.textContent = "Forging your summary...";
+
+  try {
+    const response = await fetch("/api/summarize", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ text, style })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      result.textContent = "Error: " + (data.error || "Something went wrong.");
+      statusText.textContent = "Request failed";
+      return;
+    }
+
+    lastOutput = data.result || "";
+    result.textContent = lastOutput || "No summary returned.";
+    statusText.textContent = "Summary generated";
+    copyBtn.disabled = !lastOutput;
+  } catch (err) {
+    result.textContent = "Error: " + err.message;
+    statusText.textContent = "Network error";
+  } finally {
+    summarizeBtn.disabled = false;
+    summarizeBtn.textContent = "Summarize Text";
+  }
+});
+
+updateCharCount();
+</script>
+</body>
+</html>

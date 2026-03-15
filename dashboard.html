@@ -1,0 +1,24 @@
+<div id="accountBox">Loading...</div>
+
+<script>
+  async function loadSession() {
+    const res = await fetch("/api/session", {
+      credentials: "include"
+    });
+
+    const data = await res.json();
+    const box = document.getElementById("accountBox");
+
+    if (!data.loggedIn) {
+      box.innerHTML = 'Not logged in';
+      return;
+    }
+
+    box.innerHTML = `
+      <strong>${data.email}</strong><br>
+      Plan: ${data.plan === "pro" ? "Pro" : "Free"}
+    `;
+  }
+
+  loadSession();
+</script>

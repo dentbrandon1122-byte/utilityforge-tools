@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Bullet Generator | Utility Forge AI</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+    linear-gradient(180deg,#0a0f1d 0%,#0d1326 100%);
+  color:#f2f7ff;
+  min-height:100vh;
+  padding:40px 20px;
+}
+
+.container{
+  max-width:920px;
+  margin:auto;
+}
+
+.back{
+  display:inline-block;
+  margin-bottom:24px;
+  color:#8ef1ff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.panel{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:30px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 24px rgba(0,0,0,.18);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:10px;
+  font-size:2.4rem;
+  color:#f3efe4;
+}
+
+.subtext{
+  text-align:center;
+  color:rgba(255,255,255,0.78);
+  margin-bottom:22px;
+  line-height:1.6;
+}
+
+.examples-wrap{
+  margin-bottom:22px;
+}
+
+.examples-label{
+  display:block;
+  font-size:.9rem;
+  font-weight:700;
+  color:#d7f8ff;
+  margin-bottom:10px;
+}
+
+.example-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.example-chip{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.05);
+  color:#e9fcff;
+  font-size:.88rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.example-chip:hover{
+  transform:translateY(-1px);
+  border-color:rgba(142,241,255,0.35);
+  background:rgba(142,241,255,0.08);
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr 220px;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+label{
+  display:block;
+  font-size:.9rem;
+  font-weight:700;
+  color:#d7f8ff;
+  margin-bottom:8px;
+}
+
+textarea{
+  width:100%;
+  min-height:220px;
+  padding:16px;
+  font-size:16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.04);
+  color:white;
+  resize:vertical;
+  outline:none;
+}
+
+textarea::placeholder{
+  color:rgba(255,255,255,0.45);
+}
+
+textarea:focus{
+  border-color:rgba(142,241,255,0.6);
+  box-shadow:0 0 0 1px rgba(142,241,255,0.25);
+}
+
+select{
+  width:100%;
+  padding:14px 42px 14px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:
+    rgba(255,255,255,0.04)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23cfffff' viewBox='0 0 20 20'%3E%3Cpath d='M5 7l5 6 5-6H5z'/%3E%3C/svg%3E")
+    no-repeat right 14px center;
+  background-size:14px;
+  color:white;
+  outline:none;
+  appearance:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:all .2s ease;
+}
+
+select:hover{
+  border-color:rgba(142,241,255,0.35);
+}
+
+select:focus{
+  border-color:rgba(142,241,255,0.7);
+  box-shadow:0 0 12px rgba(142,241,255,0.35);
+  transform:scale(1.01);
+}
+
+select option{
+  background:#0d1326;
+  color:white;
+}
+
+.meta-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  margin-bottom:20px;
+  color:rgba(255,255,255,0.72);
+  font-size:.92rem;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+
+button{
+  padding:14px 22px;
+  border:none;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.primary-btn{
+  background:linear-gradient(90deg,#89f7c8,#8ef1ff);
+  color:#081018;
+}
+
+.primary-btn:hover{
+  transform:translateY(-1px);
+}
+
+.secondary-btn{
+  background:rgba(255,255,255,0.06);
+  color:white;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.secondary-btn:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.result-title{
+  font-weight:800;
+  color:#dcffff;
+  margin-bottom:10px;
+}
+
+.result{
+  min-height:200px;
+  background:rgba(92,245,255,0.06);
+  border:1px solid rgba(120,255,255,0.12);
+  padding:18px;
+  border-radius:18px;
+  white-space:pre-wrap;
+  line-height:1.65;
+  color:rgba(255,255,255,0.92);
+}
+
+.note{
+  color:rgba(255,255,255,0.72);
+  font-size:.92rem;
+  margin-top:8px;
+}
+
+@media (max-width: 760px){
+  .controls{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:2rem;
+  }
+
+  .panel{
+    padding:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <a class="back" href="index.html">← Back to home</a>
+
+  <div class="panel">
+    <h1>Resume Bullet Generator</h1>
+
+    <p class="subtext">
+      Paste rough job duties and turn them into stronger, more polished resume bullets.
+    </p>
+
+    <div class="examples-wrap">
+      <div class="examples-label">Quick start examples</div>
+      <div class="example-chips">
+        <button type="button" class="example-chip" data-example="answered phones, scheduled appointments, greeted customers, handled paperwork">Front desk duties</button>
+        <button type="button" class="example-chip" data-example="stocked shelves, helped customers, ran register, kept store clean">Retail duties</button>
+        <button type="button" class="example-chip" data-example="entered data, organized files, responded to emails, supported office staff">Office support</button>
+        <button type="button" class="example-chip" data-example="monitored systems, documented incidents, followed security procedures, reported issues">Security work</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div>
+        <label for="bulletInput">Job duties</label>
+        <textarea id="bulletInput" maxlength="1800" placeholder="Example: answered phones, helped customers, handled scheduling, completed paperwork"></textarea>
+      </div>
+
+      <div>
+        <label for="bulletStyle">Style</label>
+        <select id="bulletStyle">
+          <option value="professional">Professional</option>
+          <option value="ats">ATS-Friendly</option>
+          <option value="strong">Strong Action Verbs</option>
+          <option value="concise">Concise</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="meta-row">
+      <div><span id="charCount">0</span>/1800 characters</div>
+      <div id="statusText">Ready to generate</div>
+    </div>
+
+    <div class="actions">
+      <button id="generateBtn" class="primary-btn">Generate Bullets</button>
+      <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
+      <button id="clearBtn" class="secondary-btn">Clear</button>
+    </div>
+
+    <div class="result-title">Generated Resume Bullets</div>
+    <div class="result" id="result">Your resume bullets will appear here.</div>
+    <div class="note">Tip: include specific tasks, tools, and responsibilities for stronger results.</div>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById("bulletInput");
+const styleSelect = document.getElementById("bulletStyle");
+const generateBtn = document.getElementById("generateBtn");
+const copyBtn = document.getElementById("copyBtn");
+const clearBtn = document.getElementById("clearBtn");
+const result = document.getElementById("result");
+const charCount = document.getElementById("charCount");
+const statusText = document.getElementById("statusText");
+const exampleChips = document.querySelectorAll(".example-chip");
+
+let lastOutput = "";
+
+function updateCharCount() {
+  charCount.textContent = input.value.length;
+}
+
+exampleChips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    input.value = chip.dataset.example || "";
+    updateCharCount();
+    input.focus();
+    result.textContent = "Your resume bullets will appear here.";
+    statusText.textContent = "Example loaded";
+    lastOutput = "";
+    copyBtn.disabled = true;
+  });
+});
+
+input.addEventListener("input", updateCharCount);
+
+copyBtn.addEventListener("click", async () => {
+  if (!lastOutput) return;
+
+  try {
+    await navigator.clipboard.writeText(lastOutput);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Result";
+    }, 1400);
+  } catch {
+    copyBtn.textContent = "Copy failed";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Result";
+    }, 1400);
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  input.value = "";
+  updateCharCount();
+  result.textContent = "Your resume bullets will appear here.";
+  statusText.textContent = "Ready to generate";
+  lastOutput = "";
+  copyBtn.disabled = true;
+});
+
+generateBtn.addEventListener("click", async () => {
+  const text = input.value.trim();
+  const style = styleSelect.value;
+
+  if (!text) {
+    result.textContent = "Please enter job duties first.";
+    statusText.textContent = "Missing input";
+    return;
+  }
+
+  generateBtn.disabled = true;
+  copyBtn.disabled = true;
+  generateBtn.textContent = "Generating...";
+  statusText.textContent = "Generating bullets...";
+  result.textContent = "Forging stronger resume bullets...";
+
+  try {
+    const response = await fetch("/api/resume-bullet", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ text, style })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      result.textContent = "Error: " + (data.error || "Something went wrong.");
+      statusText.textContent = "Request failed";
+      return;
+    }
+
+    lastOutput = data.result || "";
+    result.textContent = lastOutput || "No bullets returned.";
+    statusText.textContent = "Bullets generated";
+    copyBtn.disabled = !lastOutput;
+  } catch (err) {
+    result.textContent = "Error: " + err.message;
+    statusText.textContent = "Network error";
+  } finally {
+    generateBtn.disabled = false;
+    generateBtn.textContent = "Generate Bullets";
+  }
+});
+
+updateCharCount();
+</script>
+</body>
+</html>

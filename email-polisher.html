@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Polisher | Utility Forge AI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #f4f7fb;
+      background:
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+        linear-gradient(180deg, #061129 0%, #08152f 55%, #04102a 100%);
+      min-height: 100vh;
+      padding: 28px;
+    }
+
+    .page {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: #8ff7ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .card {
+      background: rgba(20, 28, 52, 0.88);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 38px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.78);
+      margin-top: 12px;
+      margin-bottom: 26px;
+      font-size: 16px;
+    }
+
+    .section-label {
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #dff7ff;
+    }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .chip {
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: #f4f7fb;
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #dff7ff;
+    }
+
+    textarea,
+    select {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #f4f7fb;
+      padding: 16px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 210px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    select {
+      height: 48px;
+      cursor: pointer;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    button.action {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: linear-gradient(90deg, #86f3da, #7fdcff);
+      color: #03111d;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.06);
+      color: #f4f7fb;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .output {
+      min-height: 180px;
+      border-radius: 20px;
+      background: rgba(18, 43, 69, 0.88);
+      border: 1px solid rgba(114, 214, 255, 0.18);
+      padding: 18px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      color: #f4f7fb;
+    }
+
+    .muted {
+      color: rgba(255,255,255,0.68);
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a class="back-link" href="/dashboard.html">← Back to home</a>
+
+    <div class="card">
+      <h1>Email Polisher</h1>
+      <p class="subtitle">Paste a rough email and instantly improve clarity, tone, and professionalism.</p>
+
+      <div class="section-label">Quick start examples</div>
+      <div class="chips">
+        <button class="chip" type="button" onclick="setExample('job')">Job follow-up</button>
+        <button class="chip" type="button" onclick="setExample('meeting')">Meeting request</button>
+        <button class="chip" type="button" onclick="setExample('thanks')">Thank-you email</button>
+        <button class="chip" type="button" onclick="setExample('customer')">Customer response</button>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label for="draft">Email Draft</label>
+          <textarea id="draft" maxlength="1500" placeholder="Paste your rough email here...">Hi team, I wanted to see if we could schedule a time next week to go over the project details and next steps.</textarea>
+        </div>
+
+        <div>
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option value="Professional" selected>Professional</option>
+            <option value="Friendly">Friendly</option>
+            <option value="Confident">Confident</option>
+            <option value="Concise">Concise</option>
+            <option value="Formal">Formal</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div id="charCount">0/1500 characters</div>
+        <div class="muted">Free uses left today: 5</div>
+      </div>
+
+      <div class="button-row">
+        <button class="action primary" type="button" onclick="improveEmail()">Improve Email</button>
+        <button class="action secondary" type="button" onclick="copyResult()">Copy Result</button>
+        <button class="action secondary" type="button" onclick="clearAll()">Clear</button>
+      </div>
+
+      <div id="result" class="output">Your polished email will appear here.</div>
+    </div>
+  </div>
+
+  <script>
+    const draftEl = document.getElementById("draft");
+    const toneEl = document.getElementById("tone");
+    const resultEl = document.getElementById("result");
+    const charCountEl = document.getElementById("charCount");
+
+    const examples = {
+      job: "Hi [Name], I wanted to follow up on my application and see if there are any updates on the position. I’m still very interested and appreciate your time.",
+      meeting: "Hi team, I wanted to see if we could schedule a time next week to go over the project details and next steps.",
+      thanks: "Hi [Name], thank you for taking the time to speak with me today. I appreciated the opportunity and enjoyed learning more about the role.",
+      customer: "Hi, thanks for reaching out. I understand the issue you’re having and want to help get this resolved as quickly as possible."
+    };
+
+    function updateCharCount() {
+      charCountEl.textContent = `${draftEl.value.length}/1500 characters`;
+    }
+
+    function setExample(type) {
+      draftEl.value = examples[type] || "";
+      updateCharCount();
+    }
+
+    function clearAll() {
+      draftEl.value = "";
+      resultEl.textContent = "Your polished email will appear here.";
+      updateCharCount();
+    }
+
+    async function copyResult() {
+      const text = resultEl.textContent.trim();
+      if (!text || text === "Your polished email will appear here.") return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        resultEl.textContent = text + "\n\nCopied to clipboard.";
+      } catch {
+        resultEl.textContent = text + "\n\nCould not copy automatically.";
+      }
+    }
+
+    async function improveEmail() {
+      const prompt = draftEl.value.trim();
+      const tone = toneEl.value;
+
+      if (!prompt) {
+        resultEl.textContent = "Please paste an email draft first.";
+        return;
+      }
+
+      resultEl.textContent = "Improving your email...";
+
+      try {
+        const response = await fetch("/api/email-polisher", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "include",
+          body: JSON.stringify({ prompt, tone })
+        });
+
+        const rawText = await response.text();
+
+        let data;
+        try {
+          data = JSON.parse(rawText);
+        } catch {
+          throw new Error(rawText || "Server returned an invalid response.");
+        }
+
+        if (!response.ok) {
+          throw new Error(data.error || "Something went wrong.");
+        }
+
+        resultEl.textContent = data.result || "No result returned.";
+      } catch (error) {
+        resultEl.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    draftEl.addEventListener("input", updateCharCount);
+    updateCharCount();
+  </script>
+</body>
+</html>
