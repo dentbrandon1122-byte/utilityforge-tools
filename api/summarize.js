@@ -1,5 +1,6 @@
 import { isProUser } from "../lib/proStore.js";
-const dailyUsage = globalThis.__ufSummaryUsage || (globalThis.__ufSummaryUsage = {});
+
+const dailyUsage = globalThis.__ufSummarizeUsage || (globalThis.__ufSummarizeUsage = {});
 
 function getClientIp(req) {
   const forwarded = req.headers["x-forwarded-for"];
@@ -52,21 +53,25 @@ export default async function handler(req, res) {
     }
 
     if (text.trim().length > maxLength) {
-      return res.status(400).json({ error: `Text must be ${maxLength} characters or fewer.` });
+      return res.status(400).json({
+        error: `Text must be ${maxLength} characters or fewer.`
+      });
     }
 
     if (!process.env.OPENAI_KEY) {
-      return res.status(500).json({ error: "OPENAI_KEY is missing in environment variables." });
+      return res.status(500).json({
+        error: "OPENAI_KEY is missing in environment variables."
+      });
     }
 
     const allowedStyles = ["clear", "concise", "bullets", "keypoints"];
     const selectedStyle = allowedStyles.includes(style) ? style : "clear";
 
     const styleInstructions = {
-      clear: "Write a clear, readable summary in paragraph form.",
-      concise: "Write a very concise summary using only the most important points.",
-      bullets: "Summarize the text as clean bullet points.",
-      keypoints: "Summarize the text as key takeaways that highlight the most important ideas."
+      clear: "Write a clear, readable summary.",
+      concise: "Write a concise and shorter summary.",
+      bullets: "Summarize the text into bullet points.",
+      keypoints: "Extract the most important takeaways in a clean list."
     };
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -82,8 +87,8 @@ export default async function handler(req, res) {
             role: "system",
             content:
               "You summarize text clearly and accurately. " +
-              "Keep the meaning intact, remove unnecessary detail, and make the result easy to understand. " +
-              "Do not add extra commentary or labels unless the requested format needs them. " +
+              "Do not invent new facts. " +
+              "Return only the summary with no extra commentary. " +
               styleInstructions[selectedStyle]
           },
           {
