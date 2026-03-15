@@ -1,4 +1,4 @@
-import { isProUser } from "./proStore.js";
+import { isProUser } from "../lib/proStore.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -16,6 +16,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ pro });
   } catch (error) {
-    return res.status(500).json({ error: error.message || "Server error." });
+    return res.status(500).json({
+      error: error.message || "Server error."
+    });
   }
 }
