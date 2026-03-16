@@ -362,29 +362,6 @@
       line-height: 1.5;
     }
 
-    .quick-links {
-      margin-top: 14px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .quick-links a {
-      text-decoration: none;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.82);
-      font-size: 0.84rem;
-      font-weight: 700;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .quick-links a:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(142,241,255,0.22);
-    }
-
     .main-panel {
       padding: 26px;
     }
@@ -616,6 +593,23 @@
       padding: 28px 0 10px;
     }
 
+    .workspace-footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .workspace-footer-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+    }
+
+    .workspace-footer-links a:hover {
+      color: #8ef1ff;
+    }
+
     @media (max-width: 1100px) {
       .workspace-shell {
         grid-template-columns: 1fr;
@@ -672,6 +666,7 @@
         <a href="index.html">Home</a>
         <a href="index.html#tools">Tools</a>
         <a href="index.html#pricing">Pricing</a>
+        <a href="contact.html">Contact</a>
       </nav>
 
       <a href="index.html#pricing" class="nav-cta" id="upgradeBtn">Upgrade to Pro</a>
@@ -684,7 +679,7 @@
         <div class="workspace-badge">Shared AI Workspace</div>
         <h1>One place for all your tools</h1>
         <p>
-          Switch between writing, career, and productivity tools without leaving the page.
+          Switch between writing, outreach, career, and productivity tools without leaving the page.
         </p>
       </div>
       <div class="status-pill" id="workspaceStatus">Ready to create</div>
@@ -714,22 +709,6 @@
         <div class="usage-box">
           <div class="usage-title">Usage</div>
           <div class="usage-status" id="usageStatus">Checking usage...</div>
-        </div>
-
-        <div class="sidebar-card">
-          <h3>Standalone Tool Pages</h3>
-          <p>Open individual tool pages directly.</p>
-
-          <div class="quick-links">
-            <a href="email-polisher.html">Email Polisher</a>
-            <a href="idea-generator.html">Idea Generator</a>
-            <a href="cover-letter-generator.html">Cover Letter Generator</a>
-            <a href="resume-bullet-generator.html">Resume Bullet Generator</a>
-            <a href="text-summarizer.html">Text Summarizer</a>
-            <a href="job-analyzer.html">Job Analyzer</a>
-            <a href="linkedin-summary.html">LinkedIn Summary</a>
-            <a href="cold-email-generator.html">Cold Email Generator</a>
-          </div>
         </div>
       </aside>
 
@@ -778,6 +757,13 @@
 
     <div class="workspace-footer">
       Powered by AI • Built with modern language model technology
+
+      <div class="workspace-footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact</a>
+        <a href="mailto:support@utilityforgeai.com">support@utilityforgeai.com</a>
+      </div>
     </div>
   </main>
 
@@ -858,37 +844,6 @@
         }
       },
 
-      resume: {
-        key: "resume",
-        name: "Resume Bullet Generator",
-        icon: "📄",
-        desc: "Create stronger resume bullets from plain job duties.",
-        inputLabel: "Job duties",
-        optionLabel: "Style",
-        resultTitle: "Generated Resume Bullets",
-        placeholder: "Example: answered phones, helped customers, handled scheduling, completed paperwork",
-        buttonText: "Generate Bullets",
-        statusMode: "ATS Ready",
-        freeCharLimit: 1800,
-        proCharLimit: 5000,
-        endpoint: "/api/resume-bullet",
-        note: "Tip: include tasks, responsibilities, and tools used for better resume bullets.",
-        options: [
-          { value: "professional", label: "Professional" },
-          { value: "ats", label: "ATS-Friendly" },
-          { value: "strong", label: "Strong Action Verbs" },
-          { value: "concise", label: "Concise" }
-        ],
-        examples: [
-          "answered phones, scheduled appointments, greeted customers, handled paperwork",
-          "stocked shelves, helped customers, ran register, kept store clean",
-          "entered data, organized files, responded to emails, supported office staff"
-        ],
-        buildPayload(input, option) {
-          return { text: input, style: option, userId: getUserId() };
-        }
-      },
-
       cover: {
         key: "cover",
         name: "Cover Letter Generator",
@@ -914,6 +869,37 @@
           "I am applying for a customer service position. I have experience helping customers, answering phones, handling scheduling, and working in fast-paced environments.",
           "I want a cover letter for an administrative assistant role. I have experience with paperwork, communication, scheduling, and supporting office operations.",
           "I need a professional cover letter for a cybersecurity internship. I am taking cybersecurity and Python classes and want to highlight my motivation to learn."
+        ],
+        buildPayload(input, option) {
+          return { text: input, style: option, userId: getUserId() };
+        }
+      },
+
+      resume: {
+        key: "resume",
+        name: "Resume Bullet Generator",
+        icon: "📄",
+        desc: "Create stronger resume bullets from plain job duties.",
+        inputLabel: "Job duties",
+        optionLabel: "Style",
+        resultTitle: "Generated Resume Bullets",
+        placeholder: "Example: answered phones, helped customers, handled scheduling, completed paperwork",
+        buttonText: "Generate Bullets",
+        statusMode: "ATS Ready",
+        freeCharLimit: 1800,
+        proCharLimit: 5000,
+        endpoint: "/api/resume-bullet",
+        note: "Tip: include tasks, responsibilities, and tools used for better resume bullets.",
+        options: [
+          { value: "professional", label: "Professional" },
+          { value: "ats", label: "ATS-Friendly" },
+          { value: "strong", label: "Strong Action Verbs" },
+          { value: "concise", label: "Concise" }
+        ],
+        examples: [
+          "answered phones, scheduled appointments, greeted customers, handled paperwork",
+          "stocked shelves, helped customers, ran register, kept store clean",
+          "entered data, organized files, responded to emails, supported office staff"
         ],
         buildPayload(input, option) {
           return { text: input, style: option, userId: getUserId() };
@@ -1134,7 +1120,12 @@
     async function loadUsage() {
       try {
         const userId = getUserId();
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}`);
+        const tool = tools[activeToolKey];
+
+        const res = await fetch(
+          `/api/usage-status?userId=${encodeURIComponent(userId)}&tool=${encodeURIComponent(tool.key)}`
+        );
+
         const raw = await res.text();
         let data;
 
@@ -1145,9 +1136,9 @@
         }
 
         if (data.pro) {
-          usageStatus.innerHTML = "Pro user — unlimited usage";
+          usageStatus.innerHTML = "Pro plan<br>Unlimited usage";
         } else {
-          usageStatus.innerHTML = `Free plan<br>Used today: ${data.used}/5<br>Remaining: ${data.remaining}`;
+          usageStatus.innerHTML = `Free plan<br>Used today: ${data.used}/${data.limit}<br>Remaining: ${data.remaining}`;
         }
       } catch (error) {
         console.error("Usage status failed:", error);
@@ -1231,6 +1222,7 @@
       renderExamples(tool);
       renderOptions(tool);
       updateCharCount();
+      loadUsage();
     }
 
     function updateCharCount() {
@@ -1330,7 +1322,6 @@
 
     switchTool(activeToolKey);
     checkProStatus();
-    loadUsage();
   </script>
 </body>
 </html>
