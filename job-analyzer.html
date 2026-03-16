@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Job Description Analyzer | UtilityForge AI</title>
+<style>
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+padding:40px;
+}
+
+textarea{
+width:100%;
+height:200px;
+padding:10px;
+margin-top:10px;
+}
+
+button{
+margin-top:10px;
+padding:10px 20px;
+background:#6366f1;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+white-space:pre-wrap;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Job Description Analyzer</h1>
+
+<textarea id="input" placeholder="Paste job description here"></textarea>
+
+<button onclick="analyze()">Analyze Job</button>
+
+<div id="result"></div>
+
+<script>
+
+async function analyze(){
+
+const text = document.getElementById("input").value;
+
+const res = await fetch("/api/job-analyzer",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({text})
+});
+
+const data = await res.json();
+
+document.getElementById("result").innerText = data.result;
+
+}
+
+</script>
+
+</body>
+</html>
