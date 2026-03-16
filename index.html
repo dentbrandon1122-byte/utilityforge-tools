@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, cover letter writing, resume bullet writing, text summarization, and workspace-based career tools."
+    content="Utility Forge AI provides practical AI tools for productivity, job search, writing, outreach, and text workflows."
   />
   <meta property="og:title" content="Utility Forge AI" />
   <meta property="og:description" content="Clean AI tools built for real productivity." />
@@ -119,6 +119,7 @@
       display: flex;
       align-items: center;
       gap: 28px;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -545,7 +546,7 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 22px;
     }
 
@@ -563,7 +564,7 @@
       box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.015);
       backdrop-filter: blur(10px);
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      min-height: 215px;
+      min-height: 220px;
       position: relative;
       overflow: hidden;
     }
@@ -603,7 +604,7 @@
       justify-content: flex-end;
     }
 
-    .plan-badge {
+    .plan-badge-mini {
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 0.72rem;
@@ -611,19 +612,19 @@
       letter-spacing: 0.2px;
     }
 
-    .plan-badge.free {
+    .plan-badge-mini.free {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.86);
     }
 
-    .plan-badge.pro {
+    .plan-badge-mini.pro {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
       color: #081018;
     }
 
     .card h3 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       margin-bottom: 10px;
       color: #eaffff;
     }
@@ -794,8 +795,25 @@
       text-align: center;
     }
 
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #8ef1ff;
+    }
+
     .footer-trust {
-      margin-top: 6px;
+      margin-top: 8px;
       opacity: 0.6;
       font-size: 0.85rem;
     }
@@ -1018,9 +1036,10 @@
         <a href="workspace.html">Workspace</a>
         <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
 
-      <a href="workspace.html" class="nav-cta">Get Started</a>
+      <a href="workspace.html" class="nav-cta">Open Workspace</a>
     </div>
   </header>
 
@@ -1037,7 +1056,8 @@
 
         <p>
           Utility Forge AI brings focused tools into one clean workspace so users
-          can write, polish, analyze, summarize, and move faster without the clutter of bloated software.
+          can write, polish, summarize, apply, analyze, and move faster without
+          bloated software.
         </p>
 
         <div class="hero-buttons">
@@ -1046,9 +1066,10 @@
         </div>
 
         <div class="hero-tags">
+          <span>Career tools</span>
+          <span>Writing tools</span>
           <span>Fast results</span>
           <span>Clean AI workflow</span>
-          <span>Built for productivity</span>
         </div>
       </div>
 
@@ -1110,7 +1131,7 @@
     <section id="tools" class="section">
       <h2 class="section-title">Tools</h2>
       <p class="section-subtitle">
-        Every tool includes a free daily allowance, with Pro unlocking higher limits and a smoother workflow across the full platform. The workspace also includes advanced tools like job description analysis, LinkedIn summary generation, and cold outreach writing.
+        Practical tools for writing, outreach, applications, and workflow productivity.
       </p>
 
       <div class="card-grid">
@@ -1118,78 +1139,104 @@
           <div class="card-top">
             <div class="tool-icon">✉️</div>
             <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
             </div>
           </div>
           <h3>Email Polisher</h3>
           <p>Improve wording, tone, and clarity for emails fast.</p>
-          <div class="tool-access">Free plan includes daily usage. Pro removes the cap and keeps the workflow moving.</div>
+          <div class="tool-access">Clean up rough drafts into polished messages.</div>
         </a>
 
         <a class="card" href="idea-generator.html">
           <div class="card-top">
             <div class="tool-icon">💡</div>
             <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
             </div>
           </div>
           <h3>Idea Generator</h3>
           <p>Turn rough thoughts into usable ideas and concepts.</p>
-          <div class="tool-access">Use free daily generations or upgrade for expanded brainstorming without interruptions.</div>
+          <div class="tool-access">Brainstorm business, content, product, and growth ideas.</div>
         </a>
 
         <a class="card" href="cover-letter-generator.html">
           <div class="card-top">
             <div class="tool-icon">🖊️</div>
             <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
             </div>
           </div>
           <h3>Cover Letter Generator</h3>
-          <p>Generate polished cover letters from rough experience, job notes, or application details.</p>
-          <div class="tool-access">Create stronger application letters faster with daily free use or unlimited Pro access.</div>
+          <p>Generate polished cover letters from rough notes and experience.</p>
+          <div class="tool-access">Move faster on job applications with stronger letters.</div>
         </a>
 
         <a class="card" href="resume-bullet-generator.html">
           <div class="card-top">
             <div class="tool-icon">📄</div>
             <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
             </div>
           </div>
           <h3>Resume Bullet Generator</h3>
           <p>Create stronger resume bullets from plain job duties.</p>
-          <div class="tool-access">Free users can test it daily. Pro is built for repeated edits and job-application workflows.</div>
+          <div class="tool-access">Turn basic work descriptions into stronger accomplishments.</div>
+        </a>
+
+        <a class="card" href="job-analyzer.html">
+          <div class="card-top">
+            <div class="tool-icon">🎯</div>
+            <div class="plan-badges">
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
+            </div>
+          </div>
+          <h3>Job Description Analyzer</h3>
+          <p>Break down job posts into keywords, skills, and resume focus points.</p>
+          <div class="tool-access">Great for ATS prep and targeted job applications.</div>
+        </a>
+
+        <a class="card" href="linkedin-summary.html">
+          <div class="card-top">
+            <div class="tool-icon">💼</div>
+            <div class="plan-badges">
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
+            </div>
+          </div>
+          <h3>LinkedIn Summary Generator</h3>
+          <p>Create a cleaner, stronger LinkedIn summary and profile direction.</p>
+          <div class="tool-access">Useful for job seekers, freelancers, and career pivots.</div>
+        </a>
+
+        <a class="card" href="cold-email-generator.html">
+          <div class="card-top">
+            <div class="tool-icon">📬</div>
+            <div class="plan-badges">
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
+            </div>
+          </div>
+          <h3>Cold Email Generator</h3>
+          <p>Write outreach emails for networking, leads, and opportunity follow-up.</p>
+          <div class="tool-access">Build short, clear outreach messages that sound natural.</div>
         </a>
 
         <a class="card" href="text-summarizer.html">
           <div class="card-top">
             <div class="tool-icon">📝</div>
             <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
+              <span class="plan-badge-mini free">Free</span>
+              <span class="plan-badge-mini pro">Pro</span>
             </div>
           </div>
           <h3>Text Summarizer</h3>
           <p>Condense longer content into clean, useful takeaways.</p>
-          <div class="tool-access">Summarize class readings, notes, and articles with daily free use or unlimited Pro access.</div>
-        </a>
-
-        <a class="card" href="workspace.html">
-          <div class="card-top">
-            <div class="tool-icon">⚙️</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Workspace</span>
-              <span class="plan-badge pro">Advanced</span>
-            </div>
-          </div>
-          <h3>Advanced Career Tools</h3>
-          <p>Use workspace-only tools like Job Description Analyzer, LinkedIn Summary Generator, and Cold Email Generator.</p>
-          <div class="tool-access">Built for job seekers, outreach, profile writing, and stronger application workflows.</div>
+          <div class="tool-access">Summarize notes, articles, chapters, and documents.</div>
         </a>
       </div>
     </section>
@@ -1198,23 +1245,19 @@
       <h2 class="section-title">Pricing</h2>
 
       <p class="section-subtitle">
-        Simple pricing designed for individuals who want powerful AI tools without the complexity.
+        Simple pricing built for individuals who want useful AI tools without extra clutter.
       </p>
 
       <div class="pricing-grid">
         <div class="pricing-card">
           <h3>Starter</h3>
-          <div class="pricing-desc">A simple free plan for trying the platform and getting real work done.</div>
+          <div class="pricing-desc">A free plan for testing the platform and getting real work done.</div>
           <div class="price">$0</div>
           <ul>
-            <li>Access to all core AI tools</li>
+            <li>Access to core AI tools</li>
             <li>5 generations per day</li>
-            <li>Email Polisher</li>
-            <li>Idea Generator</li>
-            <li>Cover Letter Generator</li>
-            <li>Resume Bullet Generator</li>
-            <li>Text Summarizer</li>
-            <li>Workspace advanced tools included</li>
+            <li>Standard input limits</li>
+            <li>Workspace access</li>
           </ul>
           <a href="workspace.html" class="secondary-link">Start Free</a>
           <div class="pricing-note">Best for trying the platform and handling quick daily tasks.</div>
@@ -1222,29 +1265,28 @@
 
         <div class="pricing-card featured">
           <h3>Pro</h3>
-          <div class="pricing-desc">The best option for regular users who want faster, smoother, less limited AI workflows.</div>
+          <div class="pricing-desc">For regular use, larger inputs, and smoother workflows.</div>
           <div class="price">$9<small>/mo</small></div>
           <ul>
             <li>Unlimited generations</li>
-            <li>Faster AI responses</li>
-            <li>Priority processing</li>
-            <li>All current and future tools</li>
             <li>Higher input limits</li>
-            <li>Early feature access</li>
+            <li>All current and future tools</li>
+            <li>Priority experience</li>
+            <li>Built for repeated daily use</li>
           </ul>
           <button onclick="startCheckout()">Upgrade to Pro</button>
-          <div class="pricing-note">Best for everyday productivity, repeated edits, and uninterrupted use.</div>
+          <div class="pricing-note">Best for job search, outreach, productivity, and heavier usage.</div>
         </div>
 
         <div class="pricing-card">
           <h3>Business</h3>
-          <div class="pricing-desc">Built for future team workflows, shared workspaces, and expanded access.</div>
+          <div class="pricing-desc">Built for future team use, collaboration, and expanded tool access.</div>
           <div class="price">Coming Soon</div>
           <ul>
-            <li>Team collaboration tools</li>
-            <li>Higher usage limits</li>
-            <li>Shared AI workspace</li>
-            <li>Team management</li>
+            <li>Shared team workspace</li>
+            <li>Higher team usage limits</li>
+            <li>Collaboration features</li>
+            <li>Expanded business workflows</li>
           </ul>
           <button class="disabled-button" disabled>Coming Soon</button>
           <div class="pricing-note">Best for teams once collaborative features are released.</div>
@@ -1252,27 +1294,34 @@
       </div>
 
       <div class="pricing-summary">
-        Free users can still access every major tool, but usage is intentionally limited to keep the experience lightweight. Pro is designed to remove those limits and let Utility Forge AI work like a true daily productivity platform.
+        Free users can access the full platform with daily limits. Pro removes those limits and unlocks a smoother, larger-input workflow across the platform.
       </div>
     </section>
 
     <section id="about" class="section">
       <h2 class="section-title">About</h2>
       <p class="section-subtitle">
-        Utility Forge AI is built to feel modern, fast, and practical.
+        Utility Forge AI is built to feel modern, useful, and easy to work inside.
       </p>
 
       <div class="about-box">
-        Utility Forge AI is designed around one idea: useful AI should feel clean,
-        focused, and easy to use. Instead of burying users in clutter, it brings
-        essential tools together in a workspace that supports speed, clarity, and
-        real productivity.
+        Utility Forge AI is designed around one idea: useful AI should feel clean, focused, and practical.
+        Instead of burying users in clutter, it brings essential tools together in a workspace that supports
+        speed, clarity, and real productivity.
       </div>
     </section>
   </main>
 
   <footer class="footer">
     © 2026 Utility Forge AI. All rights reserved.
+
+    <div class="footer-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="contact.html">Contact</a>
+      <a href="mailto:support@utilityforgeai.com">support@utilityforgeai.com</a>
+    </div>
+
     <div class="footer-trust">Powered by advanced AI models</div>
   </footer>
 
@@ -1292,44 +1341,28 @@
         output: "Hi Sarah, I hope you’re doing well. I wanted to follow up on my application and see whether there have been any updates regarding the position. Thank you for your time and consideration."
       },
       {
-        label: "Idea Generator",
-        badge: "Creative Mode",
-        action: "Generate Ideas",
-        secondary: "Business",
-        input: "business ideas using AI for small local service companies",
-        output: "1. AI follow-up assistant for contractors\n2. Automated estimate writer for landscapers\n3. Review-response generator for local businesses\n4. Appointment reminder system for salons and clinics"
-      },
-      {
-        label: "Cover Letter Generator",
-        badge: "Application Ready",
-        action: "Generate Letter",
-        secondary: "Tailored",
-        input: "I am applying for a customer service role. I have experience helping customers, handling calls, managing schedules, and working in fast-paced environments.",
-        output: "Dear Hiring Manager,\n\nI am writing to express my interest in the customer service position. With experience supporting customers, managing communication, and handling scheduling in fast-paced environments, I have developed strong interpersonal and organizational skills that would allow me to contribute positively to your team.\n\nSincerely,\n[Your Name]"
-      },
-      {
-        label: "Job Description Analyzer",
+        label: "Job Analyzer",
         badge: "Hiring Insights",
         action: "Analyze Job",
-        secondary: "ATS Focus",
-        input: "Looking for a cybersecurity intern familiar with networking, Python, incident response fundamentals, and security best practices.",
-        output: "Key Skills\n• Networking fundamentals\n• Python\n• Security best practices\n\nATS Keywords\n• cybersecurity\n• incident response\n• networking\n• Python"
+        secondary: "ATS Keywords",
+        input: "Looking for a cybersecurity intern familiar with networking, Python, and security best practices.",
+        output: "Top focus areas: networking fundamentals, Python, security best practices, analytical thinking. Suggested resume emphasis: coursework, technical projects, automation, and troubleshooting."
       },
       {
-        label: "LinkedIn Summary Generator",
-        badge: "Profile Ready",
-        action: "Build Profile",
+        label: "LinkedIn Summary",
+        badge: "Career Mode",
+        action: "Build Summary",
         secondary: "Professional",
-        input: "I have customer service, scheduling, and office support experience and I am studying cybersecurity and Python.",
-        output: "Headline\nCustomer Support and Administrative Professional | Cybersecurity Student | Communication and Organization Skills\n\nSummary\nI bring experience in customer support, scheduling, and office operations while continuing to grow my technical skills through cybersecurity and Python study..."
+        input: "I have customer service experience, office support skills, and I am studying cybersecurity and Python.",
+        output: "Motivated professional with experience in customer service and administrative support, currently building technical skills in cybersecurity and Python with a strong focus on growth, reliability, and problem solving."
       },
       {
-        label: "Cold Email Generator",
-        badge: "Outreach Ready",
-        action: "Write Email",
-        secondary: "Concise",
-        input: "I want a short professional email to a hiring manager expressing interest in future opportunities.",
-        output: "Hi [Name],\n\nI hope you're doing well. I wanted to reach out to express interest in future opportunities with your team..."
+        label: "Text Summarizer",
+        badge: "Fast Summary",
+        action: "Summarize Text",
+        secondary: "Clear Output",
+        input: "This article explains how small businesses can use AI to save time by automating repetitive admin tasks, improving customer communication, and generating content faster.",
+        output: "AI helps small businesses save time by automating repetitive tasks, improving communication, and speeding up content creation."
       }
     ];
 
@@ -1409,7 +1442,14 @@
           body: JSON.stringify({ userId })
         });
 
-        const data = await response.json();
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Checkout returned an invalid response.");
+        }
 
         if (data.url) {
           window.location.href = data.url;
