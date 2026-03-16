@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI provides practical AI tools for productivity, job search, writing, outreach, and text workflows."
+    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, resume bullets, cover letters, summaries, outreach, and job search support."
   />
   <meta property="og:title" content="Utility Forge AI" />
   <meta property="og:description" content="Clean AI tools built for real productivity." />
@@ -119,7 +119,6 @@
       display: flex;
       align-items: center;
       gap: 28px;
-      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -548,6 +547,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 22px;
+      align-items: stretch;
     }
 
     .card-grid a.card {
@@ -564,7 +564,7 @@
       box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.015);
       backdrop-filter: blur(10px);
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      min-height: 220px;
+      min-height: 215px;
       position: relative;
       overflow: hidden;
     }
@@ -604,7 +604,7 @@
       justify-content: flex-end;
     }
 
-    .plan-badge-mini {
+    .plan-badge {
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 0.72rem;
@@ -612,19 +612,19 @@
       letter-spacing: 0.2px;
     }
 
-    .plan-badge-mini.free {
+    .plan-badge.free {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.86);
     }
 
-    .plan-badge-mini.pro {
+    .plan-badge.pro {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
       color: #081018;
     }
 
     .card h3 {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       margin-bottom: 10px;
       color: #eaffff;
     }
@@ -642,45 +642,22 @@
     }
 
     .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-      align-items: stretch;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
     }
 
     .pricing-card {
-      padding: 28px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 18px;
+      width: 280px;
       position: relative;
-      min-height: 100%;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 26px rgba(142,241,255,0.12);
-    }
-
-    .pricing-card.featured {
-      border-color: rgba(142, 241, 255, 0.24);
-      box-shadow: 0 0 24px rgba(142, 241, 255, 0.07);
-      transform: translateY(-4px);
-    }
-
-    .pricing-card.featured::before {
-      content: "Most Popular";
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
     }
 
     .pricing-card h3 {
@@ -699,7 +676,7 @@
     .price {
       font-size: 2rem;
       font-weight: 800;
-      margin-bottom: 16px;
+      margin: 10px 0 16px;
       color: #92ffb8;
     }
 
@@ -710,11 +687,32 @@
       margin-left: 2px;
     }
 
+    .coming {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 10px 0 16px;
+      color: #92ffb8;
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #7cffb2;
+      color: #000;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
     .pricing-card ul {
       list-style: none;
-      margin-bottom: 22px;
+      margin: 20px 0;
+      padding-left: 0;
       display: grid;
       gap: 10px;
+      text-align: left;
     }
 
     .pricing-card li {
@@ -732,38 +730,51 @@
       font-weight: 900;
     }
 
-    .pricing-note {
-      margin-top: 16px;
-      color: rgba(255,255,255,0.62);
-      font-size: 0.84rem;
-      line-height: 1.5;
-    }
-
-    .pricing-card a,
-    .pricing-card button {
-      display: inline-block;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-      border: none;
-      cursor: pointer;
+    .pricing-btn {
       width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
       text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .pricing-card .secondary-link {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+    .pricing-btn.primary {
+      background: #7cffb2;
+      color: #000;
+    }
+
+    .pricing-btn.secondary {
+      background: rgba(255,255,255,0.15);
       color: white;
     }
 
-    .pricing-card .disabled-button {
-      opacity: 0.5;
+    .pricing-btn.disabled {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,.5);
       cursor: not-allowed;
       pointer-events: none;
+    }
+
+    .pricing-trust {
+      margin-top: 10px;
+      text-align: center;
+      font-size: .84rem;
+      color: rgba(255,255,255,.72);
+      line-height: 1.5;
+    }
+
+    .pricing-note {
+      margin-top: 14px;
+      font-size: .8rem;
+      opacity: .65;
+      color: rgba(255,255,255,0.75);
     }
 
     .pricing-summary {
@@ -775,6 +786,20 @@
       color: rgba(255,255,255,0.78);
       font-size: 0.95rem;
       line-height: 1.6;
+    }
+
+    .pricing-card.starter {
+      transform: translateY(18px);
+    }
+
+    .pricing-card.pro {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0,0,0,.35);
+      border: 1px solid rgba(124,255,178,.4);
+    }
+
+    .pricing-card.business {
+      transform: translateY(10px);
     }
 
     .about-box {
@@ -795,27 +820,27 @@
       text-align: center;
     }
 
+    .footer-trust {
+      margin-top: 6px;
+      opacity: 0.6;
+      font-size: 0.85rem;
+    }
+
     .footer-links {
       margin-top: 12px;
       display: flex;
       justify-content: center;
-      gap: 18px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
     .footer-links a {
-      color: rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.82);
       text-decoration: none;
     }
 
     .footer-links a:hover {
       color: #8ef1ff;
-    }
-
-    .footer-trust {
-      margin-top: 8px;
-      opacity: 0.6;
-      font-size: 0.85rem;
     }
 
     .floating-upgrade {
@@ -881,12 +906,13 @@
         min-height: 500px;
       }
 
-      .pricing-grid {
-        grid-template-columns: 1fr;
+      .pricing-card.pro {
+        transform: translateY(0) scale(1.01);
       }
 
-      .pricing-card.featured {
-        transform: none;
+      .pricing-card.starter,
+      .pricing-card.business {
+        transform: translateY(0);
       }
     }
 
@@ -975,12 +1001,6 @@
         grid-template-columns: 1fr;
       }
 
-      .pricing-card.featured::before {
-        position: static;
-        display: inline-block;
-        margin-bottom: 14px;
-      }
-
       .floating-upgrade {
         right: 14px;
         left: 14px;
@@ -1036,10 +1056,9 @@
         <a href="workspace.html">Workspace</a>
         <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
-        <a href="contact.html">Contact</a>
       </nav>
 
-      <a href="workspace.html" class="nav-cta">Open Workspace</a>
+      <a href="workspace.html" class="nav-cta">Get Started</a>
     </div>
   </header>
 
@@ -1056,8 +1075,8 @@
 
         <p>
           Utility Forge AI brings focused tools into one clean workspace so users
-          can write, polish, summarize, apply, analyze, and move faster without
-          bloated software.
+          can write, polish, summarize, generate, and move faster without the
+          clutter of bloated software.
         </p>
 
         <div class="hero-buttons">
@@ -1066,10 +1085,9 @@
         </div>
 
         <div class="hero-tags">
-          <span>Career tools</span>
-          <span>Writing tools</span>
           <span>Fast results</span>
           <span>Clean AI workflow</span>
+          <span>Built for productivity</span>
         </div>
       </div>
 
@@ -1131,7 +1149,7 @@
     <section id="tools" class="section">
       <h2 class="section-title">Tools</h2>
       <p class="section-subtitle">
-        Practical tools for writing, outreach, applications, and workflow productivity.
+        Every tool includes a free daily allowance, with Pro unlocking higher limits and a smoother workflow across the full platform.
       </p>
 
       <div class="card-grid">
@@ -1139,157 +1157,176 @@
           <div class="card-top">
             <div class="tool-icon">✉️</div>
             <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
             </div>
           </div>
           <h3>Email Polisher</h3>
           <p>Improve wording, tone, and clarity for emails fast.</p>
-          <div class="tool-access">Clean up rough drafts into polished messages.</div>
+          <div class="tool-access">Free plan includes daily usage. Pro removes the cap and keeps the workflow moving.</div>
         </a>
 
         <a class="card" href="idea-generator.html">
           <div class="card-top">
             <div class="tool-icon">💡</div>
             <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
             </div>
           </div>
           <h3>Idea Generator</h3>
           <p>Turn rough thoughts into usable ideas and concepts.</p>
-          <div class="tool-access">Brainstorm business, content, product, and growth ideas.</div>
+          <div class="tool-access">Use free daily generations or upgrade for expanded brainstorming without interruptions.</div>
         </a>
 
         <a class="card" href="cover-letter-generator.html">
           <div class="card-top">
             <div class="tool-icon">🖊️</div>
             <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
             </div>
           </div>
           <h3>Cover Letter Generator</h3>
-          <p>Generate polished cover letters from rough notes and experience.</p>
-          <div class="tool-access">Move faster on job applications with stronger letters.</div>
+          <p>Generate polished cover letters from rough experience, job notes, or application details.</p>
+          <div class="tool-access">Create stronger application letters faster with daily free use or unlimited Pro access.</div>
         </a>
 
         <a class="card" href="resume-bullet-generator.html">
           <div class="card-top">
             <div class="tool-icon">📄</div>
             <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
             </div>
           </div>
           <h3>Resume Bullet Generator</h3>
           <p>Create stronger resume bullets from plain job duties.</p>
-          <div class="tool-access">Turn basic work descriptions into stronger accomplishments.</div>
-        </a>
-
-        <a class="card" href="job-analyzer.html">
-          <div class="card-top">
-            <div class="tool-icon">🎯</div>
-            <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
-            </div>
-          </div>
-          <h3>Job Description Analyzer</h3>
-          <p>Break down job posts into keywords, skills, and resume focus points.</p>
-          <div class="tool-access">Great for ATS prep and targeted job applications.</div>
-        </a>
-
-        <a class="card" href="linkedin-summary.html">
-          <div class="card-top">
-            <div class="tool-icon">💼</div>
-            <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
-            </div>
-          </div>
-          <h3>LinkedIn Summary Generator</h3>
-          <p>Create a cleaner, stronger LinkedIn summary and profile direction.</p>
-          <div class="tool-access">Useful for job seekers, freelancers, and career pivots.</div>
-        </a>
-
-        <a class="card" href="cold-email-generator.html">
-          <div class="card-top">
-            <div class="tool-icon">📬</div>
-            <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
-            </div>
-          </div>
-          <h3>Cold Email Generator</h3>
-          <p>Write outreach emails for networking, leads, and opportunity follow-up.</p>
-          <div class="tool-access">Build short, clear outreach messages that sound natural.</div>
+          <div class="tool-access">Free users can test it daily. Pro is built for repeated edits and job-application workflows.</div>
         </a>
 
         <a class="card" href="text-summarizer.html">
           <div class="card-top">
             <div class="tool-icon">📝</div>
             <div class="plan-badges">
-              <span class="plan-badge-mini free">Free</span>
-              <span class="plan-badge-mini pro">Pro</span>
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
             </div>
           </div>
           <h3>Text Summarizer</h3>
           <p>Condense longer content into clean, useful takeaways.</p>
-          <div class="tool-access">Summarize notes, articles, chapters, and documents.</div>
+          <div class="tool-access">Summarize class readings, notes, and articles with daily free use or unlimited Pro access.</div>
+        </a>
+
+        <a class="card" href="job-analyzer.html">
+          <div class="card-top">
+            <div class="tool-icon">🎯</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Job Analyzer</h3>
+          <p>Break down job descriptions into skills, ATS keywords, and application focus points.</p>
+          <div class="tool-access">Spot what employers care about most and tailor resumes and cover letters faster.</div>
+        </a>
+
+        <a class="card" href="linkedin-summary.html">
+          <div class="card-top">
+            <div class="tool-icon">💼</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>LinkedIn Summary Generator</h3>
+          <p>Generate a stronger LinkedIn headline and summary from your background.</p>
+          <div class="tool-access">Create more polished, professional profile copy for job searching and personal branding.</div>
+        </a>
+
+        <a class="card" href="cold-email-generator.html">
+          <div class="card-top">
+            <div class="tool-icon">📬</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Cold Email Generator</h3>
+          <p>Write better outreach emails for networking, opportunities, and collaboration.</p>
+          <div class="tool-access">Build faster outreach workflows with polished cold emails that sound clear and professional.</div>
         </a>
       </div>
     </section>
 
     <section id="pricing" class="section">
       <h2 class="section-title">Pricing</h2>
-
       <p class="section-subtitle">
         Simple pricing built for individuals who want useful AI tools without extra clutter.
       </p>
 
       <div class="pricing-grid">
-        <div class="pricing-card">
+        <div class="pricing-card starter">
           <h3>Starter</h3>
           <div class="pricing-desc">A free plan for testing the platform and getting real work done.</div>
           <div class="price">$0</div>
+
           <ul>
             <li>Access to core AI tools</li>
             <li>5 generations per day</li>
             <li>Standard input limits</li>
             <li>Workspace access</li>
           </ul>
-          <a href="workspace.html" class="secondary-link">Start Free</a>
-          <div class="pricing-note">Best for trying the platform and handling quick daily tasks.</div>
+
+          <a href="workspace.html" class="pricing-btn secondary">Start Free</a>
+
+          <p class="pricing-note">
+            Best for trying the platform and handling quick daily tasks.
+          </p>
         </div>
 
-        <div class="pricing-card featured">
+        <div class="pricing-card pro">
+          <div class="popular-tag">Most Popular</div>
           <h3>Pro</h3>
           <div class="pricing-desc">For regular use, larger inputs, and smoother workflows.</div>
           <div class="price">$9<small>/mo</small></div>
+
           <ul>
-            <li>Unlimited generations</li>
+            <li>Unlimited AI tool runs</li>
             <li>Higher input limits</li>
             <li>All current and future tools</li>
             <li>Priority experience</li>
             <li>Built for repeated daily use</li>
           </ul>
-          <button onclick="startCheckout()">Upgrade to Pro</button>
-          <div class="pricing-note">Best for job search, outreach, productivity, and heavier usage.</div>
+
+          <button onclick="startCheckout()" class="pricing-btn primary">Start Pro Now</button>
+
+          <div class="pricing-trust">
+            Cancel anytime • Instant access • No contracts
+          </div>
+
+          <p class="pricing-note">
+            Best for job search, outreach, productivity, and heavier usage.
+          </p>
         </div>
 
-        <div class="pricing-card">
+        <div class="pricing-card business">
           <h3>Business</h3>
           <div class="pricing-desc">Built for future team use, collaboration, and expanded tool access.</div>
-          <div class="price">Coming Soon</div>
+          <div class="coming">Coming Soon</div>
+
           <ul>
             <li>Shared team workspace</li>
             <li>Higher team usage limits</li>
             <li>Collaboration features</li>
             <li>Expanded business workflows</li>
           </ul>
-          <button class="disabled-button" disabled>Coming Soon</button>
-          <div class="pricing-note">Best for teams once collaborative features are released.</div>
+
+          <button class="pricing-btn disabled">Coming Soon</button>
+
+          <p class="pricing-note">
+            Best for teams once collaborative features are released.
+          </p>
         </div>
       </div>
 
@@ -1301,28 +1338,29 @@
     <section id="about" class="section">
       <h2 class="section-title">About</h2>
       <p class="section-subtitle">
-        Utility Forge AI is built to feel modern, useful, and easy to work inside.
+        Utility Forge AI is built to feel modern, fast, and practical.
       </p>
 
       <div class="about-box">
-        Utility Forge AI is designed around one idea: useful AI should feel clean, focused, and practical.
-        Instead of burying users in clutter, it brings essential tools together in a workspace that supports
-        speed, clarity, and real productivity.
+        Utility Forge AI is designed around one idea: useful AI should feel clean,
+        focused, and easy to use. Instead of burying users in clutter, it brings
+        essential tools together in a workspace that supports speed, clarity, and
+        real productivity.
       </div>
     </section>
   </main>
 
   <footer class="footer">
     © 2026 Utility Forge AI. All rights reserved.
+    <div class="footer-trust">Powered by advanced AI models</div>
 
     <div class="footer-links">
+      <a href="workspace.html">Workspace</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
       <a href="contact.html">Contact</a>
       <a href="mailto:support@utilityforgeai.com">support@utilityforgeai.com</a>
     </div>
-
-    <div class="footer-trust">Powered by advanced AI models</div>
   </footer>
 
   <button class="floating-upgrade" id="floatingUpgrade" onclick="startCheckout()">
@@ -1341,20 +1379,20 @@
         output: "Hi Sarah, I hope you’re doing well. I wanted to follow up on my application and see whether there have been any updates regarding the position. Thank you for your time and consideration."
       },
       {
-        label: "Job Analyzer",
-        badge: "Hiring Insights",
-        action: "Analyze Job",
-        secondary: "ATS Keywords",
-        input: "Looking for a cybersecurity intern familiar with networking, Python, and security best practices.",
-        output: "Top focus areas: networking fundamentals, Python, security best practices, analytical thinking. Suggested resume emphasis: coursework, technical projects, automation, and troubleshooting."
+        label: "Idea Generator",
+        badge: "Creative Mode",
+        action: "Generate Ideas",
+        secondary: "Business",
+        input: "business ideas using AI for small local service companies",
+        output: "1. AI follow-up assistant for contractors\n2. Automated estimate writer for landscapers\n3. Review-response generator for local businesses\n4. Appointment reminder system for salons and clinics"
       },
       {
-        label: "LinkedIn Summary",
+        label: "Resume Bullet Generator",
         badge: "Career Mode",
-        action: "Build Summary",
-        secondary: "Professional",
-        input: "I have customer service experience, office support skills, and I am studying cybersecurity and Python.",
-        output: "Motivated professional with experience in customer service and administrative support, currently building technical skills in cybersecurity and Python with a strong focus on growth, reliability, and problem solving."
+        action: "Build Bullets",
+        secondary: "ATS Ready",
+        input: "worked front desk, answered phones, helped customers, handled scheduling",
+        output: "• Managed front-desk operations and customer support in a fast-paced environment\n• Coordinated scheduling and handled incoming calls with professionalism\n• Improved daily workflow by supporting efficient communication and organization"
       },
       {
         label: "Text Summarizer",
@@ -1448,7 +1486,7 @@
         try {
           data = JSON.parse(raw);
         } catch {
-          throw new Error(raw || "Checkout returned an invalid response.");
+          throw new Error(raw || "Server returned an invalid response.");
         }
 
         if (data.url) {
