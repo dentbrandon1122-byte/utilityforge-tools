@@ -1,0 +1,24 @@
+const usage = {};
+
+export function checkLimit(userId, tool, limit = 5) {
+  const today = new Date().toISOString().slice(0,10);
+
+  if (!usage[userId]) usage[userId] = {};
+  if (!usage[userId][today]) usage[userId][today] = {};
+
+  if (!usage[userId][today][tool]) usage[userId][today][tool] = 0;
+
+  if (usage[userId][today][tool] >= limit) return false;
+
+  usage[userId][today][tool]++;
+
+  return true;
+}
+
+export function getRemaining(userId, tool, limit = 5) {
+  const today = new Date().toISOString().slice(0,10);
+
+  const used = usage?.[userId]?.[today]?.[tool] || 0;
+
+  return limit - used;
+}
