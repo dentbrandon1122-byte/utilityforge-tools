@@ -1,103 +1,48 @@
-import { isProUser } from "../lib/proStore.js";
-import { getUsageId, getUsageStatus, incrementUsage } from "../lib/usage.js";
+import { openai } from "./_lib/openai.js";
+import { checkLimit } from "./_lib/usage.js";
 
-const TOOL_KEY = "email";
+export default async function handler(req,res){
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+try{
 
-  try {
-    const { text, tone, userId } = req.body || {};
-    const pro = userId ? await isProUser(userId) : false;
-    const usageId = getUsageId(req, userId);
+const {text,userId,tone} = req.body;
 
-    if (!pro) {
-      const status = await getUsageStatus(usageId, TOOL_KEY, 5);
+if(!checkLimit(userId,"email")){
 
-      if (status.used >= 5) {
-        return res.status(429).json({
-          error: "Daily free limit reached. Upgrade to Pro."
-        });
-      }
+return res.status(429).json({
+error:"Daily free limit reached"
+});
 
-      await incrementUsage(usageId, TOOL_KEY);
-    }
+}
 
-    if (!text || typeof text !== "string" || !text.trim()) {
-      return res.status(400).json({ error: "Text is required." });
-    }
+const completion = await openai.chat.completions.create({
 
-    const maxLength = pro ? 5000 : 1500;
+model:"gpt-4o-mini",
 
-    if (text.trim().length > maxLength) {
-      return res.status(400).json({
-        error: `Text must be ${maxLength} characters or fewer.`
-      });
-    }
+messages:[
+{
+role:"system",
+content:"You improve emails to sound clear, professional and natural."
+},
+{
+role:"user",
+content:`Rewrite this email in a ${tone} tone:\n\n${text}`
+}
+]
 
-    if (!process.env.OPENAI_KEY) {
-      return res.status(500).json({
-        error: "OPENAI_KEY is missing in environment variables."
-      });
-    }
+});
 
-    const allowedTones = ["professional", "friendly", "confident", "concise"];
-    const selectedTone = allowedTones.includes(tone) ? tone : "professional";
+res.json({
+result:completion.choices[0].message.content
+});
 
-    const toneInstructions = {
-      professional: "Make it polished, professional, respectful, and natural.",
-      friendly: "Make it warm, approachable, friendly, and natural while still sounding polished.",
-      confident: "Make it confident, clear, direct, and professional without sounding aggressive.",
-      concise: "Make it concise, clear, and professional while keeping the message brief."
-    };
+}catch(e){
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You rewrite rough emails. Keep the user's meaning the same. " +
-              "Improve grammar, clarity, tone, and flow. " +
-              "Do not add extra facts. Do not turn it into a long letter unless needed. " +
-              "Return only the polished email text with no intro, no labels, and no quotation marks. " +
-              toneInstructions[selectedTone]
-          },
-          {
-            role: "user",
-            content: text.trim()
-          }
-        ],
-        temperature: 0.4
-      })
-    });
+console.log(e);
 
-    const data = await response.json();
+res.status(500).json({
+error:"Server error"
+});
 
-    if (!response.ok) {
-      return res.status(response.status).json({
-        error: data?.error?.message || "OpenAI request failed."
-      });
-    }
-
-    const result = data?.choices?.[0]?.message?.content?.trim();
-
-    if (!result) {
-      return res.status(500).json({ error: "No result returned from OpenAI." });
-    }
-
-    return res.status(200).json({ result });
-  } catch (error) {
-    return res.status(500).json({
-      error: error.message || "Server error."
-    });
-  }
+}
 }
