@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Utility Forge AI</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background:#0b1020;
+      color:white;
+      line-height:1.7;
+    }
+    .background {
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+        linear-gradient(180deg,#0a0f1d 0%, #0d1326 100%);
+    }
+    .header {
+      padding:20px 30px;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      background:rgba(8,12,24,0.65);
+      backdrop-filter:blur(10px);
+    }
+    .header a {
+      text-decoration:none;
+      color:#f3efe4;
+      font-size:1.4rem;
+      font-weight:800;
+    }
+    .container {
+      max-width:900px;
+      margin:0 auto;
+      padding:50px 24px 70px;
+    }
+    .card {
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+    h1 {
+      font-size:2.5rem;
+      margin-bottom:12px;
+      color:#f3efe4;
+    }
+    p {
+      color:rgba(255,255,255,0.86);
+      margin-bottom:14px;
+    }
+    .contact-box {
+      margin-top:24px;
+      display:grid;
+      gap:14px;
+    }
+    .contact-item {
+      padding:16px 18px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .contact-item strong {
+      display:block;
+      color:#d8ffff;
+      margin-bottom:6px;
+    }
+    a {
+      color:#8ef1ff;
+      text-decoration:none;
+    }
+    a:hover {
+      text-decoration:underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="header">
+    <a href="index.html">Utility Forge AI</a>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <h1>Contact</h1>
+      <p>
+        Need help, have a billing question, or want to report an issue? Reach out using the contact details below.
+      </p>
+
+      <div class="contact-box">
+        <div class="contact-item">
+          <strong>Support</strong>
+          <a href="mailto:support@utilityforgeai.com">support@utilityforgeai.com</a>
+        </div>
+
+        <div class="contact-item">
+          <strong>Billing</strong>
+          <a href="mailto:billing@utilityforgeai.com">billing@utilityforgeai.com</a>
+        </div>
+
+        <div class="contact-item">
+          <strong>Administrative Contact</strong>
+          <a href="mailto:admin@utilityforgeai.com">admin@utilityforgeai.com</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
