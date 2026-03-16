@@ -1,33 +1,7 @@
 import { isProUser } from "../lib/proStore.js";
+import { getUsageId, getUsageStatus, incrementUsage } from "../lib/usage.js";
 
-const dailyUsage = globalThis.__ufEmailUsage || (globalThis.__ufEmailUsage = {});
-
-function getClientIp(req) {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.length > 0) {
-    return forwarded.split(",")[0].trim();
-  }
-  return req.socket?.remoteAddress || "unknown";
-}
-
-function checkLimit(ip, limit = 5) {
-  const today = new Date().toDateString();
-
-  if (!dailyUsage[ip]) {
-    dailyUsage[ip] = { date: today, count: 0 };
-  }
-
-  if (dailyUsage[ip].date !== today) {
-    dailyUsage[ip] = { date: today, count: 0 };
-  }
-
-  if (dailyUsage[ip].count >= limit) {
-    return false;
-  }
-
-  dailyUsage[ip].count += 1;
-  return true;
-}
+const TOOL_KEY = "email";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -37,20 +11,25 @@ export default async function handler(req, res) {
   try {
     const { text, tone, userId } = req.body || {};
     const pro = userId ? await isProUser(userId) : false;
-    const maxLength = pro ? 5000 : 1500;
+    const usageId = getUsageId(req, userId);
 
     if (!pro) {
-      const ip = getClientIp(req);
-      if (!checkLimit(ip, 5)) {
+      const status = await getUsageStatus(usageId, TOOL_KEY, 5);
+
+      if (status.used >= 5) {
         return res.status(429).json({
           error: "Daily free limit reached. Upgrade to Pro."
         });
       }
+
+      await incrementUsage(usageId, TOOL_KEY);
     }
 
     if (!text || typeof text !== "string" || !text.trim()) {
       return res.status(400).json({ error: "Text is required." });
     }
+
+    const maxLength = pro ? 5000 : 1500;
 
     if (text.trim().length > maxLength) {
       return res.status(400).json({
@@ -88,7 +67,7 @@ export default async function handler(req, res) {
             content:
               "You rewrite rough emails. Keep the user's meaning the same. " +
               "Improve grammar, clarity, tone, and flow. " +
-              "Do not add extra facts. " +
+              "Do not add extra facts. Do not turn it into a long letter unless needed. " +
               "Return only the polished email text with no intro, no labels, and no quotation marks. " +
               toneInstructions[selectedTone]
           },
