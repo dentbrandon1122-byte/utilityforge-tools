@@ -1,24 +1,49 @@
-const usage = {};
+const usageStore = globalThis.__ufUsageStore || (globalThis.__ufUsageStore = {});
 
-export function checkLimit(userId, tool, limit = 5) {
-  const today = new Date().toISOString().slice(0,10);
-
-  if (!usage[userId]) usage[userId] = {};
-  if (!usage[userId][today]) usage[userId][today] = {};
-
-  if (!usage[userId][today][tool]) usage[userId][today][tool] = 0;
-
-  if (usage[userId][today][tool] >= limit) return false;
-
-  usage[userId][today][tool]++;
-
-  return true;
+function getTodayKey() {
+  return new Date().toISOString().slice(0, 10);
 }
 
-export function getRemaining(userId, tool, limit = 5) {
-  const today = new Date().toISOString().slice(0,10);
+export function getUsageId(req, userId) {
+  if (userId && typeof userId === "string" && userId.trim()) {
+    return `user:${userId.trim()}`;
+  }
 
-  const used = usage?.[userId]?.[today]?.[tool] || 0;
+  const forwarded = req?.headers?.["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.length > 0) {
+    return `ip:${forwarded.split(",")[0].trim()}`;
+  }
 
-  return limit - used;
+  return `ip:${req?.socket?.remoteAddress || "unknown"}`;
+}
+
+export function getUsageCount(usageId, toolKey) {
+  const today = getTodayKey();
+
+  if (!usageStore[usageId]) usageStore[usageId] = {};
+  if (!usageStore[usageId][today]) usageStore[usageId][today] = {};
+  if (!usageStore[usageId][today][toolKey]) usageStore[usageId][today][toolKey] = 0;
+
+  return usageStore[usageId][today][toolKey];
+}
+
+export function incrementUsage(usageId, toolKey) {
+  const today = getTodayKey();
+
+  if (!usageStore[usageId]) usageStore[usageId] = {};
+  if (!usageStore[usageId][today]) usageStore[usageId][today] = {};
+  if (!usageStore[usageId][today][toolKey]) usageStore[usageId][today][toolKey] = 0;
+
+  usageStore[usageId][today][toolKey] += 1;
+  return usageStore[usageId][today][toolKey];
+}
+
+export function getUsageStatus(usageId, toolKey, limit = 5) {
+  const used = getUsageCount(usageId, toolKey);
+
+  return {
+    used,
+    remaining: Math.max(limit - used, 0),
+    limit
+  };
 }
