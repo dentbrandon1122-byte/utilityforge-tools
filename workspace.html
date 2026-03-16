@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI Workspace — one place to polish emails, generate ideas, build resume bullets, write cover letters, analyze job descriptions, generate LinkedIn summaries, write cold emails, and summarize text."
+    content="Utility Forge AI Workspace — email polishing, idea generation, resume bullets, cover letters, job analysis, LinkedIn summaries, cold emails, and text summarization in one workspace."
   />
 
   <style>
@@ -204,7 +204,7 @@
 
     .workspace-shell {
       display: grid;
-      grid-template-columns: 290px 1fr;
+      grid-template-columns: 320px 1fr;
       gap: 24px;
       align-items: start;
     }
@@ -256,7 +256,7 @@
     .tool-list {
       display: grid;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
 
     .tool-tab {
@@ -341,11 +341,48 @@
       border: 1px solid rgba(255,255,255,0.06);
     }
 
-    .sidebar-note {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.56);
-      margin-top: 8px;
+    .usage-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .usage-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #d9ffff;
+      margin-bottom: 6px;
+    }
+
+    .usage-status {
+      color: rgba(255,255,255,0.76);
+      font-size: 0.85rem;
       line-height: 1.5;
+    }
+
+    .quick-links {
+      margin-top: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .quick-links a {
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.82);
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .quick-links a:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(142,241,255,0.22);
     }
 
     .main-panel {
@@ -647,7 +684,7 @@
         <div class="workspace-badge">Shared AI Workspace</div>
         <h1>One place for all your tools</h1>
         <p>
-          Switch between email polishing, idea generation, resume bullets, cover letters, job description analysis, LinkedIn summaries, cold emails, and summaries without leaving the page.
+          Switch between writing, career, and productivity tools without leaving the page.
         </p>
       </div>
       <div class="status-pill" id="workspaceStatus">Ready to create</div>
@@ -657,12 +694,13 @@
       <aside class="sidebar">
         <div class="sidebar-title">Select a Tool</div>
         <div class="plan-badge" id="planBadge">Free Plan</div>
+
         <div class="tool-list" id="toolList"></div>
 
         <div class="sidebar-card">
           <h3>Free vs Pro</h3>
           <p>
-            Free users can test the tools with daily limits. Upgrade to Pro for unlimited usage and higher input limits.
+            Free users can test the tools with daily limits. Pro unlocks unlimited usage and higher input limits.
           </p>
 
           <div class="plan-list">
@@ -671,9 +709,26 @@
             <div>Pro: unlimited tool usage</div>
             <div>Pro: higher input limits for larger tasks</div>
           </div>
+        </div>
 
-          <div class="sidebar-note">
-            Secure payments via Stripe • Pro unlocks automatically after checkout
+        <div class="usage-box">
+          <div class="usage-title">Usage</div>
+          <div class="usage-status" id="usageStatus">Checking usage...</div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Standalone Tool Pages</h3>
+          <p>Open individual tool pages directly.</p>
+
+          <div class="quick-links">
+            <a href="email-polisher.html">Email Polisher</a>
+            <a href="idea-generator.html">Idea Generator</a>
+            <a href="cover-letter-generator.html">Cover Letter Generator</a>
+            <a href="resume-bullet-generator.html">Resume Bullet Generator</a>
+            <a href="text-summarizer.html">Text Summarizer</a>
+            <a href="job-analyzer.html">Job Analyzer</a>
+            <a href="linkedin-summary.html">LinkedIn Summary</a>
+            <a href="cold-email-generator.html">Cold Email Generator</a>
           </div>
         </div>
       </aside>
@@ -728,73 +783,18 @@
 
   <script>
     let isProUserState = false;
+    let activeToolKey = "email";
+    let lastOutput = "";
 
     function getUserId() {
       let id = localStorage.getItem("uf_user_id");
-
       if (!id) {
         id = crypto.randomUUID();
         localStorage.setItem("uf_user_id", id);
       }
-
       return id;
     }
 
-    function updatePlanUi() {
-      const workspaceStatus = document.getElementById("workspaceStatus");
-      const planBadge = document.getElementById("planBadge");
-      const upgradeBtn = document.getElementById("upgradeBtn");
-
-      if (isProUserState) {
-        workspaceStatus.textContent = "Pro Workspace";
-        workspaceStatus.style.background = "linear-gradient(90deg,#89f7c8,#8ef1ff)";
-        workspaceStatus.style.color = "#081018";
-        workspaceStatus.style.border = "none";
-
-        planBadge.textContent = "Pro Active";
-        planBadge.classList.add("pro");
-
-        upgradeBtn.textContent = "Pro Active";
-        upgradeBtn.classList.add("pro-active");
-      } else {
-        workspaceStatus.textContent = "Ready to create";
-        workspaceStatus.style.background = "rgba(255,255,255,0.05)";
-        workspaceStatus.style.color = "#d9ffff";
-        workspaceStatus.style.border = "1px solid rgba(255,255,255,0.08)";
-      }
-    }
-
-    async function checkProStatus() {
-      try {
-
-  const res = await fetch("/api/pro-status", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ userId })
-  });
-
-  const raw = await res.text();
-  let data;
-
-  try {
-    data = JSON.parse(raw);
-  } catch {
-    throw new Error(raw || "Server returned an invalid response.");
-  }
-
-  if (data.pro) {
-    isProUserState = true;
-    updatePlanUi();
-    switchTool(activeToolKey);
-  } else {
-    updatePlanUi();
-  }
-
-} catch (error) {
-  console.error("Pro status check failed:", error);
-}
     const tools = {
       email: {
         key: "email",
@@ -897,7 +897,7 @@
         inputLabel: "Your background or job notes",
         optionLabel: "Style",
         resultTitle: "Generated Cover Letter",
-        placeholder: "Example: I am applying for a customer service role. I have experience helping customers, answering phones, handling scheduling, and working in fast-paced environments. I want the letter to sound professional and confident.",
+        placeholder: "Example: I am applying for a customer service role. I have experience helping customers, answering phones, handling scheduling, and working in fast-paced environments.",
         buttonText: "Generate Cover Letter",
         statusMode: "Application Ready",
         freeCharLimit: 2200,
@@ -924,7 +924,7 @@
         key: "job",
         name: "Job Description Analyzer",
         icon: "🎯",
-        desc: "Break down a job post into skills, ATS keywords, and what to emphasize.",
+        desc: "Break down a job post into skills, ATS keywords, and focus points.",
         inputLabel: "Job description",
         optionLabel: "Analysis focus",
         resultTitle: "Job Analysis",
@@ -959,7 +959,7 @@
         inputLabel: "Your background or profile notes",
         optionLabel: "Style",
         resultTitle: "LinkedIn Profile Copy",
-        placeholder: "Example: I have customer service experience, scheduling experience, office support experience, and I am taking cybersecurity and Python classes. I want my LinkedIn summary to sound professional and motivated.",
+        placeholder: "Example: I have customer service experience, scheduling experience, office support experience, and I am taking cybersecurity and Python classes.",
         buttonText: "Generate LinkedIn Summary",
         statusMode: "Profile Ready",
         freeCharLimit: 2200,
@@ -986,11 +986,11 @@
         key: "coldemail",
         name: "Cold Email Generator",
         icon: "📬",
-        desc: "Write cold outreach emails for networking, opportunities, or collaboration.",
+        desc: "Write cold outreach emails for networking or opportunities.",
         inputLabel: "Your outreach goal or context",
         optionLabel: "Style",
         resultTitle: "Cold Email",
-        placeholder: "Example: I want to email a hiring manager about possible opportunities. I want the message to be professional, short, and show interest without sounding pushy.",
+        placeholder: "Example: I want to email a hiring manager about possible opportunities. I want the message to be professional, short, and not pushy.",
         buttonText: "Generate Cold Email",
         statusMode: "Outreach Ready",
         freeCharLimit: 2000,
@@ -1063,12 +1063,96 @@
     const charCount = document.getElementById("charCount");
     const charLimit = document.getElementById("charLimit");
     const statusText = document.getElementById("statusText");
-
-    let activeToolKey = "email";
-    let lastOutput = "";
+    const workspaceStatus = document.getElementById("workspaceStatus");
+    const planBadge = document.getElementById("planBadge");
+    const upgradeBtn = document.getElementById("upgradeBtn");
+    const usageStatus = document.getElementById("usageStatus");
 
     function getCurrentCharLimit(tool) {
       return isProUserState ? tool.proCharLimit : tool.freeCharLimit;
+    }
+
+    function updatePlanUi() {
+      if (isProUserState) {
+        workspaceStatus.textContent = "Pro Workspace";
+        workspaceStatus.style.background = "linear-gradient(90deg,#89f7c8,#8ef1ff)";
+        workspaceStatus.style.color = "#081018";
+        workspaceStatus.style.border = "none";
+
+        planBadge.textContent = "Pro Active";
+        planBadge.classList.add("pro");
+
+        upgradeBtn.textContent = "Pro Active";
+        upgradeBtn.classList.add("pro-active");
+      } else {
+        workspaceStatus.textContent = "Ready to create";
+        workspaceStatus.style.background = "rgba(255,255,255,0.05)";
+        workspaceStatus.style.color = "#d9ffff";
+        workspaceStatus.style.border = "1px solid rgba(255,255,255,0.08)";
+
+        planBadge.textContent = "Free Plan";
+        planBadge.classList.remove("pro");
+
+        upgradeBtn.textContent = "Upgrade to Pro";
+        upgradeBtn.classList.remove("pro-active");
+      }
+    }
+
+    async function checkProStatus() {
+      const userId = getUserId();
+
+      try {
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId })
+        });
+
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
+
+        if (data.pro) {
+          isProUserState = true;
+        }
+
+        updatePlanUi();
+        switchTool(activeToolKey);
+      } catch (error) {
+        console.error("Pro status check failed:", error);
+        updatePlanUi();
+      }
+    }
+
+    async function loadUsage() {
+      try {
+        const userId = getUserId();
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}`);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Usage response invalid.");
+        }
+
+        if (data.pro) {
+          usageStatus.innerHTML = "Pro user — unlimited usage";
+        } else {
+          usageStatus.innerHTML = `Free plan<br>Used today: ${data.used}/5<br>Remaining: ${data.remaining}`;
+        }
+      } catch (error) {
+        console.error("Usage status failed:", error);
+        usageStatus.textContent = "Usage unavailable";
+      }
     }
 
     function renderToolTabs() {
@@ -1212,7 +1296,14 @@
           body: JSON.stringify(payload)
         });
 
-        const data = await response.json();
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
 
         if (!response.ok) {
           result.textContent = "Error: " + (data.error || "Something went wrong.");
@@ -1225,6 +1316,8 @@
         result.classList.remove("empty");
         statusText.textContent = "Output generated";
         copyBtn.disabled = !lastOutput;
+
+        loadUsage();
       } catch (err) {
         result.textContent = "Error: " + err.message;
         result.classList.remove("empty");
@@ -1237,6 +1330,7 @@
 
     switchTool(activeToolKey);
     checkProStatus();
+    loadUsage();
   </script>
 </body>
 </html>
