@@ -9,7 +9,6 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: Arial, sans-serif;
       background: #0b1020;
@@ -18,7 +17,6 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-
     .background {
       position: fixed;
       inset: 0;
@@ -28,7 +26,6 @@
         radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
         linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
-
     .background::before {
       content: "";
       position: absolute;
@@ -39,13 +36,11 @@
       background-size: 42px 42px;
       opacity: 0.15;
     }
-
     .page {
       max-width: 1100px;
       margin: 0 auto;
       padding: 42px 20px 60px;
     }
-
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -55,9 +50,7 @@
       font-weight: 700;
       margin-bottom: 22px;
     }
-
     .back-link:hover { color: #8ef1ff; }
-
     .card {
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
@@ -66,38 +59,31 @@
       backdrop-filter: blur(12px);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
-
     .title {
       text-align: center;
       font-size: 2.6rem;
       color: #f3efe4;
       margin-bottom: 8px;
     }
-
     .subtitle {
       text-align: center;
       color: rgba(255,255,255,0.78);
       margin-bottom: 28px;
       font-size: 1.05rem;
     }
-
-    .examples-label,
-    .field-label,
-    .result-label {
+    .examples-label, .field-label, .result-label {
       font-weight: 800;
       color: #dcffff;
       margin-bottom: 10px;
       display: block;
       font-size: 0.98rem;
     }
-
     .examples {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 18px;
     }
-
     .example-chip {
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.05);
@@ -109,20 +95,17 @@
       font-size: 0.88rem;
       transition: .18s ease;
     }
-
     .example-chip:hover {
       transform: translateY(-1px);
       border-color: rgba(142,241,255,0.35);
       background: rgba(142,241,255,0.08);
     }
-
     .grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 240px;
       gap: 18px;
       align-items: start;
     }
-
     textarea {
       width: 100%;
       min-height: 260px;
@@ -135,16 +118,13 @@
       resize: vertical;
       outline: none;
     }
-
     textarea::placeholder {
       color: rgba(255,255,255,0.45);
     }
-
     textarea:focus, select:focus {
       border-color: rgba(142,241,255,0.55);
       box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
     }
-
     select {
       width: 100%;
       padding: 14px;
@@ -155,12 +135,10 @@
       outline: none;
       font-size: 15px;
     }
-
     select option {
       background: #0d1326;
       color: white;
     }
-
     .meta-row {
       display: flex;
       justify-content: space-between;
@@ -171,14 +149,12 @@
       margin: 12px 0 18px;
       font-size: 0.95rem;
     }
-
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       margin-bottom: 18px;
     }
-
     button {
       border: none;
       border-radius: 14px;
@@ -187,27 +163,21 @@
       cursor: pointer;
       transition: .18s ease;
     }
-
     .primary-btn {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
       color: #081018;
     }
-
     .primary-btn:hover { transform: translateY(-1px); }
-
     .secondary-btn {
       background: rgba(255,255,255,0.06);
       color: white;
       border: 1px solid rgba(255,255,255,0.08);
     }
-
     .secondary-btn:hover { background: rgba(255,255,255,0.09); }
-
     button:disabled {
       opacity: .6;
       cursor: not-allowed;
     }
-
     .result-box {
       min-height: 190px;
       background: rgba(92,245,255,0.06);
@@ -217,13 +187,11 @@
       white-space: pre-wrap;
       color: rgba(255,255,255,0.92);
     }
-
     .tip {
       margin-top: 8px;
       color: rgba(255,255,255,0.66);
       font-size: 0.9rem;
     }
-
     @media (max-width: 820px) {
       .grid { grid-template-columns: 1fr; }
       .title { font-size: 2rem; }
@@ -294,7 +262,6 @@
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
     const resultBox = document.getElementById("resultBox");
-
     let lastOutput = "";
 
     function getUserId() {
@@ -312,16 +279,10 @@
 
     async function loadUsage() {
       try {
-        const userId = getUserId();
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}&tool=linkedin`);
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=linkedin`);
         const raw = await res.text();
         const data = JSON.parse(raw);
-
-        if (data.pro) {
-          usageText.textContent = "Pro plan: Unlimited usage";
-        } else {
-          usageText.textContent = `Free uses left today: ${data.remaining}`;
-        }
+        usageText.textContent = `Free uses left today: ${data.remaining}`;
       } catch {
         usageText.textContent = "Usage unavailable";
       }
@@ -380,16 +341,11 @@
         const res = await fetch("/api/linkedin-summary", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            text,
-            style,
-            userId: getUserId()
-          })
+          body: JSON.stringify({ text, style, userId: getUserId() })
         });
 
         const raw = await res.text();
         let data;
-
         try {
           data = JSON.parse(raw);
         } catch {
