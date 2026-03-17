@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, resume bullets, cover letters, summaries, outreach, and job search support."
+    content="Utility Forge AI provides practical AI tools for productivity — email polishing, idea generation, resume bullets, cover letters, summaries, outreach, research, and job search support."
   />
   <meta property="og:title" content="Utility Forge AI" />
   <meta property="og:description" content="Clean AI tools built for real productivity." />
@@ -119,6 +119,7 @@
       display: flex;
       align-items: center;
       gap: 28px;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -147,6 +148,7 @@
       box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       white-space: nowrap;
+      border: none;
     }
 
     .nav-cta:hover {
@@ -1075,7 +1077,7 @@
 
         <p>
           Utility Forge AI brings focused tools into one clean workspace so users
-          can write, polish, summarize, generate, and move faster without the
+          can write, polish, summarize, generate, research, and move faster without the
           clutter of bloated software.
         </p>
 
@@ -1256,6 +1258,19 @@
           <p>Write better outreach emails for networking, opportunities, and collaboration.</p>
           <div class="tool-access">Build faster outreach workflows with polished cold emails that sound clear and professional.</div>
         </a>
+
+        <a class="card" href="research-assistant.html">
+          <div class="card-top">
+            <div class="tool-icon">🔎</div>
+            <div class="plan-badges">
+              <span class="plan-badge free">Free</span>
+              <span class="plan-badge pro">Pro Unlimited</span>
+            </div>
+          </div>
+          <h3>Research Assistant</h3>
+          <p>Use one tool for general research and legal research drafting.</p>
+          <div class="tool-access">Great for structured topic research, issue spotting, and legal research organization before source verification.</div>
+        </a>
       </div>
     </section>
 
@@ -1273,7 +1288,7 @@
 
           <ul>
             <li>Access to core AI tools</li>
-            <li>5 generations per day</li>
+            <li>5 generations per day per tool</li>
             <li>Standard input limits</li>
             <li>Workspace access</li>
           </ul>
@@ -1387,20 +1402,20 @@
         output: "1. AI follow-up assistant for contractors\n2. Automated estimate writer for landscapers\n3. Review-response generator for local businesses\n4. Appointment reminder system for salons and clinics"
       },
       {
-        label: "Resume Bullet Generator",
-        badge: "Career Mode",
-        action: "Build Bullets",
-        secondary: "ATS Ready",
-        input: "worked front desk, answered phones, helped customers, handled scheduling",
-        output: "• Managed front-desk operations and customer support in a fast-paced environment\n• Coordinated scheduling and handled incoming calls with professionalism\n• Improved daily workflow by supporting efficient communication and organization"
+        label: "Job Analyzer",
+        badge: "Hiring Insights",
+        action: "Analyze Job",
+        secondary: "ATS Focus",
+        input: "Looking for a cybersecurity intern familiar with networking, Python, and security best practices.",
+        output: "Key areas: networking, Python, incident response, security fundamentals, and analytical thinking. Resume focus: coursework, projects, labs, and troubleshooting experience."
       },
       {
-        label: "Text Summarizer",
-        badge: "Fast Summary",
-        action: "Summarize Text",
-        secondary: "Clear Output",
-        input: "This article explains how small businesses can use AI to save time by automating repetitive admin tasks, improving customer communication, and generating content faster.",
-        output: "AI helps small businesses save time by automating repetitive tasks, improving communication, and speeding up content creation."
+        label: "Research Assistant",
+        badge: "Research Mode",
+        action: "Run Research",
+        secondary: "Legal Draft",
+        input: "New York landlord notice requirements before eviction",
+        output: "Issue: required pre-eviction notice timing and type. Verify: lease type, nonpayment vs holdover, and official New York housing statutes or court resources."
       }
     ];
 
