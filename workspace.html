@@ -7,7 +7,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI Workspace — use writing, job search, outreach, and productivity tools in one clean dashboard."
+    content="Utility Forge AI Workspace — use writing, job search, outreach, research, and productivity tools in one clean dashboard."
   />
 
   <style>
@@ -152,15 +152,6 @@
       box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
     }
 
-    .nav-cta.pro-active {
-      background: rgba(255,255,255,0.06);
-      color: #d9ffff;
-      border: 1px solid rgba(142,241,255,0.24);
-      box-shadow: none;
-      cursor: default;
-      pointer-events: none;
-    }
-
     .page {
       position: relative;
       z-index: 2;
@@ -263,12 +254,6 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.88);
-    }
-
-    .plan-badge.pro {
-      background: linear-gradient(90deg,#89f7c8,#8ef1ff);
-      color: #081018;
-      border: none;
     }
 
     .tool-list {
@@ -708,7 +693,7 @@
         <a href="contact.html">Contact</a>
       </nav>
 
-      <a href="index.html#pricing" class="nav-cta" id="upgradeBtn">Upgrade to Pro</a>
+      <a href="index.html#pricing" class="nav-cta">Upgrade to Pro</a>
     </div>
   </header>
 
@@ -718,7 +703,7 @@
         <div class="workspace-badge">Shared AI Workspace</div>
         <h1>All your tools in one dashboard</h1>
         <p>
-          Move between writing, outreach, career, and productivity tools without losing your flow.
+          Move between writing, outreach, career, productivity, and research tools without losing your flow.
         </p>
       </div>
 
@@ -737,19 +722,19 @@
         <div class="sidebar-card">
           <h3>Plan Overview</h3>
           <p>
-            Free users can test the tools with daily limits. Pro unlocks unlimited usage and higher input limits.
+            Free users can test the tools with daily limits. Pro can be added later for unlimited usage and higher input limits.
           </p>
 
           <div class="plan-list">
             <div>Free: 5 daily runs per tool</div>
             <div>Free: standard input limits</div>
-            <div>Pro: unlimited tool usage</div>
-            <div>Pro: higher input limits for larger tasks</div>
+            <div>Fast access to all current tools</div>
+            <div>Research and legal drafting included</div>
           </div>
         </div>
 
         <div class="usage-box">
-          <div class="usage-title">Usage</div>
+          <div class="usage-title">Usage Meter</div>
           <div class="usage-status" id="usageStatus">Checking usage...</div>
         </div>
       </aside>
@@ -813,7 +798,6 @@
   </main>
 
   <script>
-    let isProUserState = false;
     let activeToolKey = "email";
     let lastOutput = "";
 
@@ -838,8 +822,7 @@
         placeholder: "Paste your rough email here...",
         buttonText: "Improve Email",
         statusMode: "Professional Mode",
-        freeCharLimit: 1500,
-        proCharLimit: 5000,
+        charLimit: 1500,
         endpoint: "/api/email-polish",
         note: "Tip: short rough drafts often polish very well with just a few details.",
         options: [
@@ -869,8 +852,7 @@
         placeholder: "Example: business ideas using AI for small businesses",
         buttonText: "Generate Ideas",
         statusMode: "Creative Mode",
-        freeCharLimit: 1500,
-        proCharLimit: 5000,
+        charLimit: 1500,
         endpoint: "/api/idea-generator",
         note: "Tip: prompts with a clear audience or goal usually give stronger ideas.",
         options: [
@@ -900,8 +882,7 @@
         placeholder: "Example: I am applying for a customer service role. I have experience helping customers, answering phones, handling scheduling, and working in fast-paced environments.",
         buttonText: "Generate Cover Letter",
         statusMode: "Application Ready",
-        freeCharLimit: 2200,
-        proCharLimit: 6000,
+        charLimit: 2200,
         endpoint: "/api/cover-letter",
         note: "Tip: include the role, your experience, and the tone you want for stronger cover letters.",
         options: [
@@ -931,8 +912,7 @@
         placeholder: "Example: answered phones, helped customers, handled scheduling, completed paperwork",
         buttonText: "Generate Bullets",
         statusMode: "ATS Ready",
-        freeCharLimit: 1800,
-        proCharLimit: 5000,
+        charLimit: 1800,
         endpoint: "/api/resume-bullet",
         note: "Tip: include tasks, responsibilities, and tools used for better resume bullets.",
         options: [
@@ -951,9 +931,39 @@
         }
       },
 
+      summarize: {
+        key: "summarize",
+        name: "Text Summarizer",
+        icon: "📝",
+        desc: "Condense longer content into clean, useful takeaways.",
+        inputLabel: "Text to summarize",
+        optionLabel: "Summary style",
+        resultTitle: "Summary",
+        placeholder: "Paste your text here...",
+        buttonText: "Summarize Text",
+        statusMode: "Clear Output",
+        charLimit: 2500,
+        endpoint: "/api/summarize",
+        note: "Tip: longer and more detailed text usually produces stronger summaries.",
+        options: [
+          { value: "clear", label: "Clear summary" },
+          { value: "concise", label: "Very concise" },
+          { value: "bullets", label: "Bullet points" },
+          { value: "keypoints", label: "Key takeaways" }
+        ],
+        examples: [
+          "Artificial intelligence can help businesses automate repetitive tasks, improve customer communication, analyze data faster, and support content creation.",
+          "The chapter explains that social structure shapes individual behavior through institutions, cultural norms, and role expectations.",
+          "Our team reviewed the current workflow, identified bottlenecks in communication, and recommended simplifying approval steps."
+        ],
+        buildPayload(input, option) {
+          return { text: input, style: option, userId: getUserId() };
+        }
+      },
+
       job: {
         key: "job",
-        name: "Job Description Analyzer",
+        name: "Job Analyzer",
         icon: "🎯",
         desc: "Break down a job post into skills, ATS keywords, and focus points.",
         inputLabel: "Job description",
@@ -962,8 +972,7 @@
         placeholder: "Paste the job posting here...",
         buttonText: "Analyze Job Description",
         statusMode: "Hiring Insights",
-        freeCharLimit: 3000,
-        proCharLimit: 8000,
+        charLimit: 3000,
         endpoint: "/api/job-analyzer",
         note: "Tip: paste the full job post for better skill extraction and ATS keyword analysis.",
         options: [
@@ -993,8 +1002,7 @@
         placeholder: "Example: I have customer service experience, scheduling experience, office support experience, and I am taking cybersecurity and Python classes.",
         buttonText: "Generate LinkedIn Summary",
         statusMode: "Profile Ready",
-        freeCharLimit: 2200,
-        proCharLimit: 6000,
+        charLimit: 2200,
         endpoint: "/api/linkedin-summary",
         note: "Tip: include your experience, goals, strengths, and industry direction for a stronger summary.",
         options: [
@@ -1024,8 +1032,7 @@
         placeholder: "Example: I want to email a hiring manager about possible opportunities. I want the message to be professional, short, and not pushy.",
         buttonText: "Generate Cold Email",
         statusMode: "Outreach Ready",
-        freeCharLimit: 2000,
-        proCharLimit: 5000,
+        charLimit: 2000,
         endpoint: "/api/cold-email",
         note: "Tip: include who you are contacting, why you are reaching out, and the tone you want.",
         options: [
@@ -1044,31 +1051,29 @@
         }
       },
 
-      summarize: {
-        key: "summarize",
-        name: "Text Summarizer",
-        icon: "📝",
-        desc: "Condense longer content into clean, useful takeaways.",
-        inputLabel: "Text to summarize",
-        optionLabel: "Summary style",
-        resultTitle: "Summary",
-        placeholder: "Paste your text here...",
-        buttonText: "Summarize Text",
-        statusMode: "Clear Output",
-        freeCharLimit: 2500,
-        proCharLimit: 8000,
-        endpoint: "/api/summarize",
-        note: "Tip: longer and more detailed text usually produces stronger summaries.",
+      research: {
+        key: "research",
+        name: "Research Assistant",
+        icon: "🔎",
+        desc: "General research and legal research drafting in one tool.",
+        inputLabel: "Research topic",
+        optionLabel: "Mode",
+        resultTitle: "Research Output",
+        placeholder: "Example: New York eviction notice requirements or best business models for a mobile detailing company",
+        buttonText: "Run Research",
+        statusMode: "Research Mode",
+        charLimit: 3000,
+        endpoint: "/api/research-assistant",
+        note: "Legal mode is for research drafting and organization, not legal advice.",
         options: [
-          { value: "clear", label: "Clear summary" },
-          { value: "concise", label: "Very concise" },
-          { value: "bullets", label: "Bullet points" },
-          { value: "keypoints", label: "Key takeaways" }
+          { value: "general", label: "General Research" },
+          { value: "legal", label: "Legal Research Draft" }
         ],
         examples: [
-          "Artificial intelligence can help businesses automate repetitive tasks, improve customer communication, analyze data faster, and support content creation.",
-          "The chapter explains that social structure shapes individual behavior through institutions, cultural norms, and role expectations.",
-          "Our team reviewed the current workflow, identified bottlenecks in communication, and recommended simplifying approval steps."
+          "Best business ideas for local service companies using AI",
+          "Research outline for starting a pressure washing business",
+          "New York landlord notice requirements",
+          "Federal overtime classification research outline"
         ],
         buildPayload(input, option) {
           return { text: input, style: option, userId: getUserId() };
@@ -1094,100 +1099,28 @@
     const charCount = document.getElementById("charCount");
     const charLimit = document.getElementById("charLimit");
     const statusText = document.getElementById("statusText");
-    const workspaceStatus = document.getElementById("workspaceStatus");
-    const planBadge = document.getElementById("planBadge");
-    const upgradeBtn = document.getElementById("upgradeBtn");
     const usageStatus = document.getElementById("usageStatus");
 
-    function getCurrentCharLimit(tool) {
-      return isProUserState ? tool.proCharLimit : tool.freeCharLimit;
-    }
-
-    function updatePlanUi() {
-      if (isProUserState) {
-        workspaceStatus.textContent = "Pro Workspace";
-        workspaceStatus.style.background = "linear-gradient(90deg,#89f7c8,#8ef1ff)";
-        workspaceStatus.style.color = "#081018";
-        workspaceStatus.style.border = "none";
-
-        planBadge.textContent = "Pro Active";
-        planBadge.classList.add("pro");
-
-        upgradeBtn.textContent = "Pro Active";
-        upgradeBtn.classList.add("pro-active");
-      } else {
-        workspaceStatus.textContent = "Ready to create";
-        workspaceStatus.style.background = "rgba(255,255,255,0.05)";
-        workspaceStatus.style.color = "#d9ffff";
-        workspaceStatus.style.border = "1px solid rgba(255,255,255,0.08)";
-
-        planBadge.textContent = "Free Plan";
-        planBadge.classList.remove("pro");
-
-        upgradeBtn.textContent = "Upgrade to Pro";
-        upgradeBtn.classList.remove("pro-active");
-      }
-    }
-
-    async function checkProStatus() {
+    async function loadUsage() {
+      const tool = tools[activeToolKey];
       const userId = getUserId();
 
+      usageStatus.innerHTML = "Checking usage...";
+
       try {
-        const res = await fetch("/api/pro-status", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ userId })
-        });
-
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}&tool=${encodeURIComponent(tool.key)}`);
         const raw = await res.text();
-        let data;
+        const data = JSON.parse(raw);
 
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
+        if (!res.ok) {
+          usageStatus.innerHTML = "Usage unavailable";
+          return;
         }
 
-        if (data.pro) {
-          isProUserState = true;
-        }
-
-        updatePlanUi();
-        switchTool(activeToolKey);
-      } catch (error) {
-        console.error("Pro status check failed:", error);
-        updatePlanUi();
-      }
-    }
-
-    async function loadUsage() {
-      try {
-        const userId = getUserId();
-        const tool = tools[activeToolKey];
-
-        const res = await fetch(
-          `/api/usage-status?userId=${encodeURIComponent(userId)}&tool=${encodeURIComponent(tool.key)}`
-        );
-
-        const raw = await res.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Usage response invalid.");
-        }
-
-        if (data.pro) {
-          usageStatus.innerHTML = "Pro plan<br>Unlimited usage";
-        } else {
-          usageStatus.innerHTML = `Free plan<br>Used today: ${data.used}/${data.limit}<br>Remaining: ${data.remaining}`;
-        }
+        usageStatus.innerHTML = `Current tool: ${tool.name}<br>Used today: ${data.used}/${data.limit}<br>Remaining: ${data.remaining}`;
       } catch (error) {
         console.error("Usage status failed:", error);
-        usageStatus.textContent = "Usage unavailable";
+        usageStatus.innerHTML = "Usage unavailable";
       }
     }
 
@@ -1244,7 +1177,6 @@
     function switchTool(toolKey) {
       activeToolKey = toolKey;
       const tool = tools[toolKey];
-      const currentLimit = getCurrentCharLimit(tool);
 
       toolTitle.textContent = tool.name;
       toolDescription.textContent = tool.desc;
@@ -1254,12 +1186,12 @@
       resultTitle.textContent = tool.resultTitle;
       toolNote.textContent = tool.note;
       workspaceInput.placeholder = tool.placeholder;
-      workspaceInput.maxLength = currentLimit;
-      charLimit.textContent = String(currentLimit);
+      workspaceInput.maxLength = tool.charLimit;
+      charLimit.textContent = String(tool.charLimit);
       runBtn.textContent = tool.buttonText;
       result.textContent = "Your output will appear here after you run a tool.";
       result.classList.add("empty");
-      statusText.textContent = isProUserState ? "Pro limits active" : "Ready to generate";
+      statusText.textContent = "Ready to generate";
       lastOutput = "";
       copyBtn.disabled = true;
 
@@ -1298,7 +1230,7 @@
       updateCharCount();
       result.textContent = "Your output will appear here after you run a tool.";
       result.classList.add("empty");
-      statusText.textContent = isProUserState ? "Pro limits active" : "Ready to generate";
+      statusText.textContent = "Ready to generate";
       lastOutput = "";
       copyBtn.disabled = true;
     });
@@ -1344,7 +1276,9 @@
 
         if (!response.ok) {
           result.textContent = "Error: " + (data.error || "Something went wrong.");
+          result.classList.remove("empty");
           statusText.textContent = "Request failed";
+          await loadUsage();
           return;
         }
 
@@ -1354,11 +1288,12 @@
         statusText.textContent = "Output generated";
         copyBtn.disabled = !lastOutput;
 
-        loadUsage();
+        await loadUsage();
       } catch (err) {
         result.textContent = "Error: " + err.message;
         result.classList.remove("empty");
         statusText.textContent = "Network error";
+        await loadUsage();
       } finally {
         runBtn.disabled = false;
         runBtn.textContent = tool.buttonText;
@@ -1366,7 +1301,6 @@
     });
 
     switchTool(activeToolKey);
-    checkProStatus();
   </script>
 </body>
 </html>
