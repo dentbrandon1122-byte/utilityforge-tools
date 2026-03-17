@@ -1,48 +1,44 @@
-import { openai } from "./_lib/openai.js";
-import { checkLimit } from "./_lib/usage.js";
+import { generateText } from "./_lib/openai.js";
+import { getUsageId, getUsageCount, incrementUsage } from "./_lib/usage.js";
 
-export default async function handler(req,res){
+export default async function handler(req, res) {
+  try {
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method not allowed" });
+    }
 
-try{
+    const { text, style, userId } = req.body || {};
+    const input = typeof text === "string" ? text.trim() : "";
 
-const {prompt,userId} = req.body;
+    if (!input) {
+      return res.status(400).json({ error: "Please enter your background or job notes." });
+    }
 
-if(!checkLimit(userId,"idea")){
+    if (input.length > 2200) {
+      return res.status(400).json({ error: "Input is too long. Limit: 2200 characters." });
+    }
 
-return res.status(429).json({
-error:"Daily free limit reached"
-});
+    const usageId = getUsageId(req, userId);
+    const used = getUsageCount(usageId, "cover");
 
-}
+    if (used >= 5) {
+      return res.status(429).json({
+        error: "Daily free limit reached. Upgrade to Pro for unlimited usage."
+      });
+    }
 
-const completion = await openai.chat.completions.create({
+    const result = await generateText({
+      system:
+        "You write polished cover letters from rough job notes. Make the letter professional, specific, and readable. Return only the finished cover letter.",
+      user: `Style: ${style || "professional"}\n\nCreate a cover letter from these notes:\n${input}`,
+      temperature: 0.7
+    });
 
-model:"gpt-4o-mini",
+    incrementUsage(usageId, "cover");
 
-messages:[
-{
-role:"system",
-content:"Generate practical business or project ideas."
-},
-{
-role:"user",
-content:prompt
-}
-]
-
-});
-
-res.json({
-result:completion.choices[0].message.content
-});
-
-}catch(e){
-
-console.log(e);
-
-res.status(500).json({
-error:"Server error"
-});
-
-}
+    return res.status(200).json({ result });
+  } catch (error) {
+    console.error("cover-letter failed:", error);
+    return res.status(500).json({ error: error.message || "A server error has occurred." });
+  }
 }
