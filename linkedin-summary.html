@@ -293,6 +293,60 @@
 
     updateCount();
     loadUsage();
+    async function syncUpgradeUI() {
+  const proHint = localStorage.getItem("uf_pro_hint") === "true";
+
+  if (proHint) {
+    const usagePill = document.getElementById("usagePill");
+    const usageText = document.getElementById("usageText");
+    const upgradeBtn = document.querySelector(".nav-cta");
+
+    if (usagePill) {
+      usagePill.textContent = "Pro Plan • Unlimited";
+      usagePill.classList.add("pro");
+    }
+
+    if (usageText) {
+      usageText.textContent = "Unlimited usage active on this tool.";
+    }
+
+    if (upgradeBtn) {
+      upgradeBtn.style.display = "none";
+    }
+  }
+
+  try {
+    const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
+    const data = await res.json();
+
+    const usagePill = document.getElementById("usagePill");
+    const usageText = document.getElementById("usageText");
+    const upgradeBtn = document.querySelector(".nav-cta");
+
+    if (data.pro) {
+      localStorage.setItem("uf_pro_hint", "true");
+
+      if (usagePill) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+      }
+
+      if (usageText) {
+        usageText.textContent = "Unlimited usage active on this tool.";
+      }
+
+      if (upgradeBtn) {
+        upgradeBtn.style.display = "none";
+      }
+    } else {
+      localStorage.removeItem("uf_pro_hint");
+
+      if (upgradeBtn) {
+        upgradeBtn.style.display = "";
+      }
+    }
+  } catch {}
+}
   </script>
 </body>
 </html>
