@@ -338,6 +338,11 @@
       color: #b8ffcf;
     }
 
+    .upgrade-hint {
+      display: none;
+      margin-bottom: 14px;
+    }
+
     .result-box {
       min-height: 190px;
       background: rgba(92,245,255,0.06);
@@ -362,30 +367,12 @@
     }
 
     @media (max-width: 620px) {
-      .site-header {
-        padding: 16px;
-      }
-
-      .nav-shell {
-        justify-content: center;
-      }
-
-      .nav-links {
-        justify-content: center;
-      }
-
-      .nav-cta {
-        width: 100%;
-      }
-
-      .brand-text {
-        font-size: 1.15rem;
-      }
-
-      .top-logo {
-        width: 46px;
-        height: 46px;
-      }
+      .site-header { padding: 16px; }
+      .nav-shell { justify-content: center; }
+      .nav-links { justify-content: center; }
+      .nav-cta { width: 100%; }
+      .brand-text { font-size: 1.15rem; }
+      .top-logo { width: 46px; height: 46px; }
     }
   </style>
 </head>
@@ -454,6 +441,10 @@
 
       <div id="statusLine" class="status-line"></div>
 
+      <div id="upgradeHint" class="upgrade-hint">
+        <button class="secondary-btn" onclick="startCheckout()">Upgrade to Pro</button>
+      </div>
+
       <label class="result-label">Polished Email</label>
       <div class="result-box" id="resultBox">Your polished email will appear here.</div>
       <div class="tip">Tip: rough drafts with clear context usually polish best.</div>
@@ -478,6 +469,7 @@
     const clearBtn = document.getElementById("clearBtn");
     const resultBox = document.getElementById("resultBox");
     const statusLine = document.getElementById("statusLine");
+    const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
 
@@ -497,6 +489,14 @@
     function setStatus(message = "", type = "") {
       statusLine.textContent = message;
       statusLine.className = "status-line" + (type ? ` ${type}` : "");
+    }
+
+    function hideUpgradeHint() {
+      upgradeHint.style.display = "none";
+    }
+
+    function showUpgradeHint() {
+      upgradeHint.style.display = "block";
     }
 
     function setUsageUI(data) {
@@ -530,6 +530,35 @@
         usagePill.textContent = "Usage unavailable";
         usageText.textContent = "Usage unavailable";
       }
+    }
+
+    async function syncUpgradeUI() {
+      const proHint = localStorage.getItem("uf_pro_hint") === "true";
+      const upgradeBtn = document.querySelector(".nav-cta");
+
+      if (proHint) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
+        if (upgradeBtn) upgradeBtn.style.display = "none";
+      }
+
+      try {
+        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
+        const raw = await res.text();
+        const data = JSON.parse(raw);
+
+        if (data.pro) {
+          localStorage.setItem("uf_pro_hint", "true");
+          usagePill.textContent = "Pro Plan • Unlimited";
+          usagePill.classList.add("pro");
+          usageText.textContent = "Unlimited usage active on this tool.";
+          if (upgradeBtn) upgradeBtn.style.display = "none";
+        } else {
+          localStorage.removeItem("uf_pro_hint");
+          if (upgradeBtn) upgradeBtn.style.display = "";
+        }
+      } catch {}
     }
 
     async function startCheckout() {
@@ -572,6 +601,7 @@
         inputText.value = example;
         updateCount();
         setStatus("");
+        hideUpgradeHint();
       };
       examplesWrap.appendChild(btn);
     });
@@ -585,6 +615,7 @@
       lastOutput = "";
       updateCount();
       setStatus("");
+      hideUpgradeHint();
     });
 
     copyBtn.addEventListener("click", async () => {
@@ -609,6 +640,7 @@
       if (!text) {
         resultBox.textContent = "Please enter an email draft first.";
         setStatus("Please enter an email draft first.", "error");
+        hideUpgradeHint();
         return;
       }
 
@@ -617,6 +649,7 @@
       runBtn.textContent = "Improving...";
       resultBox.textContent = "Polishing your email...";
       setStatus("Forging your output...");
+      hideUpgradeHint();
 
       try {
         const res = await fetch("/api/email-polish", {
@@ -635,7 +668,19 @@
 
         if (!res.ok) {
           resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
-          setStatus(data.error || "Something went wrong.", "error");
+          setStatus(
+            data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage."
+              ? "Daily free limit reached. Upgrade to Pro for unlimited usage."
+              : (data.error || "Something went wrong."),
+            "error"
+          );
+
+          if (data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage.") {
+            showUpgradeHint();
+          } else {
+            hideUpgradeHint();
+          }
+
           await loadUsage();
           return;
         }
@@ -651,9 +696,11 @@
         }
 
         setStatus(data.pro ? "Pro request completed." : "Email polished successfully.", "success");
+        hideUpgradeHint();
       } catch (error) {
         resultBox.textContent = "Error: " + error.message;
         setStatus(error.message || "Request failed.", "error");
+        hideUpgradeHint();
       } finally {
         runBtn.disabled = false;
         runBtn.textContent = "Improve Email";
@@ -662,60 +709,7 @@
 
     updateCount();
     loadUsage();
-    async function syncUpgradeUI() {
-  const proHint = localStorage.getItem("uf_pro_hint") === "true";
-
-  if (proHint) {
-    const usagePill = document.getElementById("usagePill");
-    const usageText = document.getElementById("usageText");
-    const upgradeBtn = document.querySelector(".nav-cta");
-
-    if (usagePill) {
-      usagePill.textContent = "Pro Plan • Unlimited";
-      usagePill.classList.add("pro");
-    }
-
-    if (usageText) {
-      usageText.textContent = "Unlimited usage active on this tool.";
-    }
-
-    if (upgradeBtn) {
-      upgradeBtn.style.display = "none";
-    }
-  }
-
-  try {
-    const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
-    const data = await res.json();
-
-    const usagePill = document.getElementById("usagePill");
-    const usageText = document.getElementById("usageText");
-    const upgradeBtn = document.querySelector(".nav-cta");
-
-    if (data.pro) {
-      localStorage.setItem("uf_pro_hint", "true");
-
-      if (usagePill) {
-        usagePill.textContent = "Pro Plan • Unlimited";
-        usagePill.classList.add("pro");
-      }
-
-      if (usageText) {
-        usageText.textContent = "Unlimited usage active on this tool.";
-      }
-
-      if (upgradeBtn) {
-        upgradeBtn.style.display = "none";
-      }
-    } else {
-      localStorage.removeItem("uf_pro_hint");
-
-      if (upgradeBtn) {
-        upgradeBtn.style.display = "";
-      }
-    }
-  } catch {}
-}
+    syncUpgradeUI();
   </script>
 </body>
 </html>
