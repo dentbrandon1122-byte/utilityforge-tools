@@ -14,6 +14,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing userId" });
     }
 
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return res.status(500).json({ error: "Missing STRIPE_SECRET_KEY" });
+    }
+
     if (!process.env.STRIPE_PRICE_ID) {
       return res.status(500).json({ error: "Missing STRIPE_PRICE_ID" });
     }
@@ -21,9 +25,7 @@ export default async function handler(req, res) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
 
     if (!siteUrl) {
-      return res.status(500).json({
-        error: "Missing site URL environment variable."
-      });
+      return res.status(500).json({ error: "Missing site URL environment variable." });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -49,6 +51,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ url: session.url });
   } catch (error) {
+    console.error("CHECKOUT ERROR:", error);
     return res.status(500).json({
       error: error.message || "Checkout failed."
     });
