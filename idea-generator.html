@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Idea Generator | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Generate practical ideas for business, content, apps, and side projects." />
+  <meta name="description" content="Turn rough thoughts into clearer ideas and concepts." />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,6 +36,76 @@
       background-size: 42px 42px;
       opacity: 0.15;
     }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 18px 22px;
+      background: rgba(8, 12, 24, 0.58);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #f3efe4;
+      font-weight: 800;
+      min-width: 0;
+    }
+    .top-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
+      flex-shrink: 0;
+    }
+    .brand-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #f3efe4;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.84);
+      font-weight: 700;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: #8ef1ff; }
+    .nav-cta {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
     .page {
       max-width: 1100px;
       margin: 0 auto;
@@ -59,17 +129,44 @@
       backdrop-filter: blur(12px);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
+    .tool-topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tool-heading {
+      flex: 1;
+      min-width: 240px;
+    }
     .title {
-      text-align: center;
       font-size: 2.6rem;
       color: #f3efe4;
       margin-bottom: 8px;
     }
     .subtitle {
-      text-align: center;
       color: rgba(255,255,255,0.78);
-      margin-bottom: 28px;
       font-size: 1.05rem;
+      max-width: 720px;
+    }
+    .usage-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.88);
+      font-weight: 700;
+      min-height: 46px;
+    }
+    .usage-pill.pro {
+      background: linear-gradient(90deg, rgba(137,247,200,0.18), rgba(142,241,255,0.18));
+      border-color: rgba(142,241,255,0.28);
+      color: #dcffff;
     }
     .examples-label, .field-label, .result-label {
       font-weight: 800;
@@ -118,9 +215,7 @@
       resize: vertical;
       outline: none;
     }
-    textarea::placeholder {
-      color: rgba(255,255,255,0.45);
-    }
+    textarea::placeholder { color: rgba(255,255,255,0.45); }
     textarea:focus, select:focus {
       border-color: rgba(142,241,255,0.55);
       box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
@@ -178,6 +273,14 @@
       opacity: .6;
       cursor: not-allowed;
     }
+    .status-line {
+      min-height: 24px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.95rem;
+    }
+    .status-line.error { color: #ffb4b4; }
+    .status-line.success { color: #b8ffcf; }
     .result-box {
       min-height: 190px;
       background: rgba(92,245,255,0.06);
@@ -196,42 +299,72 @@
       .grid { grid-template-columns: 1fr; }
       .title { font-size: 2rem; }
       .card { padding: 22px; }
+      .tool-topbar { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 620px) {
+      .site-header { padding: 16px; }
+      .nav-shell { justify-content: center; }
+      .nav-links { justify-content: center; }
+      .nav-cta { width: 100%; }
+      .brand-text { font-size: 1.15rem; }
+      .top-logo { width: 46px; height: 46px; }
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
 
+  <header class="site-header">
+    <div class="nav-shell">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+
+      <button class="nav-cta" onclick="startCheckout()">Go Pro</button>
+    </div>
+  </header>
+
   <main class="page">
-    <a href="workspace.html" class="back-link">← Back to workspace</a>
+    <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
     <section class="card">
-      <h1 class="title">Idea Generator</h1>
-      <p class="subtitle">Turn rough thoughts into practical ideas for business, content, apps, and side projects.</p>
+      <div class="tool-topbar">
+        <div class="tool-heading">
+          <h1 class="title">Idea Generator</h1>
+          <p class="subtitle">Turn rough thoughts into clearer ideas, offers, and useful directions.</p>
+        </div>
+        <div class="usage-pill" id="usagePill">Loading usage...</div>
+      </div>
 
       <label class="examples-label">Quick start examples</label>
       <div class="examples" id="examples"></div>
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Your prompt or topic</label>
-          <textarea id="inputText" maxlength="1500" placeholder="Example: business ideas using AI for small local service companies"></textarea>
+          <label for="inputText" class="field-label">Your idea prompt</label>
+          <textarea id="inputText" maxlength="1500" placeholder="Describe your idea, business concept, or rough thought..."></textarea>
         </div>
 
         <div>
-          <label for="styleSelect" class="field-label">Idea direction</label>
-          <select id="styleSelect">
+          <label for="toneSelect" class="field-label">Mode</label>
+          <select id="toneSelect">
             <option value="business">Business</option>
-            <option value="content">Content</option>
-            <option value="app">App Ideas</option>
-            <option value="passive">Passive Income</option>
+            <option value="creative">Creative</option>
+            <option value="practical">Practical</option>
+            <option value="growth">Growth</option>
           </select>
         </div>
       </div>
 
       <div class="meta-row">
         <div><span id="charCount">0</span>/1500 characters</div>
-        <div id="usageText">Free uses left today: ...</div>
+        <div id="usageText">Checking account status...</div>
       </div>
 
       <div class="actions">
@@ -240,29 +373,33 @@
         <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
 
+      <div id="statusLine" class="status-line"></div>
+
       <label class="result-label">Generated Ideas</label>
       <div class="result-box" id="resultBox">Your generated ideas will appear here.</div>
-      <div class="tip">Tip: prompts with a clear audience, goal, or market usually produce better ideas.</div>
+      <div class="tip">Tip: the more specific your idea prompt is, the better the output usually gets.</div>
     </section>
   </main>
 
   <script>
     const examples = [
-      "business ideas using AI for small local service companies",
-      "content ideas for a YouTube channel about science and space",
-      "mobile app ideas for busy college students",
-      "passive income ideas that use AI and automation"
+      "Business ideas using AI for small local service companies",
+      "Ways to improve a city builder game with unique mechanics",
+      "Side hustle ideas for someone learning cybersecurity"
     ];
 
     const examplesWrap = document.getElementById("examples");
     const inputText = document.getElementById("inputText");
-    const styleSelect = document.getElementById("styleSelect");
+    const toneSelect = document.getElementById("toneSelect");
     const charCount = document.getElementById("charCount");
     const usageText = document.getElementById("usageText");
+    const usagePill = document.getElementById("usagePill");
     const runBtn = document.getElementById("runBtn");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
     const resultBox = document.getElementById("resultBox");
+    const statusLine = document.getElementById("statusLine");
+
     let lastOutput = "";
 
     function getUserId() {
@@ -278,14 +415,69 @@
       charCount.textContent = inputText.value.length;
     }
 
+    function setStatus(message = "", type = "") {
+      statusLine.textContent = message;
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
+    }
+
+    function setUsageUI(data) {
+      const isPro = !!data.pro;
+      const remaining = data.remaining;
+
+      if (isPro) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
+      } else {
+        usagePill.textContent = `Free uses left: ${remaining}`;
+        usagePill.classList.remove("pro");
+        usageText.textContent = `Free uses left today: ${remaining}`;
+      }
+    }
+
     async function loadUsage() {
       try {
         const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=idea`);
         const raw = await res.text();
         const data = JSON.parse(raw);
-        usageText.textContent = `Free uses left today: ${data.remaining}`;
+
+        if (typeof data.remaining !== "undefined" || typeof data.pro !== "undefined") {
+          setUsageUI(data);
+        } else {
+          usagePill.textContent = "Usage unavailable";
+          usageText.textContent = "Usage unavailable";
+        }
       } catch {
+        usagePill.textContent = "Usage unavailable";
         usageText.textContent = "Usage unavailable";
+      }
+    }
+
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert("Something went wrong starting checkout.");
       }
     }
 
@@ -298,6 +490,7 @@
       btn.onclick = () => {
         inputText.value = example;
         updateCount();
+        setStatus("");
       };
       examplesWrap.appendChild(btn);
     });
@@ -310,6 +503,7 @@
       copyBtn.disabled = true;
       lastOutput = "";
       updateCount();
+      setStatus("");
     });
 
     copyBtn.addEventListener("click", async () => {
@@ -317,18 +511,22 @@
       try {
         await navigator.clipboard.writeText(lastOutput);
         copyBtn.textContent = "Copied ✓";
+        setStatus("Result copied to clipboard.", "success");
         setTimeout(() => copyBtn.textContent = "Copy Result", 1400);
       } catch {
         copyBtn.textContent = "Copy failed";
+        setStatus("Copy failed. Try again.", "error");
         setTimeout(() => copyBtn.textContent = "Copy Result", 1400);
       }
     });
 
     runBtn.addEventListener("click", async () => {
-      const prompt = inputText.value.trim();
+      const text = inputText.value.trim();
+      const mode = toneSelect.value;
 
-      if (!prompt) {
-        resultBox.textContent = "Please enter a prompt first.";
+      if (!text) {
+        resultBox.textContent = "Please enter an idea prompt first.";
+        setStatus("Please enter an idea prompt first.", "error");
         return;
       }
 
@@ -336,12 +534,13 @@
       copyBtn.disabled = true;
       runBtn.textContent = "Generating...";
       resultBox.textContent = "Generating ideas...";
+      setStatus("Forging your output...");
 
       try {
         const res = await fetch("/api/idea-generator", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt, userId: getUserId() })
+          body: JSON.stringify({ text, mode, userId: getUserId() })
         });
 
         const raw = await res.text();
@@ -354,6 +553,7 @@
 
         if (!res.ok) {
           resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
+          setStatus(data.error || "Something went wrong.", "error");
           await loadUsage();
           return;
         }
@@ -361,9 +561,17 @@
         lastOutput = data.result || "";
         resultBox.textContent = lastOutput || "No result returned.";
         copyBtn.disabled = !lastOutput;
-        await loadUsage();
+
+        if (typeof data.remaining !== "undefined" || typeof data.pro !== "undefined") {
+          setUsageUI(data);
+        } else {
+          await loadUsage();
+        }
+
+        setStatus(data.pro ? "Pro request completed." : "Ideas generated successfully.", "success");
       } catch (error) {
         resultBox.textContent = "Error: " + error.message;
+        setStatus(error.message || "Request failed.", "error");
       } finally {
         runBtn.disabled = false;
         runBtn.textContent = "Generate Ideas";
