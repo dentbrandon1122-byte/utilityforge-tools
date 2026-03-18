@@ -374,6 +374,65 @@
       loadUsage();
       updateUsageUI();
     });
+    <script>
+  async function finalizeUpgradeIfNeeded() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+    const upgraded = params.get("upgraded");
+
+    if (!sessionId || !upgraded) return;
+
+    try {
+      await fetch("/api/finalize-upgrade", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ sessionId })
+      });
+
+      const cleanUrl = new URL(window.location.href);
+      cleanUrl.searchParams.delete("session_id");
+      cleanUrl.searchParams.delete("upgraded");
+      window.history.replaceState({}, "", cleanUrl.pathname + cleanUrl.search);
+    } catch (error) {
+      console.error("Failed to finalize upgrade:", error);
+    }
+  }
+
+  async function loadRealUsageStatus() {
+    try {
+      const res = await fetch("/api/usage-status");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data?.error || "Unable to load usage status.");
+      }
+
+      const usageText = document.getElementById("usageText");
+      const planName = document.getElementById("planName");
+      const planText = document.getElementById("planText");
+
+      if (data.isPro) {
+        if (usageText) usageText.textContent = "Pro plan • Unlimited access";
+        if (planName) planName.textContent = "Pro Plan";
+        if (planText) planText.textContent = "You have unlimited access across the full Utility Forge AI workspace.";
+      } else {
+        const remaining = Math.max(0, (data.limit || 5) - (data.used || 0));
+        if (usageText) usageText.textContent = `Starter plan • ${remaining} uses left today`;
+        if (planName) planName.textContent = "Starter Plan";
+        if (planText) planText.textContent = "You have daily free access to the current Utility Forge AI tool set.";
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    await finalizeUpgradeIfNeeded();
+    await loadRealUsageStatus();
+  });
+</script>
   </script>
 </body>
 </html>
