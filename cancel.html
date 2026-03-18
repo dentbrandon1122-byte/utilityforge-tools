@@ -4,100 +4,258 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout Canceled | Utility Forge AI</title>
+
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Your Utility Forge AI checkout was canceled." />
+  <meta
+    name="description"
+    content="Your Utility Forge AI checkout was canceled."
+  />
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: Arial, sans-serif;
       background: #0b1020;
       color: white;
+      overflow-x: hidden;
+      line-height: 1.6;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
     }
 
     .background {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -3;
       background:
-        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+        radial-gradient(circle at top left, rgba(0, 255, 255, 0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0, 140, 255, 0.06), transparent 35%),
         linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
 
-    .card {
-      width: min(680px, calc(100% - 32px));
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 38px 30px;
-      text-align: center;
-      backdrop-filter: blur(12px);
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
     }
 
-    h1 {
-      font-size: 2.2rem;
-      color: #f3efe4;
-      margin-bottom: 10px;
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      left: 50%;
+      top: 30%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.3;
+      pointer-events: none;
     }
 
-    p {
-      color: rgba(255,255,255,0.78);
-      line-height: 1.7;
-      font-size: 1.02rem;
-    }
-
-    .actions {
-      margin-top: 26px;
+    .page {
+      min-height: 100vh;
       display: flex;
-      gap: 12px;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
+      padding: 30px 20px;
+      position: relative;
+      z-index: 2;
     }
 
-    .btn {
+    .cancel-card {
+      width: 100%;
+      max-width: 760px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 0 34px rgba(0, 255, 255, 0.05),
+        inset 0 0 24px rgba(255, 255, 255, 0.018);
+      backdrop-filter: blur(12px);
+      padding: 38px 34px;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cancel-card::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(95, 244, 255, 0.12), transparent 68%);
+      filter: blur(10px);
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .cancel-icon {
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f3efe4;
+      font-size: 2rem;
+      font-weight: 900;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title {
+      font-size: 3rem;
+      line-height: 1.02;
+      margin-bottom: 16px;
+      color: #f3efe4;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title .accent {
+      color: #8ef1ff;
+      text-shadow: 0 0 14px rgba(142, 241, 255, 0.12);
+    }
+
+    .subtitle {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.84);
+      position: relative;
+      z-index: 2;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-primary,
+    .btn-secondary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 22px;
-      border-radius: 14px;
-      font-weight: 800;
+      padding: 15px 26px;
+      border-radius: 16px;
       text-decoration: none;
-      border: none;
+      font-weight: 800;
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
       cursor: pointer;
+      border: none;
     }
 
-    .btn.primary {
+    .btn-primary {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
+      color: #0c1420;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
     }
 
-    .btn.secondary {
-      background: rgba(255,255,255,0.06);
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.14);
       color: white;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 700px) {
+      .cancel-card {
+        padding: 28px 20px;
+        border-radius: 24px;
+      }
+
+      .title {
+        font-size: 2.2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .action-row {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
 
-  <div class="card">
-    <h1>Checkout Canceled</h1>
-    <p>
-      No worries — your current access is unchanged. You can keep using the free
-      version and upgrade anytime when you're ready.
-    </p>
+  <main class="page">
+    <section class="cancel-card">
+      <div class="status-badge">Checkout canceled</div>
 
-    <div class="actions">
-      <a href="dashboard.html" class="btn primary">Go to Dashboard</a>
-      <a href="index.html#pricing" class="btn secondary">See Pricing Again</a>
-    </div>
-  </div>
+      <div class="cancel-icon">×</div>
+
+      <h1 class="title">
+        No problem — you’re still on <span class="accent">Starter</span>
+      </h1>
+
+      <p class="subtitle">
+        Your checkout was canceled, and your current access has not changed.
+        You can keep using the platform with free daily limits and upgrade later
+        whenever you’re ready.
+      </p>
+
+      <div class="action-row">
+        <a href="dashboard.html" class="btn-primary">Open Dashboard</a>
+        <a href="index.html#pricing" class="btn-secondary">View Pricing</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
