@@ -344,55 +344,51 @@
   </div>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+  let UF = {
+    plan: "starter",
+    used: 0,
+    dailyLimit: 5
+  };
 
-    const UF = {
-      plan: "starter",
-      dailyLimit: 5,
-      used: 0
-    };
+  async function loadUsageStatus() {
+    try {
+      const res = await fetch("/api/usage-status");
+      const data = await res.json();
 
-    function getTodayKey() {
-      return new Date().toISOString().slice(0, 10);
-    }
-
-    function loadUsage() {
-      const key = "uf_usage_" + getTodayKey();
-      const stored = JSON.parse(localStorage.getItem(key) || "0");
-      UF.used = stored;
-    }
-
-    function saveUsage() {
-      const key = "uf_usage_" + getTodayKey();
-      localStorage.setItem(key, JSON.stringify(UF.used));
-    }
-
-    function canUseTool() {
-      if (UF.plan === "pro") return true;
-      return UF.used < UF.dailyLimit;
-    }
-
-    function incrementUsage() {
-      UF.used++;
-      saveUsage();
-    }
-
-    function updateUsageUI() {
-      const el = document.getElementById("usageText");
-      if (!el) return;
-
-      if (UF.plan === "pro") {
-        el.textContent = "Pro plan • Unlimited access";
-      } else {
-        const remaining = Math.max(0, UF.dailyLimit - UF.used);
-        el.textContent = `Starter plan • ${remaining} uses left today`;
+      if (!res.ok) {
+        throw new Error(data?.error || "Unable to load usage status.");
       }
-    }
 
-    function goPro() {
-      window.location.href = "/pricing.html";
-    }
+      UF.plan = data.isPro ? "pro" : "starter";
+      UF.used = data.used || 0;
+      UF.dailyLimit = data.limit || 5;
 
+      updateUsageUI();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function updateUsageUI() {
+    const el = document.getElementById("usageText");
+    if (!el) return;
+
+    if (UF.plan === "pro") {
+      el.textContent = "Pro plan • Unlimited access";
+    } else {
+      const remaining = Math.max(0, UF.dailyLimit - UF.used);
+      el.textContent = `Starter plan • ${remaining} uses left today`;
+    }
+  }
+
+  function goPro() {
+    window.location.href = "/pricing.html";
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    loadUsageStatus();
+  });
+</script>
     function clearForm() {
       document.getElementById("recipientType").value = "";
       document.getElementById("purpose").value = "";
