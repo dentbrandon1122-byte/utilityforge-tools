@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
+  <meta name="description" content="Access all Utility Forge AI tools in one clean dashboard." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -73,6 +74,7 @@
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
+      flex-shrink: 0;
     }
 
     .brand-text {
@@ -94,6 +96,7 @@
       text-decoration: none;
       color: rgba(255,255,255,0.84);
       font-weight: 700;
+      transition: color 0.2s ease;
     }
 
     .nav-links a:hover {
@@ -109,6 +112,12 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
     }
 
     .nav-cta.hidden {
@@ -122,7 +131,7 @@
     }
 
     .hero-card,
-    .card {
+    .tool-card {
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 28px;
@@ -190,6 +199,7 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
     }
 
     .btn.primary {
@@ -197,10 +207,18 @@
       color: #081018;
     }
 
+    .btn.primary:hover {
+      transform: translateY(-1px);
+    }
+
     .btn.secondary {
       background: rgba(255,255,255,0.06);
       color: white;
       border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(255,255,255,0.09);
     }
 
     .btn.hidden {
@@ -223,16 +241,13 @@
       display: block;
       text-decoration: none;
       color: inherit;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 24px;
-      padding: 22px;
-      transition: transform .18s ease, border-color .18s ease;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
 
     .tool-card:hover {
       transform: translateY(-4px);
       border-color: rgba(142,241,255,0.24);
+      box-shadow: 0 0 24px rgba(142,241,255,0.08);
     }
 
     .tool-icon {
@@ -309,11 +324,11 @@
         <div>
           <h1 class="hero-title">Your Workspace</h1>
           <p class="hero-copy" id="heroCopy">
-            Loading your plan and access details...
+            Your plan details are loading now.
           </p>
         </div>
 
-        <div class="plan-pill" id="planPill">Checking plan...</div>
+        <div class="plan-pill" id="planPill">Loading plan...</div>
       </div>
 
       <div class="hero-actions">
@@ -399,15 +414,22 @@
           body: JSON.stringify({ userId: getUserId() })
         });
 
-        const data = await response.json();
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
 
         if (data.url) {
           window.location.href = data.url;
         } else {
           alert(data.error || "Unable to start checkout.");
         }
-      } catch {
-        alert("Something went wrong starting checkout.");
+      } catch (error) {
+        alert(error.message || "Something went wrong starting checkout.");
       }
     }
 
@@ -417,9 +439,20 @@
       const upgradeBtn = document.getElementById("upgradeBtn");
       const navUpgradeBtn = document.getElementById("navUpgradeBtn");
 
+      const proHint = localStorage.getItem("uf_pro_hint") === "true";
+
+      if (proHint) {
+        planPill.textContent = "Pro Plan • Unlimited";
+        planPill.classList.add("pro");
+        heroCopy.textContent = "Pro access is active. All supported tools are available with unlimited usage.";
+        upgradeBtn.classList.add("hidden");
+        navUpgradeBtn.classList.add("hidden");
+      }
+
       try {
         const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
-        const data = await res.json();
+        const raw = await res.text();
+        const data = JSON.parse(raw);
 
         if (data.pro) {
           planPill.textContent = "Pro Plan • Unlimited";
@@ -437,8 +470,10 @@
           localStorage.removeItem("uf_pro_hint");
         }
       } catch {
-        planPill.textContent = "Plan unavailable";
-        heroCopy.textContent = "We couldn't load your plan details right now, but your tools are still available.";
+        if (!proHint) {
+          planPill.textContent = "Plan unavailable";
+          heroCopy.textContent = "We couldn’t load your plan details right now, but your tools are still available.";
+        }
       }
     }
 
