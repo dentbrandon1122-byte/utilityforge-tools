@@ -1,7 +1,5 @@
-import OpenAI from "openai";
 import { enforceUsageLimit } from "../lib/usage.js";
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { runOpenAIText } from "../lib/toolRunner.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -10,8 +8,9 @@ export default async function handler(req, res) {
 
   try {
     const { text, tone = "general", userId } = req.body || {};
+    const input = typeof text === "string" ? text.trim() : "";
 
-    if (!text || !text.trim()) {
+    if (!input) {
       return res.status(400).json({ error: "Missing research prompt." });
     }
 
@@ -27,22 +26,10 @@ export default async function handler(req, res) {
       });
     }
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
-      temperature: 0.5,
-      messages: [
-        {
-          role: "system",
-          content: `You are a research drafting assistant. Preferred mode: ${tone}. Help organize the topic, outline issues, questions, structure, and research directions. Do not claim verified legal authority unless provided by the user.`
-        },
-        {
-          role: "user",
-          content: text
-        }
-      ]
+    const result = await runOpenAIText({
+      systemPrompt: `You are a research drafting assistant. Preferred mode: ${tone}. Help organize the topic, outline issues, questions, structure, and research directions. Do not claim verified legal authority unless the user provided it.`,
+      userText: input
     });
-
-    const result = response.choices?.[0]?.message?.content?.trim() || "";
 
     return res.status(200).json({
       result,
@@ -52,6 +39,7 @@ export default async function handler(req, res) {
       limit: usage.limit
     });
   } catch (error) {
+    console.error("RESEARCH ASSISTANT ERROR:", error);
     return res.status(500).json({
       error: error.message || "Research assistant failed."
     });
