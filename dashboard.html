@@ -1,24 +1,448 @@
-<div id="accountBox">Loading...</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Utility Forge AI</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<script>
-  async function loadSession() {
-    const res = await fetch("/api/session", {
-      credentials: "include"
-    });
-
-    const data = await res.json();
-    const box = document.getElementById("accountBox");
-
-    if (!data.loggedIn) {
-      box.innerHTML = 'Not logged in';
-      return;
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    box.innerHTML = `
-      <strong>${data.email}</strong><br>
-      Plan: ${data.plan === "pro" ? "Pro" : "Free"}
-    `;
-  }
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
+    }
 
-  loadSession();
-</script>
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 18px 22px;
+      background: rgba(8, 12, 24, 0.58);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #f3efe4;
+      font-weight: 800;
+    }
+
+    .top-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
+    }
+
+    .brand-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #f3efe4;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.84);
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: #8ef1ff;
+    }
+
+    .nav-cta {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+    }
+
+    .nav-cta.hidden {
+      display: none;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 38px 20px 60px;
+    }
+
+    .hero-card,
+    .card {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .hero-card {
+      margin-bottom: 24px;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      color: #f3efe4;
+      margin-bottom: 8px;
+    }
+
+    .hero-copy {
+      color: rgba(255,255,255,0.78);
+      max-width: 760px;
+    }
+
+    .plan-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.88);
+      font-weight: 800;
+    }
+
+    .plan-pill.pro {
+      background: linear-gradient(90deg, rgba(137,247,200,0.18), rgba(142,241,255,0.18));
+      border-color: rgba(142,241,255,0.28);
+      color: #dcffff;
+    }
+
+    .hero-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.06);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .btn.hidden {
+      display: none;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin: 10px 0 18px;
+      color: #f3efe4;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .tool-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 22px;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(142,241,255,0.24);
+    }
+
+    .tool-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+
+    .tool-card h3 {
+      color: #eaffff;
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+    }
+
+    .tool-card p {
+      color: rgba(255,255,255,0.76);
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 980px) {
+      .tool-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-shell {
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+
+      .hero-title {
+        font-size: 1.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+
+      <button class="nav-cta" id="navUpgradeBtn" onclick="startCheckout()">Go Pro</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero-card">
+      <div class="hero-top">
+        <div>
+          <h1 class="hero-title">Your Workspace</h1>
+          <p class="hero-copy" id="heroCopy">
+            Loading your plan and access details...
+          </p>
+        </div>
+
+        <div class="plan-pill" id="planPill">Checking plan...</div>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn primary" id="upgradeBtn" onclick="startCheckout()">Upgrade to Pro</button>
+        <a class="btn secondary" href="index.html#pricing">View Pricing</a>
+      </div>
+    </section>
+
+    <h2 class="section-title">Tools</h2>
+
+    <div class="tool-grid">
+      <a class="tool-card" href="email-polisher.html">
+        <div class="tool-icon">✉️</div>
+        <h3>Email Polisher</h3>
+        <p>Improve wording, tone, and clarity for rough drafts fast.</p>
+      </a>
+
+      <a class="tool-card" href="idea-generator.html">
+        <div class="tool-icon">💡</div>
+        <h3>Idea Generator</h3>
+        <p>Turn rough thoughts into stronger ideas and useful directions.</p>
+      </a>
+
+      <a class="tool-card" href="cover-letter-generator.html">
+        <div class="tool-icon">🖊️</div>
+        <h3>Cover Letter Generator</h3>
+        <p>Create polished application letters from your notes and experience.</p>
+      </a>
+
+      <a class="tool-card" href="resume-bullet-generator.html">
+        <div class="tool-icon">📄</div>
+        <h3>Resume Bullet Generator</h3>
+        <p>Turn plain job duties into cleaner, stronger resume bullets.</p>
+      </a>
+
+      <a class="tool-card" href="text-summarizer.html">
+        <div class="tool-icon">📝</div>
+        <h3>Text Summarizer</h3>
+        <p>Condense long content into short, useful takeaways.</p>
+      </a>
+
+      <a class="tool-card" href="job-analyzer.html">
+        <div class="tool-icon">🎯</div>
+        <h3>Job Analyzer</h3>
+        <p>Break down job postings into skills, keywords, and focus points.</p>
+      </a>
+
+      <a class="tool-card" href="linkedin-summary.html">
+        <div class="tool-icon">💼</div>
+        <h3>LinkedIn Summary</h3>
+        <p>Generate a stronger headline and summary from your background.</p>
+      </a>
+
+      <a class="tool-card" href="cold-email-generator.html">
+        <div class="tool-icon">📬</div>
+        <h3>Cold Email Generator</h3>
+        <p>Write better outreach emails for networking and opportunities.</p>
+      </a>
+
+      <a class="tool-card" href="research-assistant.html">
+        <div class="tool-icon">🔎</div>
+        <h3>Research Assistant</h3>
+        <p>Organize research topics, issue spotting, and draft structure.</p>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    function getUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
+    }
+
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch {
+        alert("Something went wrong starting checkout.");
+      }
+    }
+
+    async function loadPlan() {
+      const planPill = document.getElementById("planPill");
+      const heroCopy = document.getElementById("heroCopy");
+      const upgradeBtn = document.getElementById("upgradeBtn");
+      const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+
+      try {
+        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
+        const data = await res.json();
+
+        if (data.pro) {
+          planPill.textContent = "Pro Plan • Unlimited";
+          planPill.classList.add("pro");
+          heroCopy.textContent = "You have Pro access active. All supported tools now run with unlimited usage across the platform.";
+          upgradeBtn.classList.add("hidden");
+          navUpgradeBtn.classList.add("hidden");
+          localStorage.setItem("uf_pro_hint", "true");
+        } else {
+          planPill.textContent = "Starter Plan • Daily Limits";
+          planPill.classList.remove("pro");
+          heroCopy.textContent = "You’re currently on Starter. You can use the platform with daily limits, or upgrade to Pro for unlimited access.";
+          upgradeBtn.classList.remove("hidden");
+          navUpgradeBtn.classList.remove("hidden");
+          localStorage.removeItem("uf_pro_hint");
+        }
+      } catch {
+        planPill.textContent = "Plan unavailable";
+        heroCopy.textContent = "We couldn't load your plan details right now, but your tools are still available.";
+      }
+    }
+
+    loadPlan();
+  </script>
+</body>
+</html>
