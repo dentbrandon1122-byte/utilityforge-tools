@@ -4,456 +4,721 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research Assistant | Utility Forge AI</title>
+
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Organize notes, summarize research, and generate cleaner research drafts." />
+  <meta
+    name="description"
+    content="Use one tool for general research and legal research drafting support."
+  />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
       font-family: Arial, sans-serif;
       background: #0b1020;
-      color: #fff;
-      min-height: 100vh;
-      line-height: 1.6;
+      color: white;
       overflow-x: hidden;
+      line-height: 1.6;
+      min-height: 100vh;
     }
-
     .background {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -3;
       background:
-        radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.18), transparent 32%),
-        linear-gradient(180deg, #0b1020 0%, #11172a 100%);
+        radial-gradient(circle at top left, rgba(0, 255, 255, 0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0, 140, 255, 0.06), transparent 35%),
+        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
-
-    .grid {
-      position: fixed;
+    .background::before {
+      content: "";
+      position: absolute;
       inset: 0;
-      z-index: -1;
       background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
+    }
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      left: 50%;
+      top: 24%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.35;
       pointer-events: none;
     }
-
-    .nav {
-      width: min(1150px, calc(100% - 32px));
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 18px 40px;
+      background: rgba(8, 12, 24, 0.58);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .nav-shell {
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 18px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
       flex-wrap: wrap;
     }
-
-    .logo-wrap {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 1.05rem;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+      min-width: 0;
     }
-
-    .logo-wrap img {
-      width: 40px;
-      height: 40px;
+    .top-logo {
+      width: 64px;
+      height: 64px;
       object-fit: contain;
+      display: block;
+      background: transparent;
+      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.18));
+      flex-shrink: 0;
     }
-
+    .brand-text {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #f3efe4;
+      white-space: nowrap;
+      line-height: 1;
+    }
     .nav-links {
       display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: #8df7ff;
+      transform: translateY(-1px);
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      font-weight: 800;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+    .hidden { display: none !important; }
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 42px 50px 70px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #b8ffcf;
+      text-decoration: none;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .back-link:hover {
+      color: #8ef1ff;
+    }
+    .tool-card {
+      width: 100%;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 0 34px rgba(0, 255, 255, 0.05),
+        inset 0 0 24px rgba(255, 255, 255, 0.018);
+      backdrop-filter: blur(12px);
+      padding: 34px;
+    }
+    .tool-topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tool-heading {
+      flex: 1;
+      min-width: 260px;
+    }
+    .tool-badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .title {
+      font-size: 2.8rem;
+      line-height: 1.02;
+      margin-bottom: 10px;
+      color: #f3efe4;
+      letter-spacing: -1px;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.84);
+      max-width: 760px;
+    }
+    .usage-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.88);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .usage-pill.pro {
+      background: linear-gradient(90deg, rgba(137,247,200,0.18), rgba(142,241,255,0.18));
+      border-color: rgba(142,241,255,0.28);
+      color: #dcffff;
+    }
+    .examples-label,
+    .field-label,
+    .result-label {
+      font-weight: 800;
+      color: #dcffff;
+      margin-bottom: 10px;
+      display: block;
+      font-size: 0.98rem;
+    }
+    .examples {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .example-chip {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #f0fcff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: .18s ease;
+    }
+    .example-chip:hover {
+      transform: translateY(-1px);
+      border-color: rgba(142,241,255,0.35);
+      background: rgba(142,241,255,0.08);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 18px;
+      align-items: start;
+    }
+    textarea {
+      width: 100%;
+      min-height: 270px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+    }
+    textarea::placeholder {
+      color: rgba(255,255,255,0.45);
+    }
+    textarea:focus,
+    select:focus {
+      border-color: rgba(142,241,255,0.55);
+      box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
+    }
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+    select option {
+      background: #0d1326;
+      color: white;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 14px;
       flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .nav-links a,
-    .nav-links button {
-      background: rgba(255,255,255,0.06);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.08);
-      text-decoration: none;
-      padding: 10px 16px;
-      border-radius: 999px;
-      cursor: pointer;
+      color: rgba(255,255,255,0.76);
+      margin: 12px 0 18px;
       font-size: 0.95rem;
     }
-
-    .nav-links button.pro-btn {
-      background: linear-gradient(135deg, #67e8f9, #818cf8);
-      color: #08111f;
-      font-weight: 700;
-      border: none;
-    }
-
-    .page {
-      width: min(1150px, calc(100% - 32px));
-      margin: 8px auto 40px;
-    }
-
-    .hero {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 24px;
-      padding: 28px;
-      margin-bottom: 18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #b7c2d9;
-      max-width: 760px;
-      margin-bottom: 16px;
-    }
-
-    .usage-bar {
-      display: inline-block;
-      background: rgba(103, 232, 249, 0.10);
-      border: 1px solid rgba(103, 232, 249, 0.22);
-      color: #dffbff;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-    }
-
-    .tool-shell {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .panel {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
-    }
-
-    .panel h2 {
-      margin-bottom: 14px;
-      font-size: 1.2rem;
-    }
-
-    label {
-      display: block;
-      margin: 14px 0 8px;
-      font-weight: 700;
-      color: #e9efff;
-      font-size: 0.95rem;
-    }
-
-    textarea, select, input {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.09);
-      color: #fff;
-      border-radius: 16px;
-      padding: 14px;
-      font: inherit;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 180px;
-      resize: vertical;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 18px;
+      margin-bottom: 18px;
     }
-
-    .actions button {
-      border: none;
-      border-radius: 999px;
-      padding: 12px 18px;
-      font-weight: 700;
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 22px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
       cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: white;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    .status-line {
+      min-height: 24px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.72);
       font-size: 0.95rem;
+      font-weight: 700;
     }
-
-    .primary {
-      background: linear-gradient(135deg, #67e8f9, #818cf8);
-      color: #08111f;
+    .status-line.error { color: #ffb4b4; }
+    .status-line.success { color: #92ffb8; }
+    .upgrade-hint {
+      display: none;
+      margin-bottom: 14px;
     }
-
-    .secondary {
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .output {
-      min-height: 520px;
-      white-space: pre-wrap;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+    .result-box {
+      min-height: 190px;
+      background: rgba(92,245,255,0.06);
+      border: 1px solid rgba(120,255,255,0.12);
       border-radius: 18px;
       padding: 18px;
-      color: #edf4ff;
+      white-space: pre-wrap;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.7;
     }
-
-    .placeholder {
-      color: #94a3b8;
+    .tip {
+      margin-top: 8px;
+      color: rgba(255,255,255,0.66);
+      font-size: 0.9rem;
     }
-
-    .note {
-      margin-top: 14px;
-      color: #aeb9d2;
-      font-size: 0.92rem;
-    }
-
-    .footer {
-      width: min(1150px, calc(100% - 32px));
-      margin: 30px auto 24px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: #8e9ab5;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .footer a {
-      color: #8e9ab5;
-      text-decoration: none;
-      margin-left: 14px;
-    }
-
     @media (max-width: 900px) {
-      .tool-shell,
-      .row {
-        grid-template-columns: 1fr;
-      }
+      .site-header { padding: 18px 20px; }
+      .nav-shell { justify-content: center; }
+      .page { padding-left: 20px; padding-right: 20px; }
+      .title { font-size: 2.3rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .brand-text { font-size: 1.2rem; }
+      .top-logo { width: 52px; height: 52px; }
+      .nav-links { gap: 18px; }
+      .tool-card { padding: 24px 18px; }
+      .title { font-size: 2rem; }
+    }
+    @media (max-width: 520px) {
+      .nav-links { width: 100%; justify-content: center; }
+      .nav-cta { width: 100%; }
+      .actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; }
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
-  <div class="grid"></div>
 
-  <div class="nav">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="Utility Forge AI logo" />
-      <span>Utility Forge AI</span>
-    </div>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
+      </a>
 
-    <div class="nav-links">
-      <a href="/dashboard.html">Dashboard</a>
-      <a href="/pricing.html">Pricing</a>
-      <button onclick="goPro()" class="pro-btn">Go Pro</button>
+      <nav class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+
+      <button id="navUpgradeBtn" class="nav-cta" onclick="startCheckout()">Go Pro</button>
     </div>
-  </div>
+  </header>
 
   <main class="page">
-    <section class="hero">
-      <h1>Research Assistant</h1>
-      <p>Organize notes, questions, sources, and ideas into a cleaner research summary or draftable output.</p>
-      <div class="usage-bar" id="usageText">Starter plan • ...</div>
-    </section>
+    <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
-    <section class="tool-shell">
-      <div class="panel">
-        <h2>Your Research Input</h2>
-
-        <label for="topicInput">Research topic or question</label>
-        <input id="topicInput" type="text" placeholder="Example: Effects of social media on attention span" />
-
-        <label for="notesInput">Notes, source points, or raw text</label>
-        <textarea id="notesInput" placeholder="Paste your notes, source highlights, or research text here..."></textarea>
-
-        <div class="row">
-          <div>
-            <label for="outputType">Output Type</label>
-            <select id="outputType">
-              <option value="summary">Summary</option>
-              <option value="outline">Outline</option>
-              <option value="keypoints">Key Points</option>
-              <option value="draft">Draft Paragraphs</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="detailLevel">Detail Level</label>
-            <select id="detailLevel">
-              <option value="standard">Standard</option>
-              <option value="concise">Concise</option>
-              <option value="detailed">Detailed</option>
-            </select>
-          </div>
+    <section class="tool-card">
+      <div class="tool-topbar">
+        <div class="tool-heading">
+          <div class="tool-badge">Built for structured research</div>
+          <h1 class="title">Research Assistant</h1>
+          <p class="subtitle">
+            Use one tool for general research and legal research drafting support before deeper source verification.
+          </p>
         </div>
 
-        <div class="actions">
-          <button class="primary" onclick="generateResearch()">Generate Output</button>
-          <button class="secondary" onclick="clearForm()">Clear</button>
-        </div>
-
-        <div class="note">Starter includes daily free usage. Pro unlocks unlimited access.</div>
+        <div id="usagePill" class="usage-pill">Loading usage...</div>
       </div>
 
-      <div class="panel">
-        <h2>Research Output</h2>
-        <div class="output" id="outputBox"><span class="placeholder">Your research output will appear here.</span></div>
+      <label class="examples-label">Quick start examples</label>
+      <div class="examples" id="examples"></div>
 
-        <div class="actions">
-          <button class="secondary" onclick="copyOutput()">Copy Output</button>
+      <div class="grid">
+        <div>
+          <label for="inputText" class="field-label">Research prompt</label>
+          <textarea id="inputText" maxlength="2200" placeholder="Describe the research topic, question, issue, or legal topic you want help organizing..."></textarea>
         </div>
 
-        <div class="note">Use this to organize and draft faster. For important facts or citations, still verify the original sources directly.</div>
+        <div>
+          <label for="toneSelect" class="field-label">Mode</label>
+          <select id="toneSelect">
+            <option value="general">General Research</option>
+            <option value="legal">Legal Draft</option>
+            <option value="outline">Outline</option>
+            <option value="issue-spotting">Issue Spotting</option>
+          </select>
+        </div>
       </div>
+
+      <div class="meta-row">
+        <div><span id="charCount">0</span>/2200 characters</div>
+        <div id="usageText">Checking account status...</div>
+      </div>
+
+      <div class="actions">
+        <button id="runBtn" class="btn-primary">Run Research</button>
+        <button id="copyBtn" class="btn-secondary" disabled>Copy Result</button>
+        <button id="clearBtn" class="btn-secondary">Clear</button>
+      </div>
+
+      <div id="statusLine" class="status-line"></div>
+
+      <div id="upgradeHint" class="upgrade-hint">
+        <button class="btn-secondary" onclick="startCheckout()">Upgrade to Pro</button>
+      </div>
+
+      <label class="result-label">Research Output</label>
+      <div class="result-box" id="resultBox">Your research output will appear here.</div>
+      <div class="tip">Tip: this tool is best for organizing and drafting. Verify important facts and authorities separately.</div>
     </section>
   </main>
 
-  <div class="footer">
-    <div>© <span id="year"></span> Utility Forge AI</div>
-    <div>
-      <a href="/privacy-policy.html">Privacy Policy</a>
-      <a href="/terms-of-service.html">Terms of Service</a>
-      <a href="/contact.html">Contact</a>
-    </div>
-  </div>
-
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const examples = [
+      "New York landlord notice requirements before eviction",
+      "Research outline on AI use in education and student learning",
+      "Issue spotting for a contract dispute involving late delivery and damages"
+    ];
 
-    const UF = {
-      plan: "starter",
-      dailyLimit: 5,
-      used: 0
-    };
+    const examplesWrap = document.getElementById("examples");
+    const inputText = document.getElementById("inputText");
+    const toneSelect = document.getElementById("toneSelect");
+    const charCount = document.getElementById("charCount");
+    const usageText = document.getElementById("usageText");
+    const usagePill = document.getElementById("usagePill");
+    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+    const runBtn = document.getElementById("runBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const resultBox = document.getElementById("resultBox");
+    const statusLine = document.getElementById("statusLine");
+    const upgradeHint = document.getElementById("upgradeHint");
 
-    function getTodayKey() {
-      return new Date().toISOString().slice(0, 10);
+    let lastOutput = "";
+
+    function getUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
     }
 
-    function loadUsage() {
-      const key = "uf_usage_" + getTodayKey();
-      const stored = JSON.parse(localStorage.getItem(key) || "0");
-      UF.used = stored;
+    function updateCount() {
+      charCount.textContent = inputText.value.length;
     }
 
-    function saveUsage() {
-      const key = "uf_usage_" + getTodayKey();
-      localStorage.setItem(key, JSON.stringify(UF.used));
+    function setStatus(message = "", type = "") {
+      statusLine.textContent = message;
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
     }
 
-    function canUseTool() {
-      if (UF.plan === "pro") return true;
-      return UF.used < UF.dailyLimit;
-    }
-
-    function incrementUsage() {
-      UF.used++;
-      saveUsage();
-    }
-
-    function updateUsageUI() {
-      const el = document.getElementById("usageText");
-      if (!el) return;
-
-      if (UF.plan === "pro") {
-        el.textContent = "Pro plan • Unlimited access";
+    function setUsageUI(data) {
+      if (data.pro) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
       } else {
-        const remaining = Math.max(0, UF.dailyLimit - UF.used);
-        el.textContent = `Starter plan • ${remaining} uses left today`;
+        usagePill.textContent = `Free uses left: ${data.remaining}`;
+        usagePill.classList.remove("pro");
+        usageText.textContent = `Free uses left today: ${data.remaining}`;
       }
     }
 
-    function goPro() {
-      window.location.href = "/pricing.html";
+    function hideUpgradeHint() {
+      upgradeHint.style.display = "none";
     }
 
-    function clearForm() {
-      document.getElementById("topicInput").value = "";
-      document.getElementById("notesInput").value = "";
-      document.getElementById("outputType").value = "summary";
-      document.getElementById("detailLevel").value = "standard";
-      document.getElementById("outputBox").innerHTML = '<span class="placeholder">Your research output will appear here.</span>';
+    function showUpgradeHint() {
+      upgradeHint.style.display = "block";
     }
 
-    async function generateResearch() {
-      if (!canUseTool()) {
-        alert("Daily limit reached. Upgrade to Pro for unlimited access.");
+    async function loadUsage() {
+      try {
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=research-assistant`);
+        const raw = await res.text();
+        const data = JSON.parse(raw);
+
+        if (typeof data.remaining !== "undefined" || typeof data.pro !== "undefined") {
+          setUsageUI(data);
+        } else {
+          usagePill.textContent = "Usage unavailable";
+          usageText.textContent = "Usage unavailable";
+        }
+      } catch {
+        usagePill.textContent = "Usage unavailable";
+        usageText.textContent = "Usage unavailable";
+      }
+    }
+
+    async function syncUpgradeUI() {
+      const proHint = localStorage.getItem("uf_pro_hint") === "true";
+
+      if (proHint) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
+        navUpgradeBtn.classList.add("hidden");
+      }
+
+      try {
+        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
+        const raw = await res.text();
+        const data = JSON.parse(raw);
+
+        if (data.pro) {
+          localStorage.setItem("uf_pro_hint", "true");
+          usagePill.textContent = "Pro Plan • Unlimited";
+          usagePill.classList.add("pro");
+          usageText.textContent = "Unlimited usage active on this tool.";
+          navUpgradeBtn.classList.add("hidden");
+        } else {
+          localStorage.removeItem("uf_pro_hint");
+          navUpgradeBtn.classList.remove("hidden");
+        }
+      } catch {}
+    }
+
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert("Something went wrong starting checkout.");
+      }
+    }
+
+    examples.forEach(example => {
+      const btn = document.createElement("button");
+      btn.className = "example-chip";
+      btn.type = "button";
+      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.title = example;
+      btn.onclick = () => {
+        inputText.value = example;
+        updateCount();
+        setStatus("");
+        hideUpgradeHint();
+      };
+      examplesWrap.appendChild(btn);
+    });
+
+    inputText.addEventListener("input", updateCount);
+
+    clearBtn.addEventListener("click", () => {
+      inputText.value = "";
+      resultBox.textContent = "Your research output will appear here.";
+      copyBtn.disabled = true;
+      lastOutput = "";
+      updateCount();
+      setStatus("");
+      hideUpgradeHint();
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      if (!lastOutput) return;
+      try {
+        await navigator.clipboard.writeText(lastOutput);
+        copyBtn.textContent = "Copied ✓";
+        setStatus("Result copied to clipboard.", "success");
+      } catch {
+        copyBtn.textContent = "Copy failed";
+        setStatus("Copy failed. Try again.", "error");
+      }
+      setTimeout(() => {
+        copyBtn.textContent = "Copy Result";
+      }, 1400);
+    });
+
+    runBtn.addEventListener("click", async () => {
+      const text = inputText.value.trim();
+      const tone = toneSelect.value;
+
+      if (!text) {
+        resultBox.textContent = "Please enter a research prompt first.";
+        setStatus("Please enter a research prompt first.", "error");
+        hideUpgradeHint();
         return;
       }
 
-      const topic = document.getElementById("topicInput").value.trim();
-      const notes = document.getElementById("notesInput").value.trim();
-      const outputType = document.getElementById("outputType").value;
-      const detailLevel = document.getElementById("detailLevel").value;
-      const output = document.getElementById("outputBox");
-
-      if (!topic && !notes) {
-        alert("Please enter your topic or notes first.");
-        return;
-      }
-
-      output.textContent = "Processing...";
+      runBtn.disabled = true;
+      copyBtn.disabled = true;
+      runBtn.textContent = "Researching...";
+      resultBox.textContent = "Running research assistant...";
+      setStatus("Forging your output...");
+      hideUpgradeHint();
 
       try {
         const res = await fetch("/api/research-assistant", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            topic,
-            notes,
-            outputType,
-            detailLevel
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, tone, userId: getUserId() })
         });
 
-        const data = await res.json();
-        output.textContent = data.result || data.output || "No result returned.";
+        const raw = await res.text();
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
 
-        incrementUsage();
-        updateUsageUI();
-      } catch (err) {
-        output.textContent = "Something went wrong.";
+        if (!res.ok) {
+          resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
+          setStatus(
+            data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage."
+              ? "Daily free limit reached. Upgrade to Pro for unlimited usage."
+              : (data.error || "Something went wrong."),
+            "error"
+          );
+          if (data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage.") {
+            showUpgradeHint();
+          }
+          await loadUsage();
+          return;
+        }
+
+        lastOutput = data.result || "";
+        resultBox.textContent = lastOutput || "No result returned.";
+        copyBtn.disabled = !lastOutput;
+
+        if (typeof data.remaining !== "undefined" || typeof data.pro !== "undefined") {
+          setUsageUI(data);
+        } else {
+          await loadUsage();
+        }
+
+        setStatus(data.pro ? "Pro request completed." : "Research output generated successfully.", "success");
+      } catch (error) {
+        resultBox.textContent = "Error: " + error.message;
+        setStatus(error.message || "Request failed.", "error");
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = "Run Research";
       }
-    }
-
-    async function copyOutput() {
-      const text = document.getElementById("outputBox").textContent.trim();
-      if (!text || text === "Your research output will appear here.") {
-        alert("There is no output to copy yet.");
-        return;
-      }
-
-      try {
-        await navigator.clipboard.writeText(text);
-        alert("Copied.");
-      } catch {
-        alert("Unable to copy.");
-      }
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      loadUsage();
-      updateUsageUI();
     });
+
+    updateCount();
+    loadUsage();
+    syncUpgradeUI();
   </script>
 </body>
 </html>
