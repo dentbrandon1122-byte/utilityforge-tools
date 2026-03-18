@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Utility Forge AI</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
+    }
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
+    }
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+      font-weight: 800;
+      font-size: 1.7rem;
+    }
+    .logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+    .nav {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: rgba(255,255,255,0.86);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .shell {
+      min-height: calc(100vh - 140px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 34px;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+    h1 {
+      font-size: 2.4rem;
+      color: #f3efe4;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 800;
+      color: #dcffff;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      font-size: 15px;
+      outline: none;
+    }
+    .field input:focus {
+      border-color: rgba(142,241,255,0.55);
+      box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    button, .secondary-link {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .primary-btn {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+    }
+    .secondary-link {
+      background: rgba(255,255,255,0.06);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .status {
+      min-height: 24px;
+      margin-top: 16px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+    }
+    .status.error { color: #ffb4b4; }
+    .status.success { color: #92ffb8; }
+    .bottom-link {
+      margin-top: 22px;
+      color: rgba(255,255,255,0.75);
+    }
+    .bottom-link a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <script>
+    window.__SUPABASE_URL__ = "YOUR_SUPABASE_URL";
+    window.__SUPABASE_ANON_KEY__ = "YOUR_SUPABASE_ANON_KEY";
+  </script>
+
+  <div class="page">
+    <header class="header">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="logo" />
+        <span>Utility Forge AI</span>
+      </a>
+
+      <nav class="nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+    </header>
+
+    <main class="shell">
+      <section class="card">
+        <h1>Log in</h1>
+        <p class="subtitle">Access your account, plan status, and tools across devices.</p>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" />
+        </div>
+
+        <div class="actions">
+          <button id="loginBtn" class="primary-btn">Log In</button>
+          <a href="signup.html" class="secondary-link">Create Account</a>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <div class="bottom-link">
+          Need an account? <a href="signup.html">Sign up</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import { signInWithEmail, getCurrentUser } from "./supabase-client.js";
+
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const loginBtn = document.getElementById("loginBtn");
+    const status = document.getElementById("status");
+
+    function setStatus(message = "", type = "") {
+      status.textContent = message;
+      status.className = "status" + (type ? ` ${type}` : "");
+    }
+
+    try {
+      const existingUser = await getCurrentUser();
+      if (existingUser) {
+        window.location.href = "dashboard.html";
+      }
+    } catch {}
+
+    loginBtn.addEventListener("click", async () => {
+      const emailValue = email.value.trim();
+      const passwordValue = password.value;
+
+      if (!emailValue || !passwordValue) {
+        setStatus("Please enter your email and password.", "error");
+        return;
+      }
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = "Logging in...";
+      setStatus("Signing you in...");
+
+      try {
+        const data = await signInWithEmail(emailValue, passwordValue);
+
+        if (data?.user?.id) {
+          localStorage.setItem("uf_user_id", data.user.id);
+        }
+
+        setStatus("Login successful. Redirecting...", "success");
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 700);
+      } catch (error) {
+        setStatus(error.message || "Unable to log in.", "error");
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Log In";
+      }
+    });
+  </script>
+</body>
+</html>
