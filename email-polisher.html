@@ -5,490 +5,283 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Email Polisher | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta
-    name="description"
-    content="Improve wording, tone, and clarity for rough emails with Utility Forge AI."
-  />
+  <meta name="description" content="Improve wording, tone, and clarity for rough emails." />
 
   <style>
-    :root{
-      --bg:#07111f;
-      --bg-2:#0b1630;
-      --panel:rgba(10,18,38,.78);
-      --panel-strong:rgba(12,20,43,.92);
-      --border:rgba(130,170,255,.18);
-      --border-strong:rgba(130,170,255,.28);
-      --text:#edf4ff;
-      --muted:#a9b8d6;
-      --soft:#7f95bb;
-      --accent:#7c9cff;
-      --accent-2:#47d7ff;
-      --success:#6ee7b7;
-      --warning:#fbbf24;
-      --danger:#f87171;
-      --shadow:0 30px 80px rgba(0,0,0,.45);
-      --radius-xl:28px;
-      --radius-lg:22px;
-      --radius-md:16px;
-      --max:1200px;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: #fff;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
       background:
-        radial-gradient(circle at 15% 15%, rgba(71,215,255,.11), transparent 22%),
-        radial-gradient(circle at 86% 0%, rgba(124,156,255,.14), transparent 25%),
-        linear-gradient(180deg, #06101d 0%, #091428 42%, #07111f 100%);
-      min-height:100vh;
-      overflow-x:hidden;
-      line-height:1.6;
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.18), transparent 32%),
+        linear-gradient(180deg, #0b1020 0%, #11172a 100%);
     }
 
-    .bg-grid{
-      position:fixed;
-      inset:0;
-      z-index:-2;
+    .grid {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
       background-image:
-        linear-gradient(rgba(130,170,255,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(130,170,255,.07) 1px, transparent 1px);
-      background-size:42px 42px;
-      mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
-      pointer-events:none;
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      pointer-events: none;
     }
 
-    .bg-glow{
-      position:fixed;
-      inset:0;
-      z-index:-1;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 12% 18%, rgba(71,215,255,.14), transparent 18%),
-        radial-gradient(circle at 82% 12%, rgba(124,156,255,.16), transparent 22%),
-        radial-gradient(circle at 50% 80%, rgba(88,109,255,.10), transparent 20%);
-      filter: blur(18px);
+    .nav {
+      width: min(1150px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .shell{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
     }
 
-    .site-header{
-      position:sticky;
-      top:0;
-      z-index:100;
-      backdrop-filter:blur(16px);
-      background:rgba(6,14,28,.68);
-      border-bottom:1px solid rgba(130,170,255,.10);
+    .logo-wrap img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
     }
 
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      padding:16px 0;
-      flex-wrap:wrap;
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:700;
+    .nav-links a,
+    .nav-links button {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
     }
 
-    .brand img{
-      width:42px;
-      height:42px;
-      object-fit:contain;
-      border-radius:12px;
-      display:block;
+    .nav-links button.pro-btn {
+      background: linear-gradient(135deg, #67e8f9, #818cf8);
+      color: #08111f;
+      font-weight: 700;
+      border: none;
     }
 
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:22px;
-      flex-wrap:wrap;
+    .page {
+      width: min(1150px, calc(100% - 32px));
+      margin: 8px auto 40px;
     }
 
-    .nav-links a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:.96rem;
-      transition:.2s ease;
+    .hero {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
     }
 
-    .nav-links a:hover{color:#fff}
-
-    .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 10px;
     }
 
-    .btn{
-      border:none;
-      outline:none;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:13px 18px;
-      border-radius:999px;
-      font-weight:700;
-      transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease, border-color .18s ease;
-      font-size:.96rem;
-      white-space:nowrap;
+    .hero p {
+      color: #b7c2d9;
+      max-width: 760px;
+      margin-bottom: 16px;
     }
 
-    .btn:hover{transform:translateY(-1px)}
-    .btn:active{transform:translateY(0)}
-    .btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
-
-    .btn-primary{
-      color:#06101d;
-      background:linear-gradient(135deg, var(--accent-2), #b8f0ff);
-      box-shadow:0 14px 34px rgba(71,215,255,.24);
+    .usage-bar {
+      display: inline-block;
+      background: rgba(103, 232, 249, 0.10);
+      border: 1px solid rgba(103, 232, 249, 0.22);
+      color: #dffbff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
     }
 
-    .btn-secondary{
-      color:var(--text);
-      background:rgba(255,255,255,.04);
-      border:1px solid var(--border);
+    .tool-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
     }
 
-    .btn-ghost{
-      color:var(--muted);
-      background:transparent;
-      border:1px solid rgba(130,170,255,.12);
+    .panel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
     }
 
-    main{
-      padding:28px 0 52px;
+    .panel h2 {
+      margin-bottom: 14px;
+      font-size: 1.2rem;
     }
 
-    .hero{
-      display:grid;
-      grid-template-columns:1.08fr .92fr;
-      gap:18px;
-      margin-bottom:18px;
+    label {
+      display: block;
+      margin: 14px 0 8px;
+      font-weight: 700;
+      color: #e9efff;
+      font-size: 0.95rem;
     }
 
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid rgba(130,170,255,.14);
-      border-radius:28px;
-      box-shadow:0 18px 44px rgba(0,0,0,.22);
+    textarea, select {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      font: inherit;
+      outline: none;
     }
 
-    .hero-main,.hero-side,.workspace-card{
-      padding:26px;
+    textarea {
+      min-height: 220px;
+      resize: vertical;
     }
 
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      color:#dff8ff;
-      background:rgba(71,215,255,.10);
-      border:1px solid rgba(71,215,255,.20);
-      font-size:.9rem;
-      margin-bottom:18px;
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .eyebrow .dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:var(--success);
-      box-shadow:0 0 14px rgba(110,231,183,.75);
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
     }
 
-    h1{
-      font-size:clamp(2rem, 5vw, 3.1rem);
-      line-height:1.05;
-      letter-spacing:-1px;
-      margin-bottom:12px;
+    .actions button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
     }
 
-    .hero-main p{
-      color:var(--muted);
-      font-size:1.02rem;
-      max-width:760px;
-      margin-bottom:18px;
+    .primary {
+      background: linear-gradient(135deg, #67e8f9, #818cf8);
+      color: #08111f;
     }
 
-    .hero-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+    .secondary {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .hero-side{
-      display:grid;
-      gap:14px;
-      align-content:start;
+    .output {
+      min-height: 380px;
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+      color: #edf4ff;
     }
 
-    .status-block{
-      padding:18px;
-      border-radius:22px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(130,170,255,.12);
+    .placeholder {
+      color: #94a3b8;
     }
 
-    .status-label{
-      color:var(--soft);
-      font-size:.8rem;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-bottom:6px;
+    .note {
+      margin-top: 14px;
+      color: #aeb9d2;
+      font-size: 0.92rem;
     }
 
-    .status-value{
-      font-size:1.2rem;
-      font-weight:700;
+    .footer {
+      width: min(1150px, calc(100% - 32px));
+      margin: 30px auto 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #8e9ab5;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .status-sub{
-      color:var(--muted);
-      font-size:.95rem;
-      margin-top:4px;
+    .footer a {
+      color: #8e9ab5;
+      text-decoration: none;
+      margin-left: 14px;
     }
 
-    .tool-layout{
-      display:grid;
-      grid-template-columns:1.02fr .98fr;
-      gap:18px;
-    }
-
-    .section-title{
-      font-size:1.1rem;
-      margin-bottom:14px;
-      letter-spacing:-.2px;
-    }
-
-    .field{
-      margin-bottom:16px;
-    }
-
-    .field label{
-      display:block;
-      margin-bottom:8px;
-      font-size:.92rem;
-      color:#dfe7fa;
-      font-weight:700;
-    }
-
-    .hint{
-      color:var(--soft);
-      font-size:.86rem;
-      margin-top:6px;
-    }
-
-    textarea, select, input{
-      width:100%;
-      border:none;
-      outline:none;
-      resize:vertical;
-      background:rgba(255,255,255,.04);
-      color:var(--text);
-      border:1px solid rgba(130,170,255,.14);
-      border-radius:18px;
-      padding:14px 15px;
-      font:inherit;
-    }
-
-    textarea{
-      min-height:190px;
-    }
-
-    .input-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-
-    .toolbar{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-
-    .output-box{
-      min-height:360px;
-      border-radius:22px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(130,170,255,.12);
-      padding:18px;
-      white-space:pre-wrap;
-      color:#eaf2ff;
-    }
-
-    .placeholder{
-      color:var(--soft);
-    }
-
-    .notice{
-      margin-top:14px;
-      padding:14px 16px;
-      border-radius:18px;
-      border:1px solid rgba(130,170,255,.12);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);
-      font-size:.94rem;
-    }
-
-    .notice strong{
-      color:var(--text);
-    }
-
-    .footer{
-      padding:14px 0 34px;
-      color:var(--soft);
-    }
-
-    .footer-shell{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
-      display:flex;
-      justify-content:space-between;
-      gap:16px;
-      align-items:center;
-      flex-wrap:wrap;
-      border-top:1px solid rgba(130,170,255,.10);
-      padding-top:22px;
-    }
-
-    .footer-links{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .footer-links a{
-      color:var(--soft);
-      text-decoration:none;
-    }
-
-    .footer-links a:hover{color:var(--text)}
-
-    @media (max-width: 1024px){
-      .hero,.tool-layout{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width: 760px){
-      .nav{
-        flex-direction:column;
-        align-items:stretch;
-      }
-
-      .brand,.nav-links,.nav-actions{
-        justify-content:center;
-      }
-
-      .input-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero-main,.hero-side,.workspace-card{
-        padding:20px;
+    @media (max-width: 900px) {
+      .tool-shell,
+      .row {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
+  <div class="background"></div>
+  <div class="grid"></div>
 
-  <header class="site-header">
-    <div class="shell nav">
-      <a href="index.html" class="brand">
-        <img src="logo.png" alt="Utility Forge AI logo" />
-        <span>Utility Forge AI</span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="index.html#pricing">Pricing</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-      <div class="nav-actions">
-        <button class="btn btn-secondary" onclick="openBillingPortal()">Billing</button>
-        <button class="btn btn-primary" id="upgradeButton" onclick="handleUpgradeClick()">Go Pro</button>
-      </div>
+  <div class="nav">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Utility Forge AI logo" />
+      <span>Utility Forge AI</span>
     </div>
-  </header>
 
-  <main class="shell">
+    <div class="nav-links">
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/pricing.html">Pricing</a>
+      <button onclick="goPro()" class="pro-btn">Go Pro</button>
+    </div>
+  </div>
+
+  <main class="page">
     <section class="hero">
-      <div class="card hero-main">
-        <div class="eyebrow">
-          <span class="dot"></span>
-          Email Polisher
-        </div>
-
-        <h1>Make rough emails sound cleaner, sharper, and more polished.</h1>
-
-        <p>
-          Paste in a rough draft, choose the tone you want, and turn it into something
-          clearer and more professional without losing the point.
-        </p>
-
-        <div class="hero-actions">
-          <a href="dashboard.html" class="btn btn-secondary">← Back to Dashboard</a>
-          <button class="btn btn-primary" onclick="handleUpgradeClick()">Upgrade to Pro</button>
-        </div>
-      </div>
-
-      <div class="card hero-side">
-        <div class="status-block">
-          <div class="status-label">Current Plan</div>
-          <div class="status-value" id="planValue">Starter</div>
-          <div class="status-sub" id="planSub">Daily free usage available</div>
-        </div>
-
-        <div class="status-block">
-          <div class="status-label">Usage Today</div>
-          <div class="status-value" id="usageValue">—</div>
-          <div class="status-sub" id="usageSub">Checking your current usage</div>
-        </div>
-
-        <div class="status-block">
-          <div class="status-label">Tool Benefit</div>
-          <div class="status-value">Cleaner email drafts</div>
-          <div class="status-sub">Great for professional, friendly, concise, or confident rewrites</div>
-        </div>
-      </div>
+      <h1>Email Polisher</h1>
+      <p>Improve wording, tone, and clarity for rough emails without changing the overall feel of your message.</p>
+      <div class="usage-bar" id="usageText">Starter plan • ...</div>
     </section>
 
-    <section class="tool-layout">
-      <div class="card workspace-card">
-        <h2 class="section-title">Your input</h2>
+    <section class="tool-shell">
+      <div class="panel">
+        <h2>Your Draft</h2>
 
-        <div class="field">
-          <label for="emailDraft">Rough email draft</label>
-          <textarea id="emailDraft" placeholder="Paste your rough email here..."></textarea>
-          <div class="hint">Paste the message exactly as you have it. Messy is fine.</div>
-        </div>
+        <label for="emailInput">Paste your rough email</label>
+        <textarea id="emailInput" placeholder="Paste your email draft here..."></textarea>
 
-        <div class="input-grid">
-          <div class="field">
+        <div class="row">
+          <div>
             <label for="tone">Tone</label>
             <select id="tone">
               <option value="professional">Professional</option>
@@ -499,232 +292,142 @@
             </select>
           </div>
 
-          <div class="field">
-            <label for="goal">Main goal</label>
+          <div>
+            <label for="goal">Goal</label>
             <select id="goal">
               <option value="clarity">Improve clarity</option>
               <option value="polish">Polish wording</option>
               <option value="shorten">Make it shorter</option>
-              <option value="strengthen">Make it stronger</option>
+              <option value="stronger">Make it stronger</option>
             </select>
           </div>
         </div>
 
-        <div class="toolbar">
-          <button class="btn btn-primary" id="generateButton" onclick="generateEmailPolish()">Polish Email</button>
-          <button class="btn btn-ghost" onclick="clearForm()">Clear</button>
+        <div class="actions">
+          <button class="primary" onclick="generateEmail()">Polish Email</button>
+          <button class="secondary" onclick="clearForm()">Clear</button>
         </div>
 
-        <div class="notice">
-          <strong>Starter:</strong> limited daily runs. <strong>Pro:</strong> unlimited runs and higher input limits.
-        </div>
+        <div class="note">Starter includes daily free usage. Pro unlocks unlimited access.</div>
       </div>
 
-      <div class="card workspace-card">
-        <h2 class="section-title">Polished output</h2>
-        <div class="output-box" id="outputBox">
-          <span class="placeholder">Your polished email will appear here.</span>
+      <div class="panel">
+        <h2>Polished Output</h2>
+        <div class="output" id="outputBox"><span class="placeholder">Your polished email will appear here.</span></div>
+
+        <div class="actions">
+          <button class="secondary" onclick="copyOutput()">Copy Output</button>
         </div>
 
-        <div class="toolbar" style="margin-top:14px;">
-          <button class="btn btn-secondary" onclick="copyOutput()">Copy Output</button>
-        </div>
-
-        <div class="notice">
-          Review names, dates, promises, and details before sending. This tool improves wording, but you should still confirm accuracy.
-        </div>
+        <div class="note">Always review names, dates, and exact details before sending.</div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-shell">
-      <div>© <span id="year"></span> Utility Forge AI. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms-of-service.html">Terms of Service</a>
-        <a href="contact.html">Contact</a>
-      </div>
+  <div class="footer">
+    <div>© <span id="year"></span> Utility Forge AI</div>
+    <div>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/contact.html">Contact</a>
     </div>
-  </footer>
+  </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const toolState = {
-      plan: "Starter",
-      isPro: false,
-      usageUsed: null,
-      usageLimit: 5
+    const UF = {
+      plan: "starter",
+      dailyLimit: 5,
+      used: 0
     };
 
-    function applyToolState() {
-      const planValue = document.getElementById("planValue");
-      const planSub = document.getElementById("planSub");
-      const usageValue = document.getElementById("usageValue");
-      const usageSub = document.getElementById("usageSub");
-      const upgradeButton = document.getElementById("upgradeButton");
+    function getTodayKey() {
+      return new Date().toISOString().slice(0, 10);
+    }
 
-      planValue.textContent = toolState.isPro ? "Pro" : "Starter";
-      upgradeButton.textContent = toolState.isPro ? "Manage Billing" : "Go Pro";
+    function loadUsage() {
+      const key = "uf_usage_" + getTodayKey();
+      const stored = JSON.parse(localStorage.getItem(key) || "0");
+      UF.used = stored;
+    }
 
-      if (toolState.isPro) {
-        planSub.textContent = "Unlimited runs across the workspace";
-        usageValue.textContent = "Unlimited";
-        usageSub.textContent = "No daily cap on Pro";
+    function saveUsage() {
+      const key = "uf_usage_" + getTodayKey();
+      localStorage.setItem(key, JSON.stringify(UF.used));
+    }
+
+    function canUseTool() {
+      if (UF.plan === "pro") return true;
+      return UF.used < UF.dailyLimit;
+    }
+
+    function incrementUsage() {
+      UF.used++;
+      saveUsage();
+    }
+
+    function updateUsageUI() {
+      const el = document.getElementById("usageText");
+      if (!el) return;
+
+      if (UF.plan === "pro") {
+        el.textContent = "Pro plan • Unlimited access";
       } else {
-        planSub.textContent = "Daily free usage available";
-        if (typeof toolState.usageUsed === "number" && typeof toolState.usageLimit === "number") {
-          const remaining = Math.max(0, toolState.usageLimit - toolState.usageUsed);
-          usageValue.textContent = `${remaining} left`;
-          usageSub.textContent = `${toolState.usageUsed} used out of ${toolState.usageLimit} today`;
-        } else {
-          usageValue.textContent = "—";
-          usageSub.textContent = "Checking your current usage";
-        }
+        const remaining = Math.max(0, UF.dailyLimit - UF.used);
+        el.textContent = `Starter plan • ${remaining} uses left today`;
       }
     }
 
-    async function loadToolState() {
-      try {
-        const response = await fetch("/api/usage-status", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        });
-
-        if (!response.ok) throw new Error("Unable to load status.");
-        const data = await response.json();
-
-        toolState.plan = data?.plan || "Starter";
-        toolState.isPro = String(data?.plan || "").toLowerCase() === "pro" || Boolean(data?.isPro);
-        toolState.usageUsed = Number.isFinite(data?.used) ? data.used : null;
-        toolState.usageLimit = Number.isFinite(data?.limit) ? data.limit : 5;
-      } catch (error) {
-      } finally {
-        applyToolState();
-      }
-    }
-
-    async function startCheckout() {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data?.error || "Unable to start checkout.");
-      }
-
-      if (!data?.url) {
-        throw new Error("Checkout session did not return a URL.");
-      }
-
-      window.location.href = data.url;
-    }
-
-    async function openBillingPortal() {
-      try {
-        const response = await fetch("/api/billing-portal", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" }
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data?.error || "Unable to open billing portal.");
-        }
-
-        if (!data?.url) {
-          throw new Error("Billing portal did not return a URL.");
-        }
-
-        window.location.href = data.url;
-      } catch (error) {
-        if (toolState.isPro) {
-          alert(error.message || "Unable to open billing portal right now.");
-        } else {
-          alert("No active Pro billing account was found yet.");
-        }
-      }
-    }
-
-    async function handleUpgradeClick() {
-      try {
-        if (toolState.isPro) {
-          await openBillingPortal();
-        } else {
-          await startCheckout();
-        }
-      } catch (error) {
-        alert(error.message || "Something went wrong.");
-      }
-    }
-
-    function setOutput(text, isPlaceholder = false) {
-      const box = document.getElementById("outputBox");
-      if (isPlaceholder) {
-        box.innerHTML = `<span class="placeholder">${text}</span>`;
-      } else {
-        box.textContent = text;
-      }
+    function goPro() {
+      window.location.href = "/pricing.html";
     }
 
     function clearForm() {
-      document.getElementById("emailDraft").value = "";
+      document.getElementById("emailInput").value = "";
       document.getElementById("tone").value = "professional";
       document.getElementById("goal").value = "clarity";
-      setOutput("Your polished email will appear here.", true);
+      document.getElementById("outputBox").innerHTML = '<span class="placeholder">Your polished email will appear here.</span>';
     }
 
-    async function generateEmailPolish() {
-      const draft = document.getElementById("emailDraft").value.trim();
+    async function generateEmail() {
+      if (!canUseTool()) {
+        alert("Daily limit reached. Upgrade to Pro for unlimited access.");
+        return;
+      }
+
+      const input = document.getElementById("emailInput").value.trim();
       const tone = document.getElementById("tone").value;
       const goal = document.getElementById("goal").value;
-      const button = document.getElementById("generateButton");
+      const output = document.getElementById("outputBox");
 
-      if (!draft) {
+      if (!input) {
         alert("Please paste your email draft first.");
         return;
       }
 
-      button.disabled = true;
-      button.textContent = "Polishing...";
-      setOutput("Working on your polished draft...", true);
+      output.textContent = "Processing...";
 
       try {
-        const response = await fetch("/api/email-polisher", {
+        const res = await fetch("/api/email-polisher", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
-            draft,
+            input,
             tone,
             goal
           })
         });
 
-        const data = await response.json();
+        const data = await res.json();
+        output.textContent = data.result || data.output || "No result returned.";
 
-        if (!response.ok) {
-          throw new Error(data?.error || "Unable to polish the email.");
-        }
-
-        const result = data?.result || data?.output || data?.text;
-
-        if (!result) {
-          throw new Error("No polished email was returned.");
-        }
-
-        setOutput(result);
-        await loadToolState();
-      } catch (error) {
-        setOutput("Something went wrong while polishing the email. Please try again.", true);
-        alert(error.message || "Something went wrong.");
-      } finally {
-        button.disabled = false;
-        button.textContent = "Polish Email";
+        incrementUsage();
+        updateUsageUI();
+      } catch (err) {
+        output.textContent = "Something went wrong.";
       }
     }
 
@@ -737,14 +440,16 @@
 
       try {
         await navigator.clipboard.writeText(text);
-        alert("Output copied.");
-      } catch (error) {
-        alert("Unable to copy output.");
+        alert("Copied.");
+      } catch {
+        alert("Unable to copy.");
       }
     }
 
-    applyToolState();
-    loadToolState();
+    window.addEventListener("DOMContentLoaded", () => {
+      loadUsage();
+      updateUsageUI();
+    });
   </script>
 </body>
 </html>
