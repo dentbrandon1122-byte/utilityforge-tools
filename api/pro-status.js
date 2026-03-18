@@ -1,12 +1,15 @@
 import { isProUser } from "../lib/proStore.js";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
+  if (req.method !== "GET" && req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { userId } = req.body || {};
+    const userId =
+      req.method === "GET"
+        ? req.query?.userId
+        : req.body?.userId;
 
     if (!userId) {
       return res.status(400).json({ error: "Missing userId" });
@@ -14,7 +17,7 @@ export default async function handler(req, res) {
 
     const pro = await isProUser(userId);
 
-    return res.status(200).json({ pro });
+    return res.status(200).json({ pro: !!pro });
   } catch (error) {
     return res.status(500).json({
       error: error.message || "Server error."
