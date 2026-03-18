@@ -8,7 +8,20 @@ export const config = {
   }
 };
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2024-06-20"
+});
+
+function getUserIdFromEventObject(obj) {
+  if (!obj) return null;
+
+  return (
+    obj.metadata?.userId ||
+    obj.client_reference_id ||
+    obj.lines?.data?.[0]?.metadata?.userId ||
+    null
+  );
+}
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -31,18 +44,49 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (
-      event.type === "checkout.session.completed" ||
-      event.type === "invoice.payment_succeeded"
-    ) {
-      const dataObject = event.data.object;
-      const userId =
-        dataObject?.metadata?.userId ||
-        dataObject?.lines?.data?.[0]?.metadata?.userId;
+    switch (event.type) {
+      case "checkout.session.completed": {
+        const session = event.data.object;
+        const userId = getUserIdFromEventObject(session);
 
-      if (userId) {
-        await markProUser(userId);
+        if (userId) {
+          await markProUser(userId);
+        }
+        break;
       }
+
+      case "invoice.payment_succeeded": {
+        const invoice = event.data.object;
+        let userId = getUserIdFromEventObject(invoice);
+
+        if (!userId && invoice.subscription) {
+          try {
+            const subscription = await stripe.subscriptions.retrieve(invoice.subscription);
+            userId = getUserIdFromEventObject(subscription);
+          } catch (subError) {
+            console.error("Subscription lookup error:", subError.message);
+          }
+        }
+
+        if (userId) {
+          await markProUser(userId);
+        }
+        break;
+      }
+
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const subscription = event.data.object;
+        const userId = getUserIdFromEventObject(subscription);
+
+        if (userId) {
+          await markProUser(userId);
+        }
+        break;
+      }
+
+      default:
+        break;
     }
 
     return res.status(200).json({ received: true });
