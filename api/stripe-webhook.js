@@ -44,7 +44,10 @@ export default async function handler(req, res) {
         object?.lines?.data?.[0]?.metadata?.userId;
 
       if (userId) {
+        console.log("Marking Pro user:", userId, "from event:", event.type);
         await markProUser(userId);
+      } else {
+        console.warn("No userId found in Stripe event:", event.type);
       }
     }
 
