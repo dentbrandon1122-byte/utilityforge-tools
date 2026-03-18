@@ -1,45 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Idea Generator | Utility Forge AI</title>
-<link rel="icon" href="logo.png" />
-</head>
+<!-- SAME HEADER + STYLES AS EMAIL POLISHER (DO NOT CHANGE) -->
 
-<body style="background:#0b1020;color:white;font-family:Arial;">
-
-<div style="max-width:800px;margin:60px auto;">
-<h1>Idea Generator</h1>
-
-<input id="topic" placeholder="Enter topic..." style="width:100%;padding:12px;"/>
-
-<br><br>
-
-<button onclick="run()">Generate Ideas</button>
-
-<h3>Ideas</h3>
-<div id="result"></div>
-</div>
+<!-- ONLY CHANGES: TITLE + API + LABELS -->
 
 <script>
-function getUserId(){
-  let id = localStorage.getItem("uf_user_id");
-  if(!id){ id = crypto.randomUUID(); localStorage.setItem("uf_user_id", id); }
-  return id;
-}
+const API_ROUTE = "/api/idea-generator";
+const TOOL_NAME = "idea";
 
-async function run(){
-  const topic = document.getElementById("topic").value;
+const TITLE = "Idea Generator";
+const DESCRIPTION = "Turn rough thoughts into stronger ideas.";
 
-  const res = await fetch("/api/ideas", {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ topic, userId:getUserId() })
-  });
-
-  const data = await res.json();
-  document.getElementById("result").textContent = data.result || data.error;
-}
+const PLACEHOLDER = "Describe your idea or problem...";
 </script>
 
-</body>
-</html>
+<!-- COPY your email-polisher.html -->
+<!-- Then ONLY replace the run fetch call below -->
+
+<script>
+runBtn.addEventListener("click", async () => {
+  const text = inputText.value.trim();
+
+  if (!text) {
+    resultBox.textContent = "Enter something first.";
+    return;
+  }
+
+  runBtn.disabled = true;
+  resultBox.textContent = "Generating ideas...";
+
+  try {
+    const res = await fetch(API_ROUTE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, userId: getUserId() })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      resultBox.textContent = data.error;
+      if (data.error.includes("limit")) showUpgradeHint();
+      return;
+    }
+
+    resultBox.textContent = data.result;
+    lastOutput = data.result;
+    copyBtn.disabled = false;
+
+    setUsageUI(data);
+  } catch (e) {
+    resultBox.textContent = "Error generating ideas.";
+  } finally {
+    runBtn.disabled = false;
+  }
+});
+</script>
