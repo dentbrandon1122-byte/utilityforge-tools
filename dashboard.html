@@ -132,21 +132,32 @@
       transform: translateY(-1px);
     }
 
-    .nav-cta {
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-cta,
+    .nav-secondary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      padding: 14px 26px;
+      padding: 14px 22px;
       border-radius: 16px;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
       font-weight: 800;
-      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
       white-space: nowrap;
       border: none;
       cursor: pointer;
+    }
+
+    .nav-cta {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .nav-cta:hover {
@@ -154,8 +165,18 @@
       box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
     }
 
-    .nav-cta.hidden {
-      display: none;
+    .nav-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: white;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     .page {
@@ -285,8 +306,11 @@
       background: rgba(255, 255, 255, 0.08);
     }
 
-    .hidden {
-      display: none !important;
+    .account-line {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .section-title {
@@ -462,7 +486,13 @@
         justify-content: center;
       }
 
-      .nav-cta {
+      .nav-right {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-cta,
+      .nav-secondary {
         width: 100%;
       }
 
@@ -480,6 +510,11 @@
 <body>
   <div class="background"></div>
 
+  <script>
+    window.__SUPABASE_URL__ = "YOUR_SUPABASE_URL";
+    window.__SUPABASE_ANON_KEY__ = "YOUR_SUPABASE_ANON_KEY";
+  </script>
+
   <header class="site-header">
     <div class="nav-shell">
       <a href="index.html" class="brand">
@@ -493,7 +528,12 @@
         <a href="index.html#pricing">Pricing</a>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta" onclick="startCheckout()">Go Pro</button>
+      <div class="nav-right">
+        <a id="accountBtn" href="account.html" class="nav-secondary hidden">Account</a>
+        <a id="loginBtn" href="login.html" class="nav-secondary hidden">Log In</a>
+        <a id="signupBtn" href="signup.html" class="nav-secondary hidden">Sign Up</a>
+        <button id="navUpgradeBtn" class="nav-cta" onclick="startCheckout()">Go Pro</button>
+      </div>
     </div>
   </header>
 
@@ -515,6 +555,8 @@
             <button id="upgradeBtn" class="btn-primary" onclick="startCheckout()">Upgrade to Pro</button>
             <a class="btn-secondary" href="index.html#pricing">View Pricing</a>
           </div>
+
+          <div class="account-line" id="accountLine">Checking account state...</div>
         </div>
 
         <div id="planPill" class="plan-pill">Loading plan...</div>
@@ -648,22 +690,26 @@
     </section>
   </main>
 
-  <script>
-    function getUserId() {
-      let id = localStorage.getItem("uf_user_id");
-      if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem("uf_user_id", id);
-      }
-      return id;
-    }
+  <script type="module">
+    import { getEffectiveUserId, getAccountState } from "./auth-session.js";
+
+    const planPill = document.getElementById("planPill");
+    const heroCopy = document.getElementById("heroCopy");
+    const upgradeBtn = document.getElementById("upgradeBtn");
+    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+    const accountBtn = document.getElementById("accountBtn");
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const accountLine = document.getElementById("accountLine");
 
     async function startCheckout() {
       try {
+        const userId = await getEffectiveUserId();
+
         const response = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: getUserId() })
+          body: JSON.stringify({ userId })
         });
 
         const raw = await response.text();
@@ -686,12 +732,23 @@
       }
     }
 
-    async function loadPlan() {
-      const planPill = document.getElementById("planPill");
-      const heroCopy = document.getElementById("heroCopy");
-      const upgradeBtn = document.getElementById("upgradeBtn");
-      const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+    window.startCheckout = startCheckout;
+
+    async function loadAccountAndPlan() {
+      const state = await getAccountState();
       const proHint = localStorage.getItem("uf_pro_hint") === "true";
+
+      if (state.loggedIn && state.user?.email) {
+        accountBtn.classList.remove("hidden");
+        loginBtn.classList.add("hidden");
+        signupBtn.classList.add("hidden");
+        accountLine.textContent = `Signed in as ${state.user.email}`;
+      } else {
+        accountBtn.classList.add("hidden");
+        loginBtn.classList.remove("hidden");
+        signupBtn.classList.remove("hidden");
+        accountLine.textContent = "Browsing as guest. Create an account to keep access tied to you across devices.";
+      }
 
       if (proHint) {
         planPill.textContent = "Pro Plan • Unlimited";
@@ -702,7 +759,8 @@
       }
 
       try {
-        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
+        const userId = await getEffectiveUserId();
+        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(userId)}`);
         const raw = await res.text();
         const data = JSON.parse(raw);
 
@@ -721,7 +779,9 @@
           navUpgradeBtn.classList.remove("hidden");
           localStorage.removeItem("uf_pro_hint");
         }
-      } catch {
+      } catch (error) {
+        console.error("Plan load error:", error);
+
         if (!proHint) {
           planPill.textContent = "Plan unavailable";
           heroCopy.textContent = "We couldn’t load your plan details right now, but your tools are still available.";
@@ -729,7 +789,7 @@
       }
     }
 
-    loadPlan();
+    loadAccountAndPlan();
   </script>
 </body>
 </html>
