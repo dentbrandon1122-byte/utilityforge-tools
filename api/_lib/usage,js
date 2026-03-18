@@ -4,6 +4,21 @@ function getTodayKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function ensureUsagePath(usageId, toolKey) {
+  const today = getTodayKey();
+
+  if (!usageStore[usageId]) usageStore[usageId] = {};
+  if (!usageStore[usageId][today]) usageStore[usageId][today] = {};
+  if (typeof usageStore[usageId][today][toolKey] !== "number") {
+    usageStore[usageId][today][toolKey] = 0;
+  }
+
+  return {
+    today,
+    value: usageStore[usageId][today][toolKey]
+  };
+}
+
 export function getUsageId(req, userId) {
   if (userId && typeof userId === "string" && userId.trim()) {
     return `user:${userId.trim()}`;
@@ -18,13 +33,8 @@ export function getUsageId(req, userId) {
 }
 
 export function getUsageCount(usageId, toolKey) {
-  const today = getTodayKey();
-
-  if (!usageStore[usageId]) usageStore[usageId] = {};
-  if (!usageStore[usageId][today]) usageStore[usageId][today] = {};
-  if (!usageStore[usageId][today][toolKey]) usageStore[usageId][today][toolKey] = 0;
-
-  return usageStore[usageId][today][toolKey];
+  const { value } = ensureUsagePath(usageId, toolKey);
+  return value;
 }
 
 export function incrementUsage(usageId, toolKey) {
@@ -32,10 +42,17 @@ export function incrementUsage(usageId, toolKey) {
 
   if (!usageStore[usageId]) usageStore[usageId] = {};
   if (!usageStore[usageId][today]) usageStore[usageId][today] = {};
-  if (!usageStore[usageId][today][toolKey]) usageStore[usageId][today][toolKey] = 0;
+  if (typeof usageStore[usageId][today][toolKey] !== "number") {
+    usageStore[usageId][today][toolKey] = 0;
+  }
 
   usageStore[usageId][today][toolKey] += 1;
   return usageStore[usageId][today][toolKey];
+}
+
+export function canUseTool(usageId, toolKey, limit = 5) {
+  const used = getUsageCount(usageId, toolKey);
+  return used < limit;
 }
 
 export function getUsageStatus(usageId, toolKey, limit = 5) {
