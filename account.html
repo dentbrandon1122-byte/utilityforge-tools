@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account | Utility Forge AI</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
+        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
+    }
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
+    }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+      font-weight: 800;
+      font-size: 1.7rem;
+    }
+    .logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+    .nav {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: rgba(255,255,255,0.86);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .card {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 34px;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+    h1 {
+      font-size: 2.4rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 28px;
+    }
+    .info-row {
+      margin-bottom: 18px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+    }
+    .label {
+      display: block;
+      color: #dcffff;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+    button, a.action-link {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .primary-btn {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+    }
+    .secondary-btn, .action-link {
+      background: rgba(255,255,255,0.06);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .status {
+      min-height: 24px;
+      margin-top: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+    }
+    .status.error { color: #ffb4b4; }
+    .status.success { color: #92ffb8; }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <script>
+    window.__SUPABASE_URL__ = "https://cidsrfplufxtffdmrvjv.supabase.co";
+    window.__SUPABASE_ANON_KEY__ = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpZHNyZnBsdWZ4dGZmZG1ydmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTM3MjEsImV4cCI6MjA4ODkyOTcyMX0.wFDiehTO5J39KqWMsnRV4yim3RsXR950ZpJ2vKfNrxg";
+  </script>
+
+  <div class="page">
+    <header class="header">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="logo" />
+        <span>Utility Forge AI</span>
+      </a>
+
+      <nav class="nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h1>Account</h1>
+      <p class="subtitle">Your account details and current access status.</p>
+
+      <div class="info-row">
+        <span class="label">Email</span>
+        <span id="emailValue">Loading...</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">User ID</span>
+        <span id="userIdValue">Loading...</span>
+      </div>
+
+      <div class="actions">
+        <a href="dashboard.html" class="action-link">Back to Dashboard</a>
+        <button id="logoutBtn" class="secondary-btn">Log Out</button>
+      </div>
+
+      <div id="status" class="status"></div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { getCurrentUser, signOutUser } from "./supabase-client.js";
+    import { requireAuth } from "./auth-guard.js";
+
+    const emailValue = document.getElementById("emailValue");
+    const userIdValue = document.getElementById("userIdValue");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const status = document.getElementById("status");
+
+    function setStatus(message = "", type = "") {
+      status.textContent = message;
+      status.className = "status" + (type ? ` ${type}` : "");
+    }
+
+    const user = await requireAuth("login.html");
+
+    if (user) {
+      emailValue.textContent = user.email || "No email found";
+      userIdValue.textContent = user.id || "No user id found";
+      localStorage.setItem("uf_user_id", user.id);
+    }
+
+    logoutBtn.addEventListener("click", async () => {
+      logoutBtn.disabled = true;
+      logoutBtn.textContent = "Logging out...";
+      setStatus("Signing you out...");
+
+      try {
+        await signOutUser();
+        localStorage.removeItem("uf_pro_hint");
+        setStatus("Logged out. Redirecting...", "success");
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 600);
+      } catch (error) {
+        setStatus(error.message || "Unable to log out.", "error");
+      } finally {
+        logoutBtn.disabled = false;
+        logoutBtn.textContent = "Log Out";
+      }
+    });
+  </script>
+</body>
+</html>
