@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { getOrCreateUid } from "../../lib/identity";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -15,6 +16,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Missing STRIPE_PRICE_ID." });
     }
 
+    const uid = getOrCreateUid(req, res);
+
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
@@ -24,9 +27,13 @@ export default async function handler(req, res) {
           quantity: 1
         }
       ],
-      success_url: `${appUrl}/dashboard.html?upgraded=1`,
+      allow_promotion_codes: true,
+      success_url: `${appUrl}/dashboard.html?upgraded=1&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/pricing.html?canceled=1`,
-      allow_promotion_codes: true
+      client_reference_id: uid,
+      metadata: {
+        uid
+      }
     });
 
     return res.status(200).json({ url: session.url });
