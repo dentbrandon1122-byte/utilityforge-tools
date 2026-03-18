@@ -1,44 +1,69 @@
-import { generateText } from "./_lib/openai.js";
-import { getUsageId, getUsageCount, incrementUsage } from "./_lib/usage.js";
+import { getUsageId, incrementUsage, getUsageStatus, canUseTool } from "../lib/usage.js";
+import { isProUser } from "../lib/proStore.js";
+
+function generateIdeas(text, mode = "business") {
+  return [
+    `Idea direction for: ${text}`,
+    ``,
+    `Mode: ${mode}`,
+    `1. Core concept`,
+    `2. Best target audience`,
+    `3. Monetization angle`,
+    `4. MVP feature idea`,
+    `5. Growth opportunity`
+  ].join("\n");
+}
 
 export default async function handler(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method not allowed" });
-    }
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-    const { prompt, userId } = req.body || {};
-    const input = typeof prompt === "string" ? prompt.trim() : "";
+  try {
+    const { text, mode, userId } = req.body || {};
+    const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
-      return res.status(400).json({ error: "Please enter a prompt." });
-    }
-
-    if (input.length > 1500) {
-      return res.status(400).json({ error: "Input is too long. Limit: 1500 characters." });
+      return res.status(400).json({ error: "Missing idea prompt." });
     }
 
     const usageId = getUsageId(req, userId);
-    const used = getUsageCount(usageId, "idea");
+    const pro = await isProUser(userId);
+    const toolKey = "idea";
+    const freeLimit = 5;
 
-    if (used >= 5) {
+    if (!pro && !canUseTool(usageId, toolKey, freeLimit)) {
+      const status = getUsageStatus(usageId, toolKey, freeLimit);
       return res.status(429).json({
-        error: "Daily free limit reached. Upgrade to Pro for unlimited usage."
+        error: "Daily free limit reached. Upgrade to Pro for unlimited usage.",
+        ...status,
+        pro: false
       });
     }
 
-    const result = await generateText({
-      system:
-        "You generate practical, useful ideas. Return a clean numbered list with short explanations. Be specific and realistic.",
-      user: `Generate useful ideas for this prompt:\n\n${input}`,
-      temperature: 0.8
+    const result = generateIdeas(input, mode);
+
+    if (!pro) {
+      incrementUsage(usageId, toolKey);
+      const status = getUsageStatus(usageId, toolKey, freeLimit);
+
+      return res.status(200).json({
+        result,
+        ...status,
+        pro: false
+      });
+    }
+
+    return res.status(200).json({
+      result,
+      remaining: "∞",
+      used: 0,
+      limit: "∞",
+      pro: true
     });
-
-    incrementUsage(usageId, "idea");
-
-    return res.status(200).json({ result });
   } catch (error) {
-    console.error("idea-generator failed:", error);
-    return res.status(500).json({ error: error.message || "A server error has occurred." });
+    return res.status(500).json({
+      error: error.message || "Idea generation failed."
+    });
   }
 }
