@@ -1,44 +1,60 @@
-import { generateText } from "./_lib/openai.js";
-import { getUsageId, getUsageCount, incrementUsage } from "./_lib/usage.js";
+import { getUsageId, incrementUsage, getUsageStatus, canUseTool } from "../lib/usage.js";
+import { isProUser } from "../lib/proStore.js";
+
+function generateLinkedInSummary(text, tone = "professional") {
+  return `LinkedIn Summary (${tone})\n\n${text}\n\nHeadline suggestion: Professional | Driven | Growth-Focused`;
+}
 
 export default async function handler(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method not allowed" });
-    }
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-    const { text, style, userId } = req.body || {};
+  try {
+    const { text, tone, userId } = req.body || {};
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
-      return res.status(400).json({ error: "Please enter profile notes." });
-    }
-
-    if (input.length > 2200) {
-      return res.status(400).json({ error: "Input is too long. Limit: 2200 characters." });
+      return res.status(400).json({ error: "Missing LinkedIn summary input." });
     }
 
     const usageId = getUsageId(req, userId);
-    const used = getUsageCount(usageId, "linkedin");
+    const pro = await isProUser(userId);
+    const toolKey = "linkedin-summary";
+    const freeLimit = 5;
 
-    if (used >= 5) {
+    if (!pro && !canUseTool(usageId, toolKey, freeLimit)) {
+      const status = getUsageStatus(usageId, toolKey, freeLimit);
       return res.status(429).json({
-        error: "Daily free limit reached. Upgrade to Pro for unlimited usage."
+        error: "Daily free limit reached. Upgrade to Pro for unlimited usage.",
+        ...status,
+        pro: false
       });
     }
 
-    const result = await generateText({
-      system:
-        "You write LinkedIn headlines and summaries from rough background notes. Make them polished, professional, and readable. Return both a headline and a summary.",
-      user: `Style: ${style || "professional"}\n\nCreate a LinkedIn headline and summary from these notes:\n${input}`,
-      temperature: 0.7
+    const result = generateLinkedInSummary(input, tone);
+
+    if (!pro) {
+      incrementUsage(usageId, toolKey);
+      const status = getUsageStatus(usageId, toolKey, freeLimit);
+
+      return res.status(200).json({
+        result,
+        ...status,
+        pro: false
+      });
+    }
+
+    return res.status(200).json({
+      result,
+      remaining: "∞",
+      used: 0,
+      limit: "∞",
+      pro: true
     });
-
-    incrementUsage(usageId, "linkedin");
-
-    return res.status(200).json({ result });
   } catch (error) {
-    console.error("linkedin-summary failed:", error);
-    return res.status(500).json({ error: error.message || "A server error has occurred." });
+    return res.status(500).json({
+      error: error.message || "LinkedIn summary generation failed."
+    });
   }
 }
