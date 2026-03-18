@@ -1,7 +1,5 @@
-import OpenAI from "openai";
 import { enforceUsageLimit } from "../lib/usage.js";
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { runOpenAIText } from "../lib/toolRunner.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -10,8 +8,9 @@ export default async function handler(req, res) {
 
   try {
     const { text, tone = "professional", userId } = req.body || {};
+    const input = typeof text === "string" ? text.trim() : "";
 
-    if (!text || !text.trim()) {
+    if (!input) {
       return res.status(400).json({ error: "Missing outreach details." });
     }
 
@@ -27,22 +26,10 @@ export default async function handler(req, res) {
       });
     }
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
-      temperature: 0.8,
-      messages: [
-        {
-          role: "system",
-          content: `Write a polished cold email in a ${tone} tone. Make it clear, short enough to read, and action-oriented. Return only the email.`
-        },
-        {
-          role: "user",
-          content: text
-        }
-      ]
+    const result = await runOpenAIText({
+      systemPrompt: `Write a polished cold email in a ${tone} tone. Make it clear, concise, and action-oriented. Return only the email.`,
+      userText: input
     });
-
-    const result = response.choices?.[0]?.message?.content?.trim() || "";
 
     return res.status(200).json({
       result,
@@ -52,6 +39,7 @@ export default async function handler(req, res) {
       limit: usage.limit
     });
   } catch (error) {
+    console.error("COLD EMAIL ERROR:", error);
     return res.status(500).json({
       error: error.message || "Cold email generation failed."
     });
