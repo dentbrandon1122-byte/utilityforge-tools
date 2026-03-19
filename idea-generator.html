@@ -133,6 +133,7 @@
       transform: translateY(-2px);
       box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
     }
+    .hidden { display: none !important; }
     .page {
       position: relative;
       z-index: 2;
@@ -349,12 +350,8 @@
       font-size: 0.95rem;
       font-weight: 700;
     }
-    .status-line.error {
-      color: #ffb4b4;
-    }
-    .status-line.success {
-      color: #92ffb8;
-    }
+    .status-line.error { color: #ffb4b4; }
+    .status-line.success { color: #92ffb8; }
     .upgrade-hint {
       display: none;
       margin-bottom: 14px;
@@ -398,6 +395,11 @@
 </head>
 <body>
   <div class="background"></div>
+
+  <script>
+    window.__SUPABASE_URL__ = "YOUR_SUPABASE_URL";
+    window.__SUPABASE_ANON_KEY__ = "YOUR_SUPABASE_ANON_KEY";
+  </script>
 
   <header class="site-header">
     <div class="nav-shell">
@@ -474,7 +476,9 @@
     </section>
   </main>
 
-  <script>
+  <script type="module">
+    import { getEffectiveUserId } from "./auth-session.js";
+
     const examples = [
       "Business ideas using AI for small local service companies",
       "Ways to improve a city builder game with unique mechanics",
@@ -496,15 +500,6 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
-
-    function getUserId() {
-      let id = localStorage.getItem("uf_user_id");
-      if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem("uf_user_id", id);
-      }
-      return id;
-    }
 
     function updateCount() {
       charCount.textContent = inputText.value.length;
@@ -537,7 +532,8 @@
 
     async function loadUsage() {
       try {
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=idea`);
+        const userId = await getEffectiveUserId();
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}&tool=idea`);
         const raw = await res.text();
         const data = JSON.parse(raw);
 
@@ -564,7 +560,8 @@
       }
 
       try {
-        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(getUserId())}`);
+        const userId = await getEffectiveUserId();
+        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(userId)}`);
         const raw = await res.text();
         const data = JSON.parse(raw);
 
@@ -583,12 +580,14 @@
 
     async function startCheckout() {
       try {
+        const userId = await getEffectiveUserId();
+
         const response = await fetch("/api/checkout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ userId: getUserId() })
+          body: JSON.stringify({ userId })
         });
 
         const raw = await response.text();
@@ -610,6 +609,8 @@
         alert("Something went wrong starting checkout.");
       }
     }
+
+    window.startCheckout = startCheckout;
 
     examples.forEach(example => {
       const btn = document.createElement("button");
@@ -674,10 +675,12 @@
       hideUpgradeHint();
 
       try {
+        const userId = await getEffectiveUserId();
+
         const res = await fetch("/api/idea-generator", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({ text, mode, userId })
         });
 
         const raw = await res.text();
