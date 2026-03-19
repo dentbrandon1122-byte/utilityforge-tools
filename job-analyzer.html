@@ -383,11 +383,6 @@
 <body>
   <div class="background"></div>
 
-  <script>
-    window.__SUPABASE_URL__ = "YOUR_SUPABASE_URL";
-    window.__SUPABASE_ANON_KEY__ = "YOUR_SUPABASE_ANON_KEY";
-  </script>
-
   <header class="site-header">
     <div class="nav-shell">
       <a href="index.html" class="brand">
@@ -400,7 +395,7 @@
         <a href="index.html#pricing">Pricing</a>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta" onclick="startCheckout()">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
     </div>
   </header>
 
@@ -412,7 +407,7 @@
         <div class="top-copy">
           <div class="tool-badge">Built for smarter applications</div>
           <h1 class="title">Job Analyzer</h1>
-          <p class="subtitle">Break down job descriptions into key skills, ATS keywords, and clearer application focus points.</p>
+          <p class="subtitle">Break down job descriptions into key skills, ATS keywords, and stronger application focus points.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -424,12 +419,12 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Job description</label>
-          <textarea id="inputText" maxlength="2500" placeholder="Paste the full job description here..."></textarea>
+          <textarea id="inputText" maxlength="2500" placeholder="Paste the job description here..."></textarea>
         </div>
 
         <div>
-          <label for="toneSelect" class="field-label">Analysis mode</label>
-          <select id="toneSelect">
+          <label for="modeSelect" class="field-label">Analysis mode</label>
+          <select id="modeSelect">
             <option value="ats">ATS Focus</option>
             <option value="skills">Skills Breakdown</option>
             <option value="keywords">Keyword Extraction</option>
@@ -452,31 +447,33 @@
       <div id="statusLine" class="status-line"></div>
 
       <div id="upgradeHint" class="upgrade-hint">
-        <button class="secondary-btn" onclick="startCheckout()">Upgrade to Pro</button>
+        <button id="upgradeHintBtn" class="secondary-btn">Upgrade to Pro</button>
       </div>
 
       <label class="result-label">Analysis</label>
       <div class="result-box" id="resultBox">Your job analysis will appear here.</div>
-      <div class="tip">Tip: full job postings usually produce the best keyword and skill breakdown.</div>
+      <div class="tip">Tip: full job posts usually produce better keyword and skill extraction than short fragments.</div>
     </section>
   </main>
 
-  <script type="module">
-    import { getEffectiveUserId } from "./auth-session.js";
+  <script>
+    const TOOL_KEY = "job";
+    const API_PATH = "/api/job-analyzer";
 
-    const examples = [
-      "Cybersecurity internship requiring Python, networking, and security best practices",
-      "Customer service role focused on communication, scheduling, and client support",
-      "IT support position involving troubleshooting, ticketing systems, and user assistance"
+    const EXAMPLES = [
+      "Cybersecurity internship requiring Python, networking, and security best practices.",
+      "IT support role handling troubleshooting, password resets, and ticket-based support.",
+      "Customer service role focused on communication, scheduling, and client support."
     ];
 
     const examplesWrap = document.getElementById("examples");
     const inputText = document.getElementById("inputText");
-    const toneSelect = document.getElementById("toneSelect");
+    const modeSelect = document.getElementById("modeSelect");
     const charCount = document.getElementById("charCount");
     const usageText = document.getElementById("usageText");
     const usagePill = document.getElementById("usagePill");
     const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+    const upgradeHintBtn = document.getElementById("upgradeHintBtn");
     const runBtn = document.getElementById("runBtn");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
@@ -485,6 +482,23 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+
+    function getUserId() {
+      const accountRaw = localStorage.getItem("uf_account");
+      if (accountRaw) {
+        try {
+          const account = JSON.parse(accountRaw);
+          if (account && account.id) return account.id;
+        } catch {}
+      }
+
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
+    }
 
     function updateCount() {
       charCount.textContent = inputText.value.length;
@@ -500,10 +514,12 @@
         usagePill.textContent = "Pro Plan • Unlimited";
         usagePill.classList.add("pro");
         usageText.textContent = "Unlimited usage active on this tool.";
+        navUpgradeBtn.classList.add("hidden");
       } else {
         usagePill.textContent = `Free uses left: ${data.remaining}`;
         usagePill.classList.remove("pro");
         usageText.textContent = `Free uses left today: ${data.remaining}`;
+        navUpgradeBtn.classList.remove("hidden");
       }
     }
 
@@ -517,17 +533,10 @@
 
     async function loadUsage() {
       try {
-        const userId = await getEffectiveUserId();
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}&tool=job-analyzer`);
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
         const raw = await res.text();
         const data = JSON.parse(raw);
-
-        if (typeof data.remaining !== "undefined" || typeof data.pro !== "undefined") {
-          setUsageUI(data);
-        } else {
-          usagePill.textContent = "Usage unavailable";
-          usageText.textContent = "Usage unavailable";
-        }
+        setUsageUI(data);
       } catch {
         usagePill.textContent = "Usage unavailable";
         usageText.textContent = "Usage unavailable";
@@ -535,18 +544,13 @@
     }
 
     async function syncUpgradeUI() {
-      const proHint = localStorage.getItem("uf_pro_hint") === "true";
-
-      if (proHint) {
-        usagePill.textContent = "Pro Plan • Unlimited";
-        usagePill.classList.add("pro");
-        usageText.textContent = "Unlimited usage active on this tool.";
-        navUpgradeBtn.classList.add("hidden");
-      }
-
       try {
-        const userId = await getEffectiveUserId();
-        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(userId)}`);
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
         const raw = await res.text();
         const data = JSON.parse(raw);
 
@@ -565,22 +569,14 @@
 
     async function startCheckout() {
       try {
-        const userId = await getEffectiveUserId();
-
         const response = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId })
+          body: JSON.stringify({ userId: getUserId() })
         });
 
         const raw = await response.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
-        }
+        const data = JSON.parse(raw);
 
         if (data.url) {
           window.location.href = data.url;
@@ -593,20 +589,21 @@
       }
     }
 
-    window.startCheckout = startCheckout;
+    navUpgradeBtn.addEventListener("click", startCheckout);
+    upgradeHintBtn.addEventListener("click", startCheckout);
 
-    examples.forEach(example => {
+    EXAMPLES.forEach((example) => {
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
       btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
       btn.title = example;
-      btn.onclick = () => {
+      btn.addEventListener("click", () => {
         inputText.value = example;
         updateCount();
         setStatus("");
         hideUpgradeHint();
-      };
+      });
       examplesWrap.appendChild(btn);
     });
 
@@ -624,7 +621,6 @@
 
     copyBtn.addEventListener("click", async () => {
       if (!lastOutput) return;
-
       try {
         await navigator.clipboard.writeText(lastOutput);
         copyBtn.textContent = "Copied ✓";
@@ -641,7 +637,7 @@
 
     runBtn.addEventListener("click", async () => {
       const text = inputText.value.trim();
-      const tone = toneSelect.value;
+      const mode = modeSelect.value;
 
       if (!text) {
         resultBox.textContent = "Please enter a job description first.";
@@ -658,33 +654,20 @@
       hideUpgradeHint();
 
       try {
-        const userId = await getEffectiveUserId();
-
-        const res = await fetch("/api/job-analyzer", {
+        const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, tone, userId })
+          body: JSON.stringify({ text, mode, userId: getUserId() })
         });
 
         const raw = await res.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
-        }
+        const data = JSON.parse(raw);
 
         if (!res.ok) {
           resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
-          setStatus(
-            data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage."
-              ? "Daily free limit reached. Upgrade to Pro for unlimited usage."
-              : (data.error || "Something went wrong."),
-            "error"
-          );
+          setStatus(data.error || "Something went wrong.", "error");
 
-          if (data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage.") {
+          if ((data.error || "").includes("Daily free limit reached")) {
             showUpgradeHint();
           }
 
@@ -695,13 +678,7 @@
         lastOutput = data.result || "";
         resultBox.textContent = lastOutput || "No result returned.";
         copyBtn.disabled = !lastOutput;
-
-        if (typeof data.remaining !== "undefined" || typeof data.pro !== "undefined") {
-          setUsageUI(data);
-        } else {
-          await loadUsage();
-        }
-
+        setUsageUI(data);
         setStatus(data.pro ? "Pro request completed." : "Job analysis generated successfully.", "success");
       } catch (error) {
         resultBox.textContent = "Error: " + error.message;
