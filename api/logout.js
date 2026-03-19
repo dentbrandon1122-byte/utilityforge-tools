@@ -1,12 +1,20 @@
-import { clearSession } from "../lib/auth.js";
+import { clearSessionCookie, destroySession } from "../lib/auth.js";
 
-export default function handler(req, res) {
-  clearSession(req);
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-  res.setHeader(
-    "Set-Cookie",
-    "session_token=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax"
-  );
+  try {
+    await destroySession(req);
+    clearSessionCookie(res);
 
-  return res.status(200).json({ ok: true });
+    return res.status(200).json({
+      ok: true
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message || "Logout failed."
+    });
+  }
 }
