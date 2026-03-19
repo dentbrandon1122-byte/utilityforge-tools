@@ -4,23 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard | Utility Forge AI</title>
-
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta
-    name="description"
-    content="Access all Utility Forge AI tools in one clean dashboard."
-  />
+  <meta name="description" content="Open and manage your Utility Forge AI tools from one dashboard." />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: Arial, sans-serif;
@@ -28,6 +17,7 @@
       color: white;
       overflow-x: hidden;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     .background {
@@ -35,8 +25,8 @@
       inset: 0;
       z-index: -3;
       background:
-        radial-gradient(circle at top left, rgba(0, 255, 255, 0.06), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(0, 140, 255, 0.06), transparent 35%),
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
         linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
 
@@ -45,24 +35,10 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
       background-size: 42px 42px;
       opacity: 0.15;
-    }
-
-    .background::after {
-      content: "";
-      position: absolute;
-      width: 850px;
-      height: 850px;
-      left: 50%;
-      top: 22%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
-      filter: blur(42px);
-      opacity: 0.35;
-      pointer-events: none;
     }
 
     .site-header {
@@ -72,7 +48,7 @@
       padding: 18px 40px;
       background: rgba(8, 12, 24, 0.58);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .nav-shell {
@@ -91,7 +67,6 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
-      min-width: 0;
     }
 
     .top-logo {
@@ -99,8 +74,7 @@
       height: 64px;
       object-fit: contain;
       display: block;
-      background: transparent;
-      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.18));
+      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
       flex-shrink: 0;
     }
 
@@ -115,64 +89,49 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
-    .nav-links a {
+    .nav-links a,
+    .nav-links button.linklike {
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.86);
+      color: rgba(255,255,255,0.86);
       font-size: 1rem;
       font-weight: 600;
       transition: color 0.2s ease, transform 0.2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links button.linklike:hover {
       color: #8df7ff;
       transform: translateY(-1px);
     }
 
-    .nav-right {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .nav-cta,
-    .nav-secondary {
+    .nav-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      padding: 14px 22px;
+      padding: 14px 26px;
       border-radius: 16px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
       font-weight: 800;
+      box-shadow: 0 0 18px rgba(142,241,255,0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       white-space: nowrap;
       border: none;
       cursor: pointer;
     }
 
-    .nav-cta {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
     .nav-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
-    }
-
-    .nav-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: white;
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .nav-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
     }
 
     .hidden {
@@ -180,81 +139,90 @@
     }
 
     .page {
-      position: relative;
-      z-index: 2;
       max-width: 1320px;
       margin: 0 auto;
-      padding: 48px 50px 70px;
+      padding: 42px 20px 70px;
     }
 
     .hero-card {
-      padding: 34px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow:
-        0 0 34px rgba(0, 255, 255, 0.05),
-        inset 0 0 24px rgba(255, 255, 255, 0.018);
+      padding: 34px;
       backdrop-filter: blur(12px);
-      margin-bottom: 34px;
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+      margin-bottom: 26px;
     }
 
     .hero-top {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
       flex-wrap: wrap;
+      align-items: flex-start;
     }
 
-    .hero-left {
-      max-width: 760px;
+    .hero-copy {
+      flex: 1;
+      min-width: 280px;
     }
 
     .hero-badge {
       display: inline-block;
       padding: 10px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(120, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
       color: #d8ffff;
       font-size: 14px;
-      margin-bottom: 18px;
-      backdrop-filter: blur(8px);
+      margin-bottom: 14px;
     }
 
-    .hero-title {
-      font-size: 3.1rem;
-      line-height: 1.02;
-      margin-bottom: 16px;
+    .hero-copy h1 {
+      font-size: 3rem;
+      line-height: 1.05;
       color: #f3efe4;
-      letter-spacing: -1.1px;
+      margin-bottom: 12px;
     }
 
-    .hero-title .accent {
-      color: #92ffb8;
-      text-shadow: 0 0 14px rgba(146, 255, 184, 0.12);
-    }
-
-    .hero-copy {
+    .hero-copy p {
+      color: rgba(255,255,255,0.8);
       font-size: 1.08rem;
-      line-height: 1.75;
-      color: rgba(255, 255, 255, 0.84);
-      max-width: 720px;
+      max-width: 760px;
+    }
+
+    .account-panel {
+      min-width: 290px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .account-panel h3 {
+      color: #eaffff;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .account-line {
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 8px;
+      font-size: 0.96rem;
     }
 
     .plan-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 50px;
-      padding: 12px 18px;
+      margin-top: 6px;
+      padding: 10px 14px;
       border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.88);
-      font-weight: 800;
-      white-space: nowrap;
+      color: white;
     }
 
     .plan-pill.pro {
@@ -267,7 +235,7 @@
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 24px;
+      margin-top: 22px;
     }
 
     .btn-primary,
@@ -275,62 +243,57 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 15px 26px;
+      padding: 14px 24px;
       border-radius: 16px;
       text-decoration: none;
       font-weight: 800;
-      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
     }
 
     .btn-primary {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      color: #081018;
+      box-shadow: 0 0 18px rgba(142,241,255,0.16);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
     }
 
     .btn-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255,255,255,0.06);
       color: white;
-      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .btn-secondary:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.09);
     }
 
-    .account-line {
-      margin-top: 14px;
-      color: rgba(255,255,255,0.78);
-      font-size: 0.95rem;
-      font-weight: 700;
+    .section {
+      margin-top: 28px;
     }
 
     .section-title {
-      font-size: 2.35rem;
-      margin-bottom: 14px;
+      font-size: 2rem;
       color: #f3efe4;
+      margin-bottom: 10px;
     }
 
     .section-subtitle {
-      max-width: 760px;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 1.05rem;
-      margin-bottom: 28px;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 22px;
+      font-size: 1rem;
     }
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
-      align-items: stretch;
     }
 
     .card-grid a.card {
@@ -342,14 +305,12 @@
     .card {
       padding: 24px;
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.015);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
       backdrop-filter: blur(10px);
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
       min-height: 215px;
-      position: relative;
-      overflow: hidden;
     }
 
     .card:hover {
@@ -376,15 +337,6 @@
       font-size: 1.3rem;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 0 12px rgba(255,255,255,0.02);
-      flex-shrink: 0;
-    }
-
-    .plan-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     .plan-badge {
@@ -393,6 +345,8 @@
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.2px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
     }
 
     .plan-badge.free {
@@ -401,21 +355,16 @@
       color: rgba(255,255,255,0.86);
     }
 
-    .plan-badge.pro {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
-    }
-
     .card h3 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       margin-bottom: 10px;
       color: #eaffff;
     }
 
     .card p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1rem;
-      margin-bottom: 14px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.98rem;
+      margin-bottom: 12px;
     }
 
     .tool-access {
@@ -424,34 +373,66 @@
       line-height: 1.5;
     }
 
-    @media (max-width: 1200px) {
+    .empty-state {
+      margin-top: 18px;
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+    }
+
+    .footer {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+      color: rgba(255,255,255,0.58);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #8ef1ff;
+    }
+
+    @media (max-width: 1100px) {
       .card-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 900px) {
-      .nav-shell {
-        justify-content: center;
+    @media (max-width: 800px) {
+      .hero-copy h1 {
+        font-size: 2.3rem;
       }
 
-      .page {
-        padding-left: 20px;
-        padding-right: 20px;
+      .card-grid {
+        grid-template-columns: 1fr;
       }
 
-      .hero-title {
-        font-size: 2.5rem;
-      }
-    }
-
-    @media (max-width: 700px) {
       .site-header {
         padding: 18px 16px;
       }
 
-      .brand-text {
-        font-size: 1.2rem;
+      .page {
+        padding: 30px 16px 60px;
+      }
+
+      .hero-card {
+        padding: 24px;
       }
 
       .top-logo {
@@ -459,61 +440,22 @@
         height: 52px;
       }
 
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
       .nav-links {
-        gap: 18px;
-      }
-
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        padding: 24px 18px;
-      }
-
-      .hero-title {
-        font-size: 2rem;
-      }
-
-      .section-title {
-        font-size: 2rem;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .nav-links {
-        width: 100%;
         justify-content: center;
       }
 
-      .nav-right {
+      .nav-cta {
         width: 100%;
-        justify-content: center;
-      }
-
-      .nav-cta,
-      .nav-secondary {
-        width: 100%;
-      }
-
-      .card-top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .plan-badges {
-        justify-content: flex-start;
       }
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
-
-  <script>
-    window.__SUPABASE_URL__ = "YOUR_SUPABASE_URL";
-    window.__SUPABASE_ANON_KEY__ = "YOUR_SUPABASE_ANON_KEY";
-  </script>
 
   <header class="site-header">
     <div class="nav-shell">
@@ -524,192 +466,280 @@
 
       <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="#tools">Tools</a>
         <a href="index.html#pricing">Pricing</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden">Logout</button>
       </nav>
 
-      <div class="nav-right">
-        <a id="accountBtn" href="account.html" class="nav-secondary hidden">Account</a>
-        <a id="loginBtn" href="login.html" class="nav-secondary hidden">Log In</a>
-        <a id="signupBtn" href="signup.html" class="nav-secondary hidden">Sign Up</a>
-        <button id="navUpgradeBtn" class="nav-cta" onclick="startCheckout()">Go Pro</button>
-      </div>
+      <button id="upgradeBtn" class="nav-cta">Go Pro</button>
     </div>
   </header>
 
   <main class="page">
     <section class="hero-card">
       <div class="hero-top">
-        <div class="hero-left">
-          <div class="hero-badge">Your Utility Forge AI workspace</div>
-          <h1 class="hero-title">
-            One dashboard
-            <br />
-            for <span class="accent">all your tools</span>
-          </h1>
-          <p class="hero-copy" id="heroCopy">
-            Checking your current plan and access details now.
+        <div class="hero-copy">
+          <div class="hero-badge">Your tool workspace</div>
+          <h1 id="welcomeTitle">Welcome to your dashboard</h1>
+          <p id="welcomeText">
+            Open your tools, manage your workflow, and keep your productivity in one clean place.
           </p>
 
           <div class="hero-actions">
-            <button id="upgradeBtn" class="btn-primary" onclick="startCheckout()">Upgrade to Pro</button>
-            <a class="btn-secondary" href="index.html#pricing">View Pricing</a>
+            <a href="#tools" class="btn-primary">Open Tools</a>
+            <button id="heroUpgradeBtn" class="btn-secondary">Upgrade to Pro</button>
           </div>
-
-          <div class="account-line" id="accountLine">Checking account state...</div>
         </div>
 
-        <div id="planPill" class="plan-pill">Loading plan...</div>
+        <div class="account-panel">
+          <h3>Account</h3>
+          <div class="account-line" id="accountName">Guest</div>
+          <div class="account-line" id="accountEmail">Not logged in</div>
+          <div class="plan-pill" id="planPill">Starter Plan</div>
+        </div>
       </div>
     </section>
 
-    <section id="tools">
-      <h2 class="section-title">Tools</h2>
+    <section class="section" id="tools">
+      <h2 class="section-title">Your tools</h2>
       <p class="section-subtitle">
-        Open any tool below to write, polish, summarize, generate, research, and move faster in one consistent workspace.
+        Everything in one place. Open a tool and get straight to work.
       </p>
 
       <div class="card-grid">
         <a class="card" href="email-polisher.html">
           <div class="card-top">
             <div class="tool-icon">✉️</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Email Polisher</h3>
-          <p>Improve wording, tone, and clarity for emails fast.</p>
-          <div class="tool-access">Quick daily use on Starter. Unlimited use on Pro.</div>
+          <p>Improve wording, tone, and clarity for rough emails.</p>
+          <div class="tool-access">Fast rewrites for clearer communication.</div>
         </a>
 
         <a class="card" href="idea-generator.html">
           <div class="card-top">
             <div class="tool-icon">💡</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Idea Generator</h3>
-          <p>Turn rough thoughts into usable ideas and concepts.</p>
-          <div class="tool-access">Useful for business ideas, projects, and creative direction.</div>
+          <p>Turn rough concepts into stronger, more usable ideas.</p>
+          <div class="tool-access">Great for brainstorming and planning.</div>
         </a>
 
         <a class="card" href="cover-letter-generator.html">
           <div class="card-top">
             <div class="tool-icon">🖊️</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Cover Letter Generator</h3>
-          <p>Generate polished cover letters from job notes and experience.</p>
-          <div class="tool-access">Built to make applications cleaner and faster.</div>
+          <p>Generate a cleaner cover letter draft from your notes.</p>
+          <div class="tool-access">Built for faster job applications.</div>
         </a>
 
         <a class="card" href="resume-bullet-generator.html">
           <div class="card-top">
             <div class="tool-icon">📄</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Resume Bullet Generator</h3>
-          <p>Create stronger resume bullets from plain job duties.</p>
-          <div class="tool-access">Useful for ATS-friendly resume rewrites and upgrades.</div>
+          <p>Create sharper resume bullets from plain job duties.</p>
+          <div class="tool-access">Stronger phrasing for better resumes.</div>
         </a>
 
         <a class="card" href="text-summarizer.html">
           <div class="card-top">
             <div class="tool-icon">📝</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Text Summarizer</h3>
-          <p>Condense longer content into clean, useful takeaways.</p>
-          <div class="tool-access">Ideal for readings, notes, articles, and quick summaries.</div>
+          <p>Condense longer text into cleaner takeaways.</p>
+          <div class="tool-access">Useful for notes, reading, and study review.</div>
         </a>
 
         <a class="card" href="job-analyzer.html">
           <div class="card-top">
             <div class="tool-icon">🎯</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Job Analyzer</h3>
-          <p>Break down job descriptions into skills, ATS keywords, and focus points.</p>
-          <div class="tool-access">Great for tailoring resumes and cover letters faster.</div>
+          <p>Break job posts into skills, keywords, and focus points.</p>
+          <div class="tool-access">Built for ATS and application prep.</div>
         </a>
 
         <a class="card" href="linkedin-summary.html">
           <div class="card-top">
             <div class="tool-icon">💼</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>LinkedIn Summary Generator</h3>
-          <p>Generate a stronger headline and summary from your background.</p>
-          <div class="tool-access">Useful for job searching, branding, and cleaner profile copy.</div>
+          <p>Build a stronger LinkedIn summary from your background.</p>
+          <div class="tool-access">Good for branding and job searching.</div>
         </a>
 
         <a class="card" href="cold-email-generator.html">
           <div class="card-top">
             <div class="tool-icon">📬</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Cold Email Generator</h3>
-          <p>Write better outreach emails for networking, opportunities, and collaboration.</p>
-          <div class="tool-access">Helps build clear and professional outreach faster.</div>
+          <p>Create better outreach emails for networking and opportunities.</p>
+          <div class="tool-access">Cleaner outreach with less effort.</div>
         </a>
 
         <a class="card" href="research-assistant.html">
           <div class="card-top">
             <div class="tool-icon">🔎</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Free</span>
-              <span class="plan-badge pro">Pro Unlimited</span>
-            </div>
+            <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Research Assistant</h3>
-          <p>Use one tool for general research and legal research drafting support.</p>
-          <div class="tool-access">Useful for structured topic research and issue spotting before verification.</div>
+          <p>Use one tool for general research and legal research drafting.</p>
+          <div class="tool-access">Helpful for structured issue breakdowns.</div>
         </a>
+      </div>
+
+      <div class="empty-state" id="guestMessage">
+        You can use the platform as a guest, but creating an account keeps your usage and Pro access tied to you across sessions.
       </div>
     </section>
   </main>
 
-  <script type="module">
-    import { getEffectiveUserId, getAccountState } from "./auth-session.js";
+  <footer class="footer">
+    © 2026 Utility Forge AI. All rights reserved.
 
-    const planPill = document.getElementById("planPill");
-    const heroCopy = document.getElementById("heroCopy");
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
     const upgradeBtn = document.getElementById("upgradeBtn");
-    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-    const accountBtn = document.getElementById("accountBtn");
-    const loginBtn = document.getElementById("loginBtn");
-    const signupBtn = document.getElementById("signupBtn");
-    const accountLine = document.getElementById("accountLine");
+    const heroUpgradeBtn = document.getElementById("heroUpgradeBtn");
+    const welcomeTitle = document.getElementById("welcomeTitle");
+    const welcomeText = document.getElementById("welcomeText");
+    const accountName = document.getElementById("accountName");
+    const accountEmail = document.getElementById("accountEmail");
+    const planPill = document.getElementById("planPill");
+    const guestMessage = document.getElementById("guestMessage");
+
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function getGuestUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
+    }
+
+    function getUserId() {
+      const account = getStoredAccount();
+      if (account?.id) return account.id;
+      return getGuestUserId();
+    }
+
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
+
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        } else {
+          localStorage.removeItem("uf_account");
+        }
+      } catch {}
+    }
+
+    function updateDashboardUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
+
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      if (loggedIn) {
+        const displayName = account.name || account.email || "User";
+        welcomeTitle.textContent = `Welcome back, ${displayName}`;
+        welcomeText.textContent = "Your tools are ready. Jump back in and keep your workflow moving.";
+        accountName.textContent = account.name ? account.name : "Account user";
+        accountEmail.textContent = account.email || "Logged in";
+        guestMessage.classList.add("hidden");
+      } else {
+        welcomeTitle.textContent = "Welcome to your dashboard";
+        welcomeText.textContent = "Open your tools, manage your workflow, and keep your productivity in one clean place.";
+        accountName.textContent = "Guest";
+        accountEmail.textContent = "Not logged in";
+        guestMessage.classList.remove("hidden");
+      }
+
+      if (isPro) {
+        planPill.textContent = "Pro Plan";
+        planPill.classList.add("pro");
+        upgradeBtn.classList.add("hidden");
+        heroUpgradeBtn.classList.add("hidden");
+      } else {
+        planPill.textContent = "Starter Plan";
+        planPill.classList.remove("pro");
+        upgradeBtn.classList.remove("hidden");
+        heroUpgradeBtn.classList.remove("hidden");
+      }
+    }
+
+    async function syncProUI() {
+      const account = getStoredAccount();
+      if (!account?.id) return;
+
+      try {
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: account.id })
+        });
+
+        const raw = await res.text();
+        const data = JSON.parse(raw);
+
+        if (data.pro) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
+        }
+      } catch {}
+    }
 
     async function startCheckout() {
       try {
-        const userId = await getEffectiveUserId();
-
         const response = await fetch("/api/checkout", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId })
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId: getUserId() })
         });
 
         const raw = await response.text();
@@ -728,68 +758,28 @@
         }
       } catch (error) {
         console.error("Checkout error:", error);
-        alert("Something went wrong starting checkout.");
+        alert(error.message || "Something went wrong starting checkout.");
       }
     }
 
-    window.startCheckout = startCheckout;
-
-    async function loadAccountAndPlan() {
-      const state = await getAccountState();
-      const proHint = localStorage.getItem("uf_pro_hint") === "true";
-
-      if (state.loggedIn && state.user?.email) {
-        accountBtn.classList.remove("hidden");
-        loginBtn.classList.add("hidden");
-        signupBtn.classList.add("hidden");
-        accountLine.textContent = `Signed in as ${state.user.email}`;
-      } else {
-        accountBtn.classList.add("hidden");
-        loginBtn.classList.remove("hidden");
-        signupBtn.classList.remove("hidden");
-        accountLine.textContent = "Browsing as guest. Create an account to keep access tied to you across devices.";
-      }
-
-      if (proHint) {
-        planPill.textContent = "Pro Plan • Unlimited";
-        planPill.classList.add("pro");
-        heroCopy.textContent = "Pro access is active. All supported tools now run with unlimited usage across the platform.";
-        upgradeBtn.classList.add("hidden");
-        navUpgradeBtn.classList.add("hidden");
-      }
-
+    async function logout() {
       try {
-        const userId = await getEffectiveUserId();
-        const res = await fetch(`/api/pro-status?userId=${encodeURIComponent(userId)}`);
-        const raw = await res.text();
-        const data = JSON.parse(raw);
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
 
-        if (data.pro) {
-          planPill.textContent = "Pro Plan • Unlimited";
-          planPill.classList.add("pro");
-          heroCopy.textContent = "You have Pro access active. All supported tools now run with unlimited usage across the platform.";
-          upgradeBtn.classList.add("hidden");
-          navUpgradeBtn.classList.add("hidden");
-          localStorage.setItem("uf_pro_hint", "true");
-        } else {
-          planPill.textContent = "Starter Plan • Daily Limits";
-          planPill.classList.remove("pro");
-          heroCopy.textContent = "You’re currently on Starter. You can use the platform with daily limits, or upgrade to Pro for unlimited access.";
-          upgradeBtn.classList.remove("hidden");
-          navUpgradeBtn.classList.remove("hidden");
-          localStorage.removeItem("uf_pro_hint");
-        }
-      } catch (error) {
-        console.error("Plan load error:", error);
-
-        if (!proHint) {
-          planPill.textContent = "Plan unavailable";
-          heroCopy.textContent = "We couldn’t load your plan details right now, but your tools are still available.";
-        }
-      }
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
     }
 
-    loadAccountAndPlan();
+    upgradeBtn.addEventListener("click", startCheckout);
+    heroUpgradeBtn.addEventListener("click", startCheckout);
+    logoutBtn.addEventListener("click", logout);
+
+    (async function init() {
+      await hydrateSession();
+      await syncProUI();
+      updateDashboardUI();
+    })();
   </script>
 </body>
 </html>
