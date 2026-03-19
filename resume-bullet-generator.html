@@ -6,7 +6,6 @@
   <title>Resume Bullet Generator | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <meta name="description" content="Create stronger resume bullets from plain job duties and experience." />
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -89,19 +88,25 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
-    .nav-links a {
+    .nav-links a,
+    .nav-links button.linklike {
       text-decoration: none;
       color: rgba(255,255,255,0.86);
       font-size: 1rem;
       font-weight: 600;
       transition: color 0.2s ease, transform 0.2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links button.linklike:hover {
       color: #8df7ff;
       transform: translateY(-1px);
     }
@@ -269,9 +274,7 @@
       outline: none;
     }
 
-    textarea::placeholder {
-      color: rgba(255,255,255,0.45);
-    }
+    textarea::placeholder { color: rgba(255,255,255,0.45); }
 
     textarea:focus, select:focus {
       border-color: rgba(142,241,255,0.55);
@@ -393,6 +396,9 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden">Logout</button>
       </nav>
 
       <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
@@ -474,6 +480,9 @@
     const usagePill = document.getElementById("usagePill");
     const navUpgradeBtn = document.getElementById("navUpgradeBtn");
     const upgradeHintBtn = document.getElementById("upgradeHintBtn");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
     const runBtn = document.getElementById("runBtn");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
@@ -483,21 +492,56 @@
 
     let lastOutput = "";
 
-    function getUserId() {
-      const accountRaw = localStorage.getItem("uf_account");
-      if (accountRaw) {
-        try {
-          const account = JSON.parse(accountRaw);
-          if (account && account.id) return account.id;
-        } catch {}
-      }
-
+    function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
       if (!id) {
         id = crypto.randomUUID();
         localStorage.setItem("uf_user_id", id);
       }
       return id;
+    }
+
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function getUserId() {
+      const account = getStoredAccount();
+      if (account?.id) return account.id;
+      return getGuestUserId();
+    }
+
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
+
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        } else {
+          localStorage.removeItem("uf_account");
+        }
+      } catch {}
+    }
+
+    function updateAuthUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
+
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
     }
 
     function updateCount() {
@@ -531,11 +575,19 @@
       upgradeHint.style.display = "block";
     }
 
+    async function safeJsonFromResponse(res) {
+      const raw = await res.text();
+      try {
+        return JSON.parse(raw);
+      } catch {
+        throw new Error(raw || "Server returned an invalid response.");
+      }
+    }
+
     async function loadUsage() {
       try {
         const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
-        const raw = await res.text();
-        const data = JSON.parse(raw);
+        const data = await safeJsonFromResponse(res);
         setUsageUI(data);
       } catch {
         usagePill.textContent = "Usage unavailable";
@@ -545,24 +597,26 @@
 
     async function syncUpgradeUI() {
       try {
+        const account = getStoredAccount();
+        if (!account?.id) return;
+
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: getUserId() })
+          body: JSON.stringify({ userId: account.id })
         });
 
-        const raw = await res.text();
-        const data = JSON.parse(raw);
+        const data = await safeJsonFromResponse(res);
 
         if (data.pro) {
-          localStorage.setItem("uf_pro_hint", "true");
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
           usagePill.textContent = "Pro Plan • Unlimited";
           usagePill.classList.add("pro");
           usageText.textContent = "Unlimited usage active on this tool.";
           navUpgradeBtn.classList.add("hidden");
-        } else {
-          localStorage.removeItem("uf_pro_hint");
-          navUpgradeBtn.classList.remove("hidden");
         }
       } catch {}
     }
@@ -575,8 +629,7 @@
           body: JSON.stringify({ userId: getUserId() })
         });
 
-        const raw = await response.text();
-        const data = JSON.parse(raw);
+        const data = await safeJsonFromResponse(response);
 
         if (data.url) {
           window.location.href = data.url;
@@ -585,12 +638,21 @@
         }
       } catch (error) {
         console.error("Checkout error:", error);
-        alert("Something went wrong starting checkout.");
+        alert(error.message || "Something went wrong starting checkout.");
       }
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
     }
 
     navUpgradeBtn.addEventListener("click", startCheckout);
     upgradeHintBtn.addEventListener("click", startCheckout);
+    logoutBtn.addEventListener("click", logout);
 
     EXAMPLES.forEach((example) => {
       const btn = document.createElement("button");
@@ -660,8 +722,7 @@
           body: JSON.stringify({ text, mode, userId: getUserId() })
         });
 
-        const raw = await res.text();
-        const data = JSON.parse(raw);
+        const data = await safeJsonFromResponse(res);
 
         if (!res.ok) {
           resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
@@ -689,9 +750,13 @@
       }
     });
 
-    updateCount();
-    loadUsage();
-    syncUpgradeUI();
+    (async function init() {
+      await hydrateSession();
+      updateAuthUI();
+      updateCount();
+      await loadUsage();
+      await syncUpgradeUI();
+    })();
   </script>
 </body>
 </html>
