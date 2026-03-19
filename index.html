@@ -86,6 +86,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -122,15 +123,21 @@
       flex-wrap: wrap;
     }
 
-    .nav-links a {
+    .nav-links a,
+    .nav-links button.linklike {
       text-decoration: none;
       color: rgba(255, 255, 255, 0.86);
       font-size: 1rem;
       font-weight: 600;
       transition: color 0.2s ease, transform 0.2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links button.linklike:hover {
       color: #8df7ff;
       transform: translateY(-1px);
     }
@@ -155,6 +162,10 @@
     .nav-cta:hover {
       transform: translateY(-2px);
       box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     .page {
@@ -333,12 +344,8 @@
     }
 
     @keyframes panelSweep {
-      0% {
-        transform: translateX(-130%);
-      }
-      100% {
-        transform: translateX(130%);
-      }
+      0% { transform: translateX(-130%); }
+      100% { transform: translateX(130%); }
     }
 
     .hero-logo {
@@ -1060,9 +1067,12 @@
         <a href="dashboard.html">Dashboard</a>
         <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden">Logout</button>
       </nav>
 
-      <a href="dashboard.html" class="nav-cta">Get Started</a>
+      <button id="navCta" class="nav-cta">Get Started</button>
     </div>
   </header>
 
@@ -1079,13 +1089,13 @@
 
         <p>
           Utility Forge AI brings focused tools into one clean workspace so users
-          can write, polish, summarize, generate, research, and move faster without
-          the clutter of bloated software.
+          can write, polish, summarize, generate, research, and move faster without the
+          clutter of bloated software.
         </p>
 
         <div class="hero-buttons">
-          <a href="dashboard.html" class="btn-primary">Open Dashboard</a>
-          <a href="#pricing" class="btn-secondary">Upgrade to Pro</a>
+          <a href="dashboard.html" class="btn-primary" id="heroPrimaryBtn">Open Dashboard</a>
+          <button id="heroUpgradeBtn" class="btn-secondary">Upgrade to Pro</button>
         </div>
 
         <div class="hero-tags">
@@ -1316,7 +1326,7 @@
             <li>Built for repeated daily use</li>
           </ul>
 
-          <button onclick="startCheckout()" class="pricing-btn primary">Start Pro Now</button>
+          <button id="pricingUpgradeBtn" class="pricing-btn primary">Start Pro Now</button>
 
           <div class="pricing-trust">
             Cancel anytime • Instant access • No contracts
@@ -1380,7 +1390,7 @@
     </div>
   </footer>
 
-  <button class="floating-upgrade" id="floatingUpgrade" onclick="startCheckout()">
+  <button class="floating-upgrade" id="floatingUpgrade">
     <span class="bolt">⚡</span>
     <span>Unlock Unlimited Tools — Upgrade to Pro</span>
   </button>
@@ -1429,14 +1439,150 @@
     const toneBtn = document.getElementById("toneBtn");
     const appPreview = document.getElementById("appPreview");
     const floatingUpgrade = document.getElementById("floatingUpgrade");
+    const navCta = document.getElementById("navCta");
+    const heroUpgradeBtn = document.getElementById("heroUpgradeBtn");
+    const pricingUpgradeBtn = document.getElementById("pricingUpgradeBtn");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
 
     let previewIndex = 0;
+
+    function getGuestUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
+    }
+
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function getUserId() {
+      const account = getStoredAccount();
+      if (account?.id) return account.id;
+      return getGuestUserId();
+    }
+
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
+
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        } else {
+          localStorage.removeItem("uf_account");
+        }
+      } catch {}
+    }
+
+    function updateAuthUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
+
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      navCta.textContent = loggedIn ? "Open Dashboard" : "Get Started";
+      navCta.onclick = () => {
+        window.location.href = loggedIn ? "dashboard.html" : "signup.html";
+      };
+
+      heroUpgradeBtn.classList.toggle("hidden", isPro);
+      pricingUpgradeBtn.classList.toggle("hidden", isPro);
+      floatingUpgrade.classList.toggle("hidden", isPro);
+    }
+
+    async function syncUpgradeUI() {
+      try {
+        const account = getStoredAccount();
+        if (!account?.id) return;
+
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: account.id })
+        });
+
+        const data = await res.json();
+
+        if (data.pro) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
+          updateAuthUI();
+        }
+      } catch {}
+    }
+
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert(error.message || "Something went wrong starting checkout.");
+      }
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
+    }
 
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     function toggleFloatingUpgrade() {
+      const account = getStoredAccount();
+      if (account?.pro) {
+        floatingUpgrade.classList.remove("show");
+        return;
+      }
+
       const shouldShow = window.scrollY > 500;
       floatingUpgrade.classList.toggle("show", shouldShow);
     }
@@ -1480,47 +1626,22 @@
       }
     }
 
-    async function startCheckout() {
-      try {
-        let userId = localStorage.getItem("uf_user_id");
-
-        if (!userId) {
-          userId = crypto.randomUUID();
-          localStorage.setItem("uf_user_id", userId);
-        }
-
-        const response = await fetch("/api/checkout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ userId })
-        });
-
-        const raw = await response.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
-        }
-
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert(data.error || "Unable to start checkout.");
-        }
-      } catch (error) {
-        console.error("Checkout error:", error);
-        alert("Something went wrong starting checkout.");
-      }
-    }
+    heroUpgradeBtn.addEventListener("click", startCheckout);
+    pricingUpgradeBtn.addEventListener("click", startCheckout);
+    floatingUpgrade.addEventListener("click", startCheckout);
+    logoutBtn.addEventListener("click", logout);
 
     window.addEventListener("scroll", toggleFloatingUpgrade);
     window.addEventListener("load", toggleFloatingUpgrade);
 
-    runPreviewCycle();
+    (async function init() {
+      await hydrateSession();
+      updateAuthUI();
+      await syncUpgradeUI();
+      updateAuthUI();
+      toggleFloatingUpgrade();
+      runPreviewCycle();
+    })();
   </script>
 </body>
 </html>
