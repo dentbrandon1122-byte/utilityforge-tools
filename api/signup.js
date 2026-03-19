@@ -1,5 +1,4 @@
-import db from "../lib/db.js";
-import { hashPassword, createSession } from "../lib/auth.js";
+import { createSessionForUser, createUser, setSessionCookie } from "../lib/auth.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -7,33 +6,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body || {};
 
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email and password are required." });
-    }
+    const user = await createUser({ email, password, name });
+    const sessionId = await createSessionForUser(user.id);
 
-    const existing = db.prepare(`SELECT id FROM users WHERE email = ?`).get(email);
-    if (existing) {
-      return res.status(409).json({ error: "Account already exists." });
-    }
+    setSessionCookie(res, sessionId);
 
-    const passwordHash = await hashPassword(password);
-
-    const result = db.prepare(`
-      INSERT INTO users (email, password_hash)
-      VALUES (?, ?)
-    `).run(email, passwordHash);
-
-    const sessionToken = createSession(result.lastInsertRowid);
-
-    res.setHeader(
-      "Set-Cookie",
-      `session_token=${sessionToken}; HttpOnly; Path=/; Max-Age=2592000; SameSite=Lax`
-    );
-
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({
+      ok: true,
+      user
+    });
   } catch (error) {
-    return res.status(500).json({ error: "Signup failed." });
+    return res.status(400).json({
+      error: error.message || "Unable to create account."
+    });
   }
 }
