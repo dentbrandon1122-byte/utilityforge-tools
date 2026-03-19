@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up | Utility Forge AI</title>
+  <title>Create Account | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-
+  <meta name="description" content="Create your Utility Forge AI account." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -35,47 +35,10 @@
       opacity: 0.15;
     }
     .page {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 36px;
-      flex-wrap: wrap;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-      color: #f3efe4;
-      font-weight: 800;
-      font-size: 1.7rem;
-    }
-    .logo {
-      width: 56px;
-      height: 56px;
-      object-fit: contain;
-    }
-    .nav {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-    .nav a {
-      color: rgba(255,255,255,0.86);
-      text-decoration: none;
-      font-weight: 700;
-    }
-    .shell {
-      min-height: calc(100vh - 140px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
     }
     .card {
       width: 100%;
@@ -87,12 +50,41 @@
       backdrop-filter: blur(12px);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+      margin-bottom: 22px;
+    }
+    .top-logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
+    }
+    .brand-text {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #f3efe4;
+    }
+    .badge {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
     h1 {
-      font-size: 2.4rem;
+      font-size: 2.3rem;
       color: #f3efe4;
       margin-bottom: 8px;
     }
-    .subtitle {
+    p.sub {
       color: rgba(255,255,255,0.78);
       margin-bottom: 24px;
       line-height: 1.7;
@@ -102,21 +94,22 @@
     }
     .field label {
       display: block;
-      margin-bottom: 8px;
       font-weight: 800;
       color: #dcffff;
+      margin-bottom: 10px;
+      font-size: 0.98rem;
     }
-    .field input {
+    input {
       width: 100%;
-      padding: 14px 16px;
-      border-radius: 14px;
+      padding: 15px 16px;
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.04);
       color: white;
-      font-size: 15px;
       outline: none;
+      font-size: 15px;
     }
-    .field input:focus {
+    input:focus {
       border-color: rgba(142,241,255,0.55);
       box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
     }
@@ -124,15 +117,16 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     button, .secondary-link {
       border: none;
       border-radius: 14px;
-      padding: 14px 20px;
+      padding: 14px 22px;
       font-weight: 800;
-      text-decoration: none;
       cursor: pointer;
+      transition: .18s ease;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -148,17 +142,17 @@
     }
     .status {
       min-height: 24px;
-      margin-top: 16px;
+      margin: 16px 0 8px;
+      color: rgba(255,255,255,0.76);
       font-weight: 700;
-      color: rgba(255,255,255,0.8);
     }
     .status.error { color: #ffb4b4; }
     .status.success { color: #92ffb8; }
-    .bottom-link {
-      margin-top: 22px;
-      color: rgba(255,255,255,0.75);
+    .footer-link {
+      margin-top: 18px;
+      color: rgba(255,255,255,0.78);
     }
-    .bottom-link a {
+    .footer-link a {
       color: #8ef1ff;
       text-decoration: none;
       font-weight: 700;
@@ -168,111 +162,106 @@
 <body>
   <div class="background"></div>
 
-  <script>
-    window.__SUPABASE_URL__ = "https://cidsrfplufxtffdmrvjv.supabase.co";
-    window.__SUPABASE_ANON_KEY__ = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpZHNyZnBsdWZ4dGZmZG1ydmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTM3MjEsImV4cCI6MjA4ODkyOTcyMX0.wFDiehTO5J39KqWMsnRV4yim3RsXR950ZpJ2vKfNrxg";
-  </script>
-
-  <div class="page">
-    <header class="header">
+  <main class="page">
+    <section class="card">
       <a href="index.html" class="brand">
-        <img src="logo.png" alt="Utility Forge AI logo" class="logo" />
-        <span>Utility Forge AI</span>
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
       </a>
 
-      <nav class="nav">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="index.html#pricing">Pricing</a>
-      </nav>
-    </header>
+      <div class="badge">Create your account</div>
+      <h1>Sign up</h1>
+      <p class="sub">Create your account to keep your usage, Pro status, and tools connected to one place.</p>
 
-    <main class="shell">
-      <section class="card">
-        <h1>Create account</h1>
-        <p class="subtitle">Create your account so your access, usage, and Pro plan stay attached to you.</p>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" placeholder="Your name" autocomplete="name" />
+      </div>
 
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="you@example.com" />
-        </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+      </div>
 
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Create a password" />
-        </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="At least 6 characters" autocomplete="new-password" />
+      </div>
 
-        <div class="field">
-          <label for="confirmPassword">Confirm Password</label>
-          <input id="confirmPassword" type="password" placeholder="Confirm your password" />
-        </div>
+      <div class="actions">
+        <button id="signupBtn" class="primary-btn">Create Account</button>
+        <a class="secondary-link" href="index.html">Back Home</a>
+      </div>
 
-        <div class="actions">
-          <button id="signupBtn" class="primary-btn">Create Account</button>
-          <a href="login.html" class="secondary-link">Log In</a>
-        </div>
+      <div id="status" class="status"></div>
 
-        <div id="status" class="status"></div>
+      <div class="footer-link">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+    </section>
+  </main>
 
-        <div class="bottom-link">
-          Already have an account? <a href="login.html">Log in</a>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script type="module">
-    import { signUpWithEmail, getCurrentUser } from "./supabase-client.js";
-
+  <script>
+    const nameInput = document.getElementById("name");
     const email = document.getElementById("email");
     const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
     const signupBtn = document.getElementById("signupBtn");
-    const status = document.getElementById("status");
+    const statusBox = document.getElementById("status");
 
     function setStatus(message = "", type = "") {
-      status.textContent = message;
-      status.className = "status" + (type ? ` ${type}` : "");
+      statusBox.textContent = message;
+      statusBox.className = "status" + (type ? ` ${type}` : "");
     }
 
-    try {
-      const existingUser = await getCurrentUser();
-      if (existingUser) {
-        window.location.href = "dashboard.html";
+    async function saveSessionToLocalStorage() {
+      const res = await fetch("/api/session");
+      const data = await res.json();
+
+      if (data.loggedIn && data.user) {
+        localStorage.setItem("uf_account", JSON.stringify({
+          id: data.user.id,
+          email: data.user.email,
+          name: data.user.name || "",
+          pro: !!data.pro
+        }));
       }
-    } catch {}
+    }
 
     signupBtn.addEventListener("click", async () => {
-      const emailValue = email.value.trim();
-      const passwordValue = password.value;
-      const confirmValue = confirmPassword.value;
+      setStatus("");
 
-      if (!emailValue || !passwordValue || !confirmValue) {
-        setStatus("Please complete all fields.", "error");
-        return;
-      }
-
-      if (passwordValue.length < 6) {
-        setStatus("Password must be at least 6 characters.", "error");
-        return;
-      }
-
-      if (passwordValue !== confirmValue) {
-        setStatus("Passwords do not match.", "error");
+      if (!email.value.trim() || !password.value.trim()) {
+        setStatus("Enter your email and password.", "error");
         return;
       }
 
       signupBtn.disabled = true;
       signupBtn.textContent = "Creating...";
-      setStatus("Creating your account...");
 
       try {
-        const data = await signUpWithEmail(emailValue, passwordValue);
+        const res = await fetch("/api/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: nameInput.value.trim(),
+            email: email.value.trim(),
+            password: password.value
+          })
+        });
 
-        if (data?.user?.id) {
-          localStorage.setItem("uf_user_id", data.user.id);
+        const raw = await res.text();
+        const data = JSON.parse(raw);
+
+        if (!res.ok) {
+          setStatus(data.error || "Unable to create account.", "error");
+          return;
         }
 
-        setStatus("Account created. Check your email if confirmation is enabled, then log in.", "success");
+        await saveSessionToLocalStorage();
+        setStatus("Account created. Redirecting...", "success");
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 500);
       } catch (error) {
         setStatus(error.message || "Unable to create account.", "error");
       } finally {
