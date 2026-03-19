@@ -1,5 +1,4 @@
-import db from "../lib/db.js";
-import { verifyPassword, createSession } from "../lib/auth.js";
+import { authenticateUser, createSessionForUser, setSessionCookie } from "../lib/auth.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -7,33 +6,28 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body || {};
 
-    const user = db.prepare(`
-      SELECT * FROM users WHERE email = ?
-    `).get(email);
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required." });
+    }
+
+    const user = await authenticateUser(email, password);
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials." });
+      return res.status(401).json({ error: "Invalid email or password." });
     }
 
-    const valid = await verifyPassword(password, user.password_hash);
-    if (!valid) {
-      return res.status(401).json({ error: "Invalid credentials." });
-    }
-
-    const sessionToken = createSession(user.id);
-
-    res.setHeader(
-      "Set-Cookie",
-      `session_token=${sessionToken}; HttpOnly; Path=/; Max-Age=2592000; SameSite=Lax`
-    );
+    const sessionId = await createSessionForUser(user.id);
+    setSessionCookie(res, sessionId);
 
     return res.status(200).json({
       ok: true,
-      plan: user.plan
+      user
     });
   } catch (error) {
-    return res.status(500).json({ error: "Login failed." });
+    return res.status(500).json({
+      error: error.message || "Login failed."
+    });
   }
 }
