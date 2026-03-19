@@ -423,8 +423,8 @@
         </div>
 
         <div>
-          <label for="toneSelect" class="field-label">Mode</label>
-          <select id="toneSelect">
+          <label for="modeSelect" class="field-label">Mode</label>
+          <select id="modeSelect">
             <option value="business">Business</option>
             <option value="creative">Creative</option>
             <option value="practical">Practical</option>
@@ -457,7 +457,10 @@
   </main>
 
   <script>
-    const examples = [
+    const TOOL_KEY = "idea";
+    const API_PATH = "/api/idea-generator";
+
+    const EXAMPLES = [
       "Business ideas for passive income in tech",
       "YouTube channel ideas for gaming and space content",
       "Side hustle ideas using AI tools"
@@ -465,7 +468,7 @@
 
     const examplesWrap = document.getElementById("examples");
     const inputText = document.getElementById("inputText");
-    const toneSelect = document.getElementById("toneSelect");
+    const modeSelect = document.getElementById("modeSelect");
     const charCount = document.getElementById("charCount");
     const usageText = document.getElementById("usageText");
     const usagePill = document.getElementById("usagePill");
@@ -530,7 +533,7 @@
 
     async function loadUsage() {
       try {
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=idea`);
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
         const raw = await res.text();
         const data = JSON.parse(raw);
         setUsageUI(data);
@@ -547,6 +550,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: getUserId() })
         });
+
         const raw = await res.text();
         const data = JSON.parse(raw);
 
@@ -580,7 +584,7 @@
           alert(data.error || "Unable to start checkout.");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Checkout error:", error);
         alert("Something went wrong starting checkout.");
       }
     }
@@ -588,7 +592,7 @@
     navUpgradeBtn.addEventListener("click", startCheckout);
     upgradeHintBtn.addEventListener("click", startCheckout);
 
-    examples.forEach((example) => {
+    EXAMPLES.forEach((example) => {
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
@@ -617,7 +621,6 @@
 
     copyBtn.addEventListener("click", async () => {
       if (!lastOutput) return;
-
       try {
         await navigator.clipboard.writeText(lastOutput);
         copyBtn.textContent = "Copied ✓";
@@ -634,7 +637,7 @@
 
     runBtn.addEventListener("click", async () => {
       const text = inputText.value.trim();
-      const mode = toneSelect.value;
+      const mode = modeSelect.value;
 
       if (!text) {
         resultBox.textContent = "Please enter an idea prompt first.";
@@ -651,7 +654,7 @@
       hideUpgradeHint();
 
       try {
-        const res = await fetch("/api/idea-generator", {
+        const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text, mode, userId: getUserId() })
@@ -664,7 +667,7 @@
           resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
           setStatus(data.error || "Something went wrong.", "error");
 
-          if (data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage.") {
+          if ((data.error || "").includes("Daily free limit reached")) {
             showUpgradeHint();
           }
 
