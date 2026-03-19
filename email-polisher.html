@@ -457,7 +457,10 @@
   </main>
 
   <script>
-    const examples = [
+    const TOOL_KEY = "email";
+    const API_PATH = "/api/email-polish";
+
+    const EXAMPLES = [
       "Hi Sarah, I wanted to follow up on my application and see if there are any updates. Thank you.",
       "Hi team, can we set up a time next week to review the project and next steps?",
       "Hi Mr. Johnson, thank you for taking the time to speak with me today."
@@ -530,7 +533,7 @@
 
     async function loadUsage() {
       try {
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=email`);
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
         const raw = await res.text();
         const data = JSON.parse(raw);
         setUsageUI(data);
@@ -547,6 +550,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: getUserId() })
         });
+
         const raw = await res.text();
         const data = JSON.parse(raw);
 
@@ -580,7 +584,7 @@
           alert(data.error || "Unable to start checkout.");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Checkout error:", error);
         alert("Something went wrong starting checkout.");
       }
     }
@@ -588,7 +592,7 @@
     navUpgradeBtn.addEventListener("click", startCheckout);
     upgradeHintBtn.addEventListener("click", startCheckout);
 
-    examples.forEach((example) => {
+    EXAMPLES.forEach((example) => {
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
@@ -617,7 +621,6 @@
 
     copyBtn.addEventListener("click", async () => {
       if (!lastOutput) return;
-
       try {
         await navigator.clipboard.writeText(lastOutput);
         copyBtn.textContent = "Copied ✓";
@@ -651,7 +654,7 @@
       hideUpgradeHint();
 
       try {
-        const res = await fetch("/api/email-polish", {
+        const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text, tone, userId: getUserId() })
@@ -664,7 +667,7 @@
           resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
           setStatus(data.error || "Something went wrong.", "error");
 
-          if (data.error === "Daily free limit reached. Upgrade to Pro for unlimited usage.") {
+          if ((data.error || "").includes("Daily free limit reached")) {
             showUpgradeHint();
           }
 
