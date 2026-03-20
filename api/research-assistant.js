@@ -1,4 +1,3 @@
-import { getUsageId, getUsageStatus, incrementUsage } from "../lib/usage.js";
 import { isProUser } from "../lib/proStore.js";
 
 export default async function handler(req, res) {
@@ -7,60 +6,55 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text, mode = "general", userId } = req.body || {};
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+
+    const { text, mode = "general", userId } = body || {};
+
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
-      return res.status(400).json({ error: "Missing research topic or question." });
+      return res.status(400).json({ error: "Missing research topic." });
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(500).json({ error: "Missing OPENAI_API_KEY." });
+    // ✅ PRO CHECK
+    const isPro = await isProUser(userId);
+
+    // (Optional placeholder — replace with your real limit logic)
+    const FREE_LIMIT = 5;
+    let remaining = FREE_LIMIT;
+
+    if (!isPro && remaining <= 0) {
+      return res.status(429).json({
+        error: "Free limit reached. Upgrade to Pro."
+      });
     }
 
-    const usageId = getUsageId(req, userId);
-    const pro = await isProUser(userId);
-    const toolKey = "research";
-    const freeLimit = 5;
-
-    if (!pro) {
-      const status = getUsageStatus(usageId, toolKey, freeLimit);
-
-      if (status.remaining <= 0) {
-        return res.status(429).json({
-          error: "Daily free limit reached. Upgrade to Pro for unlimited usage.",
-          ...status,
-          pro: false
-        });
-      }
-    }
-
-    const trimmedInput = input.slice(0, 1800);
-
-    const prompts = {
-      general: `Give a clear, structured research response for the topic below. Keep it concise, practical, and easy to understand. Use short sections or bullet points where helpful.
+    // ✅ PROMPT MODES
+    const promptMap = {
+      general: `Give a structured, concise research answer with bullet points.
 
 Topic:
-${trimmedInput}`,
+${input}`,
 
-      legal: `Give a structured legal research drafting overview for the issue below. Do not present anything as legal advice. Focus on issue spotting, key questions, what should be verified, and what sources should be checked next. Keep it concise and organized.
+      legal: `Give a structured legal research overview (not legal advice). Focus on key issues, risks, and what to verify.
 
 Issue:
-${trimmedInput}`,
+${input}`,
 
-      outline: `Turn the topic below into a clean research outline with key sections, subpoints, and next-step questions. Keep it practical, clear, and concise.
-
-Topic:
-${trimmedInput}`,
-
-      "issue-spotting": `Identify the main issues, risks, open questions, and important follow-up areas related to the topic below. Keep the result structured, practical, and concise.
+      outline: `Create a clean research outline with sections and subpoints.
 
 Topic:
-${trimmedInput}`
+${input}`,
+
+      "issue-spotting": `Identify risks, issues, and follow-up questions.
+
+Topic:
+${input}`
     };
 
-    const userPrompt = prompts[mode] || prompts.general;
+    const prompt = promptMap[mode] || promptMap.general;
 
+    // ✅ TIMEOUT PROTECTION
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
 
@@ -74,20 +68,19 @@ ${trimmedInput}`
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+          model: "gpt-4o-mini",
           messages: [
             {
               role: "system",
               content:
-                "You are a concise research assistant. Give structured, useful, easy-to-read results. Keep responses under 220 words. Prefer bullets and short sections over long paragraphs."
+                "Be concise, structured, and useful. Keep under 200 words. Use bullets when possible."
             },
             {
               role: "user",
-              content: userPrompt
+              content: prompt
             }
           ],
-          max_tokens: 320,
-          temperature: 0.6
+          max_tokens: 300
         }),
         signal: controller.signal
       });
@@ -102,52 +95,37 @@ ${trimmedInput}`
       data = JSON.parse(raw);
     } catch {
       return res.status(500).json({
-        error: raw || "Invalid response from OpenAI."
+        error: "Invalid response from AI."
       });
     }
 
     if (!response.ok) {
       return res.status(500).json({
-        error: data?.error?.message || "Research assistant failed."
+        error: data?.error?.message || "AI request failed."
       });
     }
 
     const result =
       data?.choices?.[0]?.message?.content?.trim() ||
-      "No research output returned.";
-
-    if (!pro) {
-      incrementUsage(usageId, toolKey);
-      const status = getUsageStatus(usageId, toolKey, freeLimit);
-
-      return res.status(200).json({
-        result,
-        ...status,
-        pro: false
-      });
-    }
+      "No output generated.";
 
     return res.status(200).json({
       result,
-      remaining: "∞",
-      used: 0,
-      limit: "∞",
-      pro: true
+      pro: isPro,
+      remaining: isPro ? "unlimited" : remaining - 1
     });
+
   } catch (error) {
+    console.error("RESEARCH ERROR:", error);
+
     if (error.name === "AbortError") {
       return res.status(200).json({
-        result:
-          "That request took too long. Try a shorter or more specific research question.",
-        remaining: "—",
-        used: 0,
-        limit: "—",
-        pro: false
+        result: "That request took too long. Try something shorter."
       });
     }
 
     return res.status(500).json({
-      error: error.message || "Research assistant failed."
+      error: "Server error. Please try again."
     });
   }
 }
