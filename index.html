@@ -34,6 +34,10 @@
       line-height: 1.6;
     }
 
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
+    }
+
     .background {
       position: fixed;
       inset: 0;
@@ -1099,12 +1103,12 @@
         <a href="dashboard.html">Dashboard</a>
         <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <a href="dashboard.html" class="nav-cta" id="mainCta">Get Started</a>
+      <a href="dashboard.html" class="nav-cta auth-sensitive" id="mainCta">Get Started</a>
     </div>
   </header>
 
@@ -1125,8 +1129,8 @@
         </p>
 
         <div class="hero-buttons">
-          <a href="dashboard.html" class="btn-primary" id="heroPrimaryBtn">Open Dashboard</a>
-          <a href="#pricing" class="btn-secondary" id="heroSecondaryBtn">See Pro Plan</a>
+          <a href="dashboard.html" class="btn-primary auth-sensitive" id="heroPrimaryBtn">Open Dashboard</a>
+          <a href="#pricing" class="btn-secondary auth-sensitive" id="heroSecondaryBtn">See Pro Plan</a>
         </div>
 
         <div class="hero-tags">
@@ -1412,7 +1416,7 @@
             <li>Built for job search, writing, research, and outreach</li>
           </ul>
 
-          <button onclick="startCheckout()" class="pricing-btn primary" id="pricingProBtn">Start Pro Now</button>
+          <button onclick="startCheckout()" class="pricing-btn primary auth-sensitive" id="pricingProBtn">Start Pro Now</button>
 
           <div class="pricing-trust">
             Secure checkout powered by Stripe • Cancel anytime • No contracts
@@ -1473,7 +1477,7 @@
     </div>
   </footer>
 
-  <button class="floating-upgrade" id="floatingUpgrade" onclick="startCheckout()">
+  <button class="floating-upgrade auth-sensitive" id="floatingUpgrade" onclick="startCheckout()">
     <span class="bolt">⚡</span>
     <span>Unlock Unlimited Access — Go Pro</span>
   </button>
@@ -1572,7 +1576,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -1611,7 +1617,13 @@
         });
 
         const raw = await res.text();
-        const data = JSON.parse(raw);
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
@@ -1725,6 +1737,7 @@
       updateAuthUI();
       await syncProUI();
       toggleFloatingUpgrade();
+      document.body.classList.add("auth-ready");
       runPreviewCycle();
     })();
   </script>
