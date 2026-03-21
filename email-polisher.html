@@ -19,6 +19,10 @@
       overflow-x: hidden;
     }
 
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
+    }
+
     .background {
       position: fixed;
       inset: 0;
@@ -361,7 +365,7 @@
     }
 
     .result-box {
-      min-height: 190px;
+      min-height: 220px;
       background: rgba(92,245,255,0.06);
       border: 1px solid rgba(120,255,255,0.12);
       border-radius: 18px;
@@ -396,12 +400,12 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
     </div>
   </header>
 
@@ -411,9 +415,9 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for fast, practical rewriting</div>
+          <div class="tool-badge">Built for cleaner communication</div>
           <h1 class="title">Email Polisher</h1>
-          <p class="subtitle">Turn rough emails into cleaner, more professional messages.</p>
+          <p class="subtitle">Improve wording, tone, and clarity for rough emails in seconds.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -424,13 +428,13 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Email draft</label>
-          <textarea id="inputText" maxlength="1500" placeholder="Paste your rough email here..."></textarea>
+          <label for="inputText" class="field-label">Draft email</label>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste your rough email here..."></textarea>
         </div>
 
         <div>
-          <label for="toneSelect" class="field-label">Tone</label>
-          <select id="toneSelect">
+          <label for="modeSelect" class="field-label">Tone</label>
+          <select id="modeSelect">
             <option value="professional">Professional</option>
             <option value="friendly">Friendly</option>
             <option value="confident">Confident</option>
@@ -440,12 +444,12 @@
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/1500 characters</div>
+        <div><span id="charCount">0</span>/1800 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="primary-btn">Improve Email</button>
+        <button id="runBtn" class="primary-btn">Polish Email</button>
         <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
         <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
@@ -458,7 +462,7 @@
 
       <label class="result-label">Polished Email</label>
       <div class="result-box" id="resultBox">Your polished email will appear here.</div>
-      <div class="tip">Tip: rough drafts with clear context usually polish best.</div>
+      <div class="tip">Tip: include your rough wording first — the tool works best when it has something real to improve.</div>
     </section>
   </main>
 
@@ -467,14 +471,14 @@
     const API_PATH = "/api/email-polish";
 
     const EXAMPLES = [
-      "Hi Sarah, I wanted to follow up on my application and see if there are any updates. Thank you.",
-      "Hi team, can we set up a time next week to review the project and next steps?",
-      "Hi Mr. Johnson, thank you for taking the time to speak with me today."
+      "hi Sarah, just checking in about the application and wanted to see if there are any updates. thanks.",
+      "can we move our meeting to next week? friday got busy on my end.",
+      "thanks for sending that over. I looked through it and have a few questions before moving forward."
     ];
 
     const examplesWrap = document.getElementById("examples");
     const inputText = document.getElementById("inputText");
-    const toneSelect = document.getElementById("toneSelect");
+    const modeSelect = document.getElementById("modeSelect");
     const charCount = document.getElementById("charCount");
     const usageText = document.getElementById("usageText");
     const usagePill = document.getElementById("usagePill");
@@ -532,7 +536,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -596,27 +602,31 @@
     }
 
     async function syncUpgradeUI() {
-      try {
-        const account = getStoredAccount();
-        if (!account?.id) return;
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
+      try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: account.id })
         });
 
-        const data = await safeJsonFromResponse(res);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
             ...account,
             pro: true
           }));
-          usagePill.textContent = "Pro Plan • Unlimited";
-          usagePill.classList.add("pro");
-          usageText.textContent = "Unlimited usage active on this tool.";
-          navUpgradeBtn.classList.add("hidden");
+          setUsageUI({ pro: true });
         }
       } catch {}
     }
@@ -646,6 +656,7 @@
       try {
         await fetch("/api/logout", { method: "POST" });
       } catch {}
+
       localStorage.removeItem("uf_account");
       window.location.href = "index.html";
     }
@@ -658,7 +669,7 @@
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -699,7 +710,7 @@
 
     runBtn.addEventListener("click", async () => {
       const text = inputText.value.trim();
-      const tone = toneSelect.value;
+      const mode = modeSelect.value;
 
       if (!text) {
         resultBox.textContent = "Please enter an email draft first.";
@@ -710,8 +721,8 @@
 
       runBtn.disabled = true;
       copyBtn.disabled = true;
-      runBtn.textContent = "Improving...";
-      resultBox.textContent = "Polishing your email...";
+      runBtn.textContent = "Polishing...";
+      resultBox.textContent = "Polishing email...";
       setStatus("Forging your output...");
       hideUpgradeHint();
 
@@ -719,7 +730,7 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, tone, userId: getUserId() })
+          body: JSON.stringify({ text, mode, userId: getUserId() })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -746,7 +757,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         runBtn.disabled = false;
-        runBtn.textContent = "Improve Email";
+        runBtn.textContent = "Polish Email";
       }
     });
 
@@ -756,6 +767,7 @@
       updateCount();
       await loadUsage();
       await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
     })();
   </script>
 </body>
