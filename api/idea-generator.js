@@ -26,13 +26,25 @@ export default async function handler(req, res) {
       });
     }
 
+    const promptMap = {
+      business: `Generate practical business idea directions from this concept. Focus on usefulness, target audience, and simple execution.\n\nConcept:\n${input}`,
+      content: `Generate strong content ideas from this concept. Focus on clear angles, themes, and useful directions.\n\nConcept:\n${input}`,
+      creative: `Generate creative idea directions from this concept. Focus on originality, variety, and usable angles.\n\nConcept:\n${input}`,
+      practical: `Generate practical and realistic idea directions from this concept. Focus on simple execution and clear next steps.\n\nConcept:\n${input}`
+    };
+
     const result = await runOpenAIText({
-      systemPrompt: `You generate useful ideas. The user's preferred mode is ${mode}. Give practical, original, clear ideas in a readable format.`,
-      userText: input
+      system:
+        "You are a concise idea generation assistant. Return a clean list of useful ideas with short explanations where helpful.",
+      userText: promptMap[mode] || promptMap.business
     });
 
+    if (!result || typeof result !== "string" || !result.trim()) {
+      throw new Error("Idea generator returned an empty result.");
+    }
+
     return res.status(200).json({
-      result,
+      result: result.trim(),
       pro: usage.pro,
       used: usage.used,
       remaining: usage.remaining,
