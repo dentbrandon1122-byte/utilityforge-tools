@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LinkedIn Summary Generator | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Generate a stronger LinkedIn headline and summary from your background." />
+  <meta name="description" content="Build a stronger LinkedIn summary from your background." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -17,6 +17,10 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
     }
 
     .background {
@@ -396,12 +400,12 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
     </div>
   </header>
 
@@ -411,9 +415,9 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for better branding</div>
+          <div class="tool-badge">Built for profile positioning</div>
           <h1 class="title">LinkedIn Summary Generator</h1>
-          <p class="subtitle">Generate a stronger headline and summary from your experience, goals, and strengths.</p>
+          <p class="subtitle">Build a stronger LinkedIn summary from your experience, skills, goals, and personal brand direction.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -424,12 +428,12 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Background or notes</label>
-          <textarea id="inputText" maxlength="1800" placeholder="Paste your experience, strengths, goals, and background here..."></textarea>
+          <label for="inputText" class="field-label">Your background</label>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste your background, experience, skills, goals, and the type of impression you want your LinkedIn profile to make..."></textarea>
         </div>
 
         <div>
-          <label for="modeSelect" class="field-label">Style</label>
+          <label for="modeSelect" class="field-label">Tone</label>
           <select id="modeSelect">
             <option value="professional">Professional</option>
             <option value="confident">Confident</option>
@@ -445,7 +449,7 @@
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="primary-btn">Generate LinkedIn Summary</button>
+        <button id="runBtn" class="primary-btn">Generate Summary</button>
         <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
         <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
@@ -458,7 +462,7 @@
 
       <label class="result-label">LinkedIn Summary</label>
       <div class="result-box" id="resultBox">Your LinkedIn summary will appear here.</div>
-      <div class="tip">Tip: include the field you want to move into, your strengths, and what makes you stand out.</div>
+      <div class="tip">Tip: include your experience, strengths, and goals so the summary sounds more aligned to you.</div>
     </section>
   </main>
 
@@ -467,9 +471,9 @@
     const API_PATH = "/api/linkedin-summary";
 
     const EXAMPLES = [
-      "Cybersecurity student with Python, networking, and problem-solving experience.",
-      "Customer service professional transitioning into IT support and tech roles.",
-      "Motivated learner with strong communication, troubleshooting, and teamwork skills."
+      "Cybersecurity student with Python, networking, and security coursework looking for an internship.",
+      "Customer service and administrative background with strong communication and organization skills.",
+      "Tech-focused learner building experience in troubleshooting, support, and practical problem solving."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -532,7 +536,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -596,27 +602,31 @@
     }
 
     async function syncUpgradeUI() {
-      try {
-        const account = getStoredAccount();
-        if (!account?.id) return;
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
+      try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: account.id })
         });
 
-        const data = await safeJsonFromResponse(res);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
             ...account,
             pro: true
           }));
-          usagePill.textContent = "Pro Plan • Unlimited";
-          usagePill.classList.add("pro");
-          usageText.textContent = "Unlimited usage active on this tool.";
-          navUpgradeBtn.classList.add("hidden");
+          setUsageUI({ pro: true });
         }
       } catch {}
     }
@@ -646,6 +656,7 @@
       try {
         await fetch("/api/logout", { method: "POST" });
       } catch {}
+
       localStorage.removeItem("uf_account");
       window.location.href = "index.html";
     }
@@ -658,7 +669,7 @@
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -702,8 +713,8 @@
       const mode = modeSelect.value;
 
       if (!text) {
-        resultBox.textContent = "Please enter your background or notes first.";
-        setStatus("Please enter your background or notes first.", "error");
+        resultBox.textContent = "Please enter your background first.";
+        setStatus("Please enter your background first.", "error");
         hideUpgradeHint();
         return;
       }
@@ -746,7 +757,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         runBtn.disabled = false;
-        runBtn.textContent = "Generate LinkedIn Summary";
+        runBtn.textContent = "Generate Summary";
       }
     });
 
@@ -756,6 +767,7 @@
       updateCount();
       await loadUsage();
       await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
     })();
   </script>
 </body>
