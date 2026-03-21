@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Idea Generator | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Turn rough thoughts into usable ideas and concepts." />
+  <meta name="description" content="Turn rough concepts into stronger, more usable ideas." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -17,6 +17,10 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
     }
 
     .background {
@@ -361,7 +365,7 @@
     }
 
     .result-box {
-      min-height: 190px;
+      min-height: 220px;
       background: rgba(92,245,255,0.06);
       border: 1px solid rgba(120,255,255,0.12);
       border-radius: 18px;
@@ -396,12 +400,12 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
     </div>
   </header>
 
@@ -411,9 +415,9 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for fast brainstorming</div>
+          <div class="tool-badge">Built for brainstorming</div>
           <h1 class="title">Idea Generator</h1>
-          <p class="subtitle">Turn rough thoughts into usable ideas and concepts.</p>
+          <p class="subtitle">Turn rough thoughts into stronger, more usable ideas and directions.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -424,23 +428,23 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Idea prompt</label>
-          <textarea id="inputText" maxlength="1500" placeholder="Describe your idea, challenge, or rough concept..."></textarea>
+          <label for="inputText" class="field-label">Prompt or rough concept</label>
+          <textarea id="inputText" maxlength="1800" placeholder="Describe your rough idea, topic, or direction..."></textarea>
         </div>
 
         <div>
           <label for="modeSelect" class="field-label">Mode</label>
           <select id="modeSelect">
             <option value="business">Business</option>
+            <option value="content">Content</option>
             <option value="creative">Creative</option>
             <option value="practical">Practical</option>
-            <option value="growth">Growth</option>
           </select>
         </div>
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/1500 characters</div>
+        <div><span id="charCount">0</span>/1800 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
@@ -458,7 +462,7 @@
 
       <label class="result-label">Generated Ideas</label>
       <div class="result-box" id="resultBox">Your generated ideas will appear here.</div>
-      <div class="tip">Tip: the more specific your prompt is, the better the output usually gets.</div>
+      <div class="tip">Tip: the more specific your prompt, the stronger and more usable the ideas will be.</div>
     </section>
   </main>
 
@@ -467,9 +471,9 @@
     const API_PATH = "/api/idea-generator";
 
     const EXAMPLES = [
-      "Business ideas for passive income in tech",
-      "YouTube channel ideas for gaming and space content",
-      "Side hustle ideas using AI tools"
+      "business ideas using AI for small local service companies",
+      "content ideas for a new productivity brand",
+      "creative side project ideas combining technology and education"
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -532,7 +536,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -596,27 +602,31 @@
     }
 
     async function syncUpgradeUI() {
-      try {
-        const account = getStoredAccount();
-        if (!account?.id) return;
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
+      try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: account.id })
         });
 
-        const data = await safeJsonFromResponse(res);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
             ...account,
             pro: true
           }));
-          usagePill.textContent = "Pro Plan • Unlimited";
-          usagePill.classList.add("pro");
-          usageText.textContent = "Unlimited usage active on this tool.";
-          navUpgradeBtn.classList.add("hidden");
+          setUsageUI({ pro: true });
         }
       } catch {}
     }
@@ -646,6 +656,7 @@
       try {
         await fetch("/api/logout", { method: "POST" });
       } catch {}
+
       localStorage.removeItem("uf_account");
       window.location.href = "index.html";
     }
@@ -658,7 +669,7 @@
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -756,6 +767,7 @@
       updateCount();
       await loadUsage();
       await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
     })();
   </script>
 </body>
