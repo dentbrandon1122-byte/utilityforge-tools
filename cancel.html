@@ -4,23 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout Canceled | Utility Forge AI</title>
-
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta
-    name="description"
-    content="Your Utility Forge AI checkout was canceled."
-  />
-
+  <meta name="description" content="Your checkout was canceled." />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: Arial, sans-serif;
@@ -52,123 +40,174 @@
       opacity: 0.15;
     }
 
-    .background::after {
-      content: "";
-      position: absolute;
-      width: 850px;
-      height: 850px;
-      left: 50%;
-      top: 30%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
-      filter: blur(42px);
-      opacity: 0.3;
-      pointer-events: none;
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 18px 40px;
+      background: rgba(8, 12, 24, 0.58);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+    .nav-shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+    }
+
+    .top-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.18));
+    }
+
+    .brand-text {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #f3efe4;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .nav-links button.linklike {
+      text-decoration: none;
+      color: rgba(255,255,255,0.86);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.2s ease, transform 0.2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links button.linklike:hover {
+      color: #8df7ff;
+      transform: translateY(-1px);
+    }
+
+    .hidden { display: none !important; }
+
     .page {
-      min-height: 100vh;
+      min-height: calc(100vh - 100px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 30px 20px;
-      position: relative;
-      z-index: 2;
+      padding: 40px 20px 70px;
     }
 
     .cancel-card {
       width: 100%;
       max-width: 760px;
+      padding: 40px 34px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
       box-shadow:
-        0 0 34px rgba(0, 255, 255, 0.05),
-        inset 0 0 24px rgba(255, 255, 255, 0.018);
+        0 0 28px rgba(0,255,255,0.05),
+        inset 0 0 20px rgba(255,255,255,0.015);
       backdrop-filter: blur(12px);
-      padding: 38px 34px;
       text-align: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .cancel-card::before {
-      content: "";
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(95, 244, 255, 0.12), transparent 68%);
-      filter: blur(10px);
-      top: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    .status-badge {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(120, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.04);
-      color: #d8ffff;
-      font-size: 14px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(8px);
-      position: relative;
-      z-index: 2;
     }
 
     .cancel-icon {
-      width: 86px;
-      height: 86px;
-      margin: 0 auto 18px;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 22px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #f3efe4;
       font-size: 2rem;
       font-weight: 900;
-      position: relative;
-      z-index: 2;
+      color: #fff4d8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .title {
+    .eyebrow {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
       font-size: 3rem;
-      line-height: 1.02;
-      margin-bottom: 16px;
+      line-height: 1.05;
+      margin-bottom: 14px;
       color: #f3efe4;
-      letter-spacing: -1px;
-      position: relative;
-      z-index: 2;
     }
 
-    .title .accent {
-      color: #8ef1ff;
-      text-shadow: 0 0 14px rgba(142, 241, 255, 0.12);
-    }
-
-    .subtitle {
-      max-width: 640px;
+    .lead {
+      max-width: 620px;
       margin: 0 auto 24px;
+      color: rgba(255,255,255,0.82);
       font-size: 1.08rem;
-      line-height: 1.75;
-      color: rgba(255, 255, 255, 0.84);
-      position: relative;
-      z-index: 2;
+      line-height: 1.8;
     }
 
-    .action-row {
+    .info-box {
+      margin: 0 auto 24px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.88);
+      font-weight: 700;
+      max-width: 560px;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 12px;
+      margin: 0 auto 26px;
+      max-width: 540px;
+      text-align: left;
+    }
+
+    .feature-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.85);
+    }
+
+    .actions {
       display: flex;
       justify-content: center;
       gap: 14px;
       flex-wrap: wrap;
-      position: relative;
-      z-index: 2;
+      margin-top: 10px;
     }
 
     .btn-primary,
@@ -176,58 +215,64 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 15px 26px;
+      min-width: 180px;
+      padding: 15px 24px;
       border-radius: 16px;
       text-decoration: none;
       font-weight: 800;
-      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .btn-primary {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      color: #081018;
+      box-shadow: 0 0 18px rgba(142,241,255,0.18);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
     }
 
     .btn-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255,255,255,0.05);
       color: white;
-      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .btn-secondary:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .note {
+      margin-top: 18px;
+      color: rgba(255,255,255,0.62);
+      font-size: 0.92rem;
     }
 
     @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      h1 {
+        font-size: 2.3rem;
+      }
+
       .cancel-card {
-        padding: 28px 20px;
-        border-radius: 24px;
-      }
-
-      .title {
-        font-size: 2.2rem;
-      }
-
-      .subtitle {
-        font-size: 1rem;
-      }
-
-      .action-row {
-        flex-direction: column;
-      }
-
-      .btn-primary,
-      .btn-secondary {
-        width: 100%;
+        padding: 30px 20px;
       }
     }
   </style>
@@ -235,27 +280,108 @@
 <body>
   <div class="background"></div>
 
+  <header class="site-header">
+    <div class="nav-shell">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden">Logout</button>
+      </nav>
+    </div>
+  </header>
+
   <main class="page">
     <section class="cancel-card">
-      <div class="status-badge">Checkout canceled</div>
-
-      <div class="cancel-icon">×</div>
-
-      <h1 class="title">
-        No problem — you’re still on <span class="accent">Starter</span>
-      </h1>
-
-      <p class="subtitle">
-        Your checkout was canceled, and your current access has not changed.
-        You can keep using the platform with free daily limits and upgrade later
-        whenever you’re ready.
+      <div class="cancel-icon">↺</div>
+      <div class="eyebrow">Checkout canceled</div>
+      <h1>No changes were made</h1>
+      <p class="lead">
+        Your checkout was canceled before completion. You can continue using the free plan, or come back and upgrade any time.
       </p>
 
-      <div class="action-row">
-        <a href="dashboard.html" class="btn-primary">Open Dashboard</a>
-        <a href="index.html#pricing" class="btn-secondary">View Pricing</a>
+      <div class="info-box">
+        Your account and current access remain unchanged.
+      </div>
+
+      <div class="feature-list">
+        <div class="feature-item">Keep using the free plan with daily tool access</div>
+        <div class="feature-item">Upgrade later whenever you want unlimited usage</div>
+        <div class="feature-item">No contract, cancel anytime when you do upgrade</div>
+      </div>
+
+      <div class="actions">
+        <a href="dashboard.html" class="btn-primary">Return to Dashboard</a>
+        <a href="index.html#pricing" class="btn-secondary">View Pricing Again</a>
+      </div>
+
+      <div class="note">
+        You can upgrade later from the homepage, dashboard, or any tool page when you hit the free limit.
       </div>
     </section>
   </main>
+
+  <script>
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
+
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        }
+      } catch {}
+    }
+
+    function updateAuthUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
+
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
+    }
+
+    logoutBtn.addEventListener("click", logout);
+
+    (async function init() {
+      await hydrateSession();
+      updateAuthUI();
+    })();
+  </script>
 </body>
 </html>
