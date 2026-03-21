@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resume Bullet Generator | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Create stronger resume bullets from plain job duties and experience." />
+  <meta name="description" content="Turn plain job duties into stronger resume bullets." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -17,6 +17,10 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
     }
 
     .background {
@@ -263,7 +267,7 @@
 
     textarea {
       width: 100%;
-      min-height: 270px;
+      min-height: 260px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.04);
@@ -396,12 +400,12 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
     </div>
   </header>
 
@@ -413,7 +417,7 @@
         <div class="top-copy">
           <div class="tool-badge">Built for stronger resumes</div>
           <h1 class="title">Resume Bullet Generator</h1>
-          <p class="subtitle">Turn plain duties and experience into sharper, more professional resume bullets.</p>
+          <p class="subtitle">Turn plain job duties into sharper resume bullets with stronger wording and clearer value.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -424,17 +428,17 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Job duties or experience</label>
-          <textarea id="inputText" maxlength="1800" placeholder="Paste your responsibilities, achievements, or experience here..."></textarea>
+          <label for="inputText" class="field-label">Job duties or rough notes</label>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste your job duties, responsibilities, or rough bullet ideas here..."></textarea>
         </div>
 
         <div>
           <label for="modeSelect" class="field-label">Style</label>
           <select id="modeSelect">
-            <option value="ats">ATS Focus</option>
             <option value="professional">Professional</option>
-            <option value="concise">Concise</option>
+            <option value="ats">ATS Focused</option>
             <option value="impact">Impact Driven</option>
+            <option value="concise">Concise</option>
           </select>
         </div>
       </div>
@@ -445,7 +449,7 @@
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="primary-btn">Generate Resume Bullets</button>
+        <button id="runBtn" class="primary-btn">Generate Bullets</button>
         <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
         <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
@@ -458,18 +462,18 @@
 
       <label class="result-label">Resume Bullets</label>
       <div class="result-box" id="resultBox">Your resume bullets will appear here.</div>
-      <div class="tip">Tip: include actions, tools, and measurable results whenever possible.</div>
+      <div class="tip">Tip: include real duties and tools you used so the bullets come out stronger and more believable.</div>
     </section>
   </main>
 
   <script>
-    const TOOL_KEY = "resume-bullet";
+    const TOOL_KEY = "resume";
     const API_PATH = "/api/resume-bullet";
 
     const EXAMPLES = [
-      "Handled customer questions, scheduled appointments, and maintained front desk operations.",
-      "Troubleshot user issues, reset passwords, and helped resolve technical support tickets.",
-      "Managed inventory, loaded shipments, and helped keep warehouse operations on schedule."
+      "Answered customer questions, handled returns, stocked shelves, and kept the sales floor clean.",
+      "Troubleshot password resets, supported users with tickets, and helped with device setup.",
+      "Scheduled appointments, answered phones, organized files, and supported office operations."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -532,7 +536,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -596,27 +602,31 @@
     }
 
     async function syncUpgradeUI() {
-      try {
-        const account = getStoredAccount();
-        if (!account?.id) return;
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
+      try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: account.id })
         });
 
-        const data = await safeJsonFromResponse(res);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
             ...account,
             pro: true
           }));
-          usagePill.textContent = "Pro Plan • Unlimited";
-          usagePill.classList.add("pro");
-          usageText.textContent = "Unlimited usage active on this tool.";
-          navUpgradeBtn.classList.add("hidden");
+          setUsageUI({ pro: true });
         }
       } catch {}
     }
@@ -646,6 +656,7 @@
       try {
         await fetch("/api/logout", { method: "POST" });
       } catch {}
+
       localStorage.removeItem("uf_account");
       window.location.href = "index.html";
     }
@@ -658,7 +669,7 @@
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -702,8 +713,8 @@
       const mode = modeSelect.value;
 
       if (!text) {
-        resultBox.textContent = "Please enter your job duties or experience first.";
-        setStatus("Please enter your job duties or experience first.", "error");
+        resultBox.textContent = "Please enter job duties or rough bullet notes first.";
+        setStatus("Please enter job duties or rough bullet notes first.", "error");
         hideUpgradeHint();
         return;
       }
@@ -746,7 +757,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         runBtn.disabled = false;
-        runBtn.textContent = "Generate Resume Bullets";
+        runBtn.textContent = "Generate Bullets";
       }
     });
 
@@ -756,6 +767,7 @@
       updateCount();
       await loadUsage();
       await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
     })();
   </script>
 </body>
