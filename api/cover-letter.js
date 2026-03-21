@@ -7,11 +7,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text, tone = "professional", userId } = req.body || {};
+    const { text, mode = "professional", userId } = req.body || {};
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
-      return res.status(400).json({ error: "Missing cover letter notes." });
+      return res.status(400).json({ error: "Missing cover letter input." });
     }
 
     const usage = await enforceUsageLimit(req, userId, "cover-letter", 5);
@@ -26,13 +26,25 @@ export default async function handler(req, res) {
       });
     }
 
+    const promptMap = {
+      professional: `Write a polished professional cover letter draft from these notes.\n\nNotes:\n${input}`,
+      confident: `Write a polished and confident cover letter draft from these notes.\n\nNotes:\n${input}`,
+      friendly: `Write a polished and approachable cover letter draft from these notes.\n\nNotes:\n${input}`,
+      concise: `Write a concise but strong cover letter draft from these notes.\n\nNotes:\n${input}`
+    };
+
     const result = await runOpenAIText({
-      systemPrompt: `You write strong cover letters in a ${tone} tone. Use the user's details to write a polished cover letter draft. Return only the cover letter.`,
-      userText: input
+      system:
+        "You write strong cover letter drafts. Keep the writing professional, clear, and tailored to the supplied notes. Return only the letter.",
+      userText: promptMap[mode] || promptMap.professional
     });
 
+    if (!result || typeof result !== "string" || !result.trim()) {
+      throw new Error("Cover letter generator returned an empty result.");
+    }
+
     return res.status(200).json({
-      result,
+      result: result.trim(),
       pro: usage.pro,
       used: usage.used,
       remaining: usage.remaining,
