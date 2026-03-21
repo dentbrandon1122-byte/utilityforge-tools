@@ -26,9 +26,19 @@ export default async function handler(req, res) {
       });
     }
 
+    const tonePromptMap = {
+      professional: "Rewrite this email in a professional tone.",
+      friendly: "Rewrite this email in a friendly and polished tone.",
+      confident: "Rewrite this email in a confident and polished tone.",
+      concise: "Rewrite this email in a concise and clear tone."
+    };
+
+    const prompt = `${tonePromptMap[tone] || tonePromptMap.professional}\n\nEmail:\n${input}`;
+
     const result = await runOpenAIText({
-      system: "You improve rough emails. Rewrite the user's email so it sounds clear, polished, natural, and professional while keeping the meaning intact.",
-      userText: `Rewrite this email in a ${tone} tone:\n\n${input}`
+      system:
+        "You improve rough emails. Keep the original meaning intact while making the writing clearer, smoother, and more polished. Return only the rewritten email.",
+      userText: prompt
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
