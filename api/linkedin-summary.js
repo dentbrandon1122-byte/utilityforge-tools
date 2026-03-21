@@ -7,14 +7,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text, tone = "professional", userId } = req.body || {};
+    const { text, mode = "professional", userId } = req.body || {};
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
-      return res.status(400).json({ error: "Missing profile background." });
+      return res.status(400).json({ error: "Missing LinkedIn summary input." });
     }
 
-    const usage = await enforceUsageLimit(req, userId, "linkedin-summary", 5);
+    const usage = await enforceUsageLimit(req, userId, "linkedin", 5);
 
     if (!usage.allowed) {
       return res.status(429).json({
@@ -26,13 +26,25 @@ export default async function handler(req, res) {
       });
     }
 
+    const promptMap = {
+      professional: `Write a polished professional LinkedIn summary from these notes.\n\nNotes:\n${input}`,
+      confident: `Write a polished and confident LinkedIn summary from these notes.\n\nNotes:\n${input}`,
+      friendly: `Write a polished and approachable LinkedIn summary from these notes.\n\nNotes:\n${input}`,
+      concise: `Write a concise but strong LinkedIn summary from these notes.\n\nNotes:\n${input}`
+    };
+
     const result = await runOpenAIText({
-      systemPrompt: `Write a LinkedIn summary and headline-style profile copy in a ${tone} tone. Return polished profile content only.`,
-      userText: input
+      system:
+        "You write strong LinkedIn summaries. Keep the writing polished, clear, and aligned to the person's background and goals. Return only the summary.",
+      userText: promptMap[mode] || promptMap.professional
     });
 
+    if (!result || typeof result !== "string" || !result.trim()) {
+      throw new Error("LinkedIn summary generator returned an empty result.");
+    }
+
     return res.status(200).json({
-      result,
+      result: result.trim(),
       pro: usage.pro,
       used: usage.used,
       remaining: usage.remaining,
