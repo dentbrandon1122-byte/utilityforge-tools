@@ -7,11 +7,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text, tone = "professional", userId } = req.body || {};
+    const { text, mode = "professional", userId } = req.body || {};
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
-      return res.status(400).json({ error: "Missing outreach details." });
+      return res.status(400).json({ error: "Missing cold email input." });
     }
 
     const usage = await enforceUsageLimit(req, userId, "cold-email", 5);
@@ -26,13 +26,25 @@ export default async function handler(req, res) {
       });
     }
 
+    const promptMap = {
+      professional: `Write a polished professional cold email from these notes.\n\nNotes:\n${input}`,
+      friendly: `Write a polished and friendly cold email from these notes.\n\nNotes:\n${input}`,
+      confident: `Write a polished and confident cold email from these notes.\n\nNotes:\n${input}`,
+      concise: `Write a concise but strong cold email from these notes.\n\nNotes:\n${input}`
+    };
+
     const result = await runOpenAIText({
-      systemPrompt: `Write a polished cold email in a ${tone} tone. Make it clear, concise, and action-oriented. Return only the email.`,
-      userText: input
+      system:
+        "You write effective cold emails. Keep the message clear, natural, and persuasive without sounding spammy. Return only the email.",
+      userText: promptMap[mode] || promptMap.professional
     });
 
+    if (!result || typeof result !== "string" || !result.trim()) {
+      throw new Error("Cold email generator returned an empty result.");
+    }
+
     return res.status(200).json({
-      result,
+      result: result.trim(),
       pro: usage.pro,
       used: usage.used,
       remaining: usage.remaining,
