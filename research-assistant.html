@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research Assistant | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Use one tool for general research and legal research drafting support." />
+  <meta name="description" content="Use one tool for general research and structured breakdowns." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -17,6 +17,10 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
     }
 
     .background {
@@ -263,7 +267,7 @@
 
     textarea {
       width: 100%;
-      min-height: 300px;
+      min-height: 260px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.04);
@@ -396,12 +400,12 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
     </div>
   </header>
 
@@ -413,7 +417,7 @@
         <div class="top-copy">
           <div class="tool-badge">Built for structured research</div>
           <h1 class="title">Research Assistant</h1>
-          <p class="subtitle">Use one tool for general research, legal research drafting, and structured topic breakdowns.</p>
+          <p class="subtitle">Use one tool for general research, issue-spotting, legal-style overviews, and structured topic breakdowns.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -425,14 +429,14 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Research topic or question</label>
-          <textarea id="inputText" maxlength="2500" placeholder="Paste the topic, legal issue, or question you want researched..."></textarea>
+          <textarea id="inputText" maxlength="2500" placeholder="Paste your research topic, question, issue, or topic breakdown request here..."></textarea>
         </div>
 
         <div>
           <label for="modeSelect" class="field-label">Mode</label>
           <select id="modeSelect">
             <option value="general">General Research</option>
-            <option value="legal">Legal Drafting</option>
+            <option value="legal">Legal Overview</option>
             <option value="outline">Outline</option>
             <option value="issue-spotting">Issue Spotting</option>
           </select>
@@ -458,7 +462,7 @@
 
       <label class="result-label">Research Output</label>
       <div class="result-box" id="resultBox">Your research output will appear here.</div>
-      <div class="tip">Tip: specific questions or clearly framed issues usually produce the most useful output.</div>
+      <div class="tip">Tip: clearly framed questions usually produce the most useful output.</div>
     </section>
   </main>
 
@@ -532,7 +536,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -596,27 +602,31 @@
     }
 
     async function syncUpgradeUI() {
-      try {
-        const account = getStoredAccount();
-        if (!account?.id) return;
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
+      try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: account.id })
         });
 
-        const data = await safeJsonFromResponse(res);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
             ...account,
             pro: true
           }));
-          usagePill.textContent = "Pro Plan • Unlimited";
-          usagePill.classList.add("pro");
-          usageText.textContent = "Unlimited usage active on this tool.";
-          navUpgradeBtn.classList.add("hidden");
+          setUsageUI({ pro: true });
         }
       } catch {}
     }
@@ -646,6 +656,7 @@
       try {
         await fetch("/api/logout", { method: "POST" });
       } catch {}
+
       localStorage.removeItem("uf_account");
       window.location.href = "index.html";
     }
@@ -658,7 +669,7 @@
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -702,15 +713,15 @@
       const mode = modeSelect.value;
 
       if (!text) {
-        resultBox.textContent = "Please enter a research topic or question first.";
-        setStatus("Please enter a research topic or question first.", "error");
+        resultBox.textContent = "Please enter a research topic first.";
+        setStatus("Please enter a research topic first.", "error");
         hideUpgradeHint();
         return;
       }
 
       runBtn.disabled = true;
       copyBtn.disabled = true;
-      runBtn.textContent = "Researching...";
+      runBtn.textContent = "Running...";
       resultBox.textContent = "Running research...";
       setStatus("Forging your output...");
       hideUpgradeHint();
@@ -740,7 +751,7 @@
         resultBox.textContent = lastOutput || "No result returned.";
         copyBtn.disabled = !lastOutput;
         setUsageUI(data);
-        setStatus(data.pro ? "Pro request completed." : "Research output generated successfully.", "success");
+        setStatus(data.pro ? "Pro request completed." : "Research completed successfully.", "success");
       } catch (error) {
         resultBox.textContent = "Error: " + error.message;
         setStatus(error.message || "Request failed.", "error");
@@ -756,6 +767,7 @@
       updateCount();
       await loadUsage();
       await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
     })();
   </script>
 </body>
