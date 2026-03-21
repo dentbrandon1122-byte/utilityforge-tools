@@ -18,51 +18,40 @@ export default async function handler(req, res) {
 
     if (!usage.allowed) {
       return res.status(429).json({
-        error: "Daily free limit reached. Upgrade to Pro.",
-        ...usage
+        error: "Daily free limit reached. Upgrade to Pro for unlimited usage.",
+        pro: false,
+        used: usage.used,
+        remaining: usage.remaining,
+        limit: usage.limit
       });
     }
 
     const promptMap = {
-      general: `Give a structured, concise research answer with bullet points.
-
-Topic:
-${input}`,
-
-      legal: `Give a structured legal overview (not legal advice). Focus on issues and risks.
-
-Issue:
-${input}`,
-
-      outline: `Create a clean research outline.
-
-Topic:
-${input}`,
-
-      "issue-spotting": `Identify risks and key questions.
-
-Topic:
-${input}`
+      general: `Give a structured, concise research answer with short bullet points where helpful.\n\nTopic:\n${input}`,
+      legal: `Give a structured legal-style overview for this issue. Do not give legal advice. Focus on issues, risks, what should be verified, and next sources to check.\n\nIssue:\n${input}`,
+      outline: `Turn this topic into a clean research outline with main sections and short subpoints.\n\nTopic:\n${input}`,
+      "issue-spotting": `Identify the main issues, risks, open questions, and follow-up areas related to this topic.\n\nTopic:\n${input}`
     };
 
-    const prompt = promptMap[mode] || promptMap.general;
-
     const result = await runOpenAIText({
-      system: "You are a concise research assistant. Keep responses structured and under 200 words.",
-      userText: prompt
+      system:
+        "You are a concise research assistant. Be structured, practical, and easy to scan. Keep responses useful and clear.",
+      userText: promptMap[mode] || promptMap.general
     });
 
+    if (!result || typeof result !== "string" || !result.trim()) {
+      throw new Error("Research assistant returned an empty result.");
+    }
+
     return res.status(200).json({
-      result,
+      result: result.trim(),
       pro: usage.pro,
       used: usage.used,
       remaining: usage.remaining,
       limit: usage.limit
     });
-
   } catch (error) {
-    console.error("RESEARCH ERROR:", error);
-
+    console.error("RESEARCH ASSISTANT ERROR:", error);
     return res.status(500).json({
       error: error.message || "Research assistant failed."
     });
