@@ -6,14 +6,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const userId = req.query?.userId || "";
+    const userId = req.query?.userId;
     const tool = req.query?.tool;
 
-    if (!tool) {
+    if (!tool || typeof tool !== "string" || !tool.trim()) {
       return res.status(400).json({ error: "Missing tool key." });
     }
 
-    const status = await getPlanAwareUsageStatus(req, userId, tool, 5);
+    const status = await getPlanAwareUsageStatus(req, userId, tool.trim(), 5);
 
     return res.status(200).json(status);
   } catch (error) {
