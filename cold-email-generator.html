@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cold Email Generator | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Write better outreach emails for networking, opportunities, and collaboration." />
+  <meta name="description" content="Create better outreach emails for networking and opportunities." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -17,6 +17,10 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
     }
 
     .background {
@@ -263,7 +267,7 @@
 
     textarea {
       width: 100%;
-      min-height: 270px;
+      min-height: 260px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.04);
@@ -396,12 +400,12 @@
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="signup.html" id="signupLink">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden">Logout</button>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
     </div>
   </header>
 
@@ -411,9 +415,9 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for better outreach</div>
+          <div class="tool-badge">Built for outreach</div>
           <h1 class="title">Cold Email Generator</h1>
-          <p class="subtitle">Write clearer outreach emails for networking, opportunities, and collaboration.</p>
+          <p class="subtitle">Create better outreach emails for networking, introductions, opportunities, and cold contact messages.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -424,8 +428,8 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Your prompt</label>
-          <textarea id="inputText" maxlength="1800" placeholder="Paste who you’re emailing, why you’re reaching out, and what you want the email to say..."></textarea>
+          <label for="inputText" class="field-label">Your outreach notes</label>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste who you’re reaching out to, why you’re contacting them, and anything you want included..."></textarea>
         </div>
 
         <div>
@@ -445,7 +449,7 @@
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="primary-btn">Generate Cold Email</button>
+        <button id="runBtn" class="primary-btn">Generate Email</button>
         <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
         <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
@@ -456,9 +460,9 @@
         <button id="upgradeHintBtn" class="secondary-btn">Upgrade to Pro</button>
       </div>
 
-      <label class="result-label">Cold Email</label>
+      <label class="result-label">Cold Email Draft</label>
       <div class="result-box" id="resultBox">Your cold email will appear here.</div>
-      <div class="tip">Tip: include who you’re contacting, why you chose them, and what action you want them to take.</div>
+      <div class="tip">Tip: include your purpose, target audience, and desired tone for a stronger result.</div>
     </section>
   </main>
 
@@ -467,9 +471,9 @@
     const API_PATH = "/api/cold-email";
 
     const EXAMPLES = [
-      "Cold email to a hiring manager asking about internship opportunities.",
-      "Networking email to connect with a cybersecurity professional.",
-      "Reach out to a company about possible freelance or contract work."
+      "Networking email to a cybersecurity professional asking for advice and insight on entering the field.",
+      "Outreach email to a local business offering help with AI automation for repetitive admin tasks.",
+      "Short professional email introducing myself and asking about internship opportunities."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -532,7 +536,9 @@
         } else {
           localStorage.removeItem("uf_account");
         }
-      } catch {}
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
     }
 
     function updateAuthUI() {
@@ -596,27 +602,31 @@
     }
 
     async function syncUpgradeUI() {
-      try {
-        const account = getStoredAccount();
-        if (!account?.id) return;
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
+      try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: account.id })
         });
 
-        const data = await safeJsonFromResponse(res);
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
         if (data.pro) {
           localStorage.setItem("uf_account", JSON.stringify({
             ...account,
             pro: true
           }));
-          usagePill.textContent = "Pro Plan • Unlimited";
-          usagePill.classList.add("pro");
-          usageText.textContent = "Unlimited usage active on this tool.";
-          navUpgradeBtn.classList.add("hidden");
+          setUsageUI({ pro: true });
         }
       } catch {}
     }
@@ -646,6 +656,7 @@
       try {
         await fetch("/api/logout", { method: "POST" });
       } catch {}
+
       localStorage.removeItem("uf_account");
       window.location.href = "index.html";
     }
@@ -658,7 +669,7 @@
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 28 ? example.slice(0, 28) + "..." : example;
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -702,8 +713,8 @@
       const mode = modeSelect.value;
 
       if (!text) {
-        resultBox.textContent = "Please enter your cold email prompt first.";
-        setStatus("Please enter your cold email prompt first.", "error");
+        resultBox.textContent = "Please enter your outreach notes first.";
+        setStatus("Please enter your outreach notes first.", "error");
         hideUpgradeHint();
         return;
       }
@@ -746,7 +757,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         runBtn.disabled = false;
-        runBtn.textContent = "Generate Cold Email";
+        runBtn.textContent = "Generate Email";
       }
     });
 
@@ -756,6 +767,7 @@
       updateCount();
       await loadUsage();
       await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
     })();
   </script>
 </body>
