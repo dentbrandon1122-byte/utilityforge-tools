@@ -27,12 +27,16 @@ export default async function handler(req, res) {
     }
 
     const result = await runOpenAIText({
-      systemPrompt: `You improve rough emails. Rewrite the user's email in a ${tone} tone. Keep the meaning, make it clearer, and return only the polished email.`,
-      userText: input
+      system: "You improve rough emails. Rewrite the user's email so it sounds clear, polished, natural, and professional while keeping the meaning intact.",
+      userText: `Rewrite this email in a ${tone} tone:\n\n${input}`
     });
 
+    if (!result || typeof result !== "string" || !result.trim()) {
+      throw new Error("Email polisher returned an empty result.");
+    }
+
     return res.status(200).json({
-      result,
+      result: result.trim(),
       pro: usage.pro,
       used: usage.used,
       remaining: usage.remaining,
