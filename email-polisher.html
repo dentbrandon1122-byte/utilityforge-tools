@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Email Polisher | Utility Forge AI</title>
+  <title>AI Email Writer | Polish and Rewrite Emails Instantly | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Improve wording, tone, and clarity for rough emails." />
+  <meta
+    name="description" content="Use our AI email writer to improve wording, tone, and clarity instantly. Rewrite rough emails into polished professional messages with Utility Forge AI."/>
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://utilityforgeai.com/email-polisher.html" />
+
+  <meta property="og:title" content="AI Email Writer | Utility Forge AI" />
+  <meta property="og:description" content="Polish rough emails and rewrite them into cleaner, more professional messages in seconds." />
+  <meta property="og:image" content="logo-main.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://utilityforgeai.com/email-polisher.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Email Writer | Utility Forge AI" />
+  <meta name="twitter:description" content="Improve wording, tone, and clarity for rough emails instantly." />
+  <meta name="twitter:image" content="logo-main.png" />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -156,6 +171,48 @@
     }
 
     .back-link:hover { color: #8ef1ff; }
+
+    .intro-section {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.84);
+    }
+
+    .intro-section h2 {
+      font-size: 1.8rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .intro-section p {
+      margin-bottom: 14px;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .intro-section ul {
+      margin-left: 18px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .intro-section li {
+      margin-bottom: 8px;
+    }
+
+    .intro-section a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .intro-section a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
 
     .card {
       background: rgba(255,255,255,0.045);
@@ -380,10 +437,44 @@
       font-size: 0.9rem;
     }
 
+    .related-tools {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .related-tools h2 {
+      font-size: 1.5rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .related-tools p {
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 12px;
+    }
+
+    .related-tools a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+      margin-right: 14px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .related-tools a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
+
     @media (max-width: 820px) {
       .grid { grid-template-columns: 1fr; }
       .title { font-size: 2rem; }
       .card { padding: 22px; }
+      .intro-section { padding: 22px; }
     }
   </style>
 </head>
@@ -412,11 +503,34 @@
   <main class="page">
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
+    <section class="intro-section">
+      <h1>AI Email Writer for Clearer, More Professional Emails</h1>
+      <p>
+        This AI email writer helps you turn rough drafts into cleaner, more polished messages in seconds. Whether you need
+        to fix awkward wording, improve tone, or rewrite an email to sound more professional, this tool helps you get there faster.
+      </p>
+      <p>
+        It works well for follow-ups, job application emails, work communication, customer replies, scheduling messages,
+        and everyday personal emails that need a cleaner final version.
+      </p>
+      <ul>
+        <li>Rewrite rough emails into polished versions</li>
+        <li>Improve tone, clarity, and professionalism</li>
+        <li>Choose a style like professional, friendly, confident, or concise</li>
+        <li>Save time on emails you would normally rewrite by hand</li>
+      </ul>
+      <p>
+        Need help with other writing tasks too? Try the
+        <a href="idea-generator.html">Idea Generator</a> or the
+        <a href="text-summarizer.html">Text Summarizer</a>.
+      </p>
+    </section>
+
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
           <div class="tool-badge">Built for cleaner communication</div>
-          <h1 class="title">Email Polisher</h1>
+          <h1 class="title">AI Email Writer</h1>
           <p class="subtitle">Improve wording, tone, and clarity for rough emails in seconds.</p>
         </div>
 
@@ -463,6 +577,17 @@
       <label class="result-label">Polished Email</label>
       <div class="result-box" id="resultBox">Your polished email will appear here.</div>
       <div class="tip">Tip: include your rough wording first — the tool works best when it has something real to improve.</div>
+    </section>
+
+    <section class="related-tools">
+      <h2>More AI tools for writing and productivity</h2>
+      <p>
+        If you want to keep moving faster, use these related tools to handle other parts of your workflow.
+      </p>
+      <a href="idea-generator.html">AI Idea Generator</a>
+      <a href="text-summarizer.html">Text Summarizer</a>
+      <a href="cover-letter-generator.html">Cover Letter Generator</a>
+      <a href="dashboard.html">Back to Dashboard</a>
     </section>
   </main>
 
