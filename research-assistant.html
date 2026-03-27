@@ -3,9 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research Assistant | Utility Forge AI</title>
+  <title>Research Assistant | Structured Research and Topic Breakdowns | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Use an AI research assistant to generate structured analysis, break down complex topics, and create organized research summaries for academic, business, and general use." />
+  <meta name="description" content="Use AI to break down research topics, explain complex ideas, organize notes, and generate structured research help in seconds." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://utilityforgeai.com/research-assistant.html" />
+
+  <meta property="og:title" content="Research Assistant | Utility Forge AI" />
+  <meta property="og:description" content="Get structured research help, topic breakdowns, and clear explanations with AI." />
+  <meta property="og:image" content="logo-main.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://utilityforgeai.com/research-assistant.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Research Assistant | Utility Forge AI" />
+  <meta name="twitter:description" content="Organize research, break down topics, and get clearer explanations with AI." />
+  <meta name="twitter:image" content="logo-main.png" />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -157,6 +171,83 @@
 
     .back-link:hover { color: #8ef1ff; }
 
+    .seo-panel,
+    .related-tools {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.84);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .seo-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #dcffff;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .seo-panel h1 {
+      font-size: 2rem;
+      line-height: 1.15;
+      color: #f3efe4;
+      margin-bottom: 14px;
+    }
+
+    .seo-panel p,
+    .related-tools p {
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .seo-panel ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .seo-panel li {
+      margin-bottom: 8px;
+    }
+
+    .inline-links {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .inline-links a,
+    .related-tools a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .inline-links a:hover,
+    .related-tools a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
+
+    .related-tools h2 {
+      font-size: 1.45rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .related-tools-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
     .card {
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
@@ -280,7 +371,8 @@
 
     textarea::placeholder { color: rgba(255,255,255,0.45); }
 
-    textarea:focus, select:focus {
+    textarea:focus,
+    select:focus {
       border-color: rgba(142,241,255,0.55);
       box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
     }
@@ -384,6 +476,10 @@
       .grid { grid-template-columns: 1fr; }
       .title { font-size: 2rem; }
       .card { padding: 22px; }
+      .seo-panel,
+      .related-tools { padding: 22px; }
+      .seo-panel h1 { font-size: 1.7rem; }
+      .related-tools h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -411,35 +507,35 @@
 
   <main class="page">
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
-<section style="margin-bottom: 28px; padding: 24px; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
-  <h1 style="font-size: 1.8rem; margin-bottom: 10px;">
-    AI Research Assistant for Structured Analysis and Topic Breakdown
-  </h1>
 
-  <p style="color: rgba(255,255,255,0.85); margin-bottom: 12px;">
-    This AI research assistant helps you break down topics, analyze issues, and generate structured insights.
-    Whether you're working on academic research, legal overviews, or general knowledge exploration, this tool
-    helps turn complex topics into clear, organized information.
-  </p>
+    <section class="seo-panel">
+      <div class="seo-kicker">Built for structured research</div>
+      <h1>Research Assistant for Organized Research and Faster Breakdowns</h1>
 
-  <ul style="margin-left: 18px; color: rgba(255,255,255,0.8); margin-bottom: 12px;">
-    <li>Generate structured research summaries</li>
-    <li>Break down complex topics into clear sections</li>
-    <li>Analyze issues and identify key points</li>
-    <li>Create outlines and organized research notes</li>
-  </ul>
+      <p>
+        This research assistant helps you break down topics, organize ideas, and get clearer research output faster.
+        It works well for general research, study help, issue spotting, note organization, and structured topic breakdowns.
+      </p>
 
-  <p style="color: rgba(255,255,255,0.8);">
-    Try also:
-    <a href="idea_generator.html" style="color:#8ef1ff;">Idea Generator</a> |
-    <a href="text_summarizer.html" style="color:#8ef1ff;">Text Summarizer</a>
-  </p>
-</section>
+      <ul>
+        <li>Break down complex topics into clearer sections</li>
+        <li>Organize notes and research ideas faster</li>
+        <li>Get cleaner explanations and structured output</li>
+        <li>Use different research modes based on your goal</li>
+      </ul>
+
+      <p class="inline-links">
+        Try also:
+        <a href="idea-generator.html">Idea Generator</a> |
+        <a href="text-summarizer.html">Text Summarizer</a>
+      </p>
+    </section>
+
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
           <div class="tool-badge">Built for structured research</div>
-          <h1 class="title">Research Assistant</h1>
+          <h2 class="title">Research Assistant</h2>
           <p class="subtitle">Use one tool for general research, issue-spotting, legal-style overviews, and structured topic breakdowns.</p>
         </div>
 
@@ -459,9 +555,9 @@
           <label for="modeSelect" class="field-label">Mode</label>
           <select id="modeSelect">
             <option value="general">General Research</option>
-            <option value="legal">Legal Overview</option>
-            <option value="outline">Outline</option>
+            <option value="study">Study Help</option>
             <option value="issue-spotting">Issue Spotting</option>
+            <option value="structured">Structured Breakdown</option>
           </select>
         </div>
       </div>
@@ -487,245 +583,351 @@
       <div class="result-box" id="resultBox">Your research output will appear here.</div>
       <div class="tip">Tip: clearly framed questions usually produce the most useful output.</div>
     </section>
+
+    <section class="related-tools">
+      <h2>More tools to keep your workflow moving</h2>
+      <p>
+        Use related tools to improve writing, summarize faster, and get cleaner output across your workflow.
+      </p>
+
+      <div class="related-tools-links">
+        <a href="idea-generator.html">Idea Generator</a>
+        <a href="text-summarizer.html">Text Summarizer</a>
+        <a href="email-polisher.html">Email Polisher</a>
+        <a href="job-analyzer.html">Job Analyzer</a>
+      </div>
+    </section>
   </main>
 
   <script>
-    <script>
-  const TOOL_KEY = "research";
-  const API_PATH = "/api/research-assistant";
-  const TOOL_NAME = "Research";
+    const TOOL_KEY = "research";
+    const API_PATH = "/api/research-assistant";
+    const toolName = "Research";
+    let loadingInterval = null;
 
-  const EXAMPLES = [
-    "Explain the basics of cybersecurity threats and prevention.",
-    "Break down social control in sociology into clear study notes.",
-    "Issue-spot a New York landlord notice requirement before eviction."
-  ];
+    const EXAMPLES = [
+      "Explain the basics of cybersecurity threats and prevention.",
+      "Break down social control in sociology into clear study notes.",
+      "Issue-spot a New York landlord notice requirement before eviction."
+    ];
 
-  const examplesWrap = document.getElementById("examples");
-  const inputText = document.getElementById("inputText");
-  const modeSelect = document.getElementById("modeSelect");
-  const charCount = document.getElementById("charCount");
-  const usageText = document.getElementById("usageText");
-  const usagePill = document.getElementById("usagePill");
-  const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-  const upgradeHintBtn = document.getElementById("upgradeHintBtn");
-  const loginLink = document.getElementById("loginLink");
-  const signupLink = document.getElementById("signupLink");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const runBtn = document.getElementById("runBtn");
-  const copyBtn = document.getElementById("copyBtn");
-  const clearBtn = document.getElementById("clearBtn");
-  const resultBox = document.getElementById("resultBox");
-  const statusLine = document.getElementById("statusLine");
-  const upgradeHint = document.getElementById("upgradeHint");
+    const examplesWrap = document.getElementById("examples");
+    const inputText = document.getElementById("inputText");
+    const modeSelect = document.getElementById("modeSelect");
+    const charCount = document.getElementById("charCount");
+    const usageText = document.getElementById("usageText");
+    const usagePill = document.getElementById("usagePill");
+    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+    const upgradeHintBtn = document.getElementById("upgradeHintBtn");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const runBtn = document.getElementById("runBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const resultBox = document.getElementById("resultBox");
+    const statusLine = document.getElementById("statusLine");
+    const upgradeHint = document.getElementById("upgradeHint");
 
-  let lastOutput = "";
+    let lastOutput = "";
 
-  function getGuestUserId() {
-    let id = localStorage.getItem("uf_user_id");
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem("uf_user_id", id);
+    function getGuestUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
     }
-    return id;
-  }
 
-  function getStoredAccount() {
-    const raw = localStorage.getItem("uf_account");
-    if (!raw) return null;
-    try { return JSON.parse(raw); } catch { return null; }
-  }
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
 
-  function getUserId() {
-    const account = getStoredAccount();
-    return account?.id || getGuestUserId();
-  }
+    function getUserId() {
+      const account = getStoredAccount();
+      if (account?.id) return account.id;
+      return getGuestUserId();
+    }
 
-  async function hydrateSession() {
-    try {
-      const res = await fetch("/api/session");
-      const data = await res.json();
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
 
-      if (data.loggedIn && data.user) {
-        localStorage.setItem("uf_account", JSON.stringify({
-          id: data.user.id,
-          email: data.user.email,
-          name: data.user.name || "",
-          pro: !!data.pro
-        }));
-      } else {
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        } else {
+          localStorage.removeItem("uf_account");
+        }
+      } catch {
         localStorage.removeItem("uf_account");
       }
-    } catch {
+    }
+
+    function updateAuthUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
+
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
+    }
+
+    function updateCount() {
+      charCount.textContent = inputText.value.length;
+    }
+
+    function setStatus(message = "", type = "") {
+      statusLine.textContent = message;
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
+    }
+
+    function setUsageUI(data) {
+      if (data.pro) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
+        navUpgradeBtn.classList.add("hidden");
+      } else {
+        usagePill.textContent = `Free uses left: ${data.remaining}`;
+        usagePill.classList.remove("pro");
+        usageText.textContent = `Free uses left today: ${data.remaining}`;
+        navUpgradeBtn.classList.remove("hidden");
+      }
+    }
+
+    function hideUpgradeHint() {
+      upgradeHint.style.display = "none";
+    }
+
+    function showUpgradeHint() {
+      upgradeHint.style.display = "block";
+    }
+
+    function startForgingState() {
+      let dots = 0;
+      runBtn.disabled = true;
+      copyBtn.disabled = true;
+      runBtn.textContent = "Forging...";
+      setStatus(`Forging ${toolName}...`);
+      resultBox.textContent = `Forging ${toolName}...`;
+
+      loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const dotStr = ".".repeat(dots || 1);
+        runBtn.textContent = `Forging${dotStr}`;
+        resultBox.textContent = `Forging ${toolName}${dotStr}`;
+      }, 400);
+    }
+
+    function stopForgingState() {
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
+      }
+      runBtn.disabled = false;
+      runBtn.textContent = "Run Research";
+    }
+
+    async function safeJsonFromResponse(res) {
+      const raw = await res.text();
+      try {
+        return JSON.parse(raw);
+      } catch {
+        throw new Error(raw || "Server returned an invalid response.");
+      }
+    }
+
+    async function loadUsage() {
+      try {
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
+        const data = await safeJsonFromResponse(res);
+        setUsageUI(data);
+      } catch {
+        usagePill.textContent = "Usage unavailable";
+        usageText.textContent = "Usage unavailable";
+      }
+    }
+
+    async function syncUpgradeUI() {
+      const account = getStoredAccount();
+      if (!account?.id) return;
+
+      try {
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: account.id })
+        });
+
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
+
+        if (data.pro) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
+          setUsageUI({ pro: true });
+        }
+      } catch {}
+    }
+
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
+        const data = await safeJsonFromResponse(response);
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert(error.message || "Something went wrong starting checkout.");
+      }
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+
       localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
     }
-  }
 
-  function updateAuthUI() {
-    const loggedIn = !!getStoredAccount()?.id;
-    loginLink.classList.toggle("hidden", loggedIn);
-    signupLink.classList.toggle("hidden", loggedIn);
-    logoutBtn.classList.toggle("hidden", !loggedIn);
-  }
+    navUpgradeBtn.addEventListener("click", startCheckout);
+    upgradeHintBtn.addEventListener("click", startCheckout);
+    logoutBtn.addEventListener("click", logout);
 
-  function updateCount() {
-    charCount.textContent = inputText.value.length;
-  }
+    EXAMPLES.forEach((example) => {
+      const btn = document.createElement("button");
+      btn.className = "example-chip";
+      btn.type = "button";
+      btn.textContent = example.length > 34 ? example.slice(0, 34) + "..." : example;
+      btn.title = example;
 
-  function setStatus(message = "", type = "") {
-    statusLine.textContent = message;
-    statusLine.className = "status-line" + (type ? ` ${type}` : "");
-  }
-
-  function setUsageUI(data) {
-    if (data.pro) {
-      usagePill.textContent = "Pro Plan • Unlimited";
-      usagePill.classList.add("pro");
-      usageText.textContent = "Unlimited usage active on this tool.";
-      navUpgradeBtn.classList.add("hidden");
-    } else {
-      usagePill.textContent = `Free uses left: ${data.remaining}`;
-      usageText.textContent = `Free uses left today: ${data.remaining}`;
-      navUpgradeBtn.classList.remove("hidden");
-    }
-  }
-
-  function hideUpgradeHint() {
-    upgradeHint.style.display = "none";
-  }
-
-  function showUpgradeHint() {
-    upgradeHint.style.display = "block";
-  }
-
-  async function safeJsonFromResponse(res) {
-    const raw = await res.text();
-    try { return JSON.parse(raw); }
-    catch { throw new Error(raw || "Invalid response"); }
-  }
-
-  async function loadUsage() {
-    try {
-      const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
-      const data = await safeJsonFromResponse(res);
-      setUsageUI(data);
-    } catch {
-      usagePill.textContent = "Usage unavailable";
-      usageText.textContent = "Usage unavailable";
-    }
-  }
-
-  async function startCheckout() {
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ userId: getUserId() })
+      btn.addEventListener("click", () => {
+        inputText.value = example;
+        updateCount();
+        setStatus("");
+        hideUpgradeHint();
       });
-      const data = await safeJsonFromResponse(response);
-      if (data.url) window.location.href = data.url;
-    } catch {}
-  }
 
-  async function logout() {
-    try { await fetch("/api/logout", { method: "POST" }); } catch {}
-    localStorage.removeItem("uf_account");
-    window.location.href = "index.html";
-  }
+      examplesWrap.appendChild(btn);
+    });
 
-  navUpgradeBtn.onclick = startCheckout;
-  upgradeHintBtn.onclick = startCheckout;
-  logoutBtn.onclick = logout;
+    inputText.addEventListener("input", updateCount);
 
-  EXAMPLES.forEach(example => {
-    const btn = document.createElement("button");
-    btn.className = "example-chip";
-    btn.textContent = example;
-    btn.onclick = () => {
-      inputText.value = example;
+    clearBtn.addEventListener("click", () => {
+      inputText.value = "";
+      resultBox.textContent = "Your research output will appear here.";
+      copyBtn.disabled = true;
+      lastOutput = "";
       updateCount();
       setStatus("");
       hideUpgradeHint();
-    };
-    examplesWrap.appendChild(btn);
-  });
+    });
 
-  inputText.addEventListener("input", updateCount);
+    copyBtn.addEventListener("click", async () => {
+      if (!lastOutput) return;
+      try {
+        await navigator.clipboard.writeText(lastOutput);
+        copyBtn.textContent = "Copied ✓";
+        setStatus("Result copied to clipboard.", "success");
+      } catch {
+        copyBtn.textContent = "Copy failed";
+        setStatus("Copy failed. Try again.", "error");
+      }
 
-  clearBtn.onclick = () => {
-    inputText.value = "";
-    resultBox.textContent = "Your research output will appear here.";
-    copyBtn.disabled = true;
-    lastOutput = "";
-    updateCount();
-    setStatus("");
-  };
+      setTimeout(() => {
+        copyBtn.textContent = "Copy Result";
+      }, 1400);
+    });
 
-  copyBtn.onclick = async () => {
-    if (!lastOutput) return;
-    await navigator.clipboard.writeText(lastOutput);
-    copyBtn.textContent = "Copied ✓";
-    setStatus("Copied successfully.", "success");
-    setTimeout(()=>copyBtn.textContent="Copy Result",1400);
-  };
+    runBtn.addEventListener("click", async () => {
+      const text = inputText.value.trim();
+      const mode = modeSelect.value;
 
-  runBtn.onclick = async () => {
-    const text = inputText.value.trim();
-    const mode = modeSelect.value;
-
-    if (!text) {
-      setStatus("Enter a topic first.", "error");
-      return;
-    }
-
-    runBtn.disabled = true;
-    runBtn.textContent = "Forging...";
-    resultBox.textContent = `Forging ${TOOL_NAME}...`;
-    setStatus(`Forging ${TOOL_NAME}...`);
-
-    try {
-      const res = await fetch(API_PATH, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ text, mode, userId: getUserId() })
-      });
-
-      const data = await safeJsonFromResponse(res);
-
-      if (!res.ok) {
-        setStatus(data.error, "error");
-        if (data.error.includes("limit")) showUpgradeHint();
+      if (!text) {
+        resultBox.textContent = "Please enter a research topic first.";
+        setStatus("Please enter a research topic first.", "error");
+        hideUpgradeHint();
         return;
       }
 
-      lastOutput = data.result;
-      resultBox.textContent = lastOutput;
-      copyBtn.disabled = false;
+      hideUpgradeHint();
+      startForgingState();
 
-      setStatus(data.pro
-        ? `${TOOL_NAME} forged successfully (Pro).`
-        : `${TOOL_NAME} forged successfully.`,
-        "success"
-      );
+      try {
+        const res = await fetch(API_PATH, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, mode, userId: getUserId() })
+        });
 
-      setUsageUI(data);
+        const data = await safeJsonFromResponse(res);
 
-    } catch {
-      setStatus("Request failed.", "error");
-    }
+        if (!res.ok) {
+          console.error("Research assistant error:", data);
+          resultBox.textContent = "Something went wrong. Please try again.";
+          setStatus(data.error || "Something went wrong.", "error");
 
-    runBtn.disabled = false;
-    runBtn.textContent = `Generate ${TOOL_NAME}`;
-  };
+          if ((data.error || "").includes("Daily free limit reached")) {
+            showUpgradeHint();
+          }
 
-  (async function init(){
-    await hydrateSession();
-    updateAuthUI();
-    updateCount();
-    await loadUsage();
-    document.body.classList.add("auth-ready");
-  })();
-</script>
+          await loadUsage();
+          return;
+        }
+
+        lastOutput = data.result || "";
+        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
+        copyBtn.disabled = !lastOutput;
+        setUsageUI(data);
+        setStatus(data.pro ? `${toolName} forged successfully (Pro).` : `${toolName} forged successfully.`, "success");
+      } catch (error) {
+        console.error("Research request failed:", error);
+        resultBox.textContent = "Something went wrong. Please try again.";
+        setStatus(error.message || "Request failed.", "error");
+      } finally {
+        stopForgingState();
+      }
+    });
+
+    (async function init() {
+      await hydrateSession();
+      updateAuthUI();
+      updateCount();
+      await loadUsage();
+      await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
+    })();
   </script>
 </body>
 </html>
