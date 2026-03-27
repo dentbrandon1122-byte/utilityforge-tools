@@ -3,9 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cold Email Generator | Utility Forge AI</title>
+  <title>Cold Email Generator | AI Outreach Email Writer | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Create better outreach emails for networking and opportunities." />
+  <meta name="description" content="Write better cold emails with AI. Generate outreach emails for networking, leads, introductions, and business opportunities instantly." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://utilityforgeai.com/cold-email-generator.html" />
+
+  <meta property="og:title" content="Cold Email Generator | Utility Forge AI" />
+  <meta property="og:description" content="Create better outreach emails for networking, introductions, leads, and new opportunities in seconds." />
+  <meta property="og:image" content="logo-main.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://utilityforgeai.com/cold-email-generator.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cold Email Generator | Utility Forge AI" />
+  <meta name="twitter:description" content="Write better cold emails for networking, opportunities, and outreach with AI." />
+  <meta name="twitter:image" content="logo-main.png" />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -156,6 +170,83 @@
     }
 
     .back-link:hover { color: #8ef1ff; }
+
+    .seo-panel,
+    .related-tools {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.84);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .seo-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #dcffff;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .seo-panel h1 {
+      font-size: 2rem;
+      line-height: 1.15;
+      color: #f3efe4;
+      margin-bottom: 14px;
+    }
+
+    .seo-panel p,
+    .related-tools p {
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .seo-panel ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .seo-panel li {
+      margin-bottom: 8px;
+    }
+
+    .inline-links {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .inline-links a,
+    .related-tools a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .inline-links a:hover,
+    .related-tools a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
+
+    .related-tools h2 {
+      font-size: 1.45rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .related-tools-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
 
     .card {
       background: rgba(255,255,255,0.045);
@@ -384,6 +475,10 @@
       .grid { grid-template-columns: 1fr; }
       .title { font-size: 2rem; }
       .card { padding: 22px; }
+      .seo-panel,
+      .related-tools { padding: 22px; }
+      .seo-panel h1 { font-size: 1.7rem; }
+      .related-tools h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -412,11 +507,34 @@
   <main class="page">
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
+    <section class="seo-panel">
+      <div class="seo-kicker">Built for outreach</div>
+      <h1>Cold Email Generator for Outreach, Leads, and Business Opportunities</h1>
+
+      <p>
+        This AI cold email generator helps you create better outreach emails in seconds.
+        Whether you're reaching out for networking, business leads, partnerships, or introductions, this tool helps you write emails that are clear, professional, and more likely to get responses.
+      </p>
+
+      <ul>
+        <li>Generate cold emails for networking and outreach</li>
+        <li>Create lead generation and business opportunity emails</li>
+        <li>Improve response rates with better structure and tone</li>
+        <li>Save time writing emails from scratch</li>
+      </ul>
+
+      <p class="inline-links">
+        Try also:
+        <a href="email-polisher.html">Email Polisher</a> |
+        <a href="idea-generator.html">Idea Generator</a>
+      </p>
+    </section>
+
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
           <div class="tool-badge">Built for outreach</div>
-          <h1 class="title">Cold Email Generator</h1>
+          <h2 class="title">Cold Email Generator</h2>
           <p class="subtitle">Create better outreach emails for networking, introductions, opportunities, and cold contact messages.</p>
         </div>
 
@@ -464,11 +582,26 @@
       <div class="result-box" id="resultBox">Your cold email will appear here.</div>
       <div class="tip">Tip: include your purpose, target audience, and desired tone for a stronger result.</div>
     </section>
+
+    <section class="related-tools">
+      <h2>More tools to keep your workflow moving</h2>
+      <p>
+        Use related tools to improve writing, brainstorm faster, and get cleaner output across your workflow.
+      </p>
+
+      <div class="related-tools-links">
+        <a href="email-polisher.html">Email Polisher</a>
+        <a href="idea-generator.html">Idea Generator</a>
+        <a href="job-analyzer.html">Job Analyzer</a>
+        <a href="cover-letter-generator.html">Cover Letter Generator</a>
+      </div>
+    </section>
   </main>
 
   <script>
     const TOOL_KEY = "cold-email";
     const API_PATH = "/api/cold-email";
+    const toolName = "Cold Email";
 
     const EXAMPLES = [
       "Networking email to a cybersecurity professional asking for advice and insight on entering the field.",
@@ -495,6 +628,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let loadingInterval = null;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -579,6 +713,31 @@
 
     function showUpgradeHint() {
       upgradeHint.style.display = "block";
+    }
+
+    function startForgingState() {
+      let dots = 0;
+      runBtn.disabled = true;
+      copyBtn.disabled = true;
+      runBtn.textContent = `Forging ${toolName}...`;
+      setStatus("Forging your output...");
+      resultBox.textContent = `Forging ${toolName}...`;
+
+      loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const dotStr = ".".repeat(dots || 1);
+        runBtn.textContent = `Forging ${toolName}${dotStr}`;
+        resultBox.textContent = `Forging ${toolName}${dotStr}`;
+      }, 400);
+    }
+
+    function stopForgingState() {
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
+      }
+      runBtn.disabled = false;
+      runBtn.textContent = "Generate Email";
     }
 
     async function safeJsonFromResponse(res) {
@@ -719,12 +878,8 @@
         return;
       }
 
-      runBtn.disabled = true;
-      copyBtn.disabled = true;
-      runBtn.textContent = "Generating...";
-      resultBox.textContent = "Generating cold email...";
-      setStatus("Forging your output...");
       hideUpgradeHint();
+      startForgingState();
 
       try {
         const res = await fetch(API_PATH, {
@@ -736,7 +891,8 @@
         const data = await safeJsonFromResponse(res);
 
         if (!res.ok) {
-          resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
+          console.error("Cold email generation error:", data);
+          resultBox.textContent = "Something went wrong. Please try again.";
           setStatus(data.error || "Something went wrong.", "error");
 
           if ((data.error || "").includes("Daily free limit reached")) {
@@ -748,16 +904,16 @@
         }
 
         lastOutput = data.result || "";
-        resultBox.textContent = lastOutput || "No result returned.";
+        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
         copyBtn.disabled = !lastOutput;
         setUsageUI(data);
         setStatus(data.pro ? "Pro request completed." : "Cold email generated successfully.", "success");
       } catch (error) {
-        resultBox.textContent = "Error: " + error.message;
+        console.error("Cold email request failed:", error);
+        resultBox.textContent = "Something went wrong. Please try again.";
         setStatus(error.message || "Request failed.", "error");
       } finally {
-        runBtn.disabled = false;
-        runBtn.textContent = "Generate Email";
+        stopForgingState();
       }
     });
 
