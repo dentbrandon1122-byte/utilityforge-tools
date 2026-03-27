@@ -371,7 +371,8 @@
 
     textarea::placeholder { color: rgba(255,255,255,0.45); }
 
-    textarea:focus, select:focus {
+    textarea:focus,
+    select:focus {
       border-color: rgba(142,241,255,0.55);
       box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
     }
@@ -578,7 +579,7 @@
         <button id="upgradeHintBtn" class="secondary-btn">Upgrade to Pro</button>
       </div>
 
-      <label class="result-label">Forging New Ideas</label>
+      <label class="result-label">Forged Ideas</label>
       <div class="result-box" id="resultBox">Your generated ideas will appear here.</div>
       <div class="tip">Tip: the more specific your prompt, the stronger and more usable the ideas will be.</div>
     </section>
@@ -601,6 +602,7 @@
   <script>
     const TOOL_KEY = "idea";
     const API_PATH = "/api/idea-generator";
+    const toolName = "New Ideas";
 
     const EXAMPLES = [
       "business ideas using AI for small local service companies",
@@ -627,6 +629,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let loadingInterval = null;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -711,6 +714,31 @@
 
     function showUpgradeHint() {
       upgradeHint.style.display = "block";
+    }
+
+    function startForgingState() {
+      let dots = 0;
+      runBtn.disabled = true;
+      copyBtn.disabled = true;
+      runBtn.textContent = "Forging...";
+      setStatus(`Forging ${toolName}...`);
+      resultBox.textContent = `Forging ${toolName}...`;
+
+      loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const dotStr = ".".repeat(dots || 1);
+        runBtn.textContent = `Forging${dotStr}`;
+        resultBox.textContent = `Forging ${toolName}${dotStr}`;
+      }, 400);
+    }
+
+    function stopForgingState() {
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
+      }
+      runBtn.disabled = false;
+      runBtn.textContent = "Generate Ideas";
     }
 
     async function safeJsonFromResponse(res) {
@@ -851,12 +879,8 @@
         return;
       }
 
-      runBtn.disabled = true;
-      copyBtn.disabled = true;
-      runBtn.textContent = "Generating...";
-      resultBox.textContent = "Generating ideas...";
-      setStatus("Forging your output...");
       hideUpgradeHint();
+      startForgingState();
 
       try {
         const res = await fetch(API_PATH, {
@@ -868,7 +892,8 @@
         const data = await safeJsonFromResponse(res);
 
         if (!res.ok) {
-          resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
+          console.error("Idea generation error:", data);
+          resultBox.textContent = "Something went wrong. Please try again.";
           setStatus(data.error || "Something went wrong.", "error");
 
           if ((data.error || "").includes("Daily free limit reached")) {
@@ -880,16 +905,16 @@
         }
 
         lastOutput = data.result || "";
-        resultBox.textContent = lastOutput || "No result returned.";
+        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
         copyBtn.disabled = !lastOutput;
         setUsageUI(data);
-        setStatus(data.pro ? "Pro request completed." : "Ideas generated successfully.", "success");
+        setStatus(data.pro ? `${toolName} forged successfully (Pro).` : `${toolName} forged successfully.`, "success");
       } catch (error) {
-        resultBox.textContent = "Error: " + error.message;
+        console.error("Idea request failed:", error);
+        resultBox.textContent = "Something went wrong. Please try again.";
         setStatus(error.message || "Request failed.", "error");
       } finally {
-        runBtn.disabled = false;
-        runBtn.textContent = "Generate Ideas";
+        stopForgingState();
       }
     });
 
