@@ -3,9 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Text Summarizer | Utility Forge AI</title>
+  <title>AI Text Summarizer | Condense Text Fast | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Summarize text instantly with AI. Turn long articles, notes, and documents into clear, concise summaries and key takeaways." />
+  <meta name="description" content="Summarize long text instantly with AI. Turn articles, notes, reports, and reading material into clear summaries, study notes, and bullet points." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://utilityforgeai.com/text-summarizer.html" />
+
+  <meta property="og:title" content="AI Text Summarizer | Utility Forge AI" />
+  <meta property="og:description" content="Condense longer text into cleaner takeaways, quick notes, and useful summaries in seconds." />
+  <meta property="og:image" content="logo-main.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://utilityforgeai.com/text-summarizer.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Text Summarizer | Utility Forge AI" />
+  <meta name="twitter:description" content="Summarize articles, notes, and longer text quickly with AI." />
+  <meta name="twitter:image" content="logo-main.png" />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -157,6 +171,83 @@
 
     .back-link:hover { color: #8ef1ff; }
 
+    .seo-panel,
+    .related-tools {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.84);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .seo-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #dcffff;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .seo-panel h1 {
+      font-size: 2rem;
+      line-height: 1.15;
+      color: #f3efe4;
+      margin-bottom: 14px;
+    }
+
+    .seo-panel p,
+    .related-tools p {
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .seo-panel ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .seo-panel li {
+      margin-bottom: 8px;
+    }
+
+    .inline-links {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .inline-links a,
+    .related-tools a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .inline-links a:hover,
+    .related-tools a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
+
+    .related-tools h2 {
+      font-size: 1.45rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .related-tools-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
     .card {
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
@@ -280,7 +371,8 @@
 
     textarea::placeholder { color: rgba(255,255,255,0.45); }
 
-    textarea:focus, select:focus {
+    textarea:focus,
+    select:focus {
       border-color: rgba(142,241,255,0.55);
       box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
     }
@@ -384,6 +476,10 @@
       .grid { grid-template-columns: 1fr; }
       .title { font-size: 2rem; }
       .card { padding: 22px; }
+      .seo-panel,
+      .related-tools { padding: 22px; }
+      .seo-panel h1 { font-size: 1.7rem; }
+      .related-tools h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -411,35 +507,35 @@
 
   <main class="page">
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
-<section style="margin-bottom: 28px; padding: 24px; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
-  <h1 style="font-size: 1.8rem; margin-bottom: 10px;">
-    AI Text Summarizer for Fast and Clear Summaries
-  </h1>
 
-  <p style="color: rgba(255,255,255,0.85); margin-bottom: 12px;">
-    This AI text summarizer helps you condense long content into clear, easy-to-understand summaries.
-    Whether you're working with articles, notes, or documents, this tool extracts key points and
-    presents them in a more digestible format.
-  </p>
+    <section class="seo-panel">
+      <div class="seo-kicker">Built for faster reading</div>
+      <h1>AI Text Summarizer for Faster Reading and Clearer Notes</h1>
 
-  <ul style="margin-left: 18px; color: rgba(255,255,255,0.8); margin-bottom: 12px;">
-    <li>Summarize long text into key takeaways</li>
-    <li>Generate study notes and bullet summaries</li>
-    <li>Save time reading and reviewing content</li>
-    <li>Improve clarity and understanding of complex material</li>
-  </ul>
+      <p>
+        This AI text summarizer helps you condense longer text into clearer takeaways, quick notes, and useful summaries.
+        It works well for articles, study material, reports, meeting notes, and anything else you want to understand faster.
+      </p>
 
-  <p style="color: rgba(255,255,255,0.8);">
-    Try also:
-    <a href="research_assistant.html" style="color:#8ef1ff;">Research Assistant</a> |
-    <a href="idea_generator.html" style="color:#8ef1ff;">Idea Generator</a>
-  </p>
-</section>
+      <ul>
+        <li>Summarize long text into cleaner takeaways</li>
+        <li>Turn reading into study notes or bullet points</li>
+        <li>Save time on articles, notes, and reports</li>
+        <li>Choose different summary styles for your workflow</li>
+      </ul>
+
+      <p class="inline-links">
+        Try also:
+        <a href="research-assistant.html">Research Assistant</a> |
+        <a href="idea-generator.html">Idea Generator</a>
+      </p>
+    </section>
+
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
           <div class="tool-badge">Built for faster reading</div>
-          <h1 class="title">Text Summarizer</h1>
+          <h2 class="title">Text Summarizer</h2>
           <p class="subtitle">Condense longer text into clearer takeaways, notes, and quick summaries.</p>
         </div>
 
@@ -487,296 +583,349 @@
       <div class="result-box" id="resultBox">Your summary will appear here.</div>
       <div class="tip">Tip: the tool works best when the source text is clear and complete instead of clipped.</div>
     </section>
+
+    <section class="related-tools">
+      <h2>More tools to keep your workflow moving</h2>
+      <p>
+        Use related tools to improve writing, summarize faster, and get cleaner output across your workflow.
+      </p>
+
+      <div class="related-tools-links">
+        <a href="research-assistant.html">Research Assistant</a>
+        <a href="idea-generator.html">Idea Generator</a>
+        <a href="email-polisher.html">Email Polisher</a>
+        <a href="job-analyzer.html">Job Analyzer</a>
+      </div>
+    </section>
   </main>
 
   <script>
- <script>
-  const TOOL_KEY = "summary";
-  const API_PATH = "/api/summarize";
-  const TOOL_NAME = "Summary";
+    const TOOL_KEY = "summary";
+    const API_PATH = "/api/summarize";
+    const toolName = "Summary";
+    let loadingInterval = null;
 
-  const EXAMPLES = [
-    "Summarize meeting notes into key takeaways and action items.",
-    "Condense a class reading into study notes.",
-    "Turn a long article into a short summary with the main points."
-  ];
+    const EXAMPLES = [
+      "Summarize meeting notes into key takeaways and action items.",
+      "Condense a class reading into study notes.",
+      "Turn a long article into a short summary with the main points."
+    ];
 
-  const examplesWrap = document.getElementById("examples");
-  const inputText = document.getElementById("inputText");
-  const modeSelect = document.getElementById("modeSelect");
-  const charCount = document.getElementById("charCount");
-  const usageText = document.getElementById("usageText");
-  const usagePill = document.getElementById("usagePill");
-  const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-  const upgradeHintBtn = document.getElementById("upgradeHintBtn");
-  const loginLink = document.getElementById("loginLink");
-  const signupLink = document.getElementById("signupLink");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const runBtn = document.getElementById("runBtn");
-  const copyBtn = document.getElementById("copyBtn");
-  const clearBtn = document.getElementById("clearBtn");
-  const resultBox = document.getElementById("resultBox");
-  const statusLine = document.getElementById("statusLine");
-  const upgradeHint = document.getElementById("upgradeHint");
+    const examplesWrap = document.getElementById("examples");
+    const inputText = document.getElementById("inputText");
+    const modeSelect = document.getElementById("modeSelect");
+    const charCount = document.getElementById("charCount");
+    const usageText = document.getElementById("usageText");
+    const usagePill = document.getElementById("usagePill");
+    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+    const upgradeHintBtn = document.getElementById("upgradeHintBtn");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const runBtn = document.getElementById("runBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const resultBox = document.getElementById("resultBox");
+    const statusLine = document.getElementById("statusLine");
+    const upgradeHint = document.getElementById("upgradeHint");
 
-  let lastOutput = "";
+    let lastOutput = "";
 
-  function getGuestUserId() {
-    let id = localStorage.getItem("uf_user_id");
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem("uf_user_id", id);
+    function getGuestUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
     }
-    return id;
-  }
 
-  function getStoredAccount() {
-    const raw = localStorage.getItem("uf_account");
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw);
-    } catch {
-      return null;
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
     }
-  }
 
-  function getUserId() {
-    const account = getStoredAccount();
-    if (account?.id) return account.id;
-    return getGuestUserId();
-  }
+    function getUserId() {
+      const account = getStoredAccount();
+      if (account?.id) return account.id;
+      return getGuestUserId();
+    }
 
-  async function hydrateSession() {
-    try {
-      const res = await fetch("/api/session");
-      const data = await res.json();
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
 
-      if (data.loggedIn && data.user) {
-        localStorage.setItem("uf_account", JSON.stringify({
-          id: data.user.id,
-          email: data.user.email,
-          name: data.user.name || "",
-          pro: !!data.pro
-        }));
-      } else {
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        } else {
+          localStorage.removeItem("uf_account");
+        }
+      } catch {
         localStorage.removeItem("uf_account");
       }
-    } catch {
-      localStorage.removeItem("uf_account");
     }
-  }
 
-  function updateAuthUI() {
-    const account = getStoredAccount();
-    const loggedIn = !!account?.id;
+    function updateAuthUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
 
-    loginLink.classList.toggle("hidden", loggedIn);
-    signupLink.classList.toggle("hidden", loggedIn);
-    logoutBtn.classList.toggle("hidden", !loggedIn);
-  }
-
-  function updateCount() {
-    charCount.textContent = inputText.value.length;
-  }
-
-  function setStatus(message = "", type = "") {
-    statusLine.textContent = message;
-    statusLine.className = "status-line" + (type ? ` ${type}` : "");
-  }
-
-  function setUsageUI(data) {
-    if (data.pro) {
-      usagePill.textContent = "Pro Plan • Unlimited";
-      usagePill.classList.add("pro");
-      usageText.textContent = "Unlimited usage active on this tool.";
-      navUpgradeBtn.classList.add("hidden");
-    } else {
-      usagePill.textContent = `Free uses left: ${data.remaining}`;
-      usagePill.classList.remove("pro");
-      usageText.textContent = `Free uses left today: ${data.remaining}`;
-      navUpgradeBtn.classList.remove("hidden");
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
     }
-  }
 
-  function hideUpgradeHint() {
-    upgradeHint.style.display = "none";
-  }
-
-  function showUpgradeHint() {
-    upgradeHint.style.display = "block";
-  }
-
-  async function safeJsonFromResponse(res) {
-    const raw = await res.text();
-    try {
-      return JSON.parse(raw);
-    } catch {
-      throw new Error(raw || "Server returned an invalid response.");
+    function updateCount() {
+      charCount.textContent = inputText.value.length;
     }
-  }
 
-  async function loadUsage() {
-    try {
-      const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
-      const data = await safeJsonFromResponse(res);
-      setUsageUI(data);
-    } catch {
-      usagePill.textContent = "Usage unavailable";
-      usageText.textContent = "Usage unavailable";
+    function setStatus(message = "", type = "") {
+      statusLine.textContent = message;
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
     }
-  }
 
-  async function syncUpgradeUI() {
-    const account = getStoredAccount();
-    if (!account?.id) return;
+    function setUsageUI(data) {
+      if (data.pro) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
+        navUpgradeBtn.classList.add("hidden");
+      } else {
+        usagePill.textContent = `Free uses left: ${data.remaining}`;
+        usagePill.classList.remove("pro");
+        usageText.textContent = `Free uses left today: ${data.remaining}`;
+        navUpgradeBtn.classList.remove("hidden");
+      }
+    }
 
-    try {
-      const res = await fetch("/api/pro-status", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: account.id })
-      });
+    function hideUpgradeHint() {
+      upgradeHint.style.display = "none";
+    }
 
+    function showUpgradeHint() {
+      upgradeHint.style.display = "block";
+    }
+
+    function startForgingState() {
+      let dots = 0;
+      runBtn.disabled = true;
+      copyBtn.disabled = true;
+      runBtn.textContent = "Forging...";
+      setStatus(`Forging ${toolName}...`);
+      resultBox.textContent = `Forging ${toolName}...`;
+
+      loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const dotStr = ".".repeat(dots || 1);
+        runBtn.textContent = `Forging${dotStr}`;
+        resultBox.textContent = `Forging ${toolName}${dotStr}`;
+      }, 400);
+    }
+
+    function stopForgingState() {
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
+      }
+      runBtn.disabled = false;
+      runBtn.textContent = "Summarize Text";
+    }
+
+    async function safeJsonFromResponse(res) {
       const raw = await res.text();
-      let data;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        throw new Error(raw || "Server returned an invalid response.");
+      }
+    }
+
+    async function loadUsage() {
+      try {
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
+        const data = await safeJsonFromResponse(res);
+        setUsageUI(data);
+      } catch {
+        usagePill.textContent = "Usage unavailable";
+        usageText.textContent = "Usage unavailable";
+      }
+    }
+
+    async function syncUpgradeUI() {
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
       try {
-        data = JSON.parse(raw);
-      } catch {
-        return;
-      }
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: account.id })
+        });
 
-      if (data.pro) {
-        localStorage.setItem("uf_account", JSON.stringify({
-          ...account,
-          pro: true
-        }));
-        setUsageUI({ pro: true });
-      }
-    } catch {}
-  }
+        const raw = await res.text();
+        let data;
 
-  async function startCheckout() {
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: getUserId() })
-      });
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
 
-      const data = await safeJsonFromResponse(response);
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert(data.error || "Unable to start checkout.");
-      }
-    } catch (error) {
-      alert(error.message || "Something went wrong starting checkout.");
+        if (data.pro) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
+          setUsageUI({ pro: true });
+        }
+      } catch {}
     }
-  }
 
-  async function logout() {
-    try { await fetch("/api/logout", { method: "POST" }); } catch {}
-    localStorage.removeItem("uf_account");
-    window.location.href = "index.html";
-  }
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: getUserId() })
+        });
 
-  navUpgradeBtn.addEventListener("click", startCheckout);
-  upgradeHintBtn.addEventListener("click", startCheckout);
-  logoutBtn.addEventListener("click", logout);
+        const data = await safeJsonFromResponse(response);
 
-  EXAMPLES.forEach((example) => {
-    const btn = document.createElement("button");
-    btn.className = "example-chip";
-    btn.textContent = example;
-    btn.onclick = () => {
-      inputText.value = example;
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert(error.message || "Something went wrong starting checkout.");
+      }
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
+    }
+
+    navUpgradeBtn.addEventListener("click", startCheckout);
+    upgradeHintBtn.addEventListener("click", startCheckout);
+    logoutBtn.addEventListener("click", logout);
+
+    EXAMPLES.forEach((example) => {
+      const btn = document.createElement("button");
+      btn.className = "example-chip";
+      btn.type = "button";
+      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
+      btn.title = example;
+      btn.addEventListener("click", () => {
+        inputText.value = example;
+        updateCount();
+        setStatus("");
+        hideUpgradeHint();
+      });
+      examplesWrap.appendChild(btn);
+    });
+
+    inputText.addEventListener("input", updateCount);
+
+    clearBtn.addEventListener("click", () => {
+      inputText.value = "";
+      resultBox.textContent = "Your summary will appear here.";
+      copyBtn.disabled = true;
+      lastOutput = "";
       updateCount();
       setStatus("");
       hideUpgradeHint();
-    };
-    examplesWrap.appendChild(btn);
-  });
+    });
 
-  inputText.addEventListener("input", updateCount);
+    copyBtn.addEventListener("click", async () => {
+      if (!lastOutput) return;
+      try {
+        await navigator.clipboard.writeText(lastOutput);
+        copyBtn.textContent = "Copied ✓";
+        setStatus("Result copied to clipboard.", "success");
+      } catch {
+        copyBtn.textContent = "Copy failed";
+        setStatus("Copy failed. Try again.", "error");
+      }
 
-  clearBtn.onclick = () => {
-    inputText.value = "";
-    resultBox.textContent = "Your summary will appear here.";
-    copyBtn.disabled = true;
-    lastOutput = "";
-    updateCount();
-    setStatus("");
-    hideUpgradeHint();
-  };
+      setTimeout(() => {
+        copyBtn.textContent = "Copy Result";
+      }, 1400);
+    });
 
-  copyBtn.onclick = async () => {
-    if (!lastOutput) return;
-    await navigator.clipboard.writeText(lastOutput);
-    copyBtn.textContent = "Copied ✓";
-    setStatus("Copied successfully.", "success");
-    setTimeout(() => copyBtn.textContent = "Copy Result", 1400);
-  };
+    runBtn.addEventListener("click", async () => {
+      const text = inputText.value.trim();
+      const mode = modeSelect.value;
 
-  runBtn.onclick = async () => {
-    const text = inputText.value.trim();
-    const mode = modeSelect.value;
-
-    if (!text) {
-      setStatus("Enter text first.", "error");
-      return;
-    }
-
-    runBtn.disabled = true;
-    runBtn.textContent = "Forging...";
-    resultBox.textContent = `Forging ${TOOL_NAME}...`;
-    setStatus(`Forging ${TOOL_NAME}...`);
-
-    try {
-      const res = await fetch(API_PATH, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, mode, userId: getUserId() })
-      });
-
-      const data = await safeJsonFromResponse(res);
-
-      if (!res.ok) {
-        setStatus(data.error, "error");
-        if (data.error.includes("limit")) showUpgradeHint();
+      if (!text) {
+        resultBox.textContent = "Please enter text to summarize first.";
+        setStatus("Please enter text to summarize first.", "error");
+        hideUpgradeHint();
         return;
       }
 
-      lastOutput = data.result;
-      resultBox.textContent = lastOutput;
-      copyBtn.disabled = false;
+      hideUpgradeHint();
+      startForgingState();
 
-      setStatus(data.pro
-        ? `${TOOL_NAME} forged successfully (Pro).`
-        : `${TOOL_NAME} forged successfully.`,
-        "success"
-      );
+      try {
+        const res = await fetch(API_PATH, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, mode, userId: getUserId() })
+        });
 
-      setUsageUI(data);
+        const data = await safeJsonFromResponse(res);
 
-    } catch (err) {
-      setStatus("Request failed.", "error");
-    }
+        if (!res.ok) {
+          console.error("Summarizer error:", data);
+          resultBox.textContent = "Something went wrong. Please try again.";
+          setStatus(data.error || "Something went wrong.", "error");
 
-    runBtn.disabled = false;
-    runBtn.textContent = `Generate ${TOOL_NAME}`;
-  };
+          if ((data.error || "").includes("Daily free limit reached")) {
+            showUpgradeHint();
+          }
 
-  (async function init() {
-    await hydrateSession();
-    updateAuthUI();
-    updateCount();
-    await loadUsage();
-    await syncUpgradeUI();
-    document.body.classList.add("auth-ready");
-  })();
-</script>
+          await loadUsage();
+          return;
+        }
+
+        lastOutput = data.result || "";
+        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
+        copyBtn.disabled = !lastOutput;
+        setUsageUI(data);
+        setStatus(data.pro ? `${toolName} forged successfully (Pro).` : `${toolName} forged successfully.`, "success");
+      } catch (error) {
+        console.error("Summarizer request failed:", error);
+        resultBox.textContent = "Something went wrong. Please try again.";
+        setStatus(error.message || "Request failed.", "error");
+      } finally {
+        stopForgingState();
+      }
+    });
+
+    (async function init() {
+      await hydrateSession();
+      updateAuthUI();
+      updateCount();
+      await loadUsage();
+      await syncUpgradeUI();
+      document.body.classList.add("auth-ready");
+    })();
   </script>
 </body>
 </html>
