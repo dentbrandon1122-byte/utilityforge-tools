@@ -490,308 +490,242 @@
   </main>
 
   <script>
-    const TOOL_KEY = "research";
-    const API_PATH = "/api/research-assistant";
+    <script>
+  const TOOL_KEY = "research";
+  const API_PATH = "/api/research-assistant";
+  const TOOL_NAME = "Research";
 
-    const EXAMPLES = [
-      "Explain the basics of cybersecurity threats and prevention.",
-      "Break down social control in sociology into clear study notes.",
-      "Issue-spot a New York landlord notice requirement before eviction."
-    ];
+  const EXAMPLES = [
+    "Explain the basics of cybersecurity threats and prevention.",
+    "Break down social control in sociology into clear study notes.",
+    "Issue-spot a New York landlord notice requirement before eviction."
+  ];
 
-    const examplesWrap = document.getElementById("examples");
-    const inputText = document.getElementById("inputText");
-    const modeSelect = document.getElementById("modeSelect");
-    const charCount = document.getElementById("charCount");
-    const usageText = document.getElementById("usageText");
-    const usagePill = document.getElementById("usagePill");
-    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-    const upgradeHintBtn = document.getElementById("upgradeHintBtn");
-    const loginLink = document.getElementById("loginLink");
-    const signupLink = document.getElementById("signupLink");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const runBtn = document.getElementById("runBtn");
-    const copyBtn = document.getElementById("copyBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const resultBox = document.getElementById("resultBox");
-    const statusLine = document.getElementById("statusLine");
-    const upgradeHint = document.getElementById("upgradeHint");
+  const examplesWrap = document.getElementById("examples");
+  const inputText = document.getElementById("inputText");
+  const modeSelect = document.getElementById("modeSelect");
+  const charCount = document.getElementById("charCount");
+  const usageText = document.getElementById("usageText");
+  const usagePill = document.getElementById("usagePill");
+  const navUpgradeBtn = document.getElementById("navUpgradeBtn");
+  const upgradeHintBtn = document.getElementById("upgradeHintBtn");
+  const loginLink = document.getElementById("loginLink");
+  const signupLink = document.getElementById("signupLink");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const runBtn = document.getElementById("runBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const resultBox = document.getElementById("resultBox");
+  const statusLine = document.getElementById("statusLine");
+  const upgradeHint = document.getElementById("upgradeHint");
 
-    let lastOutput = "";
+  let lastOutput = "";
 
-    function getGuestUserId() {
-      let id = localStorage.getItem("uf_user_id");
-      if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem("uf_user_id", id);
-      }
-      return id;
+  function getGuestUserId() {
+    let id = localStorage.getItem("uf_user_id");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("uf_user_id", id);
     }
+    return id;
+  }
 
-    function getStoredAccount() {
-      const raw = localStorage.getItem("uf_account");
-      if (!raw) return null;
-      try {
-        return JSON.parse(raw);
-      } catch {
-        return null;
-      }
-    }
+  function getStoredAccount() {
+    const raw = localStorage.getItem("uf_account");
+    if (!raw) return null;
+    try { return JSON.parse(raw); } catch { return null; }
+  }
 
-    function getUserId() {
-      const account = getStoredAccount();
-      if (account?.id) return account.id;
-      return getGuestUserId();
-    }
+  function getUserId() {
+    const account = getStoredAccount();
+    return account?.id || getGuestUserId();
+  }
 
-    async function hydrateSession() {
-      try {
-        const res = await fetch("/api/session");
-        const data = await res.json();
+  async function hydrateSession() {
+    try {
+      const res = await fetch("/api/session");
+      const data = await res.json();
 
-        if (data.loggedIn && data.user) {
-          localStorage.setItem("uf_account", JSON.stringify({
-            id: data.user.id,
-            email: data.user.email,
-            name: data.user.name || "",
-            pro: !!data.pro
-          }));
-        } else {
-          localStorage.removeItem("uf_account");
-        }
-      } catch {
+      if (data.loggedIn && data.user) {
+        localStorage.setItem("uf_account", JSON.stringify({
+          id: data.user.id,
+          email: data.user.email,
+          name: data.user.name || "",
+          pro: !!data.pro
+        }));
+      } else {
         localStorage.removeItem("uf_account");
       }
-    }
-
-    function updateAuthUI() {
-      const account = getStoredAccount();
-      const loggedIn = !!account?.id;
-
-      loginLink.classList.toggle("hidden", loggedIn);
-      signupLink.classList.toggle("hidden", loggedIn);
-      logoutBtn.classList.toggle("hidden", !loggedIn);
-    }
-
-    function updateCount() {
-      charCount.textContent = inputText.value.length;
-    }
-
-    function setStatus(message = "", type = "") {
-      statusLine.textContent = message;
-      statusLine.className = "status-line" + (type ? ` ${type}` : "");
-    }
-
-    function setUsageUI(data) {
-      if (data.pro) {
-        usagePill.textContent = "Pro Plan • Unlimited";
-        usagePill.classList.add("pro");
-        usageText.textContent = "Unlimited usage active on this tool.";
-        navUpgradeBtn.classList.add("hidden");
-      } else {
-        usagePill.textContent = `Free uses left: ${data.remaining}`;
-        usagePill.classList.remove("pro");
-        usageText.textContent = `Free uses left today: ${data.remaining}`;
-        navUpgradeBtn.classList.remove("hidden");
-      }
-    }
-
-    function hideUpgradeHint() {
-      upgradeHint.style.display = "none";
-    }
-
-    function showUpgradeHint() {
-      upgradeHint.style.display = "block";
-    }
-
-    async function safeJsonFromResponse(res) {
-      const raw = await res.text();
-      try {
-        return JSON.parse(raw);
-      } catch {
-        throw new Error(raw || "Server returned an invalid response.");
-      }
-    }
-
-    async function loadUsage() {
-      try {
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
-        const data = await safeJsonFromResponse(res);
-        setUsageUI(data);
-      } catch {
-        usagePill.textContent = "Usage unavailable";
-        usageText.textContent = "Usage unavailable";
-      }
-    }
-
-    async function syncUpgradeUI() {
-      const account = getStoredAccount();
-      if (!account?.id) return;
-
-      try {
-        const res = await fetch("/api/pro-status", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: account.id })
-        });
-
-        const raw = await res.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          return;
-        }
-
-        if (data.pro) {
-          localStorage.setItem("uf_account", JSON.stringify({
-            ...account,
-            pro: true
-          }));
-          setUsageUI({ pro: true });
-        }
-      } catch {}
-    }
-
-    async function startCheckout() {
-      try {
-        const response = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: getUserId() })
-        });
-
-        const data = await safeJsonFromResponse(response);
-
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert(data.error || "Unable to start checkout.");
-        }
-      } catch (error) {
-        console.error("Checkout error:", error);
-        alert(error.message || "Something went wrong starting checkout.");
-      }
-    }
-
-    async function logout() {
-      try {
-        await fetch("/api/logout", { method: "POST" });
-      } catch {}
-
+    } catch {
       localStorage.removeItem("uf_account");
-      window.location.href = "index.html";
     }
+  }
 
-    navUpgradeBtn.addEventListener("click", startCheckout);
-    upgradeHintBtn.addEventListener("click", startCheckout);
-    logoutBtn.addEventListener("click", logout);
+  function updateAuthUI() {
+    const loggedIn = !!getStoredAccount()?.id;
+    loginLink.classList.toggle("hidden", loggedIn);
+    signupLink.classList.toggle("hidden", loggedIn);
+    logoutBtn.classList.toggle("hidden", !loggedIn);
+  }
 
-    EXAMPLES.forEach((example) => {
-      const btn = document.createElement("button");
-      btn.className = "example-chip";
-      btn.type = "button";
-      btn.textContent = example.length > 30 ? example.slice(0, 30) + "..." : example;
-      btn.title = example;
-      btn.addEventListener("click", () => {
-        inputText.value = example;
-        updateCount();
-        setStatus("");
-        hideUpgradeHint();
+  function updateCount() {
+    charCount.textContent = inputText.value.length;
+  }
+
+  function setStatus(message = "", type = "") {
+    statusLine.textContent = message;
+    statusLine.className = "status-line" + (type ? ` ${type}` : "");
+  }
+
+  function setUsageUI(data) {
+    if (data.pro) {
+      usagePill.textContent = "Pro Plan • Unlimited";
+      usagePill.classList.add("pro");
+      usageText.textContent = "Unlimited usage active on this tool.";
+      navUpgradeBtn.classList.add("hidden");
+    } else {
+      usagePill.textContent = `Free uses left: ${data.remaining}`;
+      usageText.textContent = `Free uses left today: ${data.remaining}`;
+      navUpgradeBtn.classList.remove("hidden");
+    }
+  }
+
+  function hideUpgradeHint() {
+    upgradeHint.style.display = "none";
+  }
+
+  function showUpgradeHint() {
+    upgradeHint.style.display = "block";
+  }
+
+  async function safeJsonFromResponse(res) {
+    const raw = await res.text();
+    try { return JSON.parse(raw); }
+    catch { throw new Error(raw || "Invalid response"); }
+  }
+
+  async function loadUsage() {
+    try {
+      const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
+      const data = await safeJsonFromResponse(res);
+      setUsageUI(data);
+    } catch {
+      usagePill.textContent = "Usage unavailable";
+      usageText.textContent = "Usage unavailable";
+    }
+  }
+
+  async function startCheckout() {
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ userId: getUserId() })
       });
-      examplesWrap.appendChild(btn);
-    });
+      const data = await safeJsonFromResponse(response);
+      if (data.url) window.location.href = data.url;
+    } catch {}
+  }
 
-    inputText.addEventListener("input", updateCount);
+  async function logout() {
+    try { await fetch("/api/logout", { method: "POST" }); } catch {}
+    localStorage.removeItem("uf_account");
+    window.location.href = "index.html";
+  }
 
-    clearBtn.addEventListener("click", () => {
-      inputText.value = "";
-      resultBox.textContent = "Your research output will appear here.";
-      copyBtn.disabled = true;
-      lastOutput = "";
+  navUpgradeBtn.onclick = startCheckout;
+  upgradeHintBtn.onclick = startCheckout;
+  logoutBtn.onclick = logout;
+
+  EXAMPLES.forEach(example => {
+    const btn = document.createElement("button");
+    btn.className = "example-chip";
+    btn.textContent = example;
+    btn.onclick = () => {
+      inputText.value = example;
       updateCount();
       setStatus("");
       hideUpgradeHint();
-    });
+    };
+    examplesWrap.appendChild(btn);
+  });
 
-    copyBtn.addEventListener("click", async () => {
-      if (!lastOutput) return;
-      try {
-        await navigator.clipboard.writeText(lastOutput);
-        copyBtn.textContent = "Copied ✓";
-        setStatus("Result copied to clipboard.", "success");
-      } catch {
-        copyBtn.textContent = "Copy failed";
-        setStatus("Copy failed. Try again.", "error");
-      }
+  inputText.addEventListener("input", updateCount);
 
-      setTimeout(() => {
-        copyBtn.textContent = "Copy Result";
-      }, 1400);
-    });
+  clearBtn.onclick = () => {
+    inputText.value = "";
+    resultBox.textContent = "Your research output will appear here.";
+    copyBtn.disabled = true;
+    lastOutput = "";
+    updateCount();
+    setStatus("");
+  };
 
-    runBtn.addEventListener("click", async () => {
-      const text = inputText.value.trim();
-      const mode = modeSelect.value;
+  copyBtn.onclick = async () => {
+    if (!lastOutput) return;
+    await navigator.clipboard.writeText(lastOutput);
+    copyBtn.textContent = "Copied ✓";
+    setStatus("Copied successfully.", "success");
+    setTimeout(()=>copyBtn.textContent="Copy Result",1400);
+  };
 
-      if (!text) {
-        resultBox.textContent = "Please enter a research topic first.";
-        setStatus("Please enter a research topic first.", "error");
-        hideUpgradeHint();
+  runBtn.onclick = async () => {
+    const text = inputText.value.trim();
+    const mode = modeSelect.value;
+
+    if (!text) {
+      setStatus("Enter a topic first.", "error");
+      return;
+    }
+
+    runBtn.disabled = true;
+    runBtn.textContent = "Forging...";
+    resultBox.textContent = `Forging ${TOOL_NAME}...`;
+    setStatus(`Forging ${TOOL_NAME}...`);
+
+    try {
+      const res = await fetch(API_PATH, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ text, mode, userId: getUserId() })
+      });
+
+      const data = await safeJsonFromResponse(res);
+
+      if (!res.ok) {
+        setStatus(data.error, "error");
+        if (data.error.includes("limit")) showUpgradeHint();
         return;
       }
 
-      runBtn.disabled = true;
-      copyBtn.disabled = true;
-      runBtn.textContent = "Running...";
-      resultBox.textContent = "Running research...";
-      setStatus("Forging your output...");
-      hideUpgradeHint();
+      lastOutput = data.result;
+      resultBox.textContent = lastOutput;
+      copyBtn.disabled = false;
 
-      try {
-        const res = await fetch(API_PATH, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
-        });
+      setStatus(data.pro
+        ? `${TOOL_NAME} forged successfully (Pro).`
+        : `${TOOL_NAME} forged successfully.`,
+        "success"
+      );
 
-        const data = await safeJsonFromResponse(res);
+      setUsageUI(data);
 
-        if (!res.ok) {
-          resultBox.textContent = "Error: " + (data.error || "Something went wrong.");
-          setStatus(data.error || "Something went wrong.", "error");
+    } catch {
+      setStatus("Request failed.", "error");
+    }
 
-          if ((data.error || "").includes("Daily free limit reached")) {
-            showUpgradeHint();
-          }
+    runBtn.disabled = false;
+    runBtn.textContent = `Generate ${TOOL_NAME}`;
+  };
 
-          await loadUsage();
-          return;
-        }
-
-        lastOutput = data.result || "";
-        resultBox.textContent = lastOutput || "No result returned.";
-        copyBtn.disabled = !lastOutput;
-        setUsageUI(data);
-        setStatus(data.pro ? "Pro request completed." : "Research completed successfully.", "success");
-      } catch (error) {
-        resultBox.textContent = "Error: " + error.message;
-        setStatus(error.message || "Request failed.", "error");
-      } finally {
-        runBtn.disabled = false;
-        runBtn.textContent = "Run Research";
-      }
-    });
-
-    (async function init() {
-      await hydrateSession();
-      updateAuthUI();
-      updateCount();
-      await loadUsage();
-      await syncUpgradeUI();
-      document.body.classList.add("auth-ready");
-    })();
+  (async function init(){
+    await hydrateSession();
+    updateAuthUI();
+    updateCount();
+    await loadUsage();
+    document.body.classList.add("auth-ready");
+  })();
+</script>
   </script>
 </body>
 </html>
