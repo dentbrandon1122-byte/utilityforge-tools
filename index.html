@@ -190,7 +190,7 @@
       min-height: 92vh;
       max-width: 1320px;
       margin: 0 auto;
-      padding: 80px 50px 70px;
+      padding: 80px 50px 50px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -228,10 +228,10 @@
     }
 
     .hero-left p {
-      font-size: 1.22rem;
+      font-size: 1.18rem;
       line-height: 1.8;
       color: rgba(255, 255, 255, 0.86);
-      margin-bottom: 30px;
+      margin-bottom: 28px;
       max-width: 650px;
     }
 
@@ -560,6 +560,47 @@
       line-height: 1.35;
     }
 
+    .social-proof {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 50px 26px;
+    }
+
+    .social-proof-wrap {
+      border-radius: 20px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .social-proof-label {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.92rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .social-proof-items {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social-chip {
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.86);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
     .section {
       max-width: 1320px;
       margin: 0 auto;
@@ -617,7 +658,7 @@
     }
 
     .proof-wrap {
-      padding: 28px;
+      padding: 32px;
       border-radius: 28px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
@@ -638,7 +679,7 @@
     }
 
     .proof-title {
-      font-size: 2.3rem;
+      font-size: 2.4rem;
       margin-bottom: 12px;
       color: #f3efe4;
     }
@@ -663,10 +704,6 @@
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       min-height: 100%;
-    }
-
-    .comparison-card.before {
-      border-color: rgba(255,255,255,0.08);
     }
 
     .comparison-card.after {
@@ -903,13 +940,6 @@
       color: white;
     }
 
-    .pricing-btn.disabled {
-      background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,.5);
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
     .pricing-trust {
       margin-top: 10px;
       text-align: center;
@@ -1086,7 +1116,7 @@
       }
 
       .hero-left p {
-        font-size: 1.12rem;
+        font-size: 1.08rem;
       }
 
       .logo-panel {
@@ -1135,9 +1165,15 @@
         width: 100%;
       }
 
-      .proof-showcase {
+      .proof-showcase,
+      .social-proof {
         padding-left: 20px;
         padding-right: 20px;
+      }
+
+      .social-proof-wrap {
+        justify-content: center;
+        text-align: center;
       }
     }
 
@@ -1277,8 +1313,8 @@
         </h1>
 
         <p>
-          Write better emails, resumes, cover letters, summaries, outreach, and research in seconds — not hours.
-          Utility Forge AI is built to help you move faster with less rewriting, less friction, and cleaner output.
+          Write better emails, resumes, outreach, and content in seconds — not hours.
+          Utility Forge AI is built for real tasks, so you spend less time rewriting and more time moving forward.
         </p>
 
         <div class="hero-buttons">
@@ -1355,13 +1391,25 @@
       </div>
     </section>
 
+    <section class="social-proof">
+      <div class="social-proof-wrap">
+        <div class="social-proof-label">Built for everyday workflows like:</div>
+        <div class="social-proof-items">
+          <span class="social-chip">Job applications</span>
+          <span class="social-chip">Professional emails</span>
+          <span class="social-chip">Study notes</span>
+          <span class="social-chip">Outreach</span>
+          <span class="social-chip">Research breakdowns</span>
+        </div>
+      </div>
+    </section>
+
     <section class="proof-showcase">
       <div class="proof-wrap">
         <div class="proof-eyebrow">See the difference instantly</div>
         <h2 class="proof-title">From rough input to polished output fast</h2>
         <p class="proof-subtitle">
-          Utility Forge AI is built for real tasks, not vague prompting. Paste in rough work, get back cleaner output,
-          and move on faster with less rewriting.
+          Paste rough work. Get cleaner, more professional results in seconds.
         </p>
 
         <div class="before-after">
@@ -1422,7 +1470,7 @@
     <section id="tools" class="section">
       <h2 class="section-title">Tools</h2>
       <p class="section-subtitle">
-        Nine focused tools for writing, job search, outreach, and productivity — with free daily usage and unlimited Pro access.
+        9 focused AI tools built for real tasks — writing, job search, outreach, and productivity.
       </p>
 
       <div class="card-grid">
@@ -1546,7 +1594,7 @@
     </section>
 
     <section class="section">
-      <h2 class="section-title">What makes it different</h2>
+      <h2 class="section-title">Why Utility Forge AI works better</h2>
       <p class="section-subtitle">
         Instead of one bloated AI chat for everything, Utility Forge AI gives you focused tools built around specific workflows.
       </p>
@@ -1563,7 +1611,7 @@
         </div>
 
         <div class="proof-card">
-          <h3>Built to be used daily</h3>
+          <h3>Built for real daily workflows</h3>
           <p>These are practical tools meant for repeat work, not one-time demos.</p>
         </div>
       </div>
@@ -1622,32 +1670,32 @@
 
         <div class="pricing-card business">
           <h3>Business</h3>
-          <div class="pricing-desc">Planned for teams, shared workflows, saved internal assets, and expanded business use.</div>
+          <div class="pricing-desc">For teams, power users, and growing workflows.</div>
           <div class="coming">Coming Soon</div>
 
           <ul>
             <li>Shared team workspace</li>
-            <li>Saved prompts and reusable team workflows</li>
-            <li>Higher team usage limits</li>
-            <li>Collaboration features</li>
-            <li>Expanded business workflows</li>
+            <li>Saved prompts and reusable workflows</li>
+            <li>Higher usage limits</li>
+            <li>Collaboration tools</li>
+            <li>Priority performance</li>
           </ul>
 
           <a
-            href="mailto:support@utilityforgeai.com?subject=Utility%20Forge%20AI%20Business%20Waitlist"
+            href="mailto:support@utilityforgeai.com?subject=Business%20Waitlist"
             class="pricing-btn secondary"
           >
-            Join Waitlist
+            Join Business Waitlist
           </a>
 
           <div class="business-waitlist">
             Want early access to Business features? Email
-            <a href="mailto:support@utilityforgeai.com?subject=Utility%20Forge%20AI%20Business%20Waitlist">support@utilityforgeai.com</a>
+            <a href="mailto:support@utilityforgeai.com?subject=Business%20Waitlist">support@utilityforgeai.com</a>
             and ask to be added to the Business waitlist.
           </div>
 
           <p class="pricing-note">
-            Designed for future team and organizational use.
+            Early access for teams and advanced users.
           </p>
         </div>
       </div>
@@ -1686,7 +1734,7 @@
 
   <button class="floating-upgrade auth-sensitive" id="floatingUpgrade" onclick="startCheckout()">
     <span class="bolt">⚡</span>
-    <span>Unlock Unlimited Access — Go Pro</span>
+    <span>Upgrade to Pro — Unlimited Access</span>
   </button>
 
   <script>
