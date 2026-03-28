@@ -717,10 +717,10 @@
       resultHeading.textContent = "Forging Job Analysis";
       setStatus("Forging your output...");
       let dots = 0;
-      resultBox.textContent = "Analyzing job description";
+      resultBox.textContent = "Starting Forge";
       loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        resultBox.textContent = "Analyzing job description" + ".".repeat(dots);
+        resultBox.textContent = "Forging Job Analysis" + ".".repeat(dots);
       }, 400);
     }
 
