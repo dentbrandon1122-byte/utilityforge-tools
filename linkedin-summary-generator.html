@@ -715,10 +715,10 @@
       resultHeading.textContent = "Forging LinkedIn Summary";
       setStatus("Forging your output...");
       let dots = 0;
-      resultBox.textContent = "Generating LinkedIn summary";
+      resultBox.textContent = "Starting Forge";
       loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        resultBox.textContent = "Generating LinkedIn summary" + ".".repeat(dots);
+        resultBox.textContent = "Forging LinkedIn summary" + ".".repeat(dots);
       }, 400);
     }
 
