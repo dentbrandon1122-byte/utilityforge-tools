@@ -610,6 +610,102 @@
       backdrop-filter: blur(10px);
     }
 
+    .proof-showcase {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 50px 30px;
+    }
+
+    .proof-wrap {
+      padding: 28px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+      backdrop-filter: blur(10px);
+    }
+
+    .proof-eyebrow {
+      display: inline-block;
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      color: #d8ffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .proof-title {
+      font-size: 2.3rem;
+      margin-bottom: 12px;
+      color: #f3efe4;
+    }
+
+    .proof-subtitle {
+      max-width: 820px;
+      color: rgba(255,255,255,0.78);
+      font-size: 1.04rem;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .comparison-card {
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 100%;
+    }
+
+    .comparison-card.before {
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .comparison-card.after {
+      border-color: rgba(142,241,255,0.18);
+      background: rgba(92,245,255,0.06);
+    }
+
+    .comparison-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .comparison-card.before .comparison-label {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.86);
+    }
+
+    .comparison-card.after .comparison-label {
+      background: linear-gradient(90deg, rgba(137,247,200,0.2), rgba(142,241,255,0.2));
+      color: #dcffff;
+    }
+
+    .comparison-card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 10px;
+      color: #eaffff;
+    }
+
+    .comparison-card p {
+      color: rgba(255,255,255,0.82);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
     .card-grid a.card {
       text-decoration: none;
       color: inherit;
@@ -840,6 +936,29 @@
       line-height: 1.6;
     }
 
+    .business-waitlist {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.78);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .business-waitlist a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .business-waitlist a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
+
     .pricing-card.starter {
       transform: translateY(18px);
     }
@@ -951,6 +1070,10 @@
       .proof-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .before-after {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 1100px) {
@@ -1011,6 +1134,11 @@
         min-height: auto;
         width: 100%;
       }
+
+      .proof-showcase {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
     }
 
     @media (max-width: 700px) {
@@ -1058,7 +1186,8 @@
         width: 240px;
       }
 
-      .section-title {
+      .section-title,
+      .proof-title {
         font-size: 2.1rem;
       }
 
@@ -1066,6 +1195,10 @@
       .card-grid,
       .proof-grid {
         grid-template-columns: 1fr;
+      }
+
+      .proof-wrap {
+        padding: 22px;
       }
 
       .floating-upgrade {
@@ -1138,14 +1271,14 @@
         <div class="hero-badge">Practical AI tools for real work</div>
 
         <h1>
-          Turn rough work into
+          AI tools that actually help you
           <br />
-          <span class="accent">clean results</span> in seconds
+          <span class="accent">get work done</span>
         </h1>
 
         <p>
-          Utility Forge AI helps you write better emails, stronger resumes, cleaner cover letters,
-          faster summaries, sharper outreach, and more — all from one focused workspace built to save time.
+          Write better emails, resumes, cover letters, summaries, outreach, and research in seconds — not hours.
+          Utility Forge AI is built to help you move faster with less rewriting, less friction, and cleaner output.
         </p>
 
         <div class="hero-buttons">
@@ -1217,6 +1350,31 @@
               <strong>Useful</strong>
               <span>Real output</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-showcase">
+      <div class="proof-wrap">
+        <div class="proof-eyebrow">See the difference instantly</div>
+        <h2 class="proof-title">From rough input to polished output fast</h2>
+        <p class="proof-subtitle">
+          Utility Forge AI is built for real tasks, not vague prompting. Paste in rough work, get back cleaner output,
+          and move on faster with less rewriting.
+        </p>
+
+        <div class="before-after">
+          <div class="comparison-card before">
+            <span class="comparison-label">Before</span>
+            <h3>Rough draft</h3>
+            <p>"Handled customer service and helped with tasks."</p>
+          </div>
+
+          <div class="comparison-card after">
+            <span class="comparison-label">After</span>
+            <h3>Polished result</h3>
+            <p>"Delivered responsive customer support, resolved inquiries efficiently, and maintained organized front-end operations during high-volume periods."</p>
           </div>
         </div>
       </div>
@@ -1464,17 +1622,29 @@
 
         <div class="pricing-card business">
           <h3>Business</h3>
-          <div class="pricing-desc">Planned for teams, shared workflows, and expanded business use.</div>
+          <div class="pricing-desc">Planned for teams, shared workflows, saved internal assets, and expanded business use.</div>
           <div class="coming">Coming Soon</div>
 
           <ul>
             <li>Shared team workspace</li>
+            <li>Saved prompts and reusable team workflows</li>
             <li>Higher team usage limits</li>
             <li>Collaboration features</li>
             <li>Expanded business workflows</li>
           </ul>
 
-          <button class="pricing-btn disabled">Coming Soon</button>
+          <a
+            href="mailto:support@utilityforgeai.com?subject=Utility%20Forge%20AI%20Business%20Waitlist"
+            class="pricing-btn secondary"
+          >
+            Join Waitlist
+          </a>
+
+          <div class="business-waitlist">
+            Want early access to Business features? Email
+            <a href="mailto:support@utilityforgeai.com?subject=Utility%20Forge%20AI%20Business%20Waitlist">support@utilityforgeai.com</a>
+            and ask to be added to the Business waitlist.
+          </div>
 
           <p class="pricing-note">
             Designed for future team and organizational use.
