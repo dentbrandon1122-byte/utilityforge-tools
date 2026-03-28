@@ -3,26 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Job Description Analyzer | Extract Skills & ATS Keywords | Utility Forge AI</title>
-  <link rel="icon" href="logo.png" type="image/png" />
-  <meta name="description" content="Analyze job descriptions instantly. Extract skills, ATS keywords, and key requirements to improve your resume and job applications with AI." />
+
+  <title>Job Analyzer AI | Break Down Job Descriptions Fast</title>
+  <meta
+    name="description"
+    content="Analyze job descriptions instantly with AI. Extract key skills, keywords, priorities, and hiring signals to improve applications faster."
+  />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/job-analyzer.html" />
 
-  <meta property="og:title" content="AI Job Description Analyzer | Utility Forge AI" />
-  <meta property="og:description" content="Break down job posts into skills, ATS keywords, and key focus points in seconds." />
+  <meta property="og:title" content="Job Analyzer AI | Utility Forge AI" />
+  <meta
+    property="og:description"
+    content="Break job descriptions into useful keywords, priorities, and skills so you can apply smarter."
+  />
   <meta property="og:image" content="logo-main.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://utilityforgeai.com/job-analyzer.html" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Job Description Analyzer | Utility Forge AI" />
-  <meta name="twitter:description" content="Extract resume keywords, job skills, and requirements from job descriptions with AI." />
+  <meta name="twitter:title" content="Job Analyzer AI | Utility Forge AI" />
+  <meta
+    name="twitter:description"
+    content="Analyze job descriptions and extract the important details instantly."
+  />
   <meta name="twitter:image" content="logo-main.png" />
+
+  <link rel="icon" href="logo.png" type="image/png" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       font-family: Arial, sans-serif;
       background: #0b1020;
@@ -31,7 +43,10 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-    body:not(.auth-ready) .auth-sensitive { visibility: hidden; }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
+    }
 
     .background {
       position: fixed;
@@ -42,6 +57,7 @@
         radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
         linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
+
     .background::before {
       content: "";
       position: absolute;
@@ -62,8 +78,9 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
+
     .nav-shell {
-      max-width: 1320px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -71,6 +88,7 @@
       gap: 20px;
       flex-wrap: wrap;
     }
+
     .brand {
       display: flex;
       align-items: center;
@@ -78,324 +96,409 @@
       text-decoration: none;
       color: #f3efe4;
     }
+
     .top-logo {
-      width: 64px;
-      height: 64px;
+      width: 52px;
+      height: 52px;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
-      flex-shrink: 0;
     }
+
     .brand-text {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       font-weight: 800;
       color: #f3efe4;
-      line-height: 1;
       white-space: nowrap;
     }
+
     .nav-links {
       display: flex;
       align-items: center;
       gap: 24px;
       flex-wrap: wrap;
     }
+
     .nav-links a,
     .nav-links button.linklike {
       text-decoration: none;
       color: rgba(255,255,255,0.86);
       font-size: 1rem;
       font-weight: 600;
-      transition: color 0.2s ease, transform 0.2s ease;
+      transition: color .2s ease, transform .2s ease;
       background: transparent;
       border: none;
       cursor: pointer;
       padding: 0;
     }
+
     .nav-links a:hover,
     .nav-links button.linklike:hover {
       color: #8df7ff;
       transform: translateY(-1px);
     }
+
     .nav-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      padding: 14px 26px;
-      border-radius: 16px;
+      padding: 12px 22px;
+      border-radius: 14px;
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
       color: #0c1420;
       font-weight: 800;
       box-shadow: 0 0 18px rgba(142,241,255,0.16);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      white-space: nowrap;
       border: none;
       cursor: pointer;
+      white-space: nowrap;
     }
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142,241,255,0.24);
-    }
-    .hidden { display: none !important; }
 
     .page {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 42px 20px 60px;
+      padding: 32px 24px 70px;
     }
+
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #b8ffcf;
+      display: inline-block;
+      color: #d8ffff;
       text-decoration: none;
       font-weight: 700;
       margin-bottom: 22px;
     }
-    .back-link:hover { color: #8ef1ff; }
 
-    .seo-panel,
-    .related-tools {
-      margin-bottom: 24px;
-      padding: 28px;
-      border-radius: 24px;
+    .back-link:hover {
+      color: #8ef1ff;
+    }
+
+    .intro-section {
+      margin-bottom: 28px;
+      padding: 24px;
+      border-radius: 20px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.84);
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
-    .seo-kicker {
-      display: inline-block;
+
+    .intro-section h1 {
+      font-size: 1.9rem;
       margin-bottom: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: #dcffff;
-      border: 1px solid rgba(120,255,255,0.18);
-      background: rgba(255,255,255,0.04);
-    }
-    .seo-panel h1 {
-      font-size: 2rem;
-      line-height: 1.15;
       color: #f3efe4;
-      margin-bottom: 14px;
     }
-    .seo-panel p,
-    .related-tools p {
+
+    .intro-section p {
       color: rgba(255,255,255,0.82);
-      line-height: 1.75;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-    .seo-panel ul {
-      margin-left: 20px;
-      margin-bottom: 14px;
-      color: rgba(255,255,255,0.8);
+
+    .intro-section ul {
+      margin-left: 18px;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 12px;
     }
-    .seo-panel li { margin-bottom: 8px; }
-    .inline-links { color: rgba(255,255,255,0.8); }
-    .inline-links a,
-    .related-tools a {
+
+    .intro-section a {
       color: #8ef1ff;
       text-decoration: none;
       font-weight: 700;
     }
-    .inline-links a:hover,
-    .related-tools a:hover {
-      color: #b7fbff;
+
+    .intro-section a:hover {
       text-decoration: underline;
-    }
-    .related-tools h2 {
-      font-size: 1.45rem;
-      color: #f3efe4;
-      margin-bottom: 10px;
-    }
-    .related-tools-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 8px;
     }
 
     .card {
-      background: rgba(255,255,255,0.045);
+      padding: 26px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 34px;
-      backdrop-filter: blur(12px);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
+
     .top-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 18px;
-      flex-wrap: wrap;
+      gap: 16px;
       margin-bottom: 18px;
+      flex-wrap: wrap;
     }
+
     .top-copy {
       flex: 1;
       min-width: 260px;
     }
+
     .tool-badge {
       display: inline-block;
-      padding: 10px 18px;
+      padding: 8px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(120,255,255,0.18);
-      background: rgba(255,255,255,0.04);
-      color: #d8ffff;
-      font-size: 14px;
-      margin-bottom: 14px;
-    }
-    .title {
-      font-size: 2.6rem;
-      color: #f3efe4;
-      margin-bottom: 8px;
-    }
-    .subtitle {
-      color: rgba(255,255,255,0.78);
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-    .usage-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 50px;
-      padding: 12px 18px;
-      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
+      color: #dcffff;
+      font-size: .82rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 2.1rem;
+      margin-bottom: 6px;
+      color: #f3efe4;
+    }
+
+    .subtitle {
+      color: rgba(255,255,255,0.8);
+      max-width: 760px;
+    }
+
+    .usage-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
       background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.88);
-      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #f3efe4;
+      font-weight: 700;
+      font-size: .9rem;
       white-space: nowrap;
     }
-    .usage-pill.pro {
-      background: linear-gradient(90deg, rgba(137,247,200,0.18), rgba(142,241,255,0.18));
-      border-color: rgba(142,241,255,0.28);
-      color: #dcffff;
-    }
+
     .examples-label,
     .field-label,
     .result-label {
-      font-weight: 800;
-      color: #dcffff;
-      margin-bottom: 10px;
       display: block;
-      font-size: 0.98rem;
+      font-weight: 800;
+      font-size: 1.02rem;
+      margin-bottom: 10px;
+      color: #f3efe4;
     }
+
     .examples {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
+
     .example-chip {
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.05);
-      color: #f0fcff;
+      color: rgba(255,255,255,0.86);
       border-radius: 999px;
       padding: 10px 14px;
-      cursor: pointer;
+      font-size: .88rem;
       font-weight: 700;
-      font-size: 0.88rem;
-      transition: .18s ease;
+      cursor: pointer;
+      transition: .2s ease;
     }
+
     .example-chip:hover {
+      border-color: rgba(142,241,255,0.24);
+      color: #dcffff;
       transform: translateY(-1px);
-      border-color: rgba(142,241,255,0.35);
-      background: rgba(142,241,255,0.08);
     }
-    textarea {
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .field-label {
+      margin-bottom: 8px;
+    }
+
+    textarea,
+    select {
       width: 100%;
-      min-height: 260px;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.04);
-      color: white;
+      color: #fff;
       padding: 16px;
-      font-size: 16px;
-      resize: vertical;
+      font-family: inherit;
+      font-size: 1rem;
       outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
-    textarea::placeholder { color: rgba(255,255,255,0.45); }
-    textarea:focus {
-      border-color: rgba(142,241,255,0.55);
-      box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
+
+    textarea {
+      min-height: 220px;
+      resize: vertical;
     }
-    .meta-row {
+
+    textarea:focus,
+    select:focus {
+      border-color: rgba(142,241,255,0.34);
+      box-shadow: 0 0 0 3px rgba(142,241,255,0.08);
+    }
+
+    select option {
+      background: #10182b;
+      color: #fff;
+    }
+
+    .controls-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
-      color: rgba(255,255,255,0.76);
-      margin: 12px 0 18px;
-      font-size: 0.95rem;
+      margin-top: 14px;
+      margin-bottom: 14px;
     }
+
+    .char-count,
+    .usage-text {
+      color: rgba(255,255,255,0.78);
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-    button {
-      border: none;
-      border-radius: 14px;
-      padding: 14px 22px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: .18s ease;
-    }
-    .primary-btn {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
-    }
-    .primary-btn:hover { transform: translateY(-1px); }
-    .secondary-btn {
-      background: rgba(255,255,255,0.06);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .secondary-btn:hover { background: rgba(255,255,255,0.09); }
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-    .status-line {
-      min-height: 24px;
-      margin-bottom: 14px;
-      color: rgba(255,255,255,0.72);
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-    .status-line.error { color: #ffb4b4; }
-    .status-line.success { color: #92ffb8; }
-    .upgrade-hint {
-      display: none;
-      margin-bottom: 14px;
-    }
-    .result-box {
-      min-height: 220px;
-      background: rgba(92,245,255,0.06);
-      border: 1px solid rgba(120,255,255,0.12);
-      border-radius: 18px;
-      padding: 18px;
-      white-space: pre-wrap;
-      color: rgba(255,255,255,0.92);
-    }
-    .tip {
-      margin-top: 8px;
-      color: rgba(255,255,255,0.66);
-      font-size: 0.9rem;
+      margin-bottom: 12px;
     }
 
-    @media (max-width: 820px) {
-      .title { font-size: 2rem; }
-      .card { padding: 22px; }
-      .seo-panel, .related-tools { padding: 22px; }
-      .seo-panel h1 { font-size: 1.7rem; }
-      .related-tools h2 { font-size: 1.25rem; }
+    .btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status-line {
+      min-height: 28px;
+      font-weight: 700;
+      color: #f1d6b8;
+      margin-bottom: 10px;
+    }
+
+    .status-line.error {
+      color: #ffb6b6;
+    }
+
+    .result-label {
+      margin-bottom: 8px;
+    }
+
+    .result-box {
+      min-height: 220px;
+      border-radius: 20px;
+      background: rgba(92,245,255,0.06);
+      border: 1px solid rgba(120,255,255,0.12);
+      padding: 18px;
+      color: rgba(255,255,255,0.88);
+      white-space: pre-wrap;
+    }
+
+    .tip {
+      color: rgba(255,255,255,0.65);
+      font-size: .92rem;
+      margin-top: 10px;
+    }
+
+    .related-tools,
+    .seo-text {
+      margin-top: 26px;
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .related-tools h2,
+    .seo-text h2,
+    .related-tools h3 {
+      margin-bottom: 10px;
+      color: #f3efe4;
+      font-size: 1.35rem;
+    }
+
+    .related-tools p,
+    .seo-text p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 10px;
+    }
+
+    .related-tools-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .related-tools-links a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .related-tools-links a:hover {
+      text-decoration: underline;
+    }
+
+    .upgrade-hint {
+      margin-top: 10px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+      display: none;
+    }
+
+    .upgrade-hint a {
+      color: #8ef1ff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .upgrade-hint a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-header { padding: 18px 16px; }
+      .page { padding: 24px 16px 60px; }
+      .brand-text { font-size: 1.2rem; }
+      .top-logo { width: 44px; height: 44px; }
+      .title { font-size: 1.7rem; }
+      .intro-section h1 { font-size: 1.55rem; }
+      .nav-links { gap: 16px; }
     }
   </style>
 </head>
@@ -424,23 +527,28 @@
   <main class="page">
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
-    <section class="seo-panel">
-      <div class="seo-kicker">Built for smarter applications</div>
-      <h1>AI Job Description Analyzer – Extract Skills & ATS Keywords</h1>
+    <section class="intro-section">
+      <h1>Job Analyzer AI</h1>
       <p>
-        This AI job analyzer helps you break down job descriptions into the most important skills, keywords, and requirements.
-        It makes it easier to tailor your resume, improve ATS performance, and understand what employers are actually looking for.
+        This AI job analyzer helps you break job descriptions into the important details faster.
+        It pulls out keywords, core skills, priorities, likely hiring signals, and the main points
+        you should focus on before you apply.
+      </p>
+      <p>
+        It works well when you want to tailor a resume, improve a cover letter, or better understand
+        what a role is really asking for. That makes it useful for job seekers, career changers, and anyone
+        applying more strategically.
       </p>
       <ul>
-        <li>Extract important job skills instantly</li>
-        <li>Identify ATS keywords for resumes</li>
-        <li>Break down employer expectations</li>
-        <li>Improve your application success rate</li>
+        <li>Extract important skills and keywords from job descriptions</li>
+        <li>Spot the main priorities in the role</li>
+        <li>Understand what to emphasize in your application</li>
+        <li>Use it before updating your resume or cover letter</li>
       </ul>
-      <p class="inline-links">
-        Try also:
-        <a href="email-polisher.html">Email Polisher</a> |
-        <a href="idea-generator.html">Idea Generator</a>
+      <p>
+        Want to strengthen your application after analyzing a role? Try the
+        <a href="resume-bullet-generator.html">Resume Bullet Generator</a> or the
+        <a href="cover-letter-generator.html">Cover Letter Generator</a>.
       </p>
     </section>
 
@@ -449,7 +557,9 @@
         <div class="top-copy">
           <div class="tool-badge">Built for smarter applications</div>
           <h2 class="title">Job Analyzer</h2>
-          <p class="subtitle">Break job descriptions into skills, keywords, and the main points to emphasize in your application.</p>
+          <p class="subtitle">
+            Break job descriptions into useful keywords, skills, priorities, and hiring signals so you can apply smarter.
+          </p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -458,38 +568,72 @@
       <label class="examples-label">Quick start examples</label>
       <div class="examples" id="examples"></div>
 
-      <label for="inputText" class="field-label">Paste the job description</label>
-      <textarea id="inputText" maxlength="3000" placeholder="Paste the full job description here..."></textarea>
+      <div class="grid">
+        <div>
+          <label for="inputText" class="field-label">Job description</label>
+          <textarea
+            id="inputText"
+            maxlength="3000"
+            placeholder="Paste the full job description here..."
+          ></textarea>
+        </div>
 
-      <div class="meta-row">
-        <div><span id="charCount">0</span>/3000 characters</div>
-        <div id="usageText">Checking account status...</div>
+        <div>
+          <label for="modeSelect" class="field-label">Mode</label>
+          <select id="modeSelect">
+            <option value="general">General</option>
+            <option value="keywords">Keywords</option>
+            <option value="skills">Skills Focus</option>
+            <option value="resume">Resume Targeting</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <div class="char-count"><span id="charCount">0</span>/3000 characters</div>
+        <div class="usage-text" id="usageText">Checking account status...</div>
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="primary-btn">Analyze Job</button>
-        <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
-        <button id="clearBtn" class="secondary-btn">Clear</button>
+        <button id="runBtn" class="btn btn-primary">Analyze Job</button>
+        <button id="copyBtn" class="btn btn-secondary">Copy Result</button>
+        <button id="clearBtn" class="btn btn-secondary">Clear</button>
       </div>
 
       <div id="statusLine" class="status-line"></div>
 
-      <div id="upgradeHint" class="upgrade-hint">
-        <button id="upgradeHintBtn" class="secondary-btn">Upgrade to Pro</button>
+      <label class="result-label" id="resultHeading">Job Analysis</label>
+      <div id="resultBox" class="result-box">Your job analysis will appear here.</div>
+
+      <div class="tip">
+        Tip: paste the full job posting for a stronger breakdown, especially the responsibilities and qualifications sections.
       </div>
 
-      <label class="result-label">Job Analysis</label>
-      <div class="result-box" id="resultBox">Your job analysis will appear here.</div>
-      <div class="tip">Tip: paste the full posting for stronger keyword extraction and more useful breakdowns.</div>
+      <div id="upgradeHint" class="upgrade-hint">
+        You’ve reached the free daily limit for this tool.
+        <a href="index.html#pricing">Upgrade to Pro</a> for unlimited usage.
+      </div>
+    </section>
+
+    <section class="seo-text">
+      <h2>Analyze Job Descriptions Faster</h2>
+      <p>
+        This job analyzer helps you break down job descriptions into the important details that matter most for your application.
+        Instead of reading the same posting over and over, you can quickly identify key skills, likely priorities, and the keywords
+        you should emphasize in your resume or cover letter.
+      </p>
+      <p>
+        It works especially well for job seekers who want to apply more strategically, tailor their materials faster,
+        and better understand what hiring managers are likely looking for.
+      </p>
     </section>
 
     <section class="related-tools">
-      <h2>More tools to keep your workflow moving</h2>
-      <p>Use related tools to strengthen your job applications and improve your communication.</p>
+      <h2>More AI tools for applications and job search</h2>
+      <p>Use related tools to turn job analysis into stronger application materials.</p>
       <div class="related-tools-links">
-        <a href="cover-letter-generator.html">Cover Letter Generator</a>
         <a href="resume-bullet-generator.html">Resume Bullet Generator</a>
-        <a href="email-polisher.html">Email Polisher</a>
+        <a href="cover-letter-generator.html">Cover Letter Generator</a>
         <a href="linkedin-summary-generator.html">LinkedIn Summary Generator</a>
       </div>
     </section>
@@ -498,28 +642,29 @@
   <script>
     const TOOL_KEY = "job-analyzer";
     const API_PATH = "/api/job-analyzer";
-    const toolName = "Job Analysis";
+    const toolName = "Job Analyzer";
 
     const EXAMPLES = [
-      "Paste a software support specialist job post and extract technical skills, soft skills, and ATS keywords.",
-      "Analyze a cybersecurity analyst job description and identify the strongest resume focus points.",
-      "Break down an administrative assistant posting into skills, expectations, and resume keywords."
+      "Cybersecurity intern role requiring networking knowledge, Python, troubleshooting, communication skills, and willingness to learn.",
+      "Customer service position focused on handling client questions, resolving issues, processing transactions, and maintaining a positive experience.",
+      "Administrative support role requiring scheduling, data entry, organization, document management, and strong attention to detail."
     ];
 
     const examplesWrap = document.getElementById("examples");
     const inputText = document.getElementById("inputText");
+    const modeSelect = document.getElementById("modeSelect");
     const charCount = document.getElementById("charCount");
     const usageText = document.getElementById("usageText");
     const usagePill = document.getElementById("usagePill");
-    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-    const upgradeHintBtn = document.getElementById("upgradeHintBtn");
     const loginLink = document.getElementById("loginLink");
     const signupLink = document.getElementById("signupLink");
     const logoutBtn = document.getElementById("logoutBtn");
+    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
     const runBtn = document.getElementById("runBtn");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
     const resultBox = document.getElementById("resultBox");
+    const resultHeading = document.getElementById("resultHeading");
     const statusLine = document.getElementById("statusLine");
     const upgradeHint = document.getElementById("upgradeHint");
 
@@ -547,10 +692,79 @@
       return getGuestUserId();
     }
 
+    function updateCount() {
+      charCount.textContent = inputText.value.length;
+    }
+
+    function setStatus(text = "", isError = false) {
+      statusLine.textContent = text;
+      statusLine.classList.toggle("error", !!isError);
+    }
+
+    function hideUpgradeHint() {
+      upgradeHint.style.display = "none";
+    }
+
+    function showUpgradeHint() {
+      upgradeHint.style.display = "block";
+    }
+
+    function startLoadingState() {
+      runBtn.disabled = true;
+      runBtn.textContent = "Forging Job Analysis...";
+      copyBtn.disabled = true;
+      clearBtn.disabled = true;
+      resultHeading.textContent = "Forging Job Analysis";
+      setStatus("Forging your output...");
+      let dots = 0;
+      resultBox.textContent = "Analyzing job description";
+      loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        resultBox.textContent = "Analyzing job description" + ".".repeat(dots);
+      }, 400);
+    }
+
+    function stopLoadingState() {
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
+      }
+      runBtn.disabled = false;
+      runBtn.textContent = "Analyze Job";
+      copyBtn.disabled = false;
+      clearBtn.disabled = false;
+    }
+
+    function setUsageUI(data, account = getStoredAccount()) {
+      const isPro = !!(data?.pro || account?.pro);
+      if (isPro) {
+        usageText.textContent = "Pro account active — unlimited usage";
+        usagePill.textContent = "Pro Plan • Unlimited";
+        navUpgradeBtn.textContent = "Pro Active";
+        navUpgradeBtn.disabled = true;
+        navUpgradeBtn.style.opacity = ".75";
+        return;
+      }
+
+      const remaining = typeof data?.remaining === "number" ? data.remaining : null;
+      const limit = typeof data?.limit === "number" ? data.limit : 5;
+
+      usageText.textContent =
+        remaining === null
+          ? "Free account — daily limit applies"
+          : `Free uses left: ${remaining}`;
+
+      usagePill.textContent =
+        remaining === null
+          ? `Free Plan • ${limit}/day`
+          : `Free uses left: ${remaining}`;
+    }
+
     async function hydrateSession() {
       try {
         const res = await fetch("/api/session");
         const data = await res.json();
+
         if (data.loggedIn && data.user) {
           localStorage.setItem("uf_account", JSON.stringify({
             id: data.user.id,
@@ -569,93 +783,59 @@
     function updateAuthUI() {
       const account = getStoredAccount();
       const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
+
       loginLink.classList.toggle("hidden", loggedIn);
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
-    }
 
-    function updateCount() { charCount.textContent = inputText.value.length; }
-
-    function setStatus(message = "", type = "") {
-      statusLine.textContent = message;
-      statusLine.className = "status-line" + (type ? ` ${type}` : "");
-    }
-
-    function setUsageUI(data) {
-      if (data.pro) {
-        usagePill.textContent = "Pro Plan • Unlimited";
-        usagePill.classList.add("pro");
-        usageText.textContent = "Unlimited usage active on this tool.";
-        navUpgradeBtn.classList.add("hidden");
+      if (isPro) {
+        navUpgradeBtn.textContent = "Pro Active";
+        navUpgradeBtn.disabled = true;
+        navUpgradeBtn.style.opacity = ".75";
       } else {
-        usagePill.textContent = `Free uses left: ${data.remaining}`;
-        usagePill.classList.remove("pro");
-        usageText.textContent = `Free uses left today: ${data.remaining}`;
-        navUpgradeBtn.classList.remove("hidden");
+        navUpgradeBtn.textContent = "Go Pro";
+        navUpgradeBtn.disabled = false;
+        navUpgradeBtn.style.opacity = "1";
       }
     }
 
-    function hideUpgradeHint() { upgradeHint.style.display = "none"; }
-    function showUpgradeHint() { upgradeHint.style.display = "block"; }
-
-    function startForgingState() {
-      let dots = 0;
-      runBtn.disabled = true;
-      copyBtn.disabled = true;
-      runBtn.textContent = "Forging...";
-      setStatus(`Forging ${toolName}...`);
-      resultBox.textContent = `Forging your ${toolName.toLowerCase()}...`;
-
-      loadingInterval = setInterval(() => {
-        dots = (dots + 1) % 4;
-        const dotStr = ".".repeat(dots || 1);
-        runBtn.textContent = `Forging${dotStr}`;
-        resultBox.textContent = `Forging your ${toolName.toLowerCase()}${dotStr}`;
-      }, 400);
-    }
-
-    function stopForgingState() {
-      if (loadingInterval) {
-        clearInterval(loadingInterval);
-        loadingInterval = null;
-      }
-      runBtn.disabled = false;
-      runBtn.textContent = "Analyze Job";
-    }
-
-    async function safeJsonFromResponse(res) {
-      const raw = await res.text();
-      try { return JSON.parse(raw); } catch { throw new Error(raw || "Server returned an invalid response."); }
-    }
-
-    async function loadUsage() {
-      try {
-        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
-        const data = await safeJsonFromResponse(res);
-        setUsageUI(data);
-      } catch {
-        usagePill.textContent = "Usage unavailable";
-        usageText.textContent = "Usage unavailable";
-      }
-    }
-
-    async function syncUpgradeUI() {
+    async function refreshUsage() {
       const account = getStoredAccount();
-      if (!account?.id) return;
+      if (account?.pro) {
+        setUsageUI({ pro: true }, account);
+        return;
+      }
+
       try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: account.id })
+          body: JSON.stringify({ userId: getUserId() })
         });
+
         const raw = await res.text();
         let data;
-        try { data = JSON.parse(raw); } catch { return; }
-        if (data.pro) {
-          localStorage.setItem("uf_account", JSON.stringify({ ...account, pro: true }));
-          setUsageUI({ pro: true });
+        try { data = JSON.parse(raw); } catch { data = null; }
+
+        if (data?.pro) {
+          const updated = { ...(account || {}), id: getUserId(), pro: true };
+          localStorage.setItem("uf_account", JSON.stringify(updated));
+          updateAuthUI();
+          setUsageUI({ pro: true }, updated);
+          return;
         }
       } catch {}
+
+      setUsageUI(null, account);
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+      localStorage.removeItem("uf_account");
+      location.reload();
     }
 
     async function startCheckout() {
@@ -665,33 +845,113 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: getUserId() })
         });
-        const data = await safeJsonFromResponse(response);
+
+        const raw = await response.text();
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
+
         if (data.url) {
           window.location.href = data.url;
         } else {
           alert(data.error || "Unable to start checkout.");
         }
       } catch (error) {
-        console.error("Checkout error:", error);
         alert(error.message || "Something went wrong starting checkout.");
       }
     }
 
-    async function logout() {
-      try { await fetch("/api/logout", { method: "POST" }); } catch {}
-      localStorage.removeItem("uf_account");
-      window.location.href = "index.html";
+    async function runTool() {
+      const text = inputText.value.trim();
+      const mode = modeSelect.value;
+
+      hideUpgradeHint();
+      setStatus("");
+
+      if (!text) {
+        setStatus("Please enter a job description first.", true);
+        resultBox.textContent = "Your job analysis will appear here.";
+        resultHeading.textContent = "Job Analysis";
+        return;
+      }
+
+      startLoadingState();
+
+      try {
+        const response = await fetch(API_PATH, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text,
+            mode,
+            userId: getUserId()
+          })
+        });
+
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Invalid server response.");
+        }
+
+        if (!response.ok) {
+          if (response.status === 429) {
+            showUpgradeHint();
+            setUsageUI(data);
+          }
+          throw new Error(data.error || "Something went wrong. Please try again.");
+        }
+
+        lastOutput = data.result || "";
+        resultHeading.textContent = "Job Analysis";
+        resultBox.textContent = lastOutput || "No result returned.";
+        setStatus("Job analysis forged successfully.");
+        setUsageUI(data);
+      } catch (error) {
+        resultHeading.textContent = "Job Analysis";
+        resultBox.textContent = error.message || "Something went wrong. Please try again.";
+        setStatus(error.message || "Something went wrong. Please try again.", true);
+      } finally {
+        stopLoadingState();
+      }
     }
 
-    navUpgradeBtn.addEventListener("click", startCheckout);
-    upgradeHintBtn.addEventListener("click", startCheckout);
-    logoutBtn.addEventListener("click", logout);
+    async function copyResult() {
+      if (!lastOutput) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(lastOutput);
+        setStatus("Result copied to clipboard.");
+      } catch {
+        setStatus("Could not copy result.", true);
+      }
+    }
+
+    function clearAll() {
+      inputText.value = "";
+      updateCount();
+      modeSelect.value = "general";
+      lastOutput = "";
+      resultHeading.textContent = "Job Analysis";
+      resultBox.textContent = "Your job analysis will appear here.";
+      setStatus("");
+      hideUpgradeHint();
+    }
 
     EXAMPLES.forEach((example) => {
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 36 ? example.slice(0, 36) + "..." : example;
+      btn.textContent = example.length > 44 ? example.slice(0, 44) + "..." : example;
       btn.title = example;
       btn.addEventListener("click", () => {
         inputText.value = example;
@@ -703,85 +963,17 @@
     });
 
     inputText.addEventListener("input", updateCount);
-
-    clearBtn.addEventListener("click", () => {
-      inputText.value = "";
-      resultBox.textContent = "Your job analysis will appear here.";
-      copyBtn.disabled = true;
-      lastOutput = "";
-      updateCount();
-      setStatus("");
-      hideUpgradeHint();
-    });
-
-    copyBtn.addEventListener("click", async () => {
-      if (!lastOutput) return;
-      try {
-        await navigator.clipboard.writeText(lastOutput);
-        copyBtn.textContent = "Copied ✓";
-        setStatus("Result copied to clipboard.", "success");
-      } catch {
-        copyBtn.textContent = "Copy failed";
-        setStatus("Copy failed. Try again.", "error");
-      }
-      setTimeout(() => { copyBtn.textContent = "Copy Result"; }, 1400);
-    });
-
-    runBtn.addEventListener("click", async () => {
-      const text = inputText.value.trim();
-
-      if (!text) {
-        resultBox.textContent = "Please paste a job description first.";
-        setStatus("Please paste a job description first.", "error");
-        hideUpgradeHint();
-        return;
-      }
-
-      hideUpgradeHint();
-      startForgingState();
-
-      try {
-        const res = await fetch(API_PATH, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, userId: getUserId() })
-        });
-
-        const data = await safeJsonFromResponse(res);
-
-        if (!res.ok) {
-          console.error("Job analyzer error:", data);
-          resultBox.textContent = "Something went wrong. Please try again.";
-          setStatus(data.error || "Something went wrong.", "error");
-
-          if ((data.error || "").includes("Daily free limit reached")) {
-            showUpgradeHint();
-          }
-
-          await loadUsage();
-          return;
-        }
-
-        lastOutput = data.result || "";
-        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
-        copyBtn.disabled = !lastOutput;
-        setUsageUI(data);
-        setStatus(data.pro ? `${toolName} forged successfully (Pro).` : `${toolName} forged successfully.`, "success");
-      } catch (error) {
-        console.error("Job analyzer request failed:", error);
-        resultBox.textContent = "Something went wrong. Please try again.";
-        setStatus(error.message || "Request failed.", "error");
-      } finally {
-        stopForgingState();
-      }
-    });
+    runBtn.addEventListener("click", runTool);
+    copyBtn.addEventListener("click", copyResult);
+    clearBtn.addEventListener("click", clearAll);
+    logoutBtn.addEventListener("click", logout);
+    navUpgradeBtn.addEventListener("click", startCheckout);
 
     (async function init() {
       await hydrateSession();
       updateAuthUI();
+      await refreshUsage();
       updateCount();
-      await loadUsage();
-      await syncUpgradeUI();
       document.body.classList.add("auth-ready");
     })();
   </script>
