@@ -4,28 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AI Text Summarizer | Summarize Text Fast Online</title>
+  <title>AI Research Assistant | Organize Research and Break Down Topics Fast</title>
   <meta
     name="description"
-    content="Summarize long text in seconds with AI. Turn articles, notes, reports, and reading into clearer summaries, takeaways, and study notes."
+    content="Use AI to organize research, break down topics, identify key issues, and turn rough questions into clearer research notes fast."
   />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://utilityforgeai.com/text-summarizer.html" />
+  <link rel="canonical" href="https://utilityforgeai.com/research-assistant.html" />
 
-  <meta property="og:title" content="AI Text Summarizer | Utility Forge AI" />
+  <meta property="og:title" content="AI Research Assistant | Utility Forge AI" />
   <meta
     property="og:description"
-    content="Summarize articles, notes, reports, and reading into clearer takeaways and study notes."
+    content="Break down topics, organize research, and turn rough questions into clearer research notes with AI."
   />
   <meta property="og:image" content="logo-main.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://utilityforgeai.com/text-summarizer.html" />
+  <meta property="og:url" content="https://utilityforgeai.com/research-assistant.html" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Text Summarizer | Utility Forge AI" />
+  <meta name="twitter:title" content="AI Research Assistant | Utility Forge AI" />
   <meta
     name="twitter:description"
-    content="Summarize long text instantly with AI."
+    content="Organize research and break down topics faster with AI."
   />
   <meta name="twitter:image" content="logo-main.png" />
 
@@ -528,26 +528,24 @@
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
     <section class="intro-section">
-      <h1>AI Text Summarizer</h1>
+      <h1>AI Research Assistant</h1>
       <p>
-        This AI text summarizer helps you turn long text into shorter, clearer takeaways in seconds.
-        It works well for articles, notes, reports, reading assignments, meeting notes, and anything else
-        you want to understand faster.
+        This AI research assistant helps you organize rough questions, break down topics, and turn scattered notes into clearer research direction.
+        It works well for school, work, personal projects, and general topic exploration.
       </p>
       <p>
-        Instead of rereading everything or manually pulling out the main ideas, you can paste the text and
-        generate a cleaner summary right away. That makes it useful for students, professionals, and anyone
-        trying to save time.
+        Instead of staring at a broad topic or messy notes, you can paste what you have and get back a clearer breakdown,
+        structured ideas, or a better starting point for deeper research.
       </p>
       <ul>
-        <li>Summarize long text into shorter takeaways</li>
-        <li>Turn reading into study notes or bullet points</li>
-        <li>Choose a style like general, concise, study notes, or bullets</li>
-        <li>Save time on articles, notes, and reports</li>
+        <li>Break down broad topics into clearer parts</li>
+        <li>Identify main issues, themes, and questions</li>
+        <li>Turn rough notes into more organized research direction</li>
+        <li>Choose a style like general, outline, issue spotting, or study help</li>
       </ul>
       <p>
-        Need more help with research or brainstorming? Try the
-        <a href="research-assistant.html">Research Assistant</a> or the
+        Need help after research too? Try the
+        <a href="text-summarizer.html">Text Summarizer</a> or the
         <a href="idea-generator.html">Idea Generator</a>.
       </p>
     </section>
@@ -555,10 +553,10 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for faster reading</div>
-          <h2 class="title">Text Summarizer</h2>
+          <div class="tool-badge">Built for research and structured thinking</div>
+          <h2 class="title">Research Assistant</h2>
           <p class="subtitle">
-            Turn long text into clearer, shorter summaries, takeaways, and study notes.
+            Turn rough questions and scattered notes into clearer research direction, organized breakdowns, and stronger starting points.
           </p>
         </div>
 
@@ -570,11 +568,11 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Text to summarize</label>
+          <label for="inputText" class="field-label">Topic, question, or notes</label>
           <textarea
             id="inputText"
             maxlength="3000"
-            placeholder="Paste the text you want summarized here..."
+            placeholder="Paste your topic, question, notes, or rough research direction here..."
           ></textarea>
         </div>
 
@@ -582,9 +580,9 @@
           <label for="modeSelect" class="field-label">Mode</label>
           <select id="modeSelect">
             <option value="general">General</option>
-            <option value="concise">Concise</option>
-            <option value="study">Study Notes</option>
-            <option value="bullets">Bullet Points</option>
+            <option value="outline">Outline</option>
+            <option value="issues">Issue Spotting</option>
+            <option value="study">Study Help</option>
           </select>
         </div>
       </div>
@@ -595,18 +593,18 @@
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="btn btn-primary">Summarize Text</button>
+        <button id="runBtn" class="btn btn-primary">Run Research Assistant</button>
         <button id="copyBtn" class="btn btn-secondary">Copy Result</button>
         <button id="clearBtn" class="btn btn-secondary">Clear</button>
       </div>
 
       <div id="statusLine" class="status-line"></div>
 
-      <label class="result-label" id="resultHeading">Summary</label>
-      <div id="resultBox" class="result-box">Your summary will appear here.</div>
+      <label class="result-label" id="resultHeading">Research Breakdown</label>
+      <div id="resultBox" class="result-box">Your research breakdown will appear here.</div>
 
       <div class="tip">
-        Tip: the tool works best when you paste the full text instead of clipped pieces, especially for study notes and summaries.
+        Tip: include the topic, what you already know, and what you need help figuring out for a stronger result.
       </div>
 
       <div id="upgradeHint" class="upgrade-hint">
@@ -616,38 +614,37 @@
     </section>
 
     <section class="seo-text">
-      <h2>Summarize Text Faster Online</h2>
+      <h2>Organize Research and Break Down Topics Faster</h2>
       <p>
-        This text summarizer helps you turn long reading, notes, and reports into clearer takeaways in seconds.
-        Instead of manually pulling out the main ideas, you can paste the text and generate a shorter version that is
-        easier to review and understand.
+        This research assistant helps you turn broad topics and rough notes into clearer research direction.
+        Instead of staying stuck at the beginning, you can break a topic into key parts, questions, themes, and next steps faster.
       </p>
       <p>
-        It works well for students, professionals, researchers, and anyone trying to save time while still getting the main points.
-        Whether you want a general summary, concise version, bullet points, or study notes, this tool helps you move faster.
+        It works well for students, professionals, writers, and anyone trying to organize information before reading more,
+        writing more, or going deeper into a subject.
       </p>
     </section>
 
     <section class="related-tools">
       <h2>More AI tools for research and productivity</h2>
-      <p>Use related tools to brainstorm, break down topics, and improve your workflow.</p>
+      <p>Use related tools to summarize information, brainstorm angles, and sharpen your workflow.</p>
       <div class="related-tools-links">
-        <a href="research-assistant.html">Research Assistant</a>
+        <a href="text-summarizer.html">Text Summarizer</a>
         <a href="idea-generator.html">Idea Generator</a>
-        <a href="email-polisher.html">Email Polisher</a>
+        <a href="job-analyzer.html">Job Analyzer</a>
       </div>
     </section>
   </main>
 
   <script>
-    const TOOL_KEY = "summary";
-    const API_PATH = "/api/summarize";
-    const toolName = "Text Summarizer";
+    const TOOL_KEY = "research";
+    const API_PATH = "/api/research-assistant";
+    const toolName = "Research Assistant";
 
     const EXAMPLES = [
-      "Summarize a long article about AI trends into the main takeaways and what matters most.",
-      "Turn class reading notes into study notes I can review later.",
-      "Summarize meeting notes into the key decisions and next action items."
+      "Break down the basics of cybersecurity threats and the main areas I should research first.",
+      "Help organize a sociology topic about social control into the main issues, themes, and questions.",
+      "Issue-spot a New York landlord notice requirement before eviction and outline the main research points."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -711,16 +708,16 @@
 
     function startLoadingState() {
       runBtn.disabled = true;
-      runBtn.textContent = "Forging Summary...";
+      runBtn.textContent = "Forging Research Breakdown...";
       copyBtn.disabled = true;
       clearBtn.disabled = true;
-      resultHeading.textContent = "Forging Summary";
+      resultHeading.textContent = "Forging Research Breakdown";
       setStatus("Forging your output...");
       let dots = 0;
       resultBox.textContent = "Starting Forge";
       loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        resultBox.textContent = "Forging text summary" + ".".repeat(dots);
+        resultBox.textContent = "Forging analyzed topic" + ".".repeat(dots);
       }, 400);
     }
 
@@ -730,7 +727,7 @@
         loadingInterval = null;
       }
       runBtn.disabled = false;
-      runBtn.textContent = "Summarize Text";
+      runBtn.textContent = "Run Research Assistant";
       copyBtn.disabled = false;
       clearBtn.disabled = false;
     }
@@ -872,9 +869,9 @@
       setStatus("");
 
       if (!text) {
-        setStatus("Please enter text to summarize first.", true);
-        resultBox.textContent = "Your summary will appear here.";
-        resultHeading.textContent = "Summary";
+        setStatus("Please enter a topic, question, or notes first.", true);
+        resultBox.textContent = "Your research breakdown will appear here.";
+        resultHeading.textContent = "Research Breakdown";
         return;
       }
 
@@ -909,12 +906,12 @@
         }
 
         lastOutput = data.result || "";
-        resultHeading.textContent = "Summary";
+        resultHeading.textContent = "Research Breakdown";
         resultBox.textContent = lastOutput || "No result returned.";
-        setStatus("Summary forged successfully.");
+        setStatus("Research breakdown forged successfully.");
         setUsageUI(data);
       } catch (error) {
-        resultHeading.textContent = "Summary";
+        resultHeading.textContent = "Research Breakdown";
         resultBox.textContent = error.message || "Something went wrong. Please try again.";
         setStatus(error.message || "Something went wrong. Please try again.", true);
       } finally {
@@ -941,8 +938,8 @@
       updateCount();
       modeSelect.value = "general";
       lastOutput = "";
-      resultHeading.textContent = "Summary";
-      resultBox.textContent = "Your summary will appear here.";
+      resultHeading.textContent = "Research Breakdown";
+      resultBox.textContent = "Your research breakdown will appear here.";
       setStatus("");
       hideUpgradeHint();
     }
