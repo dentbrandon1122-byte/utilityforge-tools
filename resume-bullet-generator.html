@@ -713,13 +713,13 @@
       runBtn.textContent = "Forging Resume Bullets...";
       copyBtn.disabled = true;
       clearBtn.disabled = true;
-      resultHeading.textContent = "Starting Forge";
+      resultHeading.textContent = "Forging Resume Bullets";
       setStatus("Forging your output...");
       let dots = 0;
-      resultBox.textContent = "Generating resume bullets";
+      resultBox.textContent = "Starting Forge";
       loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        resultBox.textContent = "Generating resume bullets" + ".".repeat(dots);
+        resultBox.textContent = "Forging resume bullets" + ".".repeat(dots);
       }, 400);
     }
 
