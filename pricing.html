@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing | Utility Forge AI</title>
+
+  <link rel="icon" href="logo.png" type="image/png" />
+  <meta
+    name="description"
+    content="Simple pricing for Utility Forge AI. Start free, upgrade to Pro for unlimited access, or join the Business waitlist for team features."
+  />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://utilityforgeai.com/pricing.html" />
+
+  <meta property="og:title" content="Pricing | Utility Forge AI" />
+  <meta property="og:description" content="Start free, upgrade to Pro for unlimited access, or join the Business waitlist." />
+  <meta property="og:image" content="logo-main.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://utilityforgeai.com/pricing.html" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pricing | Utility Forge AI" />
+  <meta name="twitter:description" content="Utility Forge AI pricing for Starter, Pro, and Business." />
+  <meta name="twitter:image" content="logo-main.png" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body:not(.auth-ready) .auth-sensitive {
+      visibility: hidden;
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at top left, rgba(0, 255, 255, 0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0, 140, 255, 0.06), transparent 35%),
+        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
+    }
+
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.15;
+    }
+
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      left: 50%;
+      top: 25%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 18px 40px;
+      background: rgba(8, 12, 24, 0.58);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #f3efe4;
+      min-width: 0;
+    }
+
+    .top-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.18));
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #f3efe4;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .nav-links button.linklike {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.2s ease, transform 0.2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links button.linklike:hover {
+      color: #8df7ff;
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #0c1420;
+      font-weight: 800;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 90px 50px 30px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1 {
+      font-size: 4.4rem;
+      line-height: 0.98;
+      margin-bottom: 18px;
+      color: #f3efe4;
+      letter-spacing: -1.2px;
+    }
+
+    .hero h1 .accent {
+      color: #92ffb8;
+      text-shadow: 0 0 14px rgba(146, 255, 184, 0.12);
+    }
+
+    .hero p {
+      max-width: 840px;
+      margin: 0 auto 18px;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.8;
+    }
+
+    .hero-trust {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .section {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 70px 50px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 14px;
+      color: #f3efe4;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      max-width: 820px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1.05rem;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .pricing-grid {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .pricing-card {
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 22px;
+      width: 320px;
+      position: relative;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(142,241,255,0.18);
+      box-shadow: 0 0 26px rgba(142,241,255,0.08);
+    }
+
+    .pricing-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+      color: #f3efe4;
+    }
+
+    .pricing-desc {
+      color: rgba(255,255,255,0.76);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      min-height: 54px;
+    }
+
+    .price {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin: 10px 0 16px;
+      color: #92ffb8;
+    }
+
+    .price small {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.64);
+      margin-left: 2px;
+    }
+
+    .coming {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 10px 0 16px;
+      color: #92ffb8;
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #7cffb2;
+      color: #000;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin: 20px 0;
+      padding-left: 0;
+      display: grid;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .pricing-card li {
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.5;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .pricing-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #8ef1ff;
+      font-weight: 900;
+    }
+
+    .pricing-btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease, opacity .2s ease, box-shadow .2s ease;
+    }
+
+    .pricing-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .pricing-btn.primary {
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+    }
+
+    .pricing-btn.secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    .pricing-trust {
+      margin-top: 10px;
+      text-align: center;
+      font-size: .84rem;
+      color: rgba(255,255,255,.72);
+      line-height: 1.5;
+    }
+
+    .pricing-note {
+      margin-top: 14px;
+      font-size: .84rem;
+      opacity: .78;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.55;
+    }
+
+    .pricing-summary {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.82);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .business-waitlist {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.78);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .business-waitlist a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .business-waitlist a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
+    }
+
+    .pricing-card.starter {
+      transform: translateY(18px);
+    }
+
+    .pricing-card.pro {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0,0,0,.35);
+      border: 1px solid rgba(124,255,178,.4);
+    }
+
+    .pricing-card.business {
+      transform: translateY(10px);
+    }
+
+    .comparison-grid,
+    .faq-grid,
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .comparison-card,
+    .faq-card,
+    .trust-card {
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .comparison-card h3,
+    .faq-card h3,
+    .trust-card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 10px;
+      color: #eaffff;
+    }
+
+    .comparison-card p,
+    .faq-card p,
+    .trust-card p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+    }
+
+    .cta-panel {
+      padding: 30px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+      text-align: center;
+    }
+
+    .cta-panel h2 {
+      font-size: 2rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .cta-panel p {
+      color: rgba(255,255,255,0.8);
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 30px 50px 50px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .footer-trust {
+      margin-top: 6px;
+      opacity: 0.6;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #8ef1ff;
+    }
+
+    .floating-upgrade {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 90;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
+      color: #081018;
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28), 0 0 24px rgba(142,241,255,0.18);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .floating-upgrade.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .floating-upgrade:hover {
+      box-shadow: 0 16px 34px rgba(0,0,0,0.32), 0 0 28px rgba(142,241,255,0.26);
+      transform: translateY(-2px);
+    }
+
+    .floating-upgrade .bolt {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 1100px) {
+      .pricing-card.pro {
+        transform: translateY(0) scale(1.01);
+      }
+
+      .pricing-card.starter,
+      .pricing-card.business {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .comparison-grid,
+      .faq-grid,
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-shell {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .hero h1 {
+        font-size: 3.4rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .nav-links {
+        gap: 18px;
+      }
+
+      .hero,
+      .section,
+      .footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .floating-upgrade {
+        right: 14px;
+        left: 14px;
+        bottom: 14px;
+        justify-content: center;
+        border-radius: 16px;
+        padding: 14px 16px;
+        font-size: 0.92rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+
+      .cta-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
+        <span class="brand-text">Utility Forge AI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html#tools">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="index.html#about">About</a>
+        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
+        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
+        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
+      </nav>
+
+      <button class="nav-cta auth-sensitive" id="mainCta" onclick="startCheckout()">Start Pro</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-badge">Simple plans for real workflows</div>
+      <h1>
+        Start free.
+        <br />
+        Upgrade when you want <span class="accent">more speed and more room.</span>
+      </h1>
+      <p>
+        Utility Forge AI is designed so you can test the tools on real work first.
+        Start with the free plan, then move to Pro when you want unlimited access and smoother daily use.
+      </p>
+      <div class="hero-trust">
+        Secure checkout powered by Stripe • Cancel anytime • No contracts
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Choose the plan that fits your workflow</h2>
+      <p class="section-subtitle">
+        Most users start with Starter, find the tools they use most, and upgrade when they want unlimited access and less friction.
+      </p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card starter">
+          <h3>Starter</h3>
+          <div class="pricing-desc">Best for trying the platform and handling quick daily tasks.</div>
+          <div class="price">$0</div>
+
+          <ul>
+            <li>Access to all core tools</li>
+            <li>5 free runs per day, per tool</li>
+            <li>Standard input limits</li>
+            <li>Dashboard access</li>
+          </ul>
+
+          <a href="dashboard.html" class="pricing-btn secondary">Start Free</a>
+
+          <p class="pricing-note">
+            A good fit for testing the platform, quick tasks, and occasional use.
+          </p>
+        </div>
+
+        <div class="pricing-card pro">
+          <div class="popular-tag">Most Popular</div>
+          <h3>Pro</h3>
+          <div class="pricing-desc">Best for repeat use, larger workloads, and uninterrupted daily workflows.</div>
+          <div class="price">$9<small>/mo</small></div>
+
+          <ul>
+            <li>Unlimited runs across all tools</li>
+            <li>Higher input limits</li>
+            <li>All current and future tools</li>
+            <li>Faster, smoother daily use</li>
+            <li>Built for job search, writing, research, and outreach</li>
+          </ul>
+
+          <button onclick="startCheckout()" class="pricing-btn primary auth-sensitive" id="pricingProBtn">Start Pro Now</button>
+
+          <div class="pricing-trust">
+            Secure checkout powered by Stripe • Cancel anytime • No contracts
+          </div>
+
+          <p class="pricing-note">
+            Best for users who want to stop hitting limits and make Utility Forge AI part of their real weekly workflow.
+          </p>
+        </div>
+
+        <div class="pricing-card business">
+          <h3>Business</h3>
+          <div class="pricing-desc">For teams, power users, and repeat workflows that need more structure.</div>
+          <div class="coming">Coming Soon</div>
+
+          <ul>
+            <li>Shared team workspace</li>
+            <li>Saved prompts and reusable workflows</li>
+            <li>Higher usage limits</li>
+            <li>Collaboration tools</li>
+            <li>Priority performance</li>
+          </ul>
+
+          <a
+            href="mailto:support@utilityforgeai.com?subject=Business%20Waitlist"
+            class="pricing-btn secondary"
+          >
+            Join Business Waitlist
+          </a>
+
+          <div class="business-waitlist">
+            Business is being designed for teams and advanced users who want reusable workflows, shared access, and a more structured workspace.
+            <br /><br />
+            Want early access? Email
+            <a href="mailto:support@utilityforgeai.com?subject=Business%20Waitlist">support@utilityforgeai.com</a>
+            and ask to be added to the Business waitlist.
+          </div>
+
+          <p class="pricing-note">
+            Early access for teams and advanced users.
+          </p>
+        </div>
+      </div>
+
+      <div class="pricing-summary">
+        Most users start free, test the tools on real work, and upgrade when they want unlimited access. If you use these tools repeatedly for writing, job search, summaries, or outreach, Pro is where the value compounds.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">What changes when you upgrade</h2>
+      <p class="section-subtitle">
+        Pro is built for the moment the free plan starts feeling too small for your actual workflow.
+      </p>
+
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <h3>Starter</h3>
+          <p>
+            Great for trying the tools, handling occasional tasks, and seeing what fits your workflow before committing.
+          </p>
+        </div>
+
+        <div class="comparison-card">
+          <h3>Pro</h3>
+          <p>
+            Built for repeat use. No more stopping because of limits. Better for daily writing, applying, summarizing, and outreach work.
+          </p>
+        </div>
+
+        <div class="comparison-card">
+          <h3>Business</h3>
+          <p>
+            Designed for shared access, reusable workflows, and structured team usage when one-person usage grows into a bigger system.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cta-panel">
+        <h2>Ready to stop hitting limits?</h2>
+        <p>
+          Start with Pro if you already know you’ll use the tools repeatedly for job search, writing, research, or outreach.
+        </p>
+        <div class="cta-actions">
+          <button onclick="startCheckout()" class="pricing-btn primary auth-sensitive" style="width:auto; padding:14px 24px;">Upgrade to Pro</button>
+          <a href="dashboard.html" class="pricing-btn secondary" style="width:auto; padding:14px 24px;">Keep Using Free</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Why users upgrade</h2>
+      <p class="section-subtitle">
+        Pro makes the platform feel smoother when you stop testing and start relying on it.
+      </p>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <h3>Less interruption</h3>
+          <p>You can stay in flow instead of watching limits when you’re doing real work repeatedly.</p>
+        </div>
+
+        <div class="trust-card">
+          <h3>More output</h3>
+          <p>Higher limits and unlimited usage make it easier to handle bigger inputs and more tasks in one session.</p>
+        </div>
+
+        <div class="trust-card">
+          <h3>Better long-term fit</h3>
+          <p>Once the tools become part of your regular workflow, Pro is where the platform becomes more useful week after week.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-subtitle">
+        A few quick answers before you choose a plan.
+      </p>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3>Can I start free?</h3>
+          <p>Yes. Starter gives you access to all core tools so you can test the platform before upgrading.</p>
+        </div>
+
+        <div class="faq-card">
+          <h3>Can I cancel Pro anytime?</h3>
+          <p>Yes. Pro is monthly and you can cancel anytime. There are no contracts.</p>
+        </div>
+
+        <div class="faq-card">
+          <h3>What is Business for?</h3>
+          <p>Business is for teams, shared workflows, saved prompts, reusable systems, and more advanced usage.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2026 Utility Forge AI. All rights reserved.
+    <div class="footer-trust">Powered by advanced AI models</div>
+
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="contact.html">Contact</a>
+      <a href="mailto:support@utilityforgeai.com">support@utilityforgeai.com</a>
+    </div>
+  </footer>
+
+  <button class="floating-upgrade auth-sensitive" id="floatingUpgrade" onclick="startCheckout()">
+    <span class="bolt">⚡</span>
+    <span>Upgrade to Pro — Unlimited Access</span>
+  </button>
+
+  <script>
+    const floatingUpgrade = document.getElementById("floatingUpgrade");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const mainCta = document.getElementById("mainCta");
+    const pricingProBtn = document.getElementById("pricingProBtn");
+
+    function getStoredAccount() {
+      const raw = localStorage.getItem("uf_account");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function getGuestUserId() {
+      let id = localStorage.getItem("uf_user_id");
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("uf_user_id", id);
+      }
+      return id;
+    }
+
+    function getUserId() {
+      const account = getStoredAccount();
+      if (account?.id) return account.id;
+      return getGuestUserId();
+    }
+
+    async function hydrateSession() {
+      try {
+        const res = await fetch("/api/session");
+        const data = await res.json();
+
+        if (data.loggedIn && data.user) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            name: data.user.name || "",
+            pro: !!data.pro
+          }));
+        } else {
+          localStorage.removeItem("uf_account");
+        }
+      } catch {
+        localStorage.removeItem("uf_account");
+      }
+    }
+
+    function updateAuthUI() {
+      const account = getStoredAccount();
+      const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
+
+      loginLink.classList.toggle("hidden", loggedIn);
+      signupLink.classList.toggle("hidden", loggedIn);
+      logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      if (isPro) {
+        mainCta.textContent = "Pro Active";
+        pricingProBtn.textContent = "Pro Active";
+        pricingProBtn.disabled = true;
+        floatingUpgrade.classList.remove("show");
+      } else {
+        mainCta.textContent = "Start Pro";
+        pricingProBtn.textContent = "Start Pro Now";
+        pricingProBtn.disabled = false;
+      }
+    }
+
+    async function syncProUI() {
+      const account = getStoredAccount();
+      if (!account?.id) return;
+
+      try {
+        const res = await fetch("/api/pro-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: account.id })
+        });
+
+        const raw = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
+
+        if (data.pro) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
+          updateAuthUI();
+        }
+      } catch {}
+    }
+
+    async function logout() {
+      try {
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
+
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
+    }
+
+    function toggleFloatingUpgrade() {
+      const account = getStoredAccount();
+      if (account?.pro) {
+        floatingUpgrade.classList.remove("show");
+        return;
+      }
+
+      const shouldShow = window.scrollY > 300;
+      floatingUpgrade.classList.toggle("show", shouldShow);
+    }
+
+    async function startCheckout() {
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId: getUserId() })
+        });
+
+        const raw = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(raw || "Server returned an invalid response.");
+        }
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(data.error || "Unable to start checkout.");
+        }
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert(error.message || "Something went wrong starting checkout.");
+      }
+    }
+
+    logoutBtn.addEventListener("click", logout);
+    window.addEventListener("scroll", toggleFloatingUpgrade);
+    window.addEventListener("load", toggleFloatingUpgrade);
+
+    (async function init() {
+      await hydrateSession();
+      updateAuthUI();
+      await syncProUI();
+      toggleFloatingUpgrade();
+      document.body.classList.add("auth-ready");
+    })();
+  </script>
+</body>
+</html>
