@@ -239,7 +239,7 @@
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
+      margin-bottom: 16px;
     }
 
     .btn-primary,
@@ -276,6 +276,12 @@
     .btn-secondary:hover {
       transform: translateY(-2px);
       background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-trust {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
     }
 
     .hero-tags {
@@ -622,7 +628,8 @@
 
     .benefit-grid,
     .card-grid,
-    .proof-grid {
+    .proof-grid,
+    .workflow-grid {
       display: grid;
       gap: 22px;
       align-items: stretch;
@@ -640,15 +647,134 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .workflow-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .benefit-card,
     .card,
-    .proof-card {
+    .proof-card,
+    .workflow-card,
+    .start-here-card,
+    .featured-tool-card {
       padding: 24px;
       border-radius: 24px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.015);
       backdrop-filter: blur(10px);
+    }
+
+    .start-here-card,
+    .featured-tool-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .start-here-copy,
+    .featured-tool-copy {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .start-here-eyebrow,
+    .featured-eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(120,255,200,0.15);
+      color: #9effd6;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .start-here-card h3,
+    .featured-tool-card h3 {
+      font-size: 1.8rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .start-here-card p,
+    .featured-tool-card p {
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .start-here-actions,
+    .featured-tool-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mini-link {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .mini-link:hover {
+      text-decoration: underline;
+    }
+
+    .featured-tool-side {
+      min-width: 220px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .featured-stat {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .featured-stat strong {
+      display: block;
+      color: #dcffff;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .featured-stat span {
+      display: block;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.88rem;
+    }
+
+    .workflow-card h3 {
+      font-size: 1.18rem;
+      color: #eaffff;
+      margin-bottom: 8px;
+    }
+
+    .workflow-card p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 12px;
+    }
+
+    .workflow-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .workflow-links a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .workflow-links a:hover {
+      text-decoration: underline;
     }
 
     .proof-showcase {
@@ -1149,6 +1275,13 @@
       line-height: 1.6;
     }
 
+    .pricing-prehead {
+      margin-bottom: 18px;
+      color: rgba(255,255,255,0.74);
+      font-size: 1rem;
+      max-width: 780px;
+    }
+
     .business-waitlist {
       margin-top: 14px;
       padding: 14px;
@@ -1280,7 +1413,8 @@
     @media (max-width: 1200px) {
       .benefit-grid,
       .card-grid,
-      .proof-grid {
+      .proof-grid,
+      .workflow-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1333,13 +1467,17 @@
         max-width: 100%;
       }
 
-      .hero-left p {
+      .hero-left p,
+      .pricing-prehead,
+      .section-subtitle {
         margin-left: auto;
         margin-right: auto;
       }
 
       .hero-buttons,
-      .hero-tags {
+      .hero-tags,
+      .start-here-actions,
+      .featured-tool-actions {
         justify-content: center;
       }
 
@@ -1425,7 +1563,8 @@
 
       .benefit-grid,
       .card-grid,
-      .proof-grid {
+      .proof-grid,
+      .workflow-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1505,17 +1644,21 @@
         <h1>
           AI tools that actually help you
           <br />
-          <span class="accent">get work done</span>
+          <span class="accent">move faster</span>
         </h1>
 
         <p>
           Write better emails, resumes, outreach, and content in seconds — not hours.
-          Utility Forge AI is built for real tasks, so you spend less time rewriting and more time moving forward.
+          Utility Forge AI is built for real tasks, so you spend less time rewriting and more time finishing what matters.
         </p>
 
         <div class="hero-buttons">
           <a href="dashboard.html" class="btn-primary auth-sensitive" id="heroPrimaryBtn">Open Dashboard</a>
-          <a href="#pricing" class="btn-secondary auth-sensitive" id="heroSecondaryBtn">See Pro Plan</a>
+          <a href="cold-email-generator.html" class="btn-secondary" id="heroSecondaryBtn">Start with Cold Email</a>
+        </div>
+
+        <div class="hero-trust">
+          Free to try. No signup required for free usage. Upgrade only when you want unlimited access.
         </div>
 
         <div class="hero-tags">
@@ -1600,6 +1743,22 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="start-here-card">
+        <div class="start-here-copy">
+          <span class="start-here-eyebrow">Start here</span>
+          <h3>Not sure where to begin?</h3>
+          <p>
+            Start with the Cold Email Generator — it’s one of the clearest ways to see how Utility Forge AI turns rough notes into clean, useful output fast.
+          </p>
+          <div class="start-here-actions">
+            <a href="cold-email-generator.html" class="btn-primary">Try Cold Email Generator</a>
+            <a href="#tools" class="mini-link">Or explore all tools</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="proof-showcase">
       <div class="proof-wrap">
         <div class="proof-eyebrow">See the difference instantly</div>
@@ -1625,17 +1784,44 @@
     </section>
 
     <section class="section">
+      <div class="featured-tool-card">
+        <div class="featured-tool-copy">
+          <span class="featured-eyebrow">Most popular starting point</span>
+          <h3>Cold Email Generator</h3>
+          <p>
+            Turn rough outreach notes into cleaner emails for networking, leads, opportunities, and introductions. It’s one of the easiest ways to get immediate value from the platform.
+          </p>
+          <div class="featured-tool-actions">
+            <a href="cold-email-generator.html" class="btn-primary">Open Cold Email Generator</a>
+            <a href="email-polisher.html" class="mini-link">Need replies instead? Try Email Polisher</a>
+          </div>
+        </div>
+
+        <div class="featured-tool-side">
+          <div class="featured-stat">
+            <strong>Best for</strong>
+            <span>Outreach, networking, and opportunity emails</span>
+          </div>
+          <div class="featured-stat">
+            <strong>Why it works</strong>
+            <span>Clear structure, faster wording, less guesswork</span>
+          </div>
+          <div class="featured-stat">
+            <strong>Good next step</strong>
+            <span>Email Polisher or Resume Bullet Generator</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <h2 class="section-title">All-in-One AI Tools for Productivity</h2>
       <p class="section-subtitle">
-        Utility Forge AI provides simple and powerful AI tools to help you write better emails, improve resumes,
-        generate ideas, summarize content, and complete real work faster. Each tool is built around practical tasks,
-        not generic prompts.
+        Utility Forge AI gives you focused tools for real tasks — emails, resumes, applications, summaries, outreach, and research — so you can spend less time rewriting and more time finishing the work.
       </p>
 
       <div class="about-box">
-        Whether you're a student, job seeker, or professional, Utility Forge AI helps you save time and produce cleaner
-        results with less effort. From writing and outreach to research and summaries, every tool is designed to be
-        fast, useful, and easy to use daily.
+        Whether you're a student, job seeker, or professional, Utility Forge AI helps you save time and produce cleaner results with less effort. From writing and outreach to research and summaries, every tool is designed to be fast, useful, and easy to use daily.
       </div>
     </section>
 
@@ -1663,10 +1849,49 @@
       </div>
     </section>
 
+    <section class="section">
+      <h2 class="section-title">Best for your workflow</h2>
+      <p class="section-subtitle">
+        Start with the group that matches what you need most right now.
+      </p>
+
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <h3>Job seekers</h3>
+          <p>Build stronger applications faster and tailor your materials with less guesswork.</p>
+          <div class="workflow-links">
+            <a href="resume-bullet-generator.html">Resume Bullets</a>
+            <a href="job-analyzer.html">Job Analyzer</a>
+            <a href="cover-letter-generator.html">Cover Letter</a>
+          </div>
+        </div>
+
+        <div class="workflow-card">
+          <h3>Professionals</h3>
+          <p>Handle emails, follow-ups, and outreach without spending extra time rewriting.</p>
+          <div class="workflow-links">
+            <a href="email-polisher.html">Email Polisher</a>
+            <a href="cold-email-generator.html">Cold Email</a>
+            <a href="linkedin-summary-generator.html">LinkedIn Summary</a>
+          </div>
+        </div>
+
+        <div class="workflow-card">
+          <h3>Students and researchers</h3>
+          <p>Break down reading, summarize information, and organize topics faster.</p>
+          <div class="workflow-links">
+            <a href="text-summarizer.html">Text Summarizer</a>
+            <a href="research-assistant.html">Research Assistant</a>
+            <a href="idea-generator.html">Idea Generator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="tools" class="section">
       <h2 class="section-title">Tools</h2>
       <p class="section-subtitle">
-        9 focused AI tools built for real tasks — writing, job search, outreach, and productivity.
+        9 focused AI tools built for real tasks. Start with the one that matches what you need to get done today.
       </p>
 
       <div class="card-grid">
@@ -1792,23 +2017,23 @@
     <section class="section">
       <h2 class="section-title">Why Utility Forge AI works better</h2>
       <p class="section-subtitle">
-        Instead of one bloated AI chat for everything, Utility Forge AI gives you focused tools built around specific workflows.
+        Instead of one bloated AI chat for everything, Utility Forge AI gives you focused tools built around specific workflows so you can get useful output with less friction.
       </p>
 
       <div class="proof-grid">
         <div class="proof-card">
           <h3>Focused workflows</h3>
-          <p>Each tool is built for a specific task, so you get cleaner output with less prompting.</p>
+          <p>Each tool is built for a specific task, so you get cleaner output with less prompting and less back-and-forth.</p>
         </div>
 
         <div class="proof-card">
           <h3>Lower friction</h3>
-          <p>Open the tool, paste your input, and get useful output fast without hunting through menus.</p>
+          <p>Open the tool, paste your input, and get useful output fast without hunting through menus or starting from scratch.</p>
         </div>
 
         <div class="proof-card">
-          <h3>Built for real daily workflows</h3>
-          <p>These are practical tools meant for repeat work, not one-time demos.</p>
+          <h3>Built for repeat daily use</h3>
+          <p>These are practical tools meant for everyday work, not one-time demos that look impressive but slow you down.</p>
         </div>
       </div>
     </section>
@@ -1832,7 +2057,7 @@
       <div class="testimonials-header">
         <span class="badge">Real feedback</span>
         <h2>What people are saying</h2>
-        <p>Early users are already using Utility Forge AI to save time on writing, job search, and daily workflow tasks.</p>
+        <p>Early users are already using Utility Forge AI to save time on writing, job search, outreach, and daily workflow tasks.</p>
       </div>
 
       <div class="testimonial-slider-shell">
@@ -1920,8 +2145,12 @@
     <section id="pricing" class="section">
       <h2 class="section-title">Pricing</h2>
       <p class="section-subtitle">
-        Start free, test the tools, and upgrade only when you want unlimited access and a smoother daily workflow.
+        Start free, test the tools on real work, and upgrade when you want unlimited access and smoother daily use.
       </p>
+
+      <div class="pricing-prehead">
+        Most users start with the free plan, find the tools they use most, and upgrade when they want uninterrupted workflows and higher daily output.
+      </div>
 
       <div class="pricing-grid">
         <div class="pricing-card starter">
@@ -1939,14 +2168,14 @@
           <a href="dashboard.html" class="pricing-btn secondary">Start Free</a>
 
           <p class="pricing-note">
-            Good for testing the platform and occasional use.
+            A good fit for testing the platform and occasional use.
           </p>
         </div>
 
         <div class="pricing-card pro">
           <div class="popular-tag">Most Popular</div>
           <h3>Pro</h3>
-          <div class="pricing-desc">Best for regular use, larger workloads, and uninterrupted workflows.</div>
+          <div class="pricing-desc">Best for repeat use, larger workloads, and uninterrupted daily workflows.</div>
           <div class="price">$9<small>/mo</small></div>
 
           <ul>
@@ -1964,13 +2193,13 @@
           </div>
 
           <p class="pricing-note">
-            A strong fit for users who want to save time every week and use the tools regularly.
+            Best for users who want to stop hitting limits and use the platform as part of their real workflow every week.
           </p>
         </div>
 
         <div class="pricing-card business">
           <h3>Business</h3>
-          <div class="pricing-desc">For teams, power users, and growing workflows.</div>
+          <div class="pricing-desc">For teams, power users, and repeat workflows that need more structure.</div>
           <div class="coming">Coming Soon</div>
 
           <ul>
@@ -1989,7 +2218,9 @@
           </a>
 
           <div class="business-waitlist">
-            Want early access to Business features? Email
+            Business is being designed for teams and advanced users who want reusable workflows, shared access, and a more structured workspace.
+            <br /><br />
+            Want early access? Email
             <a href="mailto:support@utilityforgeai.com?subject=Business%20Waitlist">support@utilityforgeai.com</a>
             and ask to be added to the Business waitlist.
           </div>
@@ -2086,7 +2317,6 @@
     const logoutBtn = document.getElementById("logoutBtn");
     const mainCta = document.getElementById("mainCta");
     const heroPrimaryBtn = document.getElementById("heroPrimaryBtn");
-    const heroSecondaryBtn = document.getElementById("heroSecondaryBtn");
     const pricingProBtn = document.getElementById("pricingProBtn");
 
     const testimonialTrack = document.getElementById("testimonialTrack");
@@ -2157,12 +2387,10 @@
       heroPrimaryBtn.textContent = "Open Dashboard";
 
       if (isPro) {
-        heroSecondaryBtn.classList.add("hidden");
         pricingProBtn.textContent = "Pro Active";
         pricingProBtn.disabled = true;
         floatingUpgrade.classList.remove("show");
       } else {
-        heroSecondaryBtn.classList.remove("hidden");
         pricingProBtn.textContent = "Start Pro Now";
         pricingProBtn.disabled = false;
       }
