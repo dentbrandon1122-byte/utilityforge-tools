@@ -656,13 +656,56 @@
     .proof-card,
     .workflow-card,
     .start-here-card,
-    .featured-tool-card {
+    .featured-tool-card,
+    .seo-home-panel {
       padding: 24px;
       border-radius: 24px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.015);
       backdrop-filter: blur(10px);
+    }
+
+    .seo-home-panel {
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+    }
+
+    .seo-home-panel h2 {
+      font-size: 1.5rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .seo-home-panel h3 {
+      font-size: 1.05rem;
+      color: #dcffff;
+      margin: 18px 0 10px;
+    }
+
+    .seo-home-panel p,
+    .seo-home-panel ul {
+      margin-bottom: 14px;
+    }
+
+    .seo-home-panel ul {
+      margin-left: 20px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .seo-home-panel li {
+      margin-bottom: 8px;
+    }
+
+    .seo-home-panel a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .seo-home-panel a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
     }
 
     .start-here-card,
@@ -1625,7 +1668,7 @@
       <nav class="nav-links">
         <a href="#tools">Tools</a>
         <a href="dashboard.html">Dashboard</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
         <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
         <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
@@ -1822,6 +1865,39 @@
 
       <div class="about-box">
         Whether you're a student, job seeker, or professional, Utility Forge AI helps you save time and produce cleaner results with less effort. From writing and outreach to research and summaries, every tool is designed to be fast, useful, and easy to use daily.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="seo-home-panel">
+        <h2>How Utility Forge AI helps</h2>
+        <p>
+          Utility Forge AI is built for people who want practical AI tools instead of one generic assistant for everything.
+          The platform focuses on real workflows like writing professional emails, improving resumes, creating cover letters,
+          breaking down job descriptions, summarizing text, brainstorming ideas, and organizing research.
+        </p>
+
+        <h3>Who the platform is useful for</h3>
+        <p>
+          Utility Forge AI works well for students, job seekers, professionals, creators, founders, and anyone who wants faster output with less rewriting.
+          It is especially useful for people handling repeat writing tasks, career documents, outreach, study material, and structured topic breakdowns.
+        </p>
+
+        <h3>What you can do here</h3>
+        <ul>
+          <li>Write clearer professional emails faster</li>
+          <li>Build stronger resume bullets and cover letters</li>
+          <li>Analyze job descriptions for skills and keywords</li>
+          <li>Summarize long text into shorter takeaways</li>
+          <li>Generate ideas, outreach drafts, and research breakdowns</li>
+          <li>Use one platform instead of scattered one-off tools</li>
+        </ul>
+
+        <h3>Why this homepage exists</h3>
+        <p>
+          The Utility Forge AI homepage is designed to explain the full platform clearly while helping users find the right tool quickly.
+          It also gives search engines a stronger understanding of what the site offers, how the tools connect, and why each page provides distinct value.
+        </p>
       </div>
     </section>
 
@@ -2298,9 +2374,9 @@
         label: "Research Assistant",
         badge: "Research Mode",
         action: "Run Research",
-        secondary: "Legal Draft",
-        input: "New York landlord notice requirements before eviction",
-        output: "Issue: required pre-eviction notice timing and type. Verify: lease type, nonpayment vs holdover, and official New York housing statutes or court resources."
+        secondary: "Structured",
+        input: "Break down the main causes of inflation and explain them simply.",
+        output: "Key drivers include demand increases, supply disruptions, production cost increases, and monetary factors. A useful structure is cause, example, and real-world effect."
       }
     ];
 
