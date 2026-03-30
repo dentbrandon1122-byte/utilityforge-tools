@@ -160,7 +160,10 @@
       padding: 42px 20px 70px;
     }
 
-    .hero-card {
+    .hero-card,
+    .dashboard-copy,
+    .seo-detail-panel,
+    .empty-state {
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 30px;
@@ -306,26 +309,50 @@
       font-size: 1rem;
     }
 
-    .dashboard-copy {
-      margin-top: 18px;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+    .dashboard-copy,
+    .seo-detail-panel {
       color: rgba(255,255,255,0.82);
       font-size: 1rem;
       line-height: 1.7;
     }
 
-    .dashboard-copy a {
+    .dashboard-copy a,
+    .seo-detail-panel a {
       color: #8ef1ff;
       text-decoration: none;
       font-weight: 700;
     }
 
-    .dashboard-copy a:hover {
+    .dashboard-copy a:hover,
+    .seo-detail-panel a:hover {
       color: #b7fbff;
       text-decoration: underline;
+    }
+
+    .seo-detail-panel h2 {
+      font-size: 1.45rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .seo-detail-panel h3 {
+      font-size: 1.05rem;
+      color: #dcffff;
+      margin: 18px 0 10px;
+    }
+
+    .seo-detail-panel p,
+    .seo-detail-panel ul {
+      margin-bottom: 14px;
+    }
+
+    .seo-detail-panel ul {
+      margin-left: 20px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .seo-detail-panel li {
+      margin-bottom: 8px;
     }
 
     .card-grid {
@@ -412,11 +439,6 @@
     }
 
     .empty-state {
-      margin-top: 18px;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.8);
     }
 
@@ -469,7 +491,10 @@
         padding: 30px 16px 60px;
       }
 
-      .hero-card {
+      .hero-card,
+      .dashboard-copy,
+      .seo-detail-panel,
+      .empty-state {
         padding: 24px;
       }
 
@@ -505,7 +530,7 @@
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="index.html#tools">Tools</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="index.html#pricing">Pricing</a>
         <a href="login.html" id="loginLink">Login</a>
         <a href="signup.html" id="signupLink">Sign Up</a>
         <button id="logoutBtn" class="linklike hidden">Logout</button>
@@ -551,6 +576,35 @@
         <a href="email-polisher.html">Email Polisher</a>,
         <a href="idea-generator.html">Idea Generator</a>,
         <a href="text-summarizer.html">Text Summarizer</a>, and more without digging through clutter.
+      </div>
+
+      <div class="seo-detail-panel">
+        <h2>How the Utility Forge AI dashboard helps</h2>
+        <p>
+          The Utility Forge AI dashboard is designed to give users one organized place to open and manage practical AI tools.
+          Instead of bouncing between disconnected pages, users can move through writing, job search, research, and productivity tools from one central workspace.
+        </p>
+
+        <h3>Who this dashboard is useful for</h3>
+        <p>
+          This dashboard works well for job seekers, professionals, students, business users, creators, and anyone who wants faster access to focused AI tools.
+          It is especially useful for people handling resumes, cover letters, emails, outreach, summaries, brainstorming, and structured research.
+        </p>
+
+        <h3>What users can do from here</h3>
+        <ul>
+          <li>Open AI writing and communication tools quickly</li>
+          <li>Move between job search and career tools in one place</li>
+          <li>Access research, summarizing, and idea tools faster</li>
+          <li>Stay organized with a more structured workflow</li>
+          <li>Use one dashboard instead of jumping between disconnected pages</li>
+        </ul>
+
+        <h3>Why this page exists</h3>
+        <p>
+          The dashboard page is designed to make the Utility Forge AI platform easier to use and easier to understand.
+          It helps users navigate the full toolset faster while also giving search engines a clearer picture of the platform structure and the purpose of each tool page.
+        </p>
       </div>
     </section>
 
@@ -647,8 +701,8 @@
             <span class="plan-badge">AI Tool</span>
           </div>
           <h3>Research Assistant</h3>
-          <p>Use one tool for general research and legal research drafting.</p>
-          <div class="tool-access">Helpful for structured issue breakdowns.</div>
+          <p>Use one tool for general research and structured topic breakdowns.</p>
+          <div class="tool-access">Helpful for organized learning and issue breakdowns.</div>
         </a>
       </div>
 
