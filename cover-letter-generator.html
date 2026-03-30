@@ -3,33 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Cover Letter Generator AI | Write Better Cover Letters Fast</title>
-  <meta
-    name="description"
-    content="Generate a stronger cover letter in seconds. Turn rough notes, job details, and experience into a polished cover letter with AI."
-  />
+  <title>Cover Letter Generator | Stronger Cover Letters Fast | Utility Forge AI</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+  <meta name="description" content="Use AI to generate stronger, cleaner cover letters from your experience and job details in seconds." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/cover-letter-generator.html" />
 
-  <meta property="og:title" content="Cover Letter Generator AI | Utility Forge AI" />
-  <meta
-    property="og:description"
-    content="Turn rough notes and job details into a stronger, more polished cover letter in seconds."
-  />
+  <meta property="og:title" content="Cover Letter Generator | Utility Forge AI" />
+  <meta property="og:description" content="Create stronger, more polished cover letters for jobs and opportunities with AI." />
   <meta property="og:image" content="logo-main.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://utilityforgeai.com/cover-letter-generator.html" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Cover Letter Generator AI | Utility Forge AI" />
-  <meta
-    name="twitter:description"
-    content="Write a stronger cover letter instantly with AI."
-  />
+  <meta name="twitter:title" content="Cover Letter Generator | Utility Forge AI" />
+  <meta name="twitter:description" content="Write better cover letters faster with AI." />
   <meta name="twitter:image" content="logo-main.png" />
-
-  <link rel="icon" href="logo.png" type="image/png" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -80,7 +69,7 @@
     }
 
     .nav-shell {
-      max-width: 1200px;
+      max-width: 1320px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -98,17 +87,19 @@
     }
 
     .top-logo {
-      width: 52px;
-      height: 52px;
+      width: 64px;
+      height: 64px;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
+      flex-shrink: 0;
     }
 
     .brand-text {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 800;
       color: #f3efe4;
+      line-height: 1;
       white-space: nowrap;
     }
 
@@ -125,7 +116,7 @@
       color: rgba(255,255,255,0.86);
       font-size: 1rem;
       font-weight: 600;
-      transition: color .2s ease, transform .2s ease;
+      transition: color 0.2s ease, transform 0.2s ease;
       background: transparent;
       border: none;
       cursor: pointer;
@@ -143,85 +134,148 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      padding: 12px 22px;
-      border-radius: 14px;
+      padding: 14px 26px;
+      border-radius: 16px;
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
       color: #0c1420;
       font-weight: 800;
       box-shadow: 0 0 18px rgba(142,241,255,0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
       border: none;
       cursor: pointer;
-      white-space: nowrap;
     }
 
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
+    }
+
+    .hidden { display: none !important; }
+
     .page {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 32px 24px 70px;
+      padding: 42px 20px 60px;
     }
 
     .back-link {
-      display: inline-block;
-      color: #d8ffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #b8ffcf;
       text-decoration: none;
       font-weight: 700;
       margin-bottom: 22px;
     }
 
-    .back-link:hover {
-      color: #8ef1ff;
-    }
+    .back-link:hover { color: #8ef1ff; }
 
-    .intro-section {
-      margin-bottom: 28px;
-      padding: 24px;
-      border-radius: 20px;
+    .seo-panel,
+    .seo-detail-panel,
+    .related-tools {
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 24px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.84);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
 
-    .intro-section h1 {
-      font-size: 1.9rem;
+    .seo-kicker {
+      display: inline-block;
       margin-bottom: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #dcffff;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .seo-panel h1 {
+      font-size: 2rem;
+      line-height: 1.15;
       color: #f3efe4;
+      margin-bottom: 14px;
     }
 
-    .intro-section p {
+    .seo-panel p,
+    .seo-detail-panel p,
+    .related-tools p {
       color: rgba(255,255,255,0.82);
-      margin-bottom: 12px;
+      line-height: 1.75;
+      margin-bottom: 14px;
     }
 
-    .intro-section ul {
-      margin-left: 18px;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 12px;
+    .seo-panel ul,
+    .seo-detail-panel ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.8);
     }
 
-    .intro-section a {
+    .seo-panel li,
+    .seo-detail-panel li {
+      margin-bottom: 8px;
+    }
+
+    .inline-links {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .inline-links a,
+    .related-tools a {
       color: #8ef1ff;
       text-decoration: none;
       font-weight: 700;
     }
 
-    .intro-section a:hover {
+    .inline-links a:hover,
+    .related-tools a:hover {
+      color: #b7fbff;
       text-decoration: underline;
     }
 
+    .related-tools h2,
+    .seo-detail-panel h2 {
+      font-size: 1.45rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .seo-detail-panel h3 {
+      font-size: 1.05rem;
+      color: #dcffff;
+      margin: 18px 0 10px;
+    }
+
+    .related-tools-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
     .card {
-      padding: 26px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 34px;
+      backdrop-filter: blur(12px);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+      margin-bottom: 24px;
     }
 
     .top-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 18px;
+      gap: 18px;
       flex-wrap: wrap;
+      margin-bottom: 18px;
     }
 
     .top-copy {
@@ -231,248 +285,188 @@
 
     .tool-badge {
       display: inline-block;
-      padding: 8px 14px;
+      padding: 10px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #dcffff;
-      font-size: .82rem;
-      font-weight: 700;
-      margin-bottom: 10px;
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      color: #d8ffff;
+      font-size: 14px;
+      margin-bottom: 14px;
     }
 
     .title {
-      font-size: 2.1rem;
-      margin-bottom: 6px;
+      font-size: 2.6rem;
       color: #f3efe4;
+      margin-bottom: 8px;
     }
 
     .subtitle {
-      color: rgba(255,255,255,0.8);
-      max-width: 760px;
+      color: rgba(255,255,255,0.78);
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
 
     .usage-pill {
-      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 12px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
-      color: #f3efe4;
-      font-weight: 700;
-      font-size: .9rem;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.88);
+      font-weight: 800;
       white-space: nowrap;
+    }
+
+    .usage-pill.pro {
+      background: linear-gradient(90deg, rgba(137,247,200,0.18), rgba(142,241,255,0.18));
+      border-color: rgba(142,241,255,0.28);
+      color: #dcffff;
     }
 
     .examples-label,
     .field-label,
     .result-label {
-      display: block;
       font-weight: 800;
-      font-size: 1.02rem;
+      color: #dcffff;
       margin-bottom: 10px;
-      color: #f3efe4;
+      display: block;
+      font-size: 0.98rem;
     }
 
     .examples {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .example-chip {
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.86);
+      color: #f0fcff;
       border-radius: 999px;
       padding: 10px 14px;
-      font-size: .88rem;
-      font-weight: 700;
       cursor: pointer;
-      transition: .2s ease;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: .18s ease;
     }
 
     .example-chip:hover {
-      border-color: rgba(142,241,255,0.24);
-      color: #dcffff;
       transform: translateY(-1px);
+      border-color: rgba(142,241,255,0.35);
+      background: rgba(142,241,255,0.08);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-columns: minmax(0, 1fr) 240px;
       gap: 18px;
       align-items: start;
     }
 
-    .field-label {
-      margin-bottom: 8px;
-    }
-
-    textarea,
-    select {
-      width: 100%;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: #fff;
-      padding: 16px;
-      font-family: inherit;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color .2s ease, box-shadow .2s ease;
-    }
-
     textarea {
-      min-height: 240px;
+      width: 100%;
+      min-height: 260px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      padding: 16px;
+      font-size: 16px;
       resize: vertical;
+      outline: none;
     }
+
+    textarea::placeholder { color: rgba(255,255,255,0.45); }
 
     textarea:focus,
     select:focus {
-      border-color: rgba(142,241,255,0.34);
-      box-shadow: 0 0 0 3px rgba(142,241,255,0.08);
+      border-color: rgba(142,241,255,0.55);
+      box-shadow: 0 0 0 1px rgba(142,241,255,0.2);
+    }
+
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      font-size: 15px;
     }
 
     select option {
-      background: #10182b;
-      color: #fff;
+      background: #0d1326;
+      color: white;
     }
 
-    .controls-row {
+    .meta-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin-top: 14px;
-      margin-bottom: 14px;
-    }
-
-    .char-count,
-    .usage-text {
-      color: rgba(255,255,255,0.78);
-      font-weight: 700;
-      font-size: .95rem;
+      color: rgba(255,255,255,0.76);
+      margin: 12px 0 18px;
+      font-size: 0.95rem;
     }
 
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
     }
 
-    .btn {
+    button {
       border: none;
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-size: 1rem;
+      border-radius: 14px;
+      padding: 14px 22px;
       font-weight: 800;
       cursor: pointer;
-      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+      transition: .18s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
+    .primary-btn {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
+      color: #081018;
     }
 
-    .btn-secondary {
-      background: rgba(255,255,255,0.08);
-      color: #fff;
+    .primary-btn:hover { transform: translateY(-1px); }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.06);
+      color: white;
       border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .btn:disabled {
-      opacity: .65;
+    .secondary-btn:hover { background: rgba(255,255,255,0.09); }
+
+    button:disabled {
+      opacity: .6;
       cursor: not-allowed;
-      transform: none;
     }
 
     .status-line {
-      min-height: 28px;
-      font-weight: 700;
-      color: #f1d6b8;
-      margin-bottom: 10px;
-    }
-
-    .status-line.error {
-      color: #ffb6b6;
-    }
-
-    .result-label {
-      margin-bottom: 8px;
-    }
-
-    .result-box {
-      min-height: 240px;
-      border-radius: 20px;
-      background: rgba(92,245,255,0.06);
-      border: 1px solid rgba(120,255,255,0.12);
-      padding: 18px;
-      color: rgba(255,255,255,0.88);
-      white-space: pre-wrap;
-    }
-
-    .tip {
-      color: rgba(255,255,255,0.65);
-      font-size: .92rem;
-      margin-top: 10px;
-    }
-
-    .related-tools,
-    .seo-text {
-      margin-top: 26px;
-      padding: 24px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .related-tools h2,
-    .seo-text h2,
-    .related-tools h3 {
-      margin-bottom: 10px;
-      color: #f3efe4;
-      font-size: 1.35rem;
-    }
-
-    .related-tools p,
-    .seo-text p {
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 10px;
-    }
-
-    .related-tools-links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .related-tools-links a {
-      color: #8ef1ff;
-      text-decoration: none;
+      min-height: 24px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.95rem;
       font-weight: 700;
     }
 
-    .related-tools-links a:hover {
-      text-decoration: underline;
-    }
+    .status-line.error { color: #ffb4b4; }
+    .status-line.success { color: #92ffb8; }
 
     .upgrade-hint {
-      margin-top: 10px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.8);
       display: none;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.84);
     }
 
     .upgrade-hint a {
@@ -482,23 +476,36 @@
     }
 
     .upgrade-hint a:hover {
+      color: #b7fbff;
       text-decoration: underline;
     }
 
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+    .result-box {
+      min-height: 220px;
+      background: rgba(92,245,255,0.06);
+      border: 1px solid rgba(120,255,255,0.12);
+      border-radius: 18px;
+      padding: 18px;
+      white-space: pre-wrap;
+      color: rgba(255,255,255,0.92);
     }
 
-    @media (max-width: 700px) {
-      .site-header { padding: 18px 16px; }
-      .page { padding: 24px 16px 60px; }
-      .brand-text { font-size: 1.2rem; }
-      .top-logo { width: 44px; height: 44px; }
-      .title { font-size: 1.7rem; }
-      .intro-section h1 { font-size: 1.55rem; }
-      .nav-links { gap: 16px; }
+    .tip {
+      margin-top: 8px;
+      color: rgba(255,255,255,0.66);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+      .title { font-size: 2rem; }
+      .card { padding: 22px; }
+      .seo-panel,
+      .seo-detail-panel,
+      .related-tools { padding: 22px; }
+      .seo-panel h1 { font-size: 1.7rem; }
+      .related-tools h2,
+      .seo-detail-panel h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -527,26 +534,26 @@
   <main class="page">
     <a href="dashboard.html" class="back-link">← Back to dashboard</a>
 
-    <section class="intro-section">
-      <h1>Cover Letter Generator AI</h1>
+    <section class="seo-panel">
+      <div class="seo-kicker">Built for stronger applications</div>
+      <h1>Cover Letter Generator for Cleaner, Stronger, More Professional Applications</h1>
+
       <p>
-        This AI cover letter generator helps you turn rough notes, job details, and experience into a stronger,
-        more polished cover letter. It saves time and helps you sound clearer, more professional, and more targeted.
+        This cover letter generator helps you turn rough notes, job details, and experience into a stronger cover letter draft.
+        It works well for job applications, career transitions, and cleaner first drafts you can edit fast.
       </p>
-      <p>
-        It works well when you already know the role you want and need help turning your background into a clean,
-        tailored draft. That makes it useful for students, job seekers, career changers, and anyone applying more efficiently.
-      </p>
+
       <ul>
-        <li>Turn rough experience notes into a stronger cover letter draft</li>
-        <li>Improve clarity, professionalism, and structure</li>
-        <li>Choose a style like professional, confident, concise, or warm</li>
-        <li>Use it alongside resume and job targeting tools for stronger applications</li>
+        <li>Turn rough notes into a stronger cover letter</li>
+        <li>Improve wording, structure, and tone</li>
+        <li>Create more polished drafts faster</li>
+        <li>Use different modes depending on the role or application style</li>
       </ul>
-      <p>
-        Want to strengthen the rest of your application too? Try the
-        <a href="job-analyzer.html">Job Analyzer</a> or the
-        <a href="resume-bullet-generator.html">Resume Bullet Generator</a>.
+
+      <p class="inline-links">
+        Try also:
+        <a href="resume-bullet-generator.html">Resume Bullet Generator</a> |
+        <a href="job-analyzer.html">Job Analyzer</a>
       </p>
     </section>
 
@@ -555,9 +562,7 @@
         <div class="top-copy">
           <div class="tool-badge">Built for stronger applications</div>
           <h2 class="title">Cover Letter Generator</h2>
-          <p class="subtitle">
-            Turn rough notes and job details into a stronger, clearer, and more polished cover letter draft.
-          </p>
+          <p class="subtitle">Turn rough experience notes and job details into a cleaner, stronger, more professional cover letter draft.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -568,12 +573,8 @@
 
       <div class="grid">
         <div>
-          <label for="inputText" class="field-label">Your notes, experience, and job details</label>
-          <textarea
-            id="inputText"
-            maxlength="2500"
-            placeholder="Paste your background, relevant experience, target role, and any job posting details here..."
-          ></textarea>
+          <label for="inputText" class="field-label">Your notes, experience, and target role</label>
+          <textarea id="inputText" maxlength="2500" placeholder="Paste your relevant experience, role details, company, and what you want the letter to emphasize..."></textarea>
         </div>
 
         <div>
@@ -587,52 +588,70 @@
         </div>
       </div>
 
-      <div class="controls-row">
-        <div class="char-count"><span id="charCount">0</span>/2500 characters</div>
-        <div class="usage-text" id="usageText">Checking account status...</div>
+      <div class="meta-row">
+        <div><span id="charCount">0</span>/2500 characters</div>
+        <div id="usageText">Checking account status...</div>
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="btn btn-primary">Generate Cover Letter</button>
-        <button id="copyBtn" class="btn btn-secondary">Copy Result</button>
-        <button id="clearBtn" class="btn btn-secondary">Clear</button>
+        <button id="runBtn" class="primary-btn">Generate Cover Letter</button>
+        <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
+        <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
 
       <div id="statusLine" class="status-line"></div>
-
-      <label class="result-label" id="resultHeading">Cover Letter Draft</label>
-      <div id="resultBox" class="result-box">Your cover letter will appear here.</div>
-
-      <div class="tip">
-        Tip: include the role title, relevant experience, and why you are interested for a stronger draft.
-      </div>
 
       <div id="upgradeHint" class="upgrade-hint">
         You’ve reached the free daily limit for this tool.
         <a href="pricing.html">Upgrade to Pro</a> for unlimited usage.
       </div>
+
+      <label class="result-label">Cover Letter</label>
+      <div class="result-box" id="resultBox">Your cover letter draft will appear here.</div>
+      <div class="tip">Tip: include the job title, relevant experience, and why you’re a good fit for the role.</div>
     </section>
 
-    <section class="seo-text">
-      <h2>Write Better Cover Letters Faster</h2>
+    <section class="seo-detail-panel">
+      <h2>How this cover letter generator helps</h2>
       <p>
-        This cover letter generator helps you turn rough notes and job details into a stronger cover letter draft.
-        Instead of staring at a blank page, you can paste your experience and the role details, then generate a cleaner,
-        more professional version instantly.
+        Utility Forge AI’s Cover Letter Generator is built for people who want a faster way to create stronger job application materials.
+        Instead of starting from a blank page, users can paste in their experience, target role, and job details, then generate a cleaner draft
+        that sounds more structured, professional, and focused.
       </p>
+
+      <h3>Who this tool is useful for</h3>
       <p>
-        It works especially well for job seekers who want to save time, tailor applications faster, and build stronger
-        materials without rewriting everything from scratch.
+        This tool works well for job seekers, students, recent graduates, career changers, and professionals applying to new roles.
+        It can help with entry-level jobs, office roles, technical positions, customer-facing opportunities, and general professional applications.
+      </p>
+
+      <h3>Common cover letter use cases</h3>
+      <ul>
+        <li>Creating a first draft from rough notes</li>
+        <li>Turning job details into a more tailored application letter</li>
+        <li>Improving tone, structure, and professionalism</li>
+        <li>Saving time when applying to multiple jobs</li>
+        <li>Building a cleaner draft you can edit and personalize quickly</li>
+      </ul>
+
+      <h3>Why this page exists</h3>
+      <p>
+        The Cover Letter Generator page is designed to help users build stronger cover letters faster.
+        It combines a practical AI writing tool with a simple workflow so users can move from rough notes to a more polished application draft with less friction.
       </p>
     </section>
 
     <section class="related-tools">
-      <h2>More AI tools for applications and job search</h2>
-      <p>Use related tools to strengthen your resume, job targeting, and profile alongside your cover letter.</p>
+      <h2>More tools to keep your workflow moving</h2>
+      <p>
+        Use related tools to improve your resume, target roles better, and strengthen your application materials.
+      </p>
+
       <div class="related-tools-links">
-        <a href="job-analyzer.html">Job Analyzer</a>
         <a href="resume-bullet-generator.html">Resume Bullet Generator</a>
+        <a href="job-analyzer.html">Job Analyzer</a>
         <a href="linkedin-summary-generator.html">LinkedIn Summary Generator</a>
+        <a href="email-polisher.html">Email Polisher</a>
       </div>
     </section>
   </main>
@@ -640,12 +659,13 @@
   <script>
     const TOOL_KEY = "cover-letter";
     const API_PATH = "/api/cover-letter-generator";
-    const toolName = "Cover Letter Generator";
+    const toolName = "Cover Letter";
+    let loadingInterval = null;
 
     const EXAMPLES = [
-      "Applying for a customer service role. I have experience helping customers, solving problems, handling transactions, and keeping things organized during busy shifts.",
-      "Applying for an administrative support position. I’ve handled scheduling, records, communication, and daily office support tasks, and I want the letter to sound professional and clear.",
-      "Applying for an entry-level cybersecurity or tech support role. I have Python coursework, troubleshooting experience, customer service skills, and I’m looking for a strong starter draft."
+      "I’m applying for an administrative assistant role and want to highlight organization, communication, and scheduling experience.",
+      "Write a cover letter for an entry-level cybersecurity role using my customer service and technical coursework background.",
+      "Create a professional cover letter for a front desk position using my experience with records, scheduling, and client communication."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -654,20 +674,18 @@
     const charCount = document.getElementById("charCount");
     const usageText = document.getElementById("usageText");
     const usagePill = document.getElementById("usagePill");
+    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
     const loginLink = document.getElementById("loginLink");
     const signupLink = document.getElementById("signupLink");
     const logoutBtn = document.getElementById("logoutBtn");
-    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
     const runBtn = document.getElementById("runBtn");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
     const resultBox = document.getElementById("resultBox");
-    const resultHeading = document.getElementById("resultHeading");
     const statusLine = document.getElementById("statusLine");
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
-    let loadingInterval = null;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -681,81 +699,17 @@
     function getStoredAccount() {
       const raw = localStorage.getItem("uf_account");
       if (!raw) return null;
-      try { return JSON.parse(raw); } catch { return null; }
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
     }
 
     function getUserId() {
       const account = getStoredAccount();
       if (account?.id) return account.id;
       return getGuestUserId();
-    }
-
-    function updateCount() {
-      charCount.textContent = inputText.value.length;
-    }
-
-    function setStatus(text = "", isError = false) {
-      statusLine.textContent = text;
-      statusLine.classList.toggle("error", !!isError);
-    }
-
-    function hideUpgradeHint() {
-      upgradeHint.style.display = "none";
-    }
-
-    function showUpgradeHint() {
-      upgradeHint.style.display = "block";
-    }
-
-    function startLoadingState() {
-      runBtn.disabled = true;
-      runBtn.textContent = "Forging Cover Letter...";
-      copyBtn.disabled = true;
-      clearBtn.disabled = true;
-      resultHeading.textContent = "Forging Cover Letter";
-      setStatus("Forging your output...");
-      let dots = 0;
-      resultBox.textContent = "Starting Forge";
-      loadingInterval = setInterval(() => {
-        dots = (dots + 1) % 4;
-        resultBox.textContent = "Forging cover letter" + ".".repeat(dots);
-      }, 400);
-    }
-
-    function stopLoadingState() {
-      if (loadingInterval) {
-        clearInterval(loadingInterval);
-        loadingInterval = null;
-      }
-      runBtn.disabled = false;
-      runBtn.textContent = "Generate Cover Letter";
-      copyBtn.disabled = false;
-      clearBtn.disabled = false;
-    }
-
-    function setUsageUI(data, account = getStoredAccount()) {
-      const isPro = !!(data?.pro || account?.pro);
-      if (isPro) {
-        usageText.textContent = "Pro account active — unlimited usage";
-        usagePill.textContent = "Pro Plan • Unlimited";
-        navUpgradeBtn.textContent = "Pro Active";
-        navUpgradeBtn.disabled = true;
-        navUpgradeBtn.style.opacity = ".75";
-        return;
-      }
-
-      const remaining = typeof data?.remaining === "number" ? data.remaining : null;
-      const limit = typeof data?.limit === "number" ? data.limit : 5;
-
-      usageText.textContent =
-        remaining === null
-          ? "Free account — daily limit applies"
-          : `Free uses left: ${remaining}`;
-
-      usagePill.textContent =
-        remaining === null
-          ? `Free Plan • ${limit}/day`
-          : `Free uses left: ${remaining}`;
     }
 
     async function hydrateSession() {
@@ -781,59 +735,116 @@
     function updateAuthUI() {
       const account = getStoredAccount();
       const loggedIn = !!account?.id;
-      const isPro = !!account?.pro;
 
       loginLink.classList.toggle("hidden", loggedIn);
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
+    }
 
-      if (isPro) {
-        navUpgradeBtn.textContent = "Pro Active";
-        navUpgradeBtn.disabled = true;
-        navUpgradeBtn.style.opacity = ".75";
+    function updateCount() {
+      charCount.textContent = inputText.value.length;
+    }
+
+    function setStatus(message = "", type = "") {
+      statusLine.textContent = message;
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
+    }
+
+    function setUsageUI(data) {
+      if (data.pro) {
+        usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
+        usageText.textContent = "Unlimited usage active on this tool.";
+        navUpgradeBtn.classList.add("hidden");
       } else {
-        navUpgradeBtn.textContent = "Go Pro";
-        navUpgradeBtn.disabled = false;
-        navUpgradeBtn.style.opacity = "1";
+        usagePill.textContent = `Free uses left: ${data.remaining}`;
+        usagePill.classList.remove("pro");
+        usageText.textContent = `Free uses left today: ${data.remaining}`;
+        navUpgradeBtn.classList.remove("hidden");
       }
     }
 
-    async function refreshUsage() {
-      const account = getStoredAccount();
-      if (account?.pro) {
-        setUsageUI({ pro: true }, account);
-        return;
+    function hideUpgradeHint() {
+      upgradeHint.style.display = "none";
+    }
+
+    function showUpgradeHint() {
+      upgradeHint.style.display = "block";
+    }
+
+    function startForgingState() {
+      let dots = 0;
+      runBtn.disabled = true;
+      copyBtn.disabled = true;
+      runBtn.textContent = "Forging...";
+      setStatus(`Forging ${toolName}...`);
+      resultBox.textContent = `Forging ${toolName}...`;
+
+      loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const dotStr = ".".repeat(dots || 1);
+        runBtn.textContent = `Forging${dotStr}`;
+        resultBox.textContent = `Forging ${toolName}${dotStr}`;
+      }, 400);
+    }
+
+    function stopForgingState() {
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
       }
+      runBtn.disabled = false;
+      runBtn.textContent = "Generate Cover Letter";
+    }
+
+    async function safeJsonFromResponse(res) {
+      const raw = await res.text();
+      try {
+        return JSON.parse(raw);
+      } catch {
+        throw new Error(raw || "Server returned an invalid response.");
+      }
+    }
+
+    async function loadUsage() {
+      try {
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
+        const data = await safeJsonFromResponse(res);
+        setUsageUI(data);
+      } catch {
+        usagePill.textContent = "Usage unavailable";
+        usageText.textContent = "Usage unavailable";
+      }
+    }
+
+    async function syncUpgradeUI() {
+      const account = getStoredAccount();
+      if (!account?.id) return;
 
       try {
         const res = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: getUserId() })
+          body: JSON.stringify({ userId: account.id })
         });
 
         const raw = await res.text();
         let data;
-        try { data = JSON.parse(raw); } catch { data = null; }
 
-        if (data?.pro) {
-          const updated = { ...(account || {}), id: getUserId(), pro: true };
-          localStorage.setItem("uf_account", JSON.stringify(updated));
-          updateAuthUI();
-          setUsageUI({ pro: true }, updated);
+        try {
+          data = JSON.parse(raw);
+        } catch {
           return;
         }
-      } catch {}
 
-      setUsageUI(null, account);
-    }
-
-    async function logout() {
-      try {
-        await fetch("/api/logout", { method: "POST" });
+        if (data.pro) {
+          localStorage.setItem("uf_account", JSON.stringify({
+            ...account,
+            pro: true
+          }));
+          setUsageUI({ pro: true });
+        }
       } catch {}
-      localStorage.removeItem("uf_account");
-      location.reload();
     }
 
     async function startCheckout() {
@@ -844,13 +855,7 @@
           body: JSON.stringify({ userId: getUserId() })
         });
 
-        const raw = await response.text();
-        let data;
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
-        }
+        const data = await safeJsonFromResponse(response);
 
         if (data.url) {
           window.location.href = data.url;
@@ -858,120 +863,124 @@
           alert(data.error || "Unable to start checkout.");
         }
       } catch (error) {
+        console.error("Checkout error:", error);
         alert(error.message || "Something went wrong starting checkout.");
       }
     }
 
-    async function runTool() {
-      const text = inputText.value.trim();
-      const mode = modeSelect.value;
-
-      hideUpgradeHint();
-      setStatus("");
-
-      if (!text) {
-        setStatus("Please enter your notes and job details first.", true);
-        resultBox.textContent = "Your cover letter will appear here.";
-        resultHeading.textContent = "Cover Letter Draft";
-        return;
-      }
-
-      startLoadingState();
-
+    async function logout() {
       try {
-        const response = await fetch(API_PATH, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            text,
-            mode,
-            userId: getUserId()
-          })
-        });
+        await fetch("/api/logout", { method: "POST" });
+      } catch {}
 
-        const raw = await response.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Invalid server response.");
-        }
-
-        if (!response.ok) {
-          if (response.status === 429) {
-            showUpgradeHint();
-            setUsageUI(data);
-          }
-          throw new Error(data.error || "Something went wrong. Please try again.");
-        }
-
-        lastOutput = data.result || "";
-        resultHeading.textContent = "Cover Letter Draft";
-        resultBox.textContent = lastOutput || "No result returned.";
-        setStatus("Cover letter forged successfully.");
-        setUsageUI(data);
-      } catch (error) {
-        resultHeading.textContent = "Cover Letter Draft";
-        resultBox.textContent = error.message || "Something went wrong. Please try again.";
-        setStatus(error.message || "Something went wrong. Please try again.", true);
-      } finally {
-        stopLoadingState();
-      }
+      localStorage.removeItem("uf_account");
+      window.location.href = "index.html";
     }
 
-    async function copyResult() {
-      if (!lastOutput) {
-        setStatus("Nothing to copy yet.", true);
-        return;
-      }
-
-      try {
-        await navigator.clipboard.writeText(lastOutput);
-        setStatus("Result copied to clipboard.");
-      } catch {
-        setStatus("Could not copy result.", true);
-      }
-    }
-
-    function clearAll() {
-      inputText.value = "";
-      updateCount();
-      modeSelect.value = "professional";
-      lastOutput = "";
-      resultHeading.textContent = "Cover Letter Draft";
-      resultBox.textContent = "Your cover letter will appear here.";
-      setStatus("");
-      hideUpgradeHint();
-    }
+    navUpgradeBtn.addEventListener("click", startCheckout);
+    logoutBtn.addEventListener("click", logout);
 
     EXAMPLES.forEach((example) => {
       const btn = document.createElement("button");
       btn.className = "example-chip";
       btn.type = "button";
-      btn.textContent = example.length > 44 ? example.slice(0, 44) + "..." : example;
+      btn.textContent = example.length > 34 ? example.slice(0, 34) + "..." : example;
       btn.title = example;
+
       btn.addEventListener("click", () => {
         inputText.value = example;
         updateCount();
         setStatus("");
         hideUpgradeHint();
       });
+
       examplesWrap.appendChild(btn);
     });
 
     inputText.addEventListener("input", updateCount);
-    runBtn.addEventListener("click", runTool);
-    copyBtn.addEventListener("click", copyResult);
-    clearBtn.addEventListener("click", clearAll);
-    logoutBtn.addEventListener("click", logout);
-    navUpgradeBtn.addEventListener("click", startCheckout);
+
+    clearBtn.addEventListener("click", () => {
+      inputText.value = "";
+      resultBox.textContent = "Your cover letter draft will appear here.";
+      copyBtn.disabled = true;
+      lastOutput = "";
+      updateCount();
+      setStatus("");
+      hideUpgradeHint();
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      if (!lastOutput) return;
+      try {
+        await navigator.clipboard.writeText(lastOutput);
+        copyBtn.textContent = "Copied ✓";
+        setStatus("Result copied to clipboard.", "success");
+      } catch {
+        copyBtn.textContent = "Copy failed";
+        setStatus("Copy failed. Try again.", "error");
+      }
+
+      setTimeout(() => {
+        copyBtn.textContent = "Copy Result";
+      }, 1400);
+    });
+
+    runBtn.addEventListener("click", async () => {
+      const text = inputText.value.trim();
+      const mode = modeSelect.value;
+
+      if (!text) {
+        resultBox.textContent = "Please enter your cover letter details first.";
+        setStatus("Please enter your cover letter details first.", "error");
+        hideUpgradeHint();
+        return;
+      }
+
+      hideUpgradeHint();
+      startForgingState();
+
+      try {
+        const res = await fetch(API_PATH, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, mode, userId: getUserId() })
+        });
+
+        const data = await safeJsonFromResponse(res);
+
+        if (!res.ok) {
+          console.error("Cover letter generator error:", data);
+          resultBox.textContent = "Something went wrong. Please try again.";
+          setStatus(data.error || "Something went wrong.", "error");
+
+          if ((data.error || "").includes("Daily free limit reached")) {
+            showUpgradeHint();
+          }
+
+          await loadUsage();
+          return;
+        }
+
+        lastOutput = data.result || "";
+        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
+        copyBtn.disabled = !lastOutput;
+        setUsageUI(data);
+        setStatus(data.pro ? `${toolName} forged successfully (Pro).` : `${toolName} forged successfully.`, "success");
+      } catch (error) {
+        console.error("Cover letter request failed:", error);
+        resultBox.textContent = "Something went wrong. Please try again.";
+        setStatus(error.message || "Request failed.", "error");
+      } finally {
+        stopForgingState();
+      }
+    });
 
     (async function init() {
       await hydrateSession();
       updateAuthUI();
-      await refreshUsage();
       updateCount();
+      await loadUsage();
+      await syncUpgradeUI();
       document.body.classList.add("auth-ready");
     })();
   </script>
