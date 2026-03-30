@@ -172,6 +172,7 @@
     .back-link:hover { color: #8ef1ff; }
 
     .seo-panel,
+    .seo-detail-panel,
     .related-tools {
       margin-bottom: 24px;
       padding: 28px;
@@ -202,19 +203,22 @@
     }
 
     .seo-panel p,
+    .seo-detail-panel p,
     .related-tools p {
       color: rgba(255,255,255,0.82);
       line-height: 1.75;
       margin-bottom: 14px;
     }
 
-    .seo-panel ul {
+    .seo-panel ul,
+    .seo-detail-panel ul {
       margin-left: 20px;
       margin-bottom: 14px;
       color: rgba(255,255,255,0.8);
     }
 
-    .seo-panel li {
+    .seo-panel li,
+    .seo-detail-panel li {
       margin-bottom: 8px;
     }
 
@@ -235,10 +239,17 @@
       text-decoration: underline;
     }
 
-    .related-tools h2 {
+    .related-tools h2,
+    .seo-detail-panel h2 {
       font-size: 1.45rem;
       color: #f3efe4;
       margin-bottom: 10px;
+    }
+
+    .seo-detail-panel h3 {
+      font-size: 1.05rem;
+      color: #dcffff;
+      margin: 18px 0 10px;
     }
 
     .related-tools-links {
@@ -255,6 +266,7 @@
       padding: 34px;
       backdrop-filter: blur(12px);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+      margin-bottom: 24px;
     }
 
     .top-row {
@@ -454,6 +466,18 @@
     .upgrade-hint {
       display: none;
       margin-bottom: 14px;
+      color: rgba(255,255,255,0.84);
+    }
+
+    .upgrade-hint a {
+      color: #8ef1ff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .upgrade-hint a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
     }
 
     .result-box {
@@ -477,9 +501,11 @@
       .title { font-size: 2rem; }
       .card { padding: 22px; }
       .seo-panel,
+      .seo-detail-panel,
       .related-tools { padding: 22px; }
       .seo-panel h1 { font-size: 1.7rem; }
-      .related-tools h2 { font-size: 1.25rem; }
+      .related-tools h2,
+      .seo-detail-panel h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -582,6 +608,35 @@
       <label class="result-label">Research Output</label>
       <div class="result-box" id="resultBox">Your research output will appear here.</div>
       <div class="tip">Tip: clearly framed questions usually produce the most useful output.</div>
+    </section>
+
+    <section class="seo-detail-panel">
+      <h2>How this research assistant helps</h2>
+      <p>
+        Utility Forge AI’s Research Assistant is built for people who want a faster way to break down topics, organize ideas, and get more structured output.
+        Instead of sorting through everything manually, users can ask focused questions and turn a rough topic into clearer explanations, sections, and useful research direction.
+      </p>
+
+      <h3>Who this tool is useful for</h3>
+      <p>
+        This tool works well for students, professionals, researchers, writers, and anyone learning a new subject or organizing a complex topic.
+        It can help with study support, topic breakdowns, issue spotting, note organization, overviews, and early-stage research planning.
+      </p>
+
+      <h3>Common research assistant use cases</h3>
+      <ul>
+        <li>Breaking down broad topics into clearer sections</li>
+        <li>Organizing notes into a more structured format</li>
+        <li>Getting faster explanations of complex ideas</li>
+        <li>Spotting issues or angles worth exploring further</li>
+        <li>Creating a stronger starting point before deeper research</li>
+      </ul>
+
+      <h3>Why this page exists</h3>
+      <p>
+        The Research Assistant page is designed to help users move from a rough topic or question to clearer structure faster.
+        It combines a practical AI research tool with a simple workflow so users can understand topics better and organize information with less friction.
+      </p>
     </section>
 
     <section class="related-tools">
