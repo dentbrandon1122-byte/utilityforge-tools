@@ -4,984 +4,1131 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Cold Email Generator AI | Write High-Converting Emails Fast</title>
+  <title>Cold Email Generator AI (Free) | Utility Forge AI</title>
   <meta
     name="description"
-    content="Generate high-converting cold emails in seconds. Perfect for sales, outreach, networking, and opportunities. Save time and write better emails instantly."
+    content="Generate high-converting cold emails instantly with AI. Write personalized outreach emails for sales, networking, business growth, and lead generation."
   />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/cold-email-generator.html" />
+  <link rel="icon" href="logo.png" type="image/png" />
 
-  <meta property="og:title" content="Cold Email Generator AI | Utility Forge AI" />
+  <meta property="og:title" content="Cold Email Generator AI (Free) | Utility Forge AI" />
   <meta
     property="og:description"
-    content="Write cleaner, more effective cold emails for networking, outreach, leads, and opportunities."
+    content="Write better cold emails instantly with AI. Generate outreach emails for sales, networking, and business growth."
   />
-  <meta property="og:image" content="logo-main.png" />
-  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://utilityforgeai.com/logo-main.png" />
   <meta property="og:url" content="https://utilityforgeai.com/cold-email-generator.html" />
+  <meta property="og:type" content="website" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Cold Email Generator AI | Utility Forge AI" />
   <meta
     name="twitter:description"
-    content="Generate high-converting cold emails in seconds with AI."
+    content="Generate high-converting cold emails instantly with AI."
   />
-  <meta name="twitter:image" content="logo-main.png" />
-
-  <link rel="icon" href="logo.png" type="image/png" />
+  <meta name="twitter:image" content="https://utilityforgeai.com/logo-main.png" />
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0b1020;
+      --bg2: #111936;
+      --panel: rgba(255, 255, 255, 0.08);
+      --panel-border: rgba(255, 255, 255, 0.14);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.72);
+      --soft: rgba(255, 255, 255, 0.55);
+      --accent: #7c5cff;
+      --accent-2: #4cc9f0;
+      --success: #37d39a;
+      --warning: #ffcc66;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: #fff;
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, 0.22), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(76, 201, 240, 0.18), transparent 28%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
-    body:not(.auth-ready) .auth-sensitive {
-      visibility: hidden;
-    }
-
-    .background {
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      pointer-events: none;
       z-index: -2;
-      background:
-        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
-        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
 
-    .background::before {
-      content: "";
-      position: absolute;
+    .background-glow {
+      position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
-      background-size: 42px 42px;
-      opacity: 0.15;
+      overflow: hidden;
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    .background-glow span {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(80px);
+      opacity: 0.24;
+      animation: floatGlow 14s ease-in-out infinite;
+    }
+
+    .background-glow span:nth-child(1) {
+      width: 260px;
+      height: 260px;
+      background: #7c5cff;
+      top: 8%;
+      left: 6%;
+    }
+
+    .background-glow span:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: #4cc9f0;
+      right: 8%;
+      top: 16%;
+      animation-delay: 2s;
+    }
+
+    .background-glow span:nth-child(3) {
+      width: 260px;
+      height: 260px;
+      background: #37d39a;
+      bottom: 8%;
+      left: 24%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+      }
+      50% {
+        transform: translateY(-12px) translateX(10px) scale(1.08);
+      }
     }
 
     .site-header {
       position: sticky;
       top: 0;
       z-index: 50;
-      padding: 18px 40px;
-      background: rgba(8, 12, 24, 0.58);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      background: rgba(8, 12, 26, 0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .nav-shell {
-      max-width: 1200px;
+      max-width: 1180px;
       margin: 0 auto;
+      padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+      gap: 18px;
     }
 
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+      color: var(--text);
       text-decoration: none;
-      color: #f3efe4;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
     .top-logo {
-      width: 52px;
-      height: 52px;
+      width: 42px;
+      height: 42px;
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
     }
 
     .brand-text {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #f3efe4;
-      white-space: nowrap;
+      font-size: 1rem;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 18px;
       flex-wrap: wrap;
     }
 
-    .nav-links a,
-    .nav-links button.linklike {
+    .nav-links a {
+      color: var(--muted);
       text-decoration: none;
-      color: rgba(255,255,255,0.86);
-      font-size: 1rem;
-      font-weight: 600;
-      transition: color .2s ease, transform .2s ease;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
+      font-size: 0.96rem;
+      transition: color 0.2s ease;
     }
 
-    .nav-links a:hover,
-    .nav-links button.linklike:hover {
-      color: #8df7ff;
-      transform: translateY(-1px);
+    .nav-links a:hover {
+      color: #fff;
     }
 
     .nav-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
-      padding: 12px 22px;
-      border-radius: 14px;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-      font-weight: 800;
-      box-shadow: 0 0 18px rgba(142,241,255,0.16);
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 24px 70px;
-    }
-
-    .back-link {
-      display: inline-block;
-      color: #d8ffff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #9b7bff);
+      color: #fff;
       text-decoration: none;
       font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(124, 92, 255, 0.35);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(124, 92, 255, 0.4);
+    }
+
+    .page-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 20px 80px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-card,
+    .preview-card,
+    .tool-card,
+    .content-card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-card {
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(124, 92, 255, 0.35), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(124, 92, 255, 0.16);
+      border: 1px solid rgba(124, 92, 255, 0.28);
+      color: #d9ceff;
+      font-size: 0.86rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.06;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p.lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-bottom: 22px;
     }
 
-    .back-link:hover {
-      color: #8ef1ff;
-    }
-
-    .intro-section,
-    .seo-detail-panel,
-    .related-tools {
-      margin-bottom: 28px;
-      padding: 24px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
+    .hero-points span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
+      color: #eef1ff;
+      font-size: 0.9rem;
     }
 
-    .intro-section h1 {
-      font-size: 1.9rem;
-      margin-bottom: 10px;
-      color: #f3efe4;
-    }
-
-    .intro-section p,
-    .seo-detail-panel p,
-    .related-tools p {
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 12px;
-      line-height: 1.75;
-    }
-
-    .intro-section ul,
-    .seo-detail-panel ul {
-      margin-left: 18px;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 12px;
-    }
-
-    .intro-section li,
-    .seo-detail-panel li {
-      margin-bottom: 8px;
-    }
-
-    .intro-section a,
-    .related-tools a {
-      color: #8ef1ff;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .intro-section a:hover,
-    .related-tools a:hover {
-      text-decoration: underline;
-    }
-
-    .seo-detail-panel h2,
-    .related-tools h2 {
-      margin-bottom: 10px;
-      color: #f3efe4;
-      font-size: 1.35rem;
-    }
-
-    .seo-detail-panel h3 {
-      margin: 18px 0 10px;
-      color: #dcffff;
-      font-size: 1.02rem;
-    }
-
-    .card {
-      padding: 26px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
-      margin-bottom: 26px;
-    }
-
-    .top-row {
+    .hero-actions {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 18px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .top-copy {
-      flex: 1;
-      min-width: 260px;
-    }
-
-    .tool-badge {
-      display: inline-block;
-      padding: 8px 14px;
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #dcffff;
-      font-size: .82rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .title {
-      font-size: 2.1rem;
+    .primary-btn {
+      border: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), #9b7bff);
+      box-shadow: 0 14px 30px rgba(124, 92, 255, 0.32);
+    }
+
+    .secondary-btn {
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .preview-card {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .preview-title {
+      font-size: 0.96rem;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.5);
+      animation: pulseDots 1.5s infinite;
+    }
+
+    .dots span:nth-child(2) { animation-delay: 0.15s; }
+    .dots span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes pulseDots {
+      0%, 80%, 100% { transform: scale(0.85); opacity: 0.5; }
+      40% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .preview-window {
+      border-radius: 18px;
+      background: rgba(9, 14, 28, 0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .preview-row {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .preview-row:last-child {
+      border-bottom: none;
+    }
+
+    .preview-label {
+      font-size: 0.76rem;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 6px;
-      color: #f3efe4;
     }
 
-    .subtitle {
-      color: rgba(255,255,255,0.8);
-      max-width: 760px;
+    .preview-text {
+      color: #edf2ff;
+      font-size: 0.96rem;
+    }
+
+    .typed {
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid rgba(255,255,255,0.75);
+      width: 0;
+      animation: typing 5s steps(42, end) infinite, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      0% { width: 0; }
+      55% { width: 100%; }
+      80% { width: 100%; }
+      100% { width: 0; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .tool-card {
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .tool-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .tool-heading h2 {
+      font-size: 1.45rem;
+      margin-bottom: 4px;
+    }
+
+    .tool-heading p {
+      color: var(--muted);
+      font-size: 0.97rem;
     }
 
     .usage-pill {
       padding: 10px 14px;
       border-radius: 999px;
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #f3efe4;
-      font-weight: 700;
-      font-size: .9rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 0.92rem;
       white-space: nowrap;
     }
 
-    .examples-label,
-    .field-label,
-    .result-label {
-      display: block;
-      font-weight: 800;
-      font-size: 1.02rem;
+    .examples-wrap {
+      margin-bottom: 20px;
+    }
+
+    .examples-wrap h3 {
+      font-size: 1rem;
       margin-bottom: 10px;
-      color: #f3efe4;
     }
 
     .examples {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      gap: 10px;
     }
 
-    .example-chip {
-      border: 1px solid rgba(255,255,255,0.08);
+    .example-btn {
+      border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.86);
+      color: #fff;
       border-radius: 999px;
       padding: 10px 14px;
-      font-size: .88rem;
-      font-weight: 700;
       cursor: pointer;
-      transition: .2s ease;
+      transition: transform 0.18s ease, background 0.18s ease;
     }
 
-    .example-chip:hover {
-      border-color: rgba(142,241,255,0.24);
-      color: #dcffff;
+    .example-btn:hover {
       transform: translateY(-1px);
+      background: rgba(255,255,255,0.09);
     }
 
-    .grid {
+    .tool-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-columns: 1fr 1fr;
       gap: 18px;
-      align-items: start;
     }
 
-    .field-label {
-      margin-bottom: 8px;
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
+    label {
+      font-size: 0.92rem;
+      color: #eef1ff;
+      font-weight: 700;
+    }
+
+    input,
     textarea,
     select {
       width: 100%;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
       color: #fff;
-      padding: 16px;
-      font-family: inherit;
-      font-size: 1rem;
+      border-radius: 14px;
+      padding: 14px 14px;
+      font: inherit;
       outline: none;
-      transition: border-color .2s ease, box-shadow .2s ease;
+      transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255,255,255,0.48);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(124, 92, 255, 0.8);
+      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15);
+      background: rgba(255,255,255,0.08);
     }
 
     textarea {
-      min-height: 220px;
+      min-height: 140px;
       resize: vertical;
     }
 
-    textarea:focus,
-    select:focus {
-      border-color: rgba(142,241,255,0.34);
-      box-shadow: 0 0 0 3px rgba(142,241,255,0.08);
+    .full-span {
+      grid-column: 1 / -1;
     }
 
-    select option {
-      background: #10182b;
-      color: #fff;
-    }
-
-    .controls-row {
+    .button-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 14px;
-      margin-bottom: 14px;
+      margin-top: 6px;
     }
 
-    .char-count,
-    .usage-text {
-      color: rgba(255,255,255,0.78);
+    .action-btn,
+    .ghost-btn {
+      min-height: 48px;
+      border-radius: 999px;
+      padding: 0 18px;
       font-weight: 700;
-      font-size: .95rem;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-size: 1rem;
-      font-weight: 800;
       cursor: pointer;
-      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .btn:hover {
+    .action-btn {
+      border: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), #9b7bff);
+      box-shadow: 0 14px 28px rgba(124, 92, 255, 0.28);
+    }
+
+    .ghost-btn {
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .action-btn:hover,
+    .ghost-btn:hover {
       transform: translateY(-1px);
     }
 
-    .btn-primary {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .btn:disabled {
-      opacity: .65;
-      cursor: not-allowed;
-      transform: none;
-    }
-
     .status-line {
-      min-height: 28px;
-      font-weight: 700;
-      color: #f1d6b8;
-      margin-bottom: 10px;
+      min-height: 24px;
+      margin-top: 12px;
+      color: #d7deff;
+      font-size: 0.95rem;
+    }
+
+    .status-line.success {
+      color: #9ef0cb;
     }
 
     .status-line.error {
-      color: #ffb6b6;
+      color: #ff9d9d;
     }
 
-    .result-label {
-      margin-bottom: 8px;
+    .output-wrap {
+      margin-top: 22px;
     }
 
-    .result-box {
-      min-height: 220px;
-      border-radius: 20px;
-      background: rgba(92,245,255,0.06);
-      border: 1px solid rgba(120,255,255,0.12);
-      padding: 18px;
-      color: rgba(255,255,255,0.88);
-      white-space: pre-wrap;
-    }
-
-    .tip {
-      color: rgba(255,255,255,0.65);
-      font-size: .92rem;
-      margin-top: 10px;
-    }
-
-    .related-tools-links {
+    .output-header {
       display: flex;
-      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 12px;
+      margin-bottom: 10px;
     }
 
-    .upgrade-hint {
-      margin-top: 10px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.04);
+    .output-header h3 {
+      font-size: 1rem;
+    }
+
+    .output-box {
+      min-height: 240px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(8, 12, 24, 0.72);
       border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.8);
-      display: none;
+      color: #f3f6ff;
+      white-space: pre-wrap;
+      line-height: 1.7;
     }
 
-    .upgrade-hint a {
-      color: #8ef1ff;
-      font-weight: 700;
+    .seo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .content-card {
+      padding: 24px;
+    }
+
+    .content-card h2 {
+      font-size: 1.18rem;
+      margin-bottom: 10px;
+    }
+
+    .content-card p,
+    .content-card li {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .content-card ul {
+      padding-left: 20px;
+    }
+
+    .content-card li + li {
+      margin-top: 8px;
+    }
+
+    .more-tools {
+      margin-top: 18px;
+    }
+
+    .more-tools a {
+      color: #b7c8ff;
       text-decoration: none;
     }
 
-    .upgrade-hint a:hover {
+    .more-tools a:hover {
+      color: #fff;
       text-decoration: underline;
     }
 
-    @media (max-width: 900px) {
-      .grid {
+    footer {
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--soft);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .tool-grid,
+      .seo-grid {
         grid-template-columns: 1fr;
+      }
+
+      .nav-shell {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
       }
     }
 
-    @media (max-width: 700px) {
-      .site-header { padding: 18px 16px; }
-      .page { padding: 24px 16px 60px; }
-      .brand-text { font-size: 1.2rem; }
-      .top-logo { width: 44px; height: 44px; }
-      .title { font-size: 1.7rem; }
-      .intro-section h1 { font-size: 1.55rem; }
-      .nav-links { gap: 16px; }
+    @media (max-width: 640px) {
+      .page-wrap {
+        padding: 22px 14px 60px;
+      }
+
+      .hero-card,
+      .preview-card,
+      .tool-card,
+      .content-card {
+        border-radius: 20px;
+      }
+
+      .hero-card,
+      .preview-card,
+      .tool-card,
+      .content-card {
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .button-row,
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .action-btn,
+      .ghost-btn,
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="background"></div>
+  <div class="background-glow" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <header class="site-header">
     <div class="nav-shell">
-      <a href="index.html" class="brand">
+      <a href="/" class="brand">
         <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
         <span class="brand-text">Utility Forge AI</span>
       </a>
 
       <nav class="nav-links">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="index.html#pricing">Pricing</a>
-        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
-        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
+        <a href="/">Home</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/pricing.html">Pricing</a>
       </nav>
 
-      <button id="navUpgradeBtn" class="nav-cta auth-sensitive">Go Pro</button>
+      <a href="/pricing.html" class="nav-cta">Go Pro</a>
     </div>
   </header>
 
-  <main class="page">
-    <a href="dashboard.html" class="back-link">← Back to dashboard</a>
+  <main class="page-wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">AI Outreach Tool</div>
+        <h1>AI Cold Email Generator</h1>
+        <p class="lead">
+          Generate high-converting cold emails in seconds with AI. This free cold email generator helps you write personalized outreach emails for sales, networking, lead generation, and business growth without staring at a blank page.
+        </p>
 
-    <section class="intro-section">
-      <h1>Cold Email Generator AI</h1>
-      <p>
-        This cold email generator helps you write cleaner, more effective outreach emails for networking, lead generation,
-        business introductions, internship opportunities, and professional follow-ups.
-      </p>
-      <p>
-        It works well when you need to contact someone new, introduce a service, ask for advice, pitch an opportunity,
-        or start a conversation that sounds professional without feeling robotic.
-      </p>
-      <ul>
-        <li>Create professional cold emails faster</li>
-        <li>Improve outreach wording, tone, and clarity</li>
-        <li>Choose a style like professional, friendly, confident, or concise</li>
-        <li>Use it for networking, business outreach, leads, and opportunity emails</li>
-      </ul>
-      <p>
-        Need help with other writing too? Try the
-        <a href="email-polisher.html">Email Polisher</a> or the
-        <a href="idea-generator.html">Idea Generator</a>.
-      </p>
-    </section>
-
-    <section class="card">
-      <div class="top-row">
-        <div class="top-copy">
-          <div class="tool-badge">Built for outreach</div>
-          <h2 class="title">Cold Email Generator</h2>
-          <p class="subtitle">
-            Create better outreach emails for networking, introductions, leads, opportunities, and cold contact messages.
-          </p>
+        <div class="hero-points">
+          <span>Fast cold email drafts</span>
+          <span>Better personalization</span>
+          <span>Sales and networking ready</span>
         </div>
 
-        <div id="usagePill" class="usage-pill">Loading usage...</div>
+        <div class="hero-actions">
+          <a href="#generator" class="primary-btn">Start Generating</a>
+          <a href="/pricing.html" class="secondary-btn">Unlock More Usage</a>
+        </div>
       </div>
 
-      <label class="examples-label">Quick start examples</label>
-      <div class="examples" id="examples"></div>
+      <div class="preview-card">
+        <div class="preview-header">
+          <div class="preview-title">Live Example</div>
+          <div class="dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
 
-      <div class="grid">
-        <div>
-          <label for="inputText" class="field-label">Your outreach notes</label>
+        <div class="preview-window">
+          <div class="preview-row">
+            <div class="preview-label">Goal</div>
+            <div class="preview-text">Introduce a service to a local business owner</div>
+          </div>
+          <div class="preview-row">
+            <div class="preview-label">Input</div>
+            <div class="preview-text typed">Write a short outreach email offering web design help...</div>
+          </div>
+          <div class="preview-row">
+            <div class="preview-label">Output Preview</div>
+            <div class="preview-text">
+              Hi [Name], I came across your business and noticed a few opportunities to improve your online presence...
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-card" id="generator">
+      <div class="tool-topbar">
+        <div class="tool-heading">
+          <h2>Cold Email Generator</h2>
+          <p>Fill in a few details and generate a stronger outreach email instantly.</p>
+        </div>
+        <div class="usage-pill" id="usagePill">Free Plan • Usage updates here</div>
+      </div>
+
+      <div class="examples-wrap">
+        <h3>Quick start examples</h3>
+        <div class="examples">
+          <button class="example-btn" type="button" data-example="sales">Sales outreach</button>
+          <button class="example-btn" type="button" data-example="networking">Job networking</button>
+          <button class="example-btn" type="button" data-example="startup">Startup pitch</button>
+          <button class="example-btn" type="button" data-example="followup">Follow-up email</button>
+        </div>
+      </div>
+
+      <div class="tool-grid">
+        <div class="field-group">
+          <label for="goal">Email goal</label>
+          <input
+            id="goal"
+            type="text"
+            placeholder="Example: Book a call with a local business owner"
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="recipient">Recipient type</label>
+          <input
+            id="recipient"
+            type="text"
+            placeholder="Example: Small business owner, recruiter, marketing lead"
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option value="Professional">Professional</option>
+            <option value="Friendly">Friendly</option>
+            <option value="Confident">Confident</option>
+            <option value="Persuasive">Persuasive</option>
+            <option value="Casual">Casual</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="length">Length</label>
+          <select id="length">
+            <option value="Short">Short</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Long">Long</option>
+          </select>
+        </div>
+
+        <div class="field-group full-span">
+          <label for="details">What should the email mention?</label>
           <textarea
-            id="inputText"
-            maxlength="1800"
-            placeholder="Paste who you’re reaching out to, why you’re contacting them, what you want to say, and any tone or details you want included..."
+            id="details"
+            placeholder="Example: I help businesses improve their website, make pages load faster, and turn more visitors into paying customers."
           ></textarea>
         </div>
 
-        <div>
-          <label for="modeSelect" class="field-label">Mode</label>
-          <select id="modeSelect">
-            <option value="professional">Professional</option>
-            <option value="friendly">Friendly</option>
-            <option value="confident">Confident</option>
-            <option value="concise">Concise</option>
-          </select>
+        <div class="field-group full-span">
+          <label for="cta">Call to action</label>
+          <input
+            id="cta"
+            type="text"
+            placeholder="Example: Ask if they’re open to a quick 10 minute call next week"
+          />
+        </div>
+
+        <div class="field-group full-span">
+          <div class="button-row">
+            <button class="action-btn" id="generateBtn" type="button">Generate Cold Email</button>
+            <button class="ghost-btn" id="copyBtn" type="button">Copy Result</button>
+            <button class="ghost-btn" id="clearBtn" type="button">Clear</button>
+          </div>
+          <div class="status-line" id="statusLine"></div>
         </div>
       </div>
 
-      <div class="controls-row">
-        <div class="char-count"><span id="charCount">0</span>/1800 characters</div>
-        <div class="usage-text" id="usageText">Checking account status...</div>
-      </div>
-
-      <div class="actions">
-        <button id="runBtn" class="btn btn-primary">Generate Cold Email</button>
-        <button id="copyBtn" class="btn btn-secondary">Copy Result</button>
-        <button id="clearBtn" class="btn btn-secondary">Clear</button>
-      </div>
-
-      <div id="statusLine" class="status-line"></div>
-
-      <label class="result-label" id="resultHeading">Cold Email Draft</label>
-      <div id="resultBox" class="result-box">Your cold email will appear here.</div>
-
-      <div class="tip">
-        Tip: include your purpose, target audience, and desired tone for a stronger result.
-      </div>
-
-      <div id="upgradeHint" class="upgrade-hint">
-        You’ve reached the free daily limit for this tool.
-        <a href="index.html#pricing">Upgrade to Pro</a> for unlimited usage.
+      <div class="output-wrap">
+        <div class="output-header">
+          <h3>Generated Email</h3>
+        </div>
+        <div class="output-box" id="outputBox">Your generated cold email will appear here.</div>
       </div>
     </section>
 
-    <section class="seo-detail-panel">
-      <h2>How this cold email generator helps</h2>
-      <p>
-        Utility Forge AI’s Cold Email Generator is built for people who want a faster way to write better outreach emails.
-        Instead of guessing how to open, structure, or phrase a message, users can turn rough notes into a cleaner draft that sounds more natural, targeted, and professional.
-      </p>
+    <section class="seo-grid">
+      <article class="content-card">
+        <h2>What is a Cold Email Generator?</h2>
+        <p>
+          A cold email generator uses artificial intelligence to help you write outreach emails that feel more structured, relevant, and persuasive. Instead of starting from scratch, you can generate a clean draft based on your goal, audience, and offer.
+        </p>
+      </article>
 
-      <h3>Who this tool is useful for</h3>
-      <p>
-        This tool works well for freelancers, business owners, job seekers, marketers, founders, students, and professionals doing outreach.
-        It can help with networking emails, lead generation, business introductions, partnership outreach, opportunity emails, and professional cold contact messages.
-      </p>
+      <article class="content-card">
+        <h2>How to Write a Cold Email That Gets Replies</h2>
+        <ul>
+          <li>Personalize your opening line</li>
+          <li>Keep your message short and easy to scan</li>
+          <li>Focus on value instead of over-pitching</li>
+          <li>Use one simple call to action</li>
+        </ul>
+      </article>
 
-      <h3>Common cold email use cases</h3>
-      <ul>
-        <li>Writing outreach emails for networking and connections</li>
-        <li>Creating better lead generation emails</li>
-        <li>Drafting business introductions and service offers</li>
-        <li>Sending concise opportunity or follow-up emails</li>
-        <li>Improving clarity, tone, and structure before sending</li>
-      </ul>
+      <article class="content-card">
+        <h2>Why Use an AI Cold Email Generator?</h2>
+        <p>
+          Writing cold emails manually takes time and usually leads to too much second-guessing. AI helps you create faster first drafts, test new outreach angles, and stay more consistent when sending emails for sales, partnerships, or networking.
+        </p>
+      </article>
+    </section>
 
-      <h3>Why this page exists</h3>
+    <section class="content-card more-tools">
+      <h2>More AI Tools</h2>
       <p>
-        The Cold Email Generator page is designed to help users write stronger outreach messages with less friction.
-        It combines a practical AI writing tool with a simple workflow so users can move from rough intent to a more polished cold email faster.
+        Try more tools from Utility Forge AI:
+        <a href="/email-polisher.html">Email Polisher</a>,
+        <a href="/idea-generator.html">Idea Generator</a>,
+        <a href="/cover-letter-generator.html">Cover Letter Generator</a>,
+        <a href="/job-analyzer.html">Job Analyzer</a>
       </p>
     </section>
 
-    <section class="related-tools">
-      <h2>More AI tools for writing and outreach</h2>
-      <p>Use related tools to improve writing, brainstorm faster, and get cleaner output across your workflow.</p>
-      <div class="related-tools-links">
-        <a href="email-polisher.html">Email Polisher</a>
-        <a href="idea-generator.html">Idea Generator</a>
-        <a href="cover-letter-generator.html">Cover Letter Generator</a>
-      </div>
-    </section>
+    <footer>
+      © 2026 Utility Forge AI. Build faster. Write smarter.
+    </footer>
   </main>
 
   <script>
-    const TOOL_KEY = "cold-email";
-    const API_PATH = "/api/cold-email-generator";
-    const toolName = "Cold Email";
-
-    const EXAMPLES = [
-      "Write a cold email to a local business owner introducing a simple AI review-response service and asking if they’d be open to a quick conversation.",
-      "Create a networking email to someone in cybersecurity asking for advice on getting started and mentioning Python coursework and customer service experience.",
-      "Write a concise outreach email to a potential client offering help with appointment reminders and follow-up automation for their small business."
-    ];
-
-    const examplesWrap = document.getElementById("examples");
-    const inputText = document.getElementById("inputText");
-    const modeSelect = document.getElementById("modeSelect");
-    const charCount = document.getElementById("charCount");
-    const usageText = document.getElementById("usageText");
-    const usagePill = document.getElementById("usagePill");
-    const loginLink = document.getElementById("loginLink");
-    const signupLink = document.getElementById("signupLink");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-    const runBtn = document.getElementById("runBtn");
+    const goalInput = document.getElementById("goal");
+    const recipientInput = document.getElementById("recipient");
+    const toneInput = document.getElementById("tone");
+    const lengthInput = document.getElementById("length");
+    const detailsInput = document.getElementById("details");
+    const ctaInput = document.getElementById("cta");
+    const generateBtn = document.getElementById("generateBtn");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
-    const resultBox = document.getElementById("resultBox");
-    const resultHeading = document.getElementById("resultHeading");
+    const outputBox = document.getElementById("outputBox");
     const statusLine = document.getElementById("statusLine");
-    const upgradeHint = document.getElementById("upgradeHint");
-
-    let lastOutput = "";
-    let loadingInterval = null;
-
-    function getGuestUserId() {
-      let id = localStorage.getItem("uf_user_id");
-      if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem("uf_user_id", id);
-      }
-      return id;
-    }
-
-    function getStoredAccount() {
-      const raw = localStorage.getItem("uf_account");
-      if (!raw) return null;
-      try { return JSON.parse(raw); } catch { return null; }
-    }
+    const usagePill = document.getElementById("usagePill");
 
     function getUserId() {
-      const account = getStoredAccount();
-      if (account?.id) return account.id;
-      return getGuestUserId();
-    }
-
-    function updateCount() {
-      charCount.textContent = inputText.value.length;
-    }
-
-    function setStatus(text = "", isError = false) {
-      statusLine.textContent = text;
-      statusLine.classList.toggle("error", !!isError);
-    }
-
-    function hideUpgradeHint() {
-      upgradeHint.style.display = "none";
-    }
-
-    function showUpgradeHint() {
-      upgradeHint.style.display = "block";
-    }
-
-    function startLoadingState() {
-      runBtn.disabled = true;
-      copyBtn.disabled = true;
-      clearBtn.disabled = true;
-      resultHeading.textContent = "Forging Cold Email";
-      setStatus("Forging your output...");
-      let dots = 0;
-      resultBox.textContent = "Generating cold email";
-      loadingInterval = setInterval(() => {
-        dots = (dots + 1) % 4;
-        resultBox.textContent = "Generating cold email" + ".".repeat(dots);
-      }, 400);
-    }
-
-    function stopLoadingState() {
-      if (loadingInterval) {
-        clearInterval(loadingInterval);
-        loadingInterval = null;
+      let userId = localStorage.getItem("uf_user_id");
+      if (!userId) {
+        userId = "uf_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        localStorage.setItem("uf_user_id", userId);
       }
-      runBtn.disabled = false;
-      copyBtn.disabled = false;
-      clearBtn.disabled = false;
+      return userId;
     }
 
-    function setUsageUI(data, account = getStoredAccount()) {
-      const isPro = !!(data?.pro || account?.pro);
-      if (isPro) {
-        usageText.textContent = "Pro account active — unlimited usage";
-        usagePill.textContent = "Pro Plan • Unlimited";
-        navUpgradeBtn.textContent = "Pro Active";
-        navUpgradeBtn.disabled = true;
-        navUpgradeBtn.style.opacity = ".75";
-        return;
-      }
+    async function loadUsageStatus() {
+      const userId = getUserId();
+      const proHint = localStorage.getItem("uf_pro_hint") === "true";
 
-      const remaining = typeof data?.remaining === "number" ? data.remaining : null;
-      const limit = typeof data?.limit === "number" ? data.limit : 5;
-
-      usageText.textContent =
-        remaining === null
-          ? "Free account — daily limit applies"
-          : `Free uses left: ${remaining}`;
-
-      usagePill.textContent =
-        remaining === null
-          ? `Free Plan • ${limit}/day`
-          : `Free uses left: ${remaining}`;
-    }
-
-    async function hydrateSession() {
       try {
-        const res = await fetch("/api/session");
+        const res = await fetch(`/api/usage-status?userId=${encodeURIComponent(userId)}&tool=cold-email`);
+        if (!res.ok) throw new Error("Unable to load usage");
+
         const data = await res.json();
 
-        if (data.loggedIn && data.user) {
-          localStorage.setItem("uf_account", JSON.stringify({
-            id: data.user.id,
-            email: data.user.email,
-            name: data.user.name || "",
-            pro: !!data.pro
-          }));
+        if (data.pro) {
+          usagePill.textContent = "Pro Plan • Unlimited";
+          localStorage.setItem("uf_pro_hint", "true");
+        } else if (typeof data.remaining !== "undefined") {
+          usagePill.textContent = `Free Plan • Uses left today: ${data.remaining}`;
         } else {
-          localStorage.removeItem("uf_account");
-        }
-      } catch {
-        localStorage.removeItem("uf_account");
-      }
-    }
-
-    function updateAuthUI() {
-      const account = getStoredAccount();
-      const loggedIn = !!account?.id;
-      const isPro = !!account?.pro;
-
-      loginLink.classList.toggle("hidden", loggedIn);
-      signupLink.classList.toggle("hidden", loggedIn);
-      logoutBtn.classList.toggle("hidden", !loggedIn);
-
-      if (isPro) {
-        navUpgradeBtn.textContent = "Pro Active";
-        navUpgradeBtn.disabled = true;
-        navUpgradeBtn.style.opacity = ".75";
-      } else {
-        navUpgradeBtn.textContent = "Go Pro";
-        navUpgradeBtn.disabled = false;
-        navUpgradeBtn.style.opacity = "1";
-      }
-    }
-
-    async function refreshUsage() {
-      const account = getStoredAccount();
-      if (account?.pro) {
-        setUsageUI({ pro: true }, account);
-        return;
-      }
-
-      try {
-        const res = await fetch("/api/pro-status", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: getUserId() })
-        });
-
-        const raw = await res.text();
-        let data;
-        try { data = JSON.parse(raw); } catch { data = null; }
-
-        if (data?.pro) {
-          const updated = { ...(account || {}), id: getUserId(), pro: true };
-          localStorage.setItem("uf_account", JSON.stringify(updated));
-          updateAuthUI();
-          setUsageUI({ pro: true }, updated);
-          return;
-        }
-      } catch {}
-
-      setUsageUI(null, account);
-    }
-
-    async function logout() {
-      try {
-        await fetch("/api/logout", { method: "POST" });
-      } catch {}
-      localStorage.removeItem("uf_account");
-      location.reload();
-    }
-
-    async function startCheckout() {
-      try {
-        const response = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: getUserId() })
-        });
-
-        const raw = await response.text();
-        let data;
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
-        }
-
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert(data.error || "Unable to start checkout.");
+          usagePill.textContent = proHint ? "Pro Plan • Unlimited" : "Free Plan • Usage available";
         }
       } catch (error) {
-        alert(error.message || "Something went wrong starting checkout.");
+        usagePill.textContent = proHint ? "Pro Plan • Unlimited" : "Free Plan • Usage available";
       }
     }
 
-    async function runTool() {
-      const text = inputText.value.trim();
-      const mode = modeSelect.value;
+    function setStatus(message, type = "") {
+      statusLine.textContent = message;
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
+    }
 
-      hideUpgradeHint();
-      setStatus("");
+    function fillExample(type) {
+      const examples = {
+        sales: {
+          goal: "Book a quick intro call with a local business owner",
+          recipient: "Small business owner",
+          tone: "Professional",
+          length: "Medium",
+          details: "I help businesses improve their website, messaging, and conversion rate so more visitors turn into paying customers.",
+          cta: "Ask if they are open to a quick 10 minute call next week."
+        },
+        networking: {
+          goal: "Reach out to someone in my industry for networking",
+          recipient: "Hiring manager or professional connection",
+          tone: "Friendly",
+          length: "Short",
+          details: "I am looking to connect, learn more about their path, and make a good first impression without sounding too formal.",
+          cta: "Ask if they would be open to a short conversation or if I can stay in touch."
+        },
+        startup: {
+          goal: "Introduce my service to a startup founder",
+          recipient: "Startup founder",
+          tone: "Confident",
+          length: "Medium",
+          details: "My service helps small teams save time and improve lead generation using AI tools and cleaner outreach workflows.",
+          cta: "Ask if they would be interested in seeing a quick example or short breakdown."
+        },
+        followup: {
+          goal: "Follow up after no response",
+          recipient: "Potential client",
+          tone: "Persuasive",
+          length: "Short",
+          details: "I want to politely follow up on my earlier message and remind them how my offer could help their business.",
+          cta: "Ask if they want me to send over a short example or answer any questions."
+        }
+      };
 
-      if (!text) {
-        setStatus("Please enter your outreach notes first.", true);
-        resultBox.textContent = "Your cold email will appear here.";
-        resultHeading.textContent = "Cold Email Draft";
+      const item = examples[type];
+      if (!item) return;
+
+      goalInput.value = item.goal;
+      recipientInput.value = item.recipient;
+      toneInput.value = item.tone;
+      lengthInput.value = item.length;
+      detailsInput.value = item.details;
+      ctaInput.value = item.cta;
+
+      setStatus("Example loaded.");
+    }
+
+    document.querySelectorAll(".example-btn").forEach((button) => {
+      button.addEventListener("click", () => fillExample(button.dataset.example));
+    });
+
+    async function generateColdEmail() {
+      const goal = goalInput.value.trim();
+      const recipient = recipientInput.value.trim();
+      const tone = toneInput.value;
+      const length = lengthInput.value;
+      const details = detailsInput.value.trim();
+      const cta = ctaInput.value.trim();
+
+      if (!goal || !recipient || !details) {
+        setStatus("Please fill in the email goal, recipient type, and key details.", "error");
         return;
       }
 
-      startLoadingState();
+      generateBtn.disabled = true;
+      generateBtn.textContent = "Forging Cold Email...";
+      outputBox.textContent = "Generating your cold email...";
+      setStatus("Forging Cold Email...");
 
       try {
-        const response = await fetch(API_PATH, {
+        const response = await fetch("/api/cold-email-generator", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
-            text,
-            mode,
-            userId: getUserId()
+            userId: getUserId(),
+            goal,
+            recipient,
+            tone,
+            length,
+            details,
+            cta
           })
         });
 
-        const raw = await response.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Invalid server response.");
-        }
+        const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-          if (response.status === 429) {
-            showUpgradeHint();
-            setUsageUI(data);
-          }
-          throw new Error(data.error || "Something went wrong. Please try again.");
+          throw new Error(data.error || "Something went wrong while generating your email.");
         }
 
-        lastOutput = data.result || "";
-        resultHeading.textContent = "Cold Email Draft";
-        resultBox.textContent = lastOutput || "No result returned.";
-        setStatus("Cold email forged successfully.");
-        setUsageUI(data);
+        const result = data.result || data.output || data.email || "No email was returned.";
+        outputBox.textContent = result;
+        setStatus("Cold email generated successfully.", "success");
+        loadUsageStatus();
       } catch (error) {
-        resultHeading.textContent = "Cold Email Draft";
-        resultBox.textContent = error.message || "Something went wrong. Please try again.";
-        setStatus(error.message || "Something went wrong. Please try again.", true);
+        outputBox.textContent = "Your generated cold email will appear here.";
+        setStatus(error.message || "Something went wrong.", "error");
       } finally {
-        stopLoadingState();
+        generateBtn.disabled = false;
+        generateBtn.textContent = "Generate Cold Email";
       }
     }
 
     async function copyResult() {
-      if (!lastOutput) {
-        setStatus("Nothing to copy yet.", true);
+      const text = outputBox.textContent.trim();
+
+      if (!text || text === "Your generated cold email will appear here.") {
+        setStatus("There is no generated email to copy yet.", "error");
         return;
       }
 
       try {
-        await navigator.clipboard.writeText(lastOutput);
-        setStatus("Result copied to clipboard.");
-      } catch {
-        setStatus("Could not copy result.", true);
+        await navigator.clipboard.writeText(text);
+        setStatus("Generated email copied to clipboard.", "success");
+      } catch (error) {
+        setStatus("Could not copy the result.", "error");
       }
     }
 
     function clearAll() {
-      inputText.value = "";
-      updateCount();
-      modeSelect.value = "professional";
-      lastOutput = "";
-      resultHeading.textContent = "Cold Email Draft";
-      resultBox.textContent = "Your cold email will appear here.";
+      goalInput.value = "";
+      recipientInput.value = "";
+      toneInput.value = "Professional";
+      lengthInput.value = "Medium";
+      detailsInput.value = "";
+      ctaInput.value = "";
+      outputBox.textContent = "Your generated cold email will appear here.";
       setStatus("");
-      hideUpgradeHint();
     }
 
-    EXAMPLES.forEach((example) => {
-      const btn = document.createElement("button");
-      btn.className = "example-chip";
-      btn.type = "button";
-      btn.textContent = example.length > 44 ? example.slice(0, 44) + "..." : example;
-      btn.title = example;
-      btn.addEventListener("click", () => {
-        inputText.value = example;
-        updateCount();
-        setStatus("");
-        hideUpgradeHint();
-      });
-      examplesWrap.appendChild(btn);
-    });
-
-    inputText.addEventListener("input", updateCount);
-    runBtn.addEventListener("click", runTool);
+    generateBtn.addEventListener("click", generateColdEmail);
     copyBtn.addEventListener("click", copyResult);
     clearBtn.addEventListener("click", clearAll);
-    logoutBtn.addEventListener("click", logout);
-    navUpgradeBtn.addEventListener("click", startCheckout);
 
-    (async function init() {
-      await hydrateSession();
-      updateAuthUI();
-      await refreshUsage();
-      updateCount();
-      document.body.classList.add("auth-ready");
-    })();
+    loadUsageStatus();
   </script>
 </body>
 </html>
