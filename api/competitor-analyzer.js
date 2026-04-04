@@ -42,6 +42,8 @@ export default async function handler(req, res) {
 Competitor details:
 ${input}
 
+Keep the analysis concise, practical, and easy to scan.
+
 Format the response with clear sections:
 1. Overall positioning
 2. Strengths
@@ -54,7 +56,7 @@ Format the response with clear sections:
       system:
         "You are a practical competitor analyst. Review competitor messaging, positioning, offer structure, trust signals, and strategic strengths or blind spots. Be specific, useful, and action-oriented. Return only the analysis.",
       userText: prompt,
-      maxTokens: 700
+      maxTokens: 550
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
@@ -71,7 +73,7 @@ Format the response with clear sections:
   } catch (error) {
     console.error("COMPETITOR ANALYZER ERROR:", error);
     return res.status(500).json({
-      error: error.message || "Competitor analysis failed."
+      error: "Something went wrong. Please try again."
     });
   }
 }
