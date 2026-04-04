@@ -25,13 +25,7 @@ export default async function handler(req, res) {
 
     console.log("WEBSITE_AUDIT before usage", Date.now() - startedAt);
 
-    const usage = {
-  allowed: true,
-  pro: false,
-  used: 0,
-  remaining: 5,
-  limit: 5
-};
+    const usage = await enforceUsageLimit(req, userId, "website-audit", 5);
 
     console.log("WEBSITE_AUDIT after usage", Date.now() - startedAt);
 
@@ -62,23 +56,28 @@ export default async function handler(req, res) {
 Website details:
 ${input}
 
-Keep the audit concise, practical, and easy to scan.
+Keep the response practical, sharp, and easy to scan.
 
-Format the response with clear sections:
-1. Overall impression
-2. Strengths
-3. Weak points
+Format the response with these exact sections:
+1. Quick diagnosis
+2. Top 3 strengths
+3. Top 3 weak points
 4. SEO observations
 5. Conversion observations
-6. Recommended improvements`;
+6. Quick action steps
+
+Formatting rules:
+- Use short bullet points under each section
+- Avoid long paragraphs
+- Include specific actionable suggestions, not just observations`;
 
     console.log("WEBSITE_AUDIT before openai", Date.now() - startedAt);
 
     const result = await runOpenAIText({
       system:
-        "You are a practical website growth analyst. Review websites for clarity, messaging, SEO direction, trust, user experience, and conversion opportunities. Be specific, useful, and action-oriented. Return only the audit.",
+        "You are a practical website growth strategist. Review websites for clarity, messaging, SEO direction, trust, user experience, and conversion opportunities. Be specific, useful, and action-oriented. Focus on what the user should improve first. Return only the audit.",
       userText: prompt,
-      maxTokens: 550
+      maxTokens: 600
     });
 
     console.log("WEBSITE_AUDIT after openai", Date.now() - startedAt);
