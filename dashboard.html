@@ -596,7 +596,7 @@
         <button id="logoutBtn" class="linklike hidden">Logout</button>
       </nav>
 
-      <button id="upgradeBtn" class="nav-cta">Go Pro</button>
+      <button id="upgradeBtn" class="nav-cta">Upgrade to Pro</button>
     </div>
   </header>
 
@@ -1019,12 +1019,12 @@
       if (isPro) {
         planPill.textContent = "Pro Plan";
         planPill.classList.add("pro");
-        upgradeBtn.classList.add("hidden");
+        upgradeBtn.textContent = "Pro Active";
         heroUpgradeBtn.classList.add("hidden");
       } else {
         planPill.textContent = "Starter Plan";
         planPill.classList.remove("pro");
-        upgradeBtn.classList.remove("hidden");
+        upgradeBtn.textContent = "Upgrade to Pro";
         heroUpgradeBtn.classList.remove("hidden");
       }
     }
@@ -1097,7 +1097,12 @@
       window.location.href = "index.html";
     }
 
-    upgradeBtn.addEventListener("click", startCheckout);
+    upgradeBtn.addEventListener("click", () => {
+      const account = getStoredAccount();
+      if (account?.pro) return;
+      startCheckout();
+    });
+
     heroUpgradeBtn.addEventListener("click", startCheckout);
     logoutBtn.addEventListener("click", logout);
 
