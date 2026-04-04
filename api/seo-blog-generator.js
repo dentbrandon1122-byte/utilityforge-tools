@@ -47,7 +47,8 @@ Keep the output clear, practical, and structured for search-focused content crea
     const result = await runOpenAIText({
       system:
         "You are an SEO content strategist and blog writer. Help users create useful, search-focused blog content including titles, outlines, article ideas, and drafts. Prioritize clarity, structure, usefulness, and realistic traffic intent. Return only the requested content.",
-      userText: prompt
+      userText: prompt,
+      maxTokens: 900
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
