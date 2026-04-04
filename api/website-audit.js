@@ -42,6 +42,8 @@ export default async function handler(req, res) {
 Website details:
 ${input}
 
+Keep the audit concise, practical, and easy to scan.
+
 Format the response with clear sections:
 1. Overall impression
 2. Strengths
@@ -54,7 +56,7 @@ Format the response with clear sections:
       system:
         "You are a practical website growth analyst. Review websites for clarity, messaging, SEO direction, trust, user experience, and conversion opportunities. Be specific, useful, and action-oriented. Return only the audit.",
       userText: prompt,
-      maxTokens: 700
+      maxTokens: 550
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
@@ -71,7 +73,7 @@ Format the response with clear sections:
   } catch (error) {
     console.error("WEBSITE AUDIT ERROR:", error);
     return res.status(500).json({
-      error: error.message || "Website audit failed."
+      error: "Something went wrong. Please try again."
     });
   }
 }
