@@ -1226,7 +1226,7 @@
         <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <a href="dashboard.html" class="nav-cta auth-sensitive" id="mainCta">Start Free</a>
+      <button class="nav-cta auth-sensitive" id="mainCta" onclick="startCheckout()">Upgrade to Pro</button>
     </div>
   </header>
 
@@ -1246,7 +1246,7 @@
         </p>
 
         <div class="hero-buttons">
-          <a href="dashboard.html" class="btn-primary auth-sensitive" id="heroPrimaryBtn">Start Free</a>
+          <a href="dashboard.html" class="btn-primary auth-sensitive" id="heroPrimaryBtn">Open Dashboard</a>
           <a href="pricing.html" class="btn-secondary">View Pricing</a>
         </div>
 
@@ -1916,7 +1916,7 @@
       {
         label: "Resume Bullet Generator",
         badge: "AI Active",
-        action: "Generate Bullets",
+        action: "Generate",
         secondary: "ATS-Friendly",
         input: "answered customer calls, solved account issues, handled scheduling, and helped with front desk tasks",
         output: "Delivered responsive customer support, resolved account and scheduling issues efficiently, and supported organized front desk operations in a high-volume environment."
@@ -2049,8 +2049,8 @@
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
 
-      mainCta.textContent = loggedIn ? "Open Dashboard" : "Start Free";
-      heroPrimaryBtn.textContent = loggedIn ? "Open Dashboard" : "Start Free";
+      mainCta.textContent = isPro ? "Pro Active" : "Upgrade to Pro";
+      heroPrimaryBtn.textContent = loggedIn ? "Open Dashboard" : "Open Dashboard";
 
       if (isPro) {
         floatingUpgrade.classList.remove("show");
