@@ -54,7 +54,7 @@ Format the response with clear sections:
       system:
         "You are a practical business offer strategist. Review offers for clarity, value, positioning, differentiation, and pricing logic. Be specific, useful, and action-oriented. Return only the analysis.",
       userText: prompt,
-      maxTokens: 800
+      maxTokens: 600
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
@@ -71,7 +71,7 @@ Format the response with clear sections:
   } catch (error) {
     console.error("OFFER ANALYZER ERROR:", error);
     return res.status(500).json({
-      error: error.message || "Offer analysis failed."
+      error: "Something went wrong. Please try again."
     });
   }
 }
