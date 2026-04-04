@@ -562,7 +562,7 @@
         <div class="top-copy">
           <div class="tool-badge">Built for structured research</div>
           <h2 class="title">Research Assistant</h2>
-          <p class="subtitle">Use one tool for general research, issue-spotting, legal-style overviews, and structured topic breakdowns.</p>
+          <p class="subtitle">Use one tool for general research, study help, issue spotting, and structured topic breakdowns.</p>
         </div>
 
         <div id="usagePill" class="usage-pill">Loading usage...</div>
@@ -574,7 +574,7 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Research topic or question</label>
-          <textarea id="inputText" maxlength="2500" placeholder="Paste your research topic, question, issue, or topic breakdown request here..."></textarea>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste your research topic, question, issue, or topic breakdown request here..."></textarea>
         </div>
 
         <div>
@@ -589,7 +589,7 @@
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/2500 characters</div>
+        <div><span id="charCount">0</span>/1800 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
@@ -602,12 +602,16 @@
       <div id="statusLine" class="status-line"></div>
 
       <div id="upgradeHint" class="upgrade-hint">
-        <button id="upgradeHintBtn" class="secondary-btn">Upgrade to Pro</button>
+        You’ve reached the free daily limit for this tool.
+        <a href="pricing.html">Upgrade to Pro</a> for unlimited usage.
       </div>
 
       <label class="result-label">Research Output</label>
       <div class="result-box" id="resultBox">Your research output will appear here.</div>
-      <div class="tip">Tip: clearly framed questions usually produce the most useful output.</div>
+      <div class="tip">
+        Tip: clearly framed questions usually produce the most useful output.<br><br>
+        Pro tip: use this tool to turn rough ideas into cleaner notes, study sections, or a stronger outline before writing.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -663,7 +667,8 @@
     const EXAMPLES = [
       "Explain the basics of cybersecurity threats and prevention.",
       "Break down social control in sociology into clear study notes.",
-      "Issue-spot a New York landlord notice requirement before eviction."
+      "Issue-spot a New York landlord notice requirement before eviction.",
+      "Create a structured breakdown of climate change causes, effects, and proposed solutions."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -673,7 +678,6 @@
     const usageText = document.getElementById("usageText");
     const usagePill = document.getElementById("usagePill");
     const navUpgradeBtn = document.getElementById("navUpgradeBtn");
-    const upgradeHintBtn = document.getElementById("upgradeHintBtn");
     const loginLink = document.getElementById("loginLink");
     const signupLink = document.getElementById("signupLink");
     const logoutBtn = document.getElementById("logoutBtn");
@@ -685,6 +689,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -877,7 +882,6 @@
     }
 
     navUpgradeBtn.addEventListener("click", startCheckout);
-    upgradeHintBtn.addEventListener("click", startCheckout);
     logoutBtn.addEventListener("click", logout);
 
     EXAMPLES.forEach((example) => {
@@ -926,6 +930,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -933,6 +940,7 @@
         resultBox.textContent = "Please enter a research topic first.";
         setStatus("Please enter a research topic first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -943,7 +951,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text: text.slice(0, 1800),
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -972,6 +984,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
