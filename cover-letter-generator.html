@@ -538,7 +538,6 @@
       <div class="seo-kicker">Built for stronger applications</div>
       <h1>AI Cover Letter Builder</h1>
       <p>Generate a clean, tailored cover letter based on your experience and the job you're applying for.</p>
-      </p>
 
       <ul>
         <li>Turn rough notes into a stronger cover letter</li>
@@ -571,7 +570,7 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Your notes, experience, and target role</label>
-          <textarea id="inputText" maxlength="2500" placeholder="Paste your relevant experience, role details, company, and what you want the letter to emphasize..."></textarea>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste your relevant experience, role details, company, and what you want the letter to emphasize..."></textarea>
         </div>
 
         <div>
@@ -586,7 +585,7 @@
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/2500 characters</div>
+        <div><span id="charCount">0</span>/1800 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
@@ -605,7 +604,10 @@
 
       <label class="result-label">Cover Letter</label>
       <div class="result-box" id="resultBox">Your cover letter draft will appear here.</div>
-      <div class="tip">Tip: include the job title, relevant experience, and why you’re a good fit for the role.</div>
+      <div class="tip">
+        Tip: include the job title, relevant experience, and why you’re a good fit for the role.<br><br>
+        Pro tip: use this with the Job Analyzer and Resume Bullet Generator for a stronger full application.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -683,6 +685,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -923,6 +926,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -930,6 +936,7 @@
         resultBox.textContent = "Please enter your cover letter details first.";
         setStatus("Please enter your cover letter details first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -940,7 +947,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text: text.slice(0, 1800),
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -969,6 +980,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
