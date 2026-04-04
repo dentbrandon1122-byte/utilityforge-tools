@@ -6,21 +6,31 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+  const startedAt = Date.now();
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
+    console.log("WEBSITE_AUDIT start");
+
     const { text, mode = "general", userId } = req.body || {};
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
+      console.log("WEBSITE_AUDIT missing input", Date.now() - startedAt);
       return res.status(400).json({ error: "Missing website details." });
     }
 
+    console.log("WEBSITE_AUDIT before usage", Date.now() - startedAt);
+
     const usage = await enforceUsageLimit(req, userId, "website-audit", 5);
 
+    console.log("WEBSITE_AUDIT after usage", Date.now() - startedAt);
+
     if (!usage.allowed) {
+      console.log("WEBSITE_AUDIT blocked by usage", Date.now() - startedAt);
       return res.status(429).json({
         error: "Daily free limit reached. Upgrade to Pro for unlimited usage.",
         pro: false,
@@ -56,6 +66,8 @@ Format the response with clear sections:
 5. Conversion observations
 6. Recommended improvements`;
 
+    console.log("WEBSITE_AUDIT before openai", Date.now() - startedAt);
+
     const result = await runOpenAIText({
       system:
         "You are a practical website growth analyst. Review websites for clarity, messaging, SEO direction, trust, user experience, and conversion opportunities. Be specific, useful, and action-oriented. Return only the audit.",
@@ -63,9 +75,13 @@ Format the response with clear sections:
       maxTokens: 550
     });
 
+    console.log("WEBSITE_AUDIT after openai", Date.now() - startedAt);
+
     if (!result || typeof result !== "string" || !result.trim()) {
       throw new Error("Website audit returned an empty result.");
     }
+
+    console.log("WEBSITE_AUDIT success", Date.now() - startedAt);
 
     return res.status(200).json({
       result: result.trim(),
@@ -76,6 +92,8 @@ Format the response with clear sections:
     });
   } catch (error) {
     console.error("WEBSITE AUDIT ERROR:", error);
+    console.log("WEBSITE_AUDIT failed after", Date.now() - startedAt);
+
     return res.status(500).json({
       error: "Something went wrong. Please try again."
     });
