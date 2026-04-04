@@ -608,7 +608,10 @@
 
       <label class="result-label">SEO Blog Output</label>
       <div class="result-box" id="resultBox">Your SEO blog content will appear here.</div>
-      <div class="tip">Tip: include a niche, audience, and keyword angle for stronger content output.</div>
+      <div class="tip">
+        Tip: include a niche, audience, and keyword angle for stronger content output.<br><br>
+        Pro tip: outline and titles modes are usually the fastest and most stable starting points before generating a draft.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -685,6 +688,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -925,6 +929,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +939,7 @@
         resultBox.textContent = "Please enter a topic or content goal first.";
         setStatus("Please enter a topic or content goal first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -942,7 +950,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text: text.slice(0, 1800),
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -971,6 +983,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
