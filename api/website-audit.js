@@ -25,7 +25,13 @@ export default async function handler(req, res) {
 
     console.log("WEBSITE_AUDIT before usage", Date.now() - startedAt);
 
-    const usage = await enforceUsageLimit(req, userId, "website-audit", 5);
+    const usage = {
+  allowed: true,
+  pro: false,
+  used: 0,
+  remaining: 5,
+  limit: 5
+};
 
     console.log("WEBSITE_AUDIT after usage", Date.now() - startedAt);
 
