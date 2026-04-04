@@ -574,27 +574,27 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Job description</label>
-          <textarea id="inputText" maxlength="3000" placeholder="Paste the full job description here..."></textarea>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste the full job description (responsibilities, requirements, qualifications) for the best breakdown..."></textarea>
         </div>
 
         <div>
           <label for="modeSelect" class="field-label">Mode</label>
           <select id="modeSelect">
-            <option value="general">General</option>
+            <option value="ats">ATS Analysis</option>
             <option value="keywords">Keywords</option>
             <option value="skills">Skills Focus</option>
-            <option value="resume">Resume Targeting</option>
+            <option value="plain">Plain Breakdown</option>
           </select>
         </div>
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/3000 characters</div>
+        <div><span id="charCount">0</span>/1800 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
       <div class="actions">
-        <button id="runBtn" class="primary-btn">Analyze Job</button>
+        <button id="runBtn" class="primary-btn">Analyze Job Description</button>
         <button id="copyBtn" class="secondary-btn" disabled>Copy Result</button>
         <button id="clearBtn" class="secondary-btn">Clear</button>
       </div>
@@ -608,7 +608,10 @@
 
       <label class="result-label">Job Analysis</label>
       <div class="result-box" id="resultBox">Your job analysis will appear here.</div>
-      <div class="tip">Tip: paste the full job posting for the best breakdown, especially responsibilities and qualifications.</div>
+      <div class="tip">
+        Tip: paste the full job posting for the best breakdown, especially responsibilities and qualifications.<br><br>
+        Pro tip: Use this output to rewrite your resume bullets and match employer priorities.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -658,13 +661,14 @@
   <script>
     const TOOL_KEY = "job-analyzer";
     const API_PATH = "/api/job-analyzer";
-    const toolName = "Job Analysis";
+    const toolName = "Job Breakdown";
     let loadingInterval = null;
 
     const EXAMPLES = [
       "Cybersecurity internship requiring Python, networking, troubleshooting, and strong communication skills.",
       "Administrative assistant role focused on scheduling, records, communication, and office organization.",
-      "Customer service position requiring conflict resolution, communication, sales support, and multitasking."
+      "Customer service position requiring conflict resolution, communication, sales support, and multitasking.",
+      "Entry level IT support role requiring troubleshooting, ticket systems, Windows, and customer interaction."
     ];
 
     const examplesWrap = document.getElementById("examples");
@@ -685,6 +689,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -793,7 +798,7 @@
         loadingInterval = null;
       }
       runBtn.disabled = false;
-      runBtn.textContent = "Analyze Job";
+      runBtn.textContent = "Analyze Job Description";
     }
 
     async function safeJsonFromResponse(res) {
@@ -925,6 +930,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +940,7 @@
         resultBox.textContent = "Please enter a job description first.";
         setStatus("Please enter a job description first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -942,7 +951,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text: text.slice(0, 1800),
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -971,6 +984,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
