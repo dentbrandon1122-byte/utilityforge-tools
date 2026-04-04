@@ -574,7 +574,7 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Competitor details or page text</label>
-          <textarea id="inputText" maxlength="3500" placeholder="Paste a competitor homepage, service page, offer summary, or short business description you want analyzed..."></textarea>
+          <textarea id="inputText" maxlength="1800" placeholder="Paste a competitor homepage, service page, offer summary, or short business description you want analyzed..."></textarea>
         </div>
 
         <div>
@@ -589,7 +589,7 @@
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/3500 characters</div>
+        <div><span id="charCount">0</span>/1800 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
@@ -608,7 +608,10 @@
 
       <label class="result-label">Competitor Analysis</label>
       <div class="result-box" id="resultBox">Your competitor analysis will appear here.</div>
-      <div class="tip">Tip: paste homepage copy, service descriptions, or a short summary for a better analysis.</div>
+      <div class="tip">
+        Tip: paste homepage copy, service descriptions, or a short summary for a better analysis.<br><br>
+        Pro tip: use this tool to find clearer ways to position your offer and stand apart faster.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -685,6 +688,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -925,6 +929,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +939,7 @@
         resultBox.textContent = "Please enter competitor details first.";
         setStatus("Please enter competitor details first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -942,7 +950,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text: text.slice(0, 1800),
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -971,6 +983,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
