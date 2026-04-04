@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI helps you write faster, grow smarter, and get more done with AI tools for resumes, cover letters, outreach, SEO, content, website audits, competitor analysis, and more."
+    content="Utility Forge AI helps you write faster, get hired faster, and grow smarter with AI tools for resumes, cover letters, outreach, SEO, website audits, competitor analysis, and more."
   />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/" />
@@ -198,7 +198,7 @@
 
     .hero-left {
       flex: 1;
-      max-width: 700px;
+      max-width: 720px;
     }
 
     .hero-badge {
@@ -214,8 +214,8 @@
     }
 
     .hero-left h1 {
-      font-size: 4.8rem;
-      line-height: 0.96;
+      font-size: 4.5rem;
+      line-height: 0.98;
       margin-bottom: 22px;
       color: #f3efe4;
       letter-spacing: -1.5px;
@@ -227,18 +227,18 @@
     }
 
     .hero-left p {
-      font-size: 1.18rem;
+      font-size: 1.16rem;
       line-height: 1.8;
       color: rgba(255, 255, 255, 0.86);
       margin-bottom: 26px;
-      max-width: 650px;
+      max-width: 680px;
     }
 
     .hero-buttons {
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .btn-primary,
@@ -275,6 +275,13 @@
     .btn-secondary:hover {
       transform: translateY(-2px);
       background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-social-proof {
+      margin-top: 6px;
+      margin-bottom: 18px;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.62);
     }
 
     .hero-trust {
@@ -581,7 +588,8 @@
     .featured-tool-card,
     .testimonial-card,
     .compare-card,
-    .advanced-card {
+    .advanced-card,
+    .focus-card {
       padding: 24px;
       border-radius: 24px;
       background: rgba(255,255,255,0.04);
@@ -593,7 +601,8 @@
     .workflow-grid,
     .card-grid,
     .proof-grid,
-    .advanced-grid {
+    .advanced-grid,
+    .focus-grid {
       display: grid;
       gap: 22px;
       align-items: stretch;
@@ -605,7 +614,8 @@
 
     .card-grid,
     .proof-grid,
-    .advanced-grid {
+    .advanced-grid,
+    .focus-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
@@ -613,7 +623,8 @@
     .card h3,
     .proof-card h3,
     .compare-card h3,
-    .advanced-card h3 {
+    .advanced-card h3,
+    .focus-card h3 {
       font-size: 1.2rem;
       margin-bottom: 10px;
       color: #eaffff;
@@ -623,7 +634,8 @@
     .card p,
     .proof-card p,
     .compare-card p,
-    .advanced-card p {
+    .advanced-card p,
+    .focus-card p {
       color: rgba(255,255,255,0.8);
       font-size: 1rem;
     }
@@ -799,6 +811,13 @@
       font-size: 0.85rem;
       line-height: 1.5;
       margin-top: 12px;
+    }
+
+    .upgrade-copy {
+      margin-top: 10px;
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.5;
     }
 
     .compare-grid {
@@ -1068,7 +1087,8 @@
       .card-grid,
       .proof-grid,
       .testimonials-shell,
-      .advanced-grid {
+      .advanced-grid,
+      .focus-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -1153,7 +1173,8 @@
       .proof-grid,
       .compare-grid,
       .testimonials-shell,
-      .advanced-grid {
+      .advanced-grid,
+      .focus-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1212,16 +1233,16 @@
   <main class="page">
     <section class="hero">
       <div class="hero-left">
-        <div class="hero-badge">AI tools for career, business, and content growth</div>
+        <div class="hero-badge">Career tools, business tools, and growth workflows</div>
 
         <h1>
-          Forge better work
+          AI tools that help you
           <br />
-          <span class="accent">faster with AI</span>
+          <span class="accent">get hired faster and grow smarter</span>
         </h1>
 
         <p>
-          Utility Forge AI helps you write faster, apply smarter, grow traffic, improve websites, and get more done with practical AI tools for career growth, business workflows, content creation, summaries, research, and outreach.
+          Write stronger resumes, better emails, higher-converting websites, and clearer content — all in one place. Utility Forge AI is built for job seekers, freelancers, creators, and businesses that want results without guesswork.
         </p>
 
         <div class="hero-buttons">
@@ -1229,17 +1250,21 @@
           <a href="pricing.html" class="btn-secondary">View Pricing</a>
         </div>
 
+        <div class="hero-social-proof">
+          ⚡ Growing platform for users improving resumes, emails, websites, and content faster
+        </div>
+
         <div class="hero-trust">
-          Free to try. Upgrade only when you want unlimited access and more workflow power.
+          Free to try. Upgrade only when you want unlimited access and smoother workflows.
         </div>
 
         <div class="hero-tags">
           <span>Resume bullets</span>
           <span>Cover letters</span>
+          <span>Email rewriting</span>
           <span>Website audits</span>
           <span>SEO blog content</span>
           <span>Competitor analysis</span>
-          <span>Research help</span>
         </div>
       </div>
 
@@ -1266,7 +1291,7 @@
               </div>
 
               <div class="app-actions">
-                <button class="app-btn primary" id="actionBtn">Generate Bullets</button>
+                <button class="app-btn primary" id="actionBtn">Generate</button>
                 <button class="app-btn secondary" id="toneBtn">Focused</button>
               </div>
 
@@ -1298,32 +1323,56 @@
     <section id="workflow" class="section">
       <h2 class="section-title">How Utility Forge AI works</h2>
       <p class="section-subtitle">
-        Utility Forge AI is built to help you move through real work faster with focused tools instead of generic blank-chat prompting.
+        Utility Forge AI is built to help you move through real work faster with focused tools instead of generic prompting and blank-page guesswork.
       </p>
 
       <div class="workflow-grid">
         <div class="workflow-card">
           <div class="workflow-step-number">1</div>
           <h3>Pick your goal</h3>
-          <p>Start with the workflow that fits what you want to do, whether that is career growth, outreach, content, or business improvement.</p>
+          <p>Start with the workflow that fits what you want to improve, whether that is job applications, outreach, content, or business growth.</p>
         </div>
 
         <div class="workflow-card">
           <div class="workflow-step-number">2</div>
           <h3>Use the right tool</h3>
-          <p>Open the focused tool built for that exact task instead of trying to do everything in one general AI chat.</p>
+          <p>Open a focused tool built for that exact task instead of trying to force everything through one generic AI chat.</p>
         </div>
 
         <div class="workflow-card">
           <div class="workflow-step-number">3</div>
           <h3>Get stronger output</h3>
-          <p>Turn rough ideas, messy drafts, and unclear text into cleaner, more useful output that moves you forward faster.</p>
+          <p>Turn rough notes, weak drafts, and unclear messaging into cleaner, more useful output that moves you forward faster.</p>
         </div>
 
         <div class="workflow-card">
           <div class="workflow-step-number">4</div>
-          <h3>Keep your workflow moving</h3>
-          <p>Move from one tool into the next as your project, application, business, or content workflow grows.</p>
+          <h3>Keep momentum</h3>
+          <p>Move from one tool into the next as your workflow grows instead of restarting from zero every time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Choose your focus</h2>
+      <p class="section-subtitle">
+        Start with the tools that match what you’re trying to improve right now.
+      </p>
+
+      <div class="focus-grid">
+        <div class="focus-card">
+          <h3>💼 Job application tools</h3>
+          <p>Build stronger resumes, cover letters, LinkedIn summaries, and job-targeted materials faster.</p>
+        </div>
+
+        <div class="focus-card">
+          <h3>🚀 Business growth tools</h3>
+          <p>Improve website messaging, page clarity, conversion copy, SEO direction, and competitor insight.</p>
+        </div>
+
+        <div class="focus-card">
+          <h3>⚡ Productivity tools</h3>
+          <p>Summarize, research, brainstorm, and organize ideas quickly when you need extra support.</p>
         </div>
       </div>
     </section>
@@ -1332,9 +1381,9 @@
       <div class="featured-tool-card">
         <div class="featured-tool-copy">
           <span class="featured-eyebrow">Best place to start</span>
-          <h3>Start with the tools that match your goal</h3>
+          <h3>Start with the tools that match your actual goal</h3>
           <p>
-            If your goal is getting hired, start with resume, cover letter, LinkedIn, email, and job analysis tools. If your goal is business growth, move into website audits, competitor reviews, and SEO content. Utility Forge AI works best when it feels like a workflow platform, not just a list of tools.
+            If your goal is getting hired, start with resume, cover letter, LinkedIn, email, and job analysis tools. If your goal is business growth, move into website audits, competitor reviews, landing page rewrites, and SEO content. Utility Forge AI works best when it feels like a workflow platform, not just a random list of tools.
           </p>
           <div class="featured-tool-actions">
             <a href="dashboard.html" class="btn-primary">Open Dashboard</a>
@@ -1345,15 +1394,15 @@
         <div class="featured-tool-side">
           <div class="featured-stat">
             <strong>Strongest fit</strong>
-            <span>Job seekers, creators, freelancers, founders, students, professionals</span>
+            <span>Job seekers, freelancers, creators, founders, students, professionals</span>
           </div>
           <div class="featured-stat">
-            <strong>Best first tools</strong>
-            <span>Career growth, outreach, content, website reviews, and research</span>
+            <strong>Best starting point</strong>
+            <span>Career growth, business workflows, content, outreach, and research</span>
           </div>
           <div class="featured-stat">
             <strong>Built to expand</strong>
-            <span>More tools, better workflows, and future business-ready features</span>
+            <span>More tools, stronger flows, and future business-ready features</span>
           </div>
         </div>
       </div>
@@ -1377,6 +1426,7 @@
           <h3>Resume Bullet Generator</h3>
           <p>Turn rough job duties into stronger, clearer, more professional bullet points.</p>
           <div class="tool-access">One of the best tools for improving resume wording quickly.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="cover-letter-generator.html">
@@ -1390,6 +1440,7 @@
           <h3>Cover Letter Builder</h3>
           <p>Generate stronger cover letter drafts from your notes, experience, and target role.</p>
           <div class="tool-access">Built for faster applications with less rewriting.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="linkedin-summary-generator.html">
@@ -1403,6 +1454,7 @@
           <h3>LinkedIn Summary Generator</h3>
           <p>Create a stronger summary and position yourself more clearly for recruiters and hiring managers.</p>
           <div class="tool-access">Good for personal branding and profile improvement.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="email-polisher.html">
@@ -1416,6 +1468,7 @@
           <h3>Email Polisher</h3>
           <p>Rewrite rough emails into cleaner, more professional messages for work, outreach, and communication.</p>
           <div class="tool-access">Great for professional communication, follow-ups, and stronger tone.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="job-analyzer.html">
@@ -1429,6 +1482,7 @@
           <h3>Job Analyzer</h3>
           <p>Break job posts into skills, priorities, and keywords so you know what to emphasize.</p>
           <div class="tool-access">Helpful before updating your resume or writing a cover letter.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="cold-email-generator.html">
@@ -1442,6 +1496,7 @@
           <h3>Cold Email Generator</h3>
           <p>Create stronger networking, opportunity, and client outreach emails faster.</p>
           <div class="tool-access">Useful for reaching out to recruiters, hiring managers, leads, or new contacts.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="website-audit.html">
@@ -1455,6 +1510,7 @@
           <h3>Website Audit Tool</h3>
           <p>Review website clarity, SEO direction, trust, and conversion opportunities faster.</p>
           <div class="tool-access">Useful for founders, freelancers, agencies, and business growth workflows.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="competitor-analyzer.html">
@@ -1468,6 +1524,7 @@
           <h3>Competitor Analyzer</h3>
           <p>Analyze competitor messaging, offers, positioning, and weak points with less guesswork.</p>
           <div class="tool-access">Strong for founders, service businesses, and people trying to stand out more clearly.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="seo-blog-generator.html">
@@ -1481,6 +1538,7 @@
           <h3>SEO Blog Generator</h3>
           <p>Generate blog titles, outlines, and search-focused content faster for traffic growth.</p>
           <div class="tool-access">Useful for creators, marketers, founders, and businesses building content systems.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="landing-page-rewriter.html">
@@ -1494,6 +1552,7 @@
           <h3>Landing Page Rewriter</h3>
           <p>Rewrite weak landing page copy into clearer, stronger messaging that is easier to understand and more likely to convert.</p>
           <div class="tool-access">Strong for founders, service businesses, freelancers, and offer pages.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="offer-analyzer.html">
@@ -1507,6 +1566,7 @@
           <h3>Offer Analyzer</h3>
           <p>Review offer clarity, value, pricing logic, and differentiation before trying to sell it harder.</p>
           <div class="tool-access">Useful for coaches, agencies, freelancers, consultants, and productized services.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="headline-generator.html">
@@ -1520,6 +1580,7 @@
           <h3>Headline Generator</h3>
           <p>Generate stronger homepage, landing page, service page, and offer headlines faster.</p>
           <div class="tool-access">Useful for stronger first impressions, clearer positioning, and better page hooks.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="text-summarizer.html">
@@ -1533,6 +1594,7 @@
           <h3>Text Summarizer</h3>
           <p>Condense long text into shorter takeaways, notes, and clearer review points.</p>
           <div class="tool-access">Useful for research, articles, notes, and study material.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="research-assistant.html">
@@ -1545,7 +1607,8 @@
           </div>
           <h3>Research Assistant</h3>
           <p>Break down topics, organize notes, and structure research faster.</p>
-          <div class="tool-access">Helpful for interview prep, learning, business research, and topic breakdowns.</div>
+          <div class="tool-access">Helpful for interview prep, business research, and topic breakdowns.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
 
         <a class="card" href="idea-generator.html">
@@ -1559,7 +1622,32 @@
           <h3>Idea Generator</h3>
           <p>Brainstorm stronger ideas, angles, and directions when you need fresh options.</p>
           <div class="tool-access">Useful for side projects, business ideas, content thinking, and pivots.</div>
+          <div class="upgrade-copy">Free plan includes limited daily uses. Upgrade to Pro for unlimited access.</div>
         </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Why Utility Forge AI works</h2>
+      <p class="section-subtitle">
+        Utility Forge AI is built around focused outcomes, so you get more useful output with less friction and less guesswork.
+      </p>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <h3>🎯 Built for real problems</h3>
+          <p>No generic blank-prompt experience. Each tool is built around a specific task people actually struggle with.</p>
+        </div>
+
+        <div class="proof-card">
+          <h3>⚡ Fast results</h3>
+          <p>Get usable outputs quickly without a long setup process, a learning curve, or endless prompt tweaking.</p>
+        </div>
+
+        <div class="proof-card">
+          <h3>💡 Better outcomes</h3>
+          <p>Write stronger applications, cleaner emails, clearer offers, better headlines, and more useful business content faster.</p>
+        </div>
       </div>
     </section>
 
@@ -1651,33 +1739,9 @@
     </section>
 
     <section class="section">
-      <h2 class="section-title">Why it works better than generic AI prompts</h2>
-      <p class="section-subtitle">
-        Utility Forge AI is built around focused workflows, so you get more useful output with less guessing and less prompting.
-      </p>
-
-      <div class="proof-grid">
-        <div class="proof-card">
-          <h3>Focused for real tasks</h3>
-          <p>Each tool is built around a specific outcome instead of forcing users to start from a blank chat every time.</p>
-        </div>
-
-        <div class="proof-card">
-          <h3>Better workflows</h3>
-          <p>Career tools, outreach tools, research tools, and growth tools work together so you can keep moving instead of starting over.</p>
-        </div>
-
-        <div class="proof-card">
-          <h3>Built to expand</h3>
-          <p>The platform starts with practical tools and grows into stronger content, SEO, and business-ready workflows over time.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
       <h2 class="section-title">From rough notes to stronger output</h2>
       <p class="section-subtitle">
-        Utility Forge AI helps turn vague, rushed, or basic input into clearer and more professional output.
+        Utility Forge AI helps turn vague, rushed, or basic input into clearer and more useful output.
       </p>
 
       <div class="compare-grid">
@@ -1704,21 +1768,21 @@
         <h2>Who Utility Forge AI is for</h2>
         <p>
           Utility Forge AI is built for job seekers, students, career changers, professionals, creators, freelancers, founders, and growing businesses that want help moving faster through real work.
-          It is especially useful for people trying to improve resumes, cover letters, LinkedIn summaries, recruiter emails, website messaging, content planning, SEO direction, and research without wasting hours rewriting everything manually.
+          It is especially useful for people trying to improve resumes, cover letters, LinkedIn summaries, recruiter emails, website messaging, content planning, SEO direction, and research without spending hours rewriting everything manually.
         </p>
 
         <h3>What makes the platform useful</h3>
         <ul>
-          <li>Focused tools built for real workflows instead of generic blank-chat prompting</li>
-          <li>Cleaner output with less prompting and less friction</li>
+          <li>Focused tools built for real workflows instead of generic blank-prompt experiences</li>
+          <li>Cleaner output with less friction and less overthinking</li>
           <li>Support for career growth, outreach, research, summaries, and business workflows in one place</li>
-          <li>Useful starting points for both free users and Pro users</li>
-          <li>A more practical alternative to generic all-purpose AI chat tools</li>
+          <li>A better fit for users who want practical output fast</li>
+          <li>A more focused alternative to generic all-purpose AI chat tools</li>
         </ul>
 
         <h3>Why the platform is structured this way</h3>
         <p>
-          The homepage is designed to explain Utility Forge AI as a practical workflow platform first, while still keeping the strongest career tools easy to find.
+          The homepage is designed to explain Utility Forge AI as a practical workflow platform first, while still keeping the strongest tools easy to find.
           That makes the product easier for users to understand and gives the platform more room to grow into broader business and content workflows over time.
         </p>
       </div>
@@ -1818,6 +1882,15 @@
           <p class="pricing-note">Positioned for future business-ready features without cluttering the current experience.</p>
         </div>
       </div>
+    </section>
+
+    <section class="section" style="text-align:center;">
+      <h2 class="section-title">Start improving your results today</h2>
+      <p class="section-subtitle">
+        Use the tools free, explore the workflows that fit you best, and upgrade when you want unlimited access.
+      </p>
+
+      <a href="#tools" class="btn-primary">Explore Tools</a>
     </section>
   </main>
 
