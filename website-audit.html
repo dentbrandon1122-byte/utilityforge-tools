@@ -574,7 +574,7 @@
       <div class="grid">
         <div>
           <label for="inputText" class="field-label">Website details or page text</label>
-          <textarea id="inputText" maxlength="3500" placeholder="Paste a homepage URL, homepage copy, service page text, or a short description of the site you want audited..."></textarea>
+          <textarea id="inputText" maxlength="1500" placeholder="Paste a homepage URL, homepage copy, service page text, or a short description of the site you want audited..."></textarea>
         </div>
 
         <div>
@@ -589,7 +589,7 @@
       </div>
 
       <div class="meta-row">
-        <div><span id="charCount">0</span>/3500 characters</div>
+        <div><span id="charCount">0</span>/1500 characters</div>
         <div id="usageText">Checking account status...</div>
       </div>
 
@@ -685,6 +685,7 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -925,6 +926,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +936,7 @@
         resultBox.textContent = "Please enter website details first.";
         setStatus("Please enter website details first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -942,7 +947,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text: text.slice(0, 1500),
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -971,6 +980,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
