@@ -53,7 +53,8 @@ Format the response with clear sections:
     const result = await runOpenAIText({
       system:
         "You are a practical competitor analyst. Review competitor messaging, positioning, offer structure, trust signals, and strategic strengths or blind spots. Be specific, useful, and action-oriented. Return only the analysis.",
-      userText: prompt
+      userText: prompt,
+      maxTokens: 700
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
