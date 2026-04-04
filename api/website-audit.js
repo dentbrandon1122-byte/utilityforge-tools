@@ -53,7 +53,8 @@ Format the response with clear sections:
     const result = await runOpenAIText({
       system:
         "You are a practical website growth analyst. Review websites for clarity, messaging, SEO direction, trust, user experience, and conversion opportunities. Be specific, useful, and action-oriented. Return only the audit.",
-      userText: prompt
+      userText: prompt,
+      maxTokens: 700
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
