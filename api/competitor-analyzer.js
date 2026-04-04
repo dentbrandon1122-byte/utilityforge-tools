@@ -42,11 +42,11 @@ export default async function handler(req, res) {
 
     const modePromptMap = {
       general:
-        "Analyze this competitor and provide a practical review of their messaging, offer structure, positioning, strengths, weaknesses, and possible strategic advantages.",
+        "Analyze this competitor and provide a practical review of their messaging, offer structure, positioning, strengths, weaknesses, and strategic opportunities.",
       positioning:
         "Analyze this competitor with a positioning focus. Explain how they present themselves, what angle they are taking, how they differentiate, and where their positioning may be weak or unclear.",
       offers:
-        "Analyze this competitor with an offer focus. Review their services, product framing, pricing angle if visible, offer structure, and perceived value.",
+        "Analyze this competitor with an offer focus. Review their services, product framing, pricing angle if visible, offer structure, perceived value, and where the offer could be stronger.",
       messaging:
         "Analyze this competitor with a messaging and trust focus. Review tone, clarity, credibility, authority signals, trust-building elements, and persuasive strength."
     };
@@ -63,16 +63,25 @@ Format the response with these exact sections:
 2. Top 3 strengths
 3. Top 3 weaknesses
 4. Positioning and offer observations
-5. Biggest differentiation opportunities
-6. Quick action steps`;
+5. Trust and messaging observations
+6. Biggest differentiation opportunities
+7. Your advantage strategy
+8. Better positioning direction
+9. Quick action steps
+
+Formatting rules:
+- Use short bullet points under each section
+- Avoid long paragraphs
+- Include specific actionable suggestions, not just observations
+- Focus on practical strategy, clarity, and competitive advantage`;
 
     console.log("COMPETITOR_ANALYZER before openai", Date.now() - startedAt);
 
     const result = await runOpenAIText({
       system:
-        "You are a practical competitor strategist. Analyze competitor positioning, messaging, offer structure, trust signals, and strategic gaps. Be specific, useful, and action-oriented. Prefer direct observations over fluff. Return only the analysis.",
+        "You are a practical competitor strategist and market positioning advisor. Analyze competitor messaging, positioning, offer structure, trust signals, and strategic gaps. Be specific, useful, and action-oriented. Focus on what the user can do to stand apart more clearly. Return only the analysis.",
       userText: prompt,
-      maxTokens: 550
+      maxTokens: 650
     });
 
     console.log("COMPETITOR_ANALYZER after openai", Date.now() - startedAt);
