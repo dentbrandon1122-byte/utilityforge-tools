@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text, tone = "professional", userId } = req.body || {};
+    const { text, mode = "professional", userId } = req.body || {};
     const input = typeof text === "string" ? text.trim() : "";
 
     if (!input) {
@@ -33,12 +33,13 @@ export default async function handler(req, res) {
       concise: "Rewrite this email in a concise and clear tone."
     };
 
-    const prompt = `${tonePromptMap[tone] || tonePromptMap.professional}\n\nEmail:\n${input}`;
+    const prompt = `${tonePromptMap[mode] || tonePromptMap.professional}\n\nEmail:\n${input}`;
 
     const result = await runOpenAIText({
       system:
         "You improve rough emails. Keep the original meaning intact while making the writing clearer, smoother, and more polished. Return only the rewritten email.",
-      userText: prompt
+      userText: prompt,
+      maxTokens: 500
     });
 
     if (!result || typeof result !== "string" || !result.trim()) {
