@@ -104,7 +104,7 @@ Formatting rules:
     console.log("COMPETITOR_ANALYZER failed after", Date.now() - startedAt);
 
     return res.status(500).json({
-      error: "Temporary AI issue. Try again in a moment."
+      error: "The forge went out. Relight in a moment."
     });
   }
 }
