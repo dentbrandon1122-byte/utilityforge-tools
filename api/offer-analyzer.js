@@ -71,7 +71,7 @@ Format the response with clear sections:
   } catch (error) {
     console.error("OFFER ANALYZER ERROR:", error);
     return res.status(500).json({
-      error: "Something went wrong. Please try again."
+      error: "The forge went out. Relight in a moment."
     });
   }
 }
