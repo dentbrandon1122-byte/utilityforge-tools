@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     console.error("USAGE STATUS ERROR:", error);
 
     return res.status(500).json({
-      error: error.message || "Unable to load usage."
+      error: error.message || "The forge went out. Relight in a moment."
     });
   }
 }
