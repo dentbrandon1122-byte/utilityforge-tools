@@ -139,7 +139,7 @@ Formatting rules:
     console.log("RESEARCH_ASSISTANT failed after", Date.now() - startedAt);
 
     return res.status(500).json({
-      error: "Something went wrong. Please try again."
+      error: "The forge went out. Relight in a moment."
     });
   }
 }
