@@ -53,7 +53,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error("LINKEDIN SUMMARY ERROR:", error);
     return res.status(500).json({
-      error: error.message || "LinkedIn summary generation failed."
+      error: error.message || "The forge went out. Relight in a moment."
     });
   }
 }
