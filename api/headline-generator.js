@@ -65,7 +65,7 @@ Return the headlines as a clean numbered list.`;
   } catch (error) {
     console.error("HEADLINE GENERATOR ERROR:", error);
     return res.status(500).json({
-      error: error.message || "Headline generation failed."
+      error: error.message || "The forge went out. Relight in a moment."
     });
   }
 }
