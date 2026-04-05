@@ -53,7 +53,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error("COLD EMAIL ERROR:", error);
     return res.status(500).json({
-      error: error.message || "Cold email generation failed."
+      error: error.message || "Temporary AI issue. Try again in a moment."
     });
   }
 }
