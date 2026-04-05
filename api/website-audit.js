@@ -16,7 +16,8 @@ export default async function handler(req, res) {
     console.log("WEBSITE_AUDIT start");
 
     const { text, mode = "general", userId } = req.body || {};
-    const input = typeof text === "string" ? text.trim() : "";
+    const rawInput = typeof text === "string" ? text.trim() : "";
+    const input = rawInput.slice(0, 1400);
 
     if (!input) {
       console.log("WEBSITE_AUDIT missing input", Date.now() - startedAt);
@@ -42,13 +43,13 @@ export default async function handler(req, res) {
 
     const modePromptMap = {
       general:
-        "Analyze this website and provide a practical audit covering clarity, messaging, SEO direction, trust signals, user experience, and conversion opportunities.",
+        "Audit this website for clarity, messaging, SEO direction, trust, and conversion issues.",
       seo:
-        "Analyze this website with an SEO focus. Identify content weaknesses, keyword direction issues, structural SEO opportunities, and ways to improve search visibility.",
+        "Audit this website with an SEO focus. Identify keyword direction issues, weak content areas, structure problems, and search visibility opportunities.",
       conversion:
-        "Analyze this website with a conversion focus. Identify weak calls to action, trust issues, friction points, offer clarity problems, and ways to improve lead generation or sales flow.",
+        "Audit this website with a conversion focus. Identify weak calls to action, trust gaps, friction points, and offer clarity problems.",
       clarity:
-        "Analyze this website with a messaging and clarity focus. Identify confusing wording, weak positioning, unclear value, and ways to make the message stronger and easier to understand."
+        "Audit this website with a messaging focus. Identify confusing wording, weak positioning, unclear value, and places where the message should be simpler and stronger."
     };
 
     const prompt = `${modePromptMap[mode] || modePromptMap.general}
@@ -56,28 +57,29 @@ export default async function handler(req, res) {
 Website details:
 ${input}
 
-Keep the response practical, sharp, and easy to scan.
-
-Format the response with these exact sections:
+Return the audit with these exact sections:
 1. Quick diagnosis
-2. Top 3 strengths
-3. Top 3 weak points
+2. Top strengths
+3. Top weak points
 4. SEO observations
 5. Conversion observations
 6. Quick action steps
 
-Formatting rules:
-- Use short bullet points under each section
-- Avoid long paragraphs
-- Include specific actionable suggestions, not just observations`;
+Rules:
+- Use short bullet points
+- Keep each section concise
+- Be specific
+- Focus on the biggest improvements first
+- Do not write long paragraphs`;
 
     console.log("WEBSITE_AUDIT before openai", Date.now() - startedAt);
 
     const result = await runOpenAIText({
       system:
-        "You are a practical website growth strategist. Review websites for clarity, messaging, SEO direction, trust, user experience, and conversion opportunities. Be specific, useful, and action-oriented. Focus on what the user should improve first. Return only the audit.",
+        "You are a practical website growth strategist. Give clear, concise, high-value website audits focused on clarity, SEO, trust, and conversion. Prioritize speed, usefulness, and actionability. Return only the audit.",
       userText: prompt,
-      maxTokens: 600
+      maxTokens: 450,
+      temperature: 0.5
     });
 
     console.log("WEBSITE_AUDIT after openai", Date.now() - startedAt);
