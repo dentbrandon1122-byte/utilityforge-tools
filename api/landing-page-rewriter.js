@@ -65,7 +65,7 @@ Return the rewritten copy in a clean, usable format. Keep it practical, stronger
   } catch (error) {
     console.error("LANDING PAGE REWRITER ERROR:", error);
     return res.status(500).json({
-      error: error.message || "Landing page rewrite failed."
+      error: error.message || "The forge went out. Relight in a moment."
     });
   }
 }
