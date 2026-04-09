@@ -72,8 +72,8 @@
     .background::after {
       content: "";
       position: absolute;
-      width: 950px;
-      height: 950px;
+      width: 980px;
+      height: 980px;
       left: 50%;
       top: 8%;
       transform: translate(-50%, -50%);
@@ -183,23 +183,38 @@
       padding: 34px 20px 70px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: stretch;
-      padding: 34px 0 18px;
+    .section {
+      margin-top: 34px;
     }
 
+    .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      font-size: 2.25rem;
+      color: #f3efe4;
+      margin-bottom: 8px;
+    }
+
+    .section-heading p {
+      color: rgba(255,255,255,0.78);
+      max-width: 860px;
+    }
+
+    .glass-card,
     .hero-card,
     .hero-preview,
     .trust-bar,
-    .section-shell,
     .workflow-card,
     .testimonial-card,
+    .tool-card,
+    .group-shell,
     .pricing-card,
     .cta-panel,
-    .faq-card {
+    .faq-card,
+    .compare-card,
+    .mini-start-card {
       background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 28px;
@@ -207,8 +222,53 @@
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
     }
 
+    .hero {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 26px;
+      align-items: stretch;
+      padding: 28px 0 12px;
+    }
+
     .hero-card {
-      padding: 36px;
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero-brand-logo {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(0,255,255,0.18));
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-brand-text strong {
+      font-size: 1.1rem;
+      color: #f3efe4;
+      line-height: 1.1;
+    }
+
+    .hero-brand-text span {
+      color: rgba(255,255,255,0.66);
+      font-size: 0.92rem;
     }
 
     .hero-badge {
@@ -228,6 +288,7 @@
       color: #f3efe4;
       margin-bottom: 14px;
       letter-spacing: -1.3px;
+      max-width: 740px;
     }
 
     .hero h1 .accent {
@@ -236,7 +297,7 @@
     }
 
     .hero p {
-      font-size: 1.08rem;
+      font-size: 1.06rem;
       color: rgba(255,255,255,0.82);
       max-width: 760px;
       line-height: 1.8;
@@ -260,7 +321,7 @@
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 26px;
+      margin-top: 24px;
     }
 
     .btn-primary,
@@ -300,7 +361,7 @@
     }
 
     .hero-preview {
-      padding: 26px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -359,7 +420,13 @@
     .preview-output {
       background: rgba(92,245,255,0.06);
       border: 1px solid rgba(120,255,255,0.12);
-      min-height: 140px;
+      min-height: 150px;
+    }
+
+    .preview-footer {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.64);
     }
 
     .typing {
@@ -388,23 +455,37 @@
       font-size: 0.98rem;
     }
 
-    .section {
-      margin-top: 36px;
+    .start-here-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
     }
 
-    .section-heading {
-      margin-bottom: 20px;
+    .mini-start-card {
+      padding: 22px;
     }
 
-    .section-heading h2 {
-      font-size: 2.3rem;
+    .mini-start-card h3 {
       color: #f3efe4;
       margin-bottom: 8px;
+      font-size: 1.15rem;
     }
 
-    .section-heading p {
+    .mini-start-card p {
       color: rgba(255,255,255,0.78);
-      max-width: 860px;
+      margin-bottom: 14px;
+      font-size: 0.96rem;
+    }
+
+    .mini-start-card a {
+      color: #8ef1ff;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .mini-start-card a:hover {
+      color: #b7fbff;
+      text-decoration: underline;
     }
 
     .workflow-grid {
@@ -442,20 +523,37 @@
       font-size: 0.96rem;
     }
 
+    .testimonials-grid,
     .featured-grid,
     .group-grid,
-    .testimonials-grid,
     .pricing-grid,
-    .faq-grid {
+    .faq-grid,
+    .compare-grid {
       display: grid;
       gap: 22px;
     }
 
-    .featured-grid {
+    .testimonials-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .group-grid {
+    .testimonial-card {
+      padding: 24px;
+    }
+
+    .quote {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.86);
+      margin-bottom: 12px;
+    }
+
+    .author {
+      color: rgba(255,255,255,0.62);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .featured-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
@@ -464,10 +562,6 @@
       text-decoration: none;
       color: inherit;
       padding: 24px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
       transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
     }
 
@@ -523,37 +617,59 @@
       font-size: 0.84rem;
     }
 
+    .compare-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .compare-card {
+      padding: 24px;
+    }
+
+    .compare-card h3 {
+      color: #f3efe4;
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .compare-card p {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .group-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .group-shell {
-      padding: 26px;
-      border-radius: 26px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 24px;
     }
 
     .group-shell h3 {
       color: #f3efe4;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+      font-size: 1.22rem;
+      margin-bottom: 8px;
     }
 
     .group-shell > p {
-      color: rgba(255,255,255,0.78);
-      margin-bottom: 18px;
+      color: rgba(255,255,255,0.76);
+      margin-bottom: 14px;
+      font-size: 0.94rem;
     }
 
     .mini-links {
       display: grid;
-      gap: 10px;
+      gap: 8px;
     }
 
     .mini-links a {
       text-decoration: none;
       color: rgba(255,255,255,0.86);
-      padding: 12px 14px;
-      border-radius: 14px;
+      padding: 10px 12px;
+      border-radius: 12px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.06);
       font-weight: 700;
+      font-size: 0.92rem;
       transition: background .2s ease, transform .2s ease, border-color .2s ease;
     }
 
@@ -561,26 +677,6 @@
       background: rgba(142,241,255,0.08);
       border-color: rgba(142,241,255,0.18);
       transform: translateY(-1px);
-    }
-
-    .testimonials-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .testimonial-card {
-      padding: 24px;
-    }
-
-    .quote {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.86);
-      margin-bottom: 12px;
-    }
-
-    .author {
-      color: rgba(255,255,255,0.62);
-      font-size: 0.9rem;
-      font-weight: 700;
     }
 
     .pricing-grid {
@@ -725,11 +821,13 @@
         grid-template-columns: 1fr;
       }
 
+      .start-here-grid,
       .featured-grid,
       .group-grid,
       .testimonials-grid,
       .pricing-grid,
-      .faq-grid {
+      .faq-grid,
+      .compare-grid {
         grid-template-columns: 1fr 1fr;
       }
 
@@ -758,9 +856,15 @@
 
       .hero-card,
       .hero-preview,
-      .section-shell,
+      .mini-start-card,
+      .workflow-card,
+      .testimonial-card,
+      .tool-card,
       .group-shell,
+      .pricing-card,
       .cta-panel,
+      .faq-card,
+      .compare-card,
       .trust-bar {
         padding: 22px;
       }
@@ -773,11 +877,13 @@
         font-size: 1.9rem;
       }
 
+      .start-here-grid,
       .featured-grid,
       .group-grid,
       .testimonials-grid,
       .pricing-grid,
       .faq-grid,
+      .compare-grid,
       .workflow-grid {
         grid-template-columns: 1fr;
       }
@@ -788,6 +894,15 @@
 
       .nav-cta {
         width: 100%;
+      }
+
+      .hero-brand-row {
+        align-items: flex-start;
+      }
+
+      .hero-brand-logo {
+        width: 62px;
+        height: 62px;
       }
     }
   </style>
@@ -819,10 +934,20 @@
   <main class="page">
     <section class="hero">
       <div class="hero-card">
+        <div class="hero-brand-row">
+          <img src="logo.png" alt="Utility Forge AI logo" class="hero-brand-logo" />
+          <div class="hero-brand-text">
+            <strong>Utility Forge AI</strong>
+            <span>Focused AI tools for real workflows</span>
+          </div>
+        </div>
+
         <div class="hero-badge">Practical AI tools for real workflows</div>
+
         <h1>
           Turn messy work into <span class="accent">clear results</span> faster.
         </h1>
+
         <p>
           Utility Forge AI helps you get hired faster, improve emails, strengthen website copy, and create clearer content with focused tools that are easier to use than starting from scratch in a generic chat.
         </p>
@@ -853,12 +978,43 @@
           <div class="preview-output">
             <span class="typing" id="previewOutput"></span><span class="cursor">|</span>
           </div>
+
+          <div class="preview-footer">Done in seconds with tool-specific workflows</div>
         </div>
       </div>
     </section>
 
     <section class="trust-bar">
       Used by job seekers, freelancers, creators, and builders to improve resumes, emails, websites, and workflows faster.
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Start here based on what you need</h2>
+        <p>
+          The fastest way to reduce overwhelm is to start from your goal instead of scanning every tool at once.
+        </p>
+      </div>
+
+      <div class="start-here-grid">
+        <div class="mini-start-card">
+          <h3>Start here for job seekers</h3>
+          <p>Use the tools that help you understand job posts, improve resumes, and build stronger application materials.</p>
+          <a href="job-analyzer.html">Open the job workflow →</a>
+        </div>
+
+        <div class="mini-start-card">
+          <h3>Start here for business owners</h3>
+          <p>Use the tools that improve site messaging, offers, pages, and growth direction without a full rebuild first.</p>
+          <a href="website-audit.html">Open the business workflow →</a>
+        </div>
+
+        <div class="mini-start-card">
+          <h3>Start here for quick writing help</h3>
+          <p>Use the tools that help with emails, summaries, research, brainstorming, and fast content support.</p>
+          <a href="email-polisher.html">Open the writing workflow →</a>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="workflow">
@@ -896,11 +1052,62 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="section-heading">
+        <h2>What users care about most</h2>
+        <p>
+          Trust goes up when people can see how the tools help in real situations, even before you have giant public numbers.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="quote">“This cleaned up my resume bullets way faster than trying to word them all myself.”</div>
+          <div class="author">Job seeker workflow</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote">“The email tools helped me send messages I actually felt confident using.”</div>
+          <div class="author">Outreach workflow</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote">“The website and offer tools made weak copy feel a lot more focused and useful.”</div>
+          <div class="author">Business growth workflow</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Why use this instead of generic chat?</h2>
+        <p>
+          People already have access to general AI. The advantage here is a more focused path with less guessing and better starting points.
+        </p>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h3>Utility Forge AI</h3>
+          <p>
+            Focused workflows, cleaner starting points, and tools designed around real outcomes like job applications, email rewrites, landing page copy, and offer improvement.
+          </p>
+        </div>
+
+        <div class="compare-card">
+          <h3>Generic prompting</h3>
+          <p>
+            Flexible, but easier to get lost, easier to overprompt, and harder to build repeatable workflows when you just want a clear result fast.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="tools">
       <div class="section-heading">
         <h2>Featured tools</h2>
         <p>
-          These are the highest-value starting points for most users. They solve the clearest problems first and make the site feel less overwhelming.
+          These are the strongest first-click tools for most users. They solve the clearest problems first and keep the homepage focused.
         </p>
       </div>
 
@@ -1015,37 +1222,11 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <h2>What users care about most</h2>
-        <p>
-          Trust goes up when people can see how the tools help in real situations, even before you have giant public numbers.
-        </p>
-      </div>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="quote">“This cleaned up my resume bullets way faster than trying to word them all myself.”</div>
-          <div class="author">Job seeker workflow</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="quote">“The email tools helped me send messages I actually felt confident using.”</div>
-          <div class="author">Outreach workflow</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="quote">“The website and offer tools made weak copy feel a lot more focused and useful.”</div>
-          <div class="author">Business growth workflow</div>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="pricing">
       <div class="section-heading">
-        <h2>Simple pricing</h2>
+        <h2>Why Pro is worth it</h2>
         <p>
-          Start free, test the workflows on real work, then upgrade when you want unlimited usage and smoother daily use.
+          Free is great for testing. Pro is for people who actually want to use the platform without hitting daily interruptions.
         </p>
       </div>
 
@@ -1071,8 +1252,9 @@
           <ul>
             <li>Unlimited runs across tools</li>
             <li>Higher input limits</li>
-            <li>Built for real weekly use</li>
-            <li>Better fit for job search, writing, content, and growth work</li>
+            <li>Better for real workflows</li>
+            <li>No daily interruptions</li>
+            <li>Built for job search, writing, content, and growth work</li>
           </ul>
           <a href="pricing.html" class="btn-primary" style="width:100%; text-decoration:none;">Upgrade to Pro</a>
         </div>
@@ -1169,7 +1351,6 @@
     let previewIndex = 0;
     let typingIndex = 0;
     let deleting = false;
-    let currentText = "";
     let currentScene = previewScenes[0];
 
     const previewInput = document.getElementById("previewInput");
@@ -1267,18 +1448,16 @@
 
       if (!deleting) {
         typingIndex++;
-        currentText = currentScene.output.slice(0, typingIndex);
-        previewOutput.textContent = currentText;
+        previewOutput.textContent = currentScene.output.slice(0, typingIndex);
 
         if (typingIndex >= currentScene.output.length) {
           deleting = true;
-          setTimeout(animatePreview, 1700);
+          setTimeout(animatePreview, 1500);
           return;
         }
       } else {
         typingIndex--;
-        currentText = currentScene.output.slice(0, typingIndex);
-        previewOutput.textContent = currentText;
+        previewOutput.textContent = currentScene.output.slice(0, typingIndex);
 
         if (typingIndex <= 0) {
           deleting = false;
@@ -1286,7 +1465,7 @@
         }
       }
 
-      const speed = deleting ? 24 : 34;
+      const speed = deleting ? 20 : 30;
       setTimeout(animatePreview, speed);
     }
 
