@@ -8,13 +8,13 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Simple pricing for Utility Forge AI. Start free, upgrade to Pro for unlimited access, or join early access for Business tools and advanced workflows."
+    content="Simple pricing for Utility Forge AI. Start free, upgrade to Pro for unlimited access, or join early access for Business workflows and advanced growth tools."
   />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/pricing.html" />
 
   <meta property="og:title" content="Pricing | Utility Forge AI" />
-  <meta property="og:description" content="Start free, upgrade to Pro for unlimited access, or join early access for Business tools and advanced workflows." />
+  <meta property="og:description" content="Start free, upgrade to Pro for unlimited access, or join early access for Business workflows and advanced growth tools." />
   <meta property="og:image" content="logo-main.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://utilityforgeai.com/pricing.html" />
@@ -380,6 +380,12 @@
       color: white;
     }
 
+    .pricing-btn:disabled {
+      opacity: 0.75;
+      cursor: default;
+      transform: none !important;
+    }
+
     .pricing-trust {
       margin-top: 10px;
       text-align: center;
@@ -704,11 +710,10 @@
       <h1>
         Start free.
         <br />
-        Upgrade when you want <span class="accent">more speed and more room.</span>
+        Upgrade when you want <span class="accent">more room to move.</span>
       </h1>
       <p>
-        Utility Forge AI is designed so you can test the tools on real work first.
-        Start with the free plan, then move to Pro when you want unlimited access, larger workflows, and less friction across career, writing, outreach, and growth tools.
+        Utility Forge AI is built so you can test the platform on real work first. Start with the free plan, then move to Pro when you want unlimited access, smoother daily use, and fewer interruptions across career, writing, outreach, business, and growth workflows.
       </p>
       <div class="hero-trust">
         Secure checkout powered by Stripe • Cancel anytime • No contracts
@@ -862,7 +867,7 @@
     <section class="section">
       <h2 class="section-title">What your plan gives you access to</h2>
       <p class="section-subtitle">
-        Utility Forge AI is no longer just one type of tool. Your plan supports access across multiple workflow categories.
+        Utility Forge AI supports multiple workflow categories in one platform.
       </p>
 
       <div class="comparison-grid">
@@ -890,7 +895,7 @@
           Start with Pro if you already know you’ll use the tools repeatedly for job search, writing, research, outreach, websites, or content workflows.
         </p>
         <div class="cta-actions">
-          <button onclick="startCheckout()" class="pricing-btn primary auth-sensitive" style="width:auto; padding:14px 24px;">Upgrade to Pro</button>
+          <button onclick="startCheckout()" class="pricing-btn primary auth-sensitive" style="width:auto; padding:14px 24px;" id="ctaUpgradeBtn">Upgrade to Pro</button>
           <a href="dashboard.html" class="pricing-btn secondary" style="width:auto; padding:14px 24px;">Keep Using Free</a>
         </div>
       </div>
@@ -947,6 +952,7 @@
     const logoutBtn = document.getElementById("logoutBtn");
     const mainCta = document.getElementById("mainCta");
     const pricingProBtn = document.getElementById("pricingProBtn");
+    const ctaUpgradeBtn = document.getElementById("ctaUpgradeBtn");
 
     function getStoredAccount() {
       const raw = localStorage.getItem("uf_account");
@@ -1006,11 +1012,15 @@
         mainCta.textContent = "Pro Active";
         pricingProBtn.textContent = "Pro Active";
         pricingProBtn.disabled = true;
+        ctaUpgradeBtn.textContent = "Pro Active";
+        ctaUpgradeBtn.disabled = true;
         floatingUpgrade.classList.remove("show");
       } else {
         mainCta.textContent = "Start Pro";
         pricingProBtn.textContent = "Start Pro Now";
         pricingProBtn.disabled = false;
+        ctaUpgradeBtn.textContent = "Upgrade to Pro";
+        ctaUpgradeBtn.disabled = false;
       }
     }
 
