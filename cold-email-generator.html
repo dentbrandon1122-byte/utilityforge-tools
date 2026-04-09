@@ -73,6 +73,20 @@
       opacity: 0.15;
     }
 
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 860px;
+      height: 860px;
+      left: 50%;
+      top: 15%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
     .site-header {
       position: sticky;
       top: 0;
@@ -99,6 +113,7 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
+      min-width: 0;
     }
 
     .top-logo {
@@ -156,6 +171,12 @@
       border: none;
       cursor: pointer;
       white-space: nowrap;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
     }
 
     .page {
@@ -292,6 +313,12 @@
       font-weight: 700;
       font-size: .9rem;
       white-space: nowrap;
+    }
+
+    .usage-pill.pro {
+      background: linear-gradient(90deg, rgba(137,247,200,0.18), rgba(142,241,255,0.18));
+      border-color: rgba(142,241,255,0.28);
+      color: #dcffff;
     }
 
     .examples-label,
@@ -436,6 +463,10 @@
       color: #ffb6b6;
     }
 
+    .status-line.success {
+      color: #92ffb8;
+    }
+
     .result-label {
       margin-bottom: 8px;
     }
@@ -496,7 +527,8 @@
       .top-logo { width: 44px; height: 44px; }
       .title { font-size: 1.7rem; }
       .intro-section h1 { font-size: 1.55rem; }
-      .nav-links { gap: 16px; }
+      .nav-links { gap: 16px; justify-content: center; }
+      .nav-cta { width: 100%; }
     }
   </style>
 </head>
@@ -512,7 +544,7 @@
 
       <nav class="nav-links">
         <a href="dashboard.html">Dashboard</a>
-        <a href="index.html#pricing">Pricing</a>
+        <a href="pricing.html">Pricing</a>
         <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
         <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
         <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
@@ -551,8 +583,8 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for outreach</div>
-          <h2 class="title">Cold Email Generator</h2>
+          <div class="tool-badge">Outreach workflow tool</div>
+          <h1 class="title">Cold Email Generator</h1>
           <p class="subtitle">
             Create better outreach emails for sales, networking, introductions, leads, opportunities, and cold contact messages.
           </p>
@@ -592,7 +624,7 @@
 
       <div class="actions">
         <button id="runBtn" class="btn btn-primary">Generate Cold Email</button>
-        <button id="copyBtn" class="btn btn-secondary">Copy Result</button>
+        <button id="copyBtn" class="btn btn-secondary" disabled>Copy Result</button>
         <button id="clearBtn" class="btn btn-secondary">Clear</button>
       </div>
 
@@ -607,7 +639,7 @@
 
       <div id="upgradeHint" class="upgrade-hint">
         You’ve reached the free daily limit for this tool.
-        <a href="index.html#pricing">Upgrade to Pro</a> for unlimited usage.
+        <a href="pricing.html">Upgrade to Pro</a> for unlimited usage.
       </div>
     </section>
 
@@ -655,7 +687,6 @@
     const TOOL_KEY = "cold-email";
     const API_PATH = "/api/cold-email-generator";
     const toolName = "Cold Email";
-
     const EXAMPLES = [
       "Write a cold email to a local business owner introducing a simple AI review-response service and asking if they’d be open to a quick conversation.",
       "Create a networking email to someone in cybersecurity asking for advice on getting started and mentioning Python coursework and customer service experience.",
@@ -682,6 +713,7 @@
 
     let lastOutput = "";
     let loadingInterval = null;
+    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -708,9 +740,9 @@
       charCount.textContent = inputText.value.length;
     }
 
-    function setStatus(text = "", isError = false) {
+    function setStatus(text = "", type = "") {
       statusLine.textContent = text;
-      statusLine.classList.toggle("error", !!isError);
+      statusLine.className = "status-line" + (type ? ` ${type}` : "");
     }
 
     function hideUpgradeHint() {
@@ -741,20 +773,25 @@
         loadingInterval = null;
       }
       runBtn.disabled = false;
-      copyBtn.disabled = false;
       clearBtn.disabled = false;
+      copyBtn.disabled = !lastOutput;
+      resultHeading.textContent = "Cold Email Draft";
     }
 
     function setUsageUI(data, account = getStoredAccount()) {
       const isPro = !!(data?.pro || account?.pro);
+
       if (isPro) {
         usageText.textContent = "Pro account active — unlimited usage";
         usagePill.textContent = "Pro Plan • Unlimited";
+        usagePill.classList.add("pro");
         navUpgradeBtn.textContent = "Pro Active";
         navUpgradeBtn.disabled = true;
         navUpgradeBtn.style.opacity = ".75";
         return;
       }
+
+      usagePill.classList.remove("pro");
 
       const remaining = typeof data?.remaining === "number" ? data.remaining : null;
       const limit = typeof data?.limit === "number" ? data.limit : 5;
@@ -768,6 +805,10 @@
         remaining === null
           ? `Free Plan • ${limit}/day`
           : `Free uses left: ${remaining}`;
+
+      navUpgradeBtn.textContent = "Go Pro";
+      navUpgradeBtn.disabled = false;
+      navUpgradeBtn.style.opacity = "1";
     }
 
     async function hydrateSession() {
@@ -818,17 +859,17 @@
       }
 
       try {
-        const res = await fetch("/api/pro-status", {
+        const proRes = await fetch("/api/pro-status", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: getUserId() })
         });
 
-        const raw = await res.text();
-        let data;
-        try { data = JSON.parse(raw); } catch { data = null; }
+        const proRaw = await proRes.text();
+        let proData;
+        try { proData = JSON.parse(proRaw); } catch { proData = null; }
 
-        if (data?.pro) {
+        if (proData?.pro) {
           const updated = { ...(account || {}), id: getUserId(), pro: true };
           localStorage.setItem("uf_account", JSON.stringify(updated));
           updateAuthUI();
@@ -837,7 +878,15 @@
         }
       } catch {}
 
-      setUsageUI(null, account);
+      try {
+        const usageRes = await fetch(`/api/usage-status?userId=${encodeURIComponent(getUserId())}&tool=${encodeURIComponent(TOOL_KEY)}`);
+        const usageRaw = await usageRes.text();
+        let usageData;
+        try { usageData = JSON.parse(usageRaw); } catch { usageData = null; }
+        setUsageUI(usageData, account);
+      } catch {
+        setUsageUI(null, account);
+      }
     }
 
     async function logout() {
@@ -875,6 +924,9 @@
     }
 
     async function runTool() {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -882,9 +934,10 @@
       setStatus("");
 
       if (!text) {
-        setStatus("Please enter your outreach notes first.", true);
+        setStatus("Please enter your outreach notes first.", "error");
         resultBox.textContent = "Your cold email will appear here.";
         resultHeading.textContent = "Cold Email Draft";
+        isRunning = false;
         return;
       }
 
@@ -911,7 +964,7 @@
         }
 
         if (!response.ok) {
-          if (response.status === 429) {
+          if (response.status === 429 || (data.error || "").includes("Daily free limit reached")) {
             showUpgradeHint();
             setUsageUI(data);
           }
@@ -919,30 +972,29 @@
         }
 
         lastOutput = data.result || "";
-        resultHeading.textContent = "Cold Email Draft";
         resultBox.textContent = lastOutput || "No result returned.";
-        setStatus("Cold email forged successfully.");
+        setStatus("Cold email forged successfully.", "success");
         setUsageUI(data);
       } catch (error) {
-        resultHeading.textContent = "Cold Email Draft";
         resultBox.textContent = error.message || "Something went wrong. Please try again.";
-        setStatus(error.message || "Something went wrong. Please try again.", true);
+        setStatus(error.message || "Something went wrong. Please try again.", "error");
       } finally {
         stopLoadingState();
+        isRunning = false;
       }
     }
 
     async function copyResult() {
       if (!lastOutput) {
-        setStatus("Nothing to copy yet.", true);
+        setStatus("Nothing to copy yet.", "error");
         return;
       }
 
       try {
         await navigator.clipboard.writeText(lastOutput);
-        setStatus("Result copied to clipboard.");
+        setStatus("Result copied to clipboard.", "success");
       } catch {
-        setStatus("Could not copy result.", true);
+        setStatus("Could not copy result.", "error");
       }
     }
 
@@ -953,6 +1005,7 @@
       lastOutput = "";
       resultHeading.textContent = "Cold Email Draft";
       resultBox.textContent = "Your cold email will appear here.";
+      copyBtn.disabled = true;
       setStatus("");
       hideUpgradeHint();
     }
@@ -984,6 +1037,7 @@
       updateAuthUI();
       await refreshUsage();
       updateCount();
+      copyBtn.disabled = true;
       document.body.classList.add("auth-ready");
     })();
   </script>
