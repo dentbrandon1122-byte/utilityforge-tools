@@ -58,6 +58,20 @@
       opacity: 0.15;
     }
 
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 860px;
+      height: 860px;
+      left: 50%;
+      top: 15%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
     .site-header {
       position: sticky;
       top: 0;
@@ -84,6 +98,7 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
+      min-width: 0;
     }
 
     .top-logo {
@@ -507,6 +522,33 @@
       .seo-detail-panel h2,
       .related-tools h2 { font-size: 1.25rem; }
     }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .page {
+        padding: 34px 16px 50px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -560,8 +602,8 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for stronger first impressions</div>
-          <h2 class="title">Headline Generator</h2>
+          <div class="tool-badge">Growth workflow tool</div>
+          <h1 class="title">Headline Generator</h1>
           <p class="subtitle">Generate stronger headlines so your page, offer, or service is easier to understand and more likely to hold attention fast.</p>
         </div>
 
@@ -608,7 +650,10 @@
 
       <label class="result-label">Headline Options</label>
       <div class="result-box" id="resultBox">Your headline options will appear here.</div>
-      <div class="tip">Tip: include who the offer is for, what result it creates, and what makes it different for better headline options.</div>
+      <div class="tip">
+        Tip: include who the offer is for, what result it creates, and what makes it different for better headline options.<br><br>
+        Pro tip: include the transformation, audience, and value angle together for noticeably stronger headline directions.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -660,6 +705,7 @@
     const API_PATH = "/api/headline-generator";
     const toolName = "Headline";
     let loadingInterval = null;
+    let isRunning = false;
 
     const EXAMPLES = [
       "Generate homepage headlines for a website audit service for small businesses.",
@@ -734,10 +780,17 @@
     function updateAuthUI() {
       const account = getStoredAccount();
       const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
 
       loginLink.classList.toggle("hidden", loggedIn);
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      if (isPro) {
+        navUpgradeBtn.classList.add("hidden");
+      } else {
+        navUpgradeBtn.classList.remove("hidden");
+      }
     }
 
     function updateCount() {
@@ -842,6 +895,7 @@
             pro: true
           }));
           setUsageUI({ pro: true });
+          updateAuthUI();
         }
       } catch {}
     }
@@ -925,6 +979,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +989,7 @@
         resultBox.textContent = "Please enter a page goal or offer description first.";
         setStatus("Please enter a page goal or offer description first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -971,6 +1029,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
