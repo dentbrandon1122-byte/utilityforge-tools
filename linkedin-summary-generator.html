@@ -58,6 +58,20 @@
       opacity: 0.15;
     }
 
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 860px;
+      height: 860px;
+      left: 50%;
+      top: 15%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
     .site-header {
       position: sticky;
       top: 0;
@@ -84,6 +98,7 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
+      min-width: 0;
     }
 
     .top-logo {
@@ -507,6 +522,33 @@
       .related-tools h2,
       .seo-detail-panel h2 { font-size: 1.25rem; }
     }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .page {
+        padding: 34px 16px 50px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -560,8 +602,8 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for better professional branding</div>
-          <h2 class="title">LinkedIn Summary Generator</h2>
+          <div class="tool-badge">Career workflow tool</div>
+          <h1 class="title">LinkedIn Summary Generator</h1>
           <p class="subtitle">Turn rough background notes into a cleaner, stronger, more professional LinkedIn summary faster.</p>
         </div>
 
@@ -660,6 +702,7 @@
     const API_PATH = "/api/linkedin-summary-generator";
     const toolName = "LinkedIn Summary";
     let loadingInterval = null;
+    let isRunning = false;
 
     const EXAMPLES = [
       "I have customer service, communication, and problem-solving experience and want to transition into tech support.",
@@ -734,10 +777,17 @@
     function updateAuthUI() {
       const account = getStoredAccount();
       const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
 
       loginLink.classList.toggle("hidden", loggedIn);
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      if (isPro) {
+        navUpgradeBtn.classList.add("hidden");
+      } else {
+        navUpgradeBtn.classList.remove("hidden");
+      }
     }
 
     function updateCount() {
@@ -842,6 +892,7 @@
             pro: true
           }));
           setUsageUI({ pro: true });
+          updateAuthUI();
         }
       } catch {}
     }
@@ -925,6 +976,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +986,7 @@
         resultBox.textContent = "Please enter your LinkedIn summary details first.";
         setStatus("Please enter your LinkedIn summary details first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -942,7 +997,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text,
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -971,6 +1030,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
