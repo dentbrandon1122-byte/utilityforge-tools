@@ -3,57 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utility Forge AI | AI Job Search and Growth Tools</title>
-
+  <title>AI Tools for Career, Business, and Content Growth | Utility Forge AI</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Utility Forge AI helps you get hired faster and grow smarter with AI-powered job search workflows, resume tools, outreach tools, business growth tools, SEO tools, and more."
+    content="Utility Forge AI helps you get hired faster, improve emails, strengthen websites, and create clearer content with practical AI tools built for real workflows."
   />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/" />
 
-  <meta property="og:title" content="Utility Forge AI | AI Job Search and Growth Tools" />
-  <meta property="og:description" content="Build stronger resumes, improve outreach, sharpen websites, and move faster with Utility Forge AI." />
+  <meta property="og:title" content="AI Tools for Career, Business, and Content Growth | Utility Forge AI" />
+  <meta
+    property="og:description"
+    content="Write stronger resumes, better emails, higher-converting websites, and clearer content with focused AI tools built for real workflows."
+  />
   <meta property="og:image" content="logo-main.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://utilityforgeai.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Utility Forge AI | AI Job Search and Growth Tools" />
-  <meta name="twitter:description" content="AI tools and workflows for job seekers, business growth, writing, research, and outreach." />
+  <meta name="twitter:title" content="AI Tools for Career, Business, and Content Growth | Utility Forge AI" />
+  <meta
+    name="twitter:description"
+    content="Focused AI tools for job seekers, freelancers, creators, founders, and businesses that want results without guesswork."
+  />
   <meta name="twitter:image" content="logo-main.png" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: Arial, sans-serif;
       background: #0b1020;
-      color: white;
-      overflow-x: hidden;
+      color: #fff;
+      min-height: 100vh;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     body:not(.auth-ready) .auth-sensitive {
       visibility: hidden;
     }
 
+    .hidden { display: none !important; }
+
     .background {
       position: fixed;
       inset: 0;
       z-index: -3;
       background:
-        radial-gradient(circle at top left, rgba(0, 255, 255, 0.06), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(0, 140, 255, 0.06), transparent 35%),
+        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
         linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
     }
 
@@ -62,8 +63,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
       background-size: 42px 42px;
       opacity: 0.15;
     }
@@ -71,25 +72,25 @@
     .background::after {
       content: "";
       position: absolute;
-      width: 900px;
-      height: 900px;
+      width: 950px;
+      height: 950px;
       left: 50%;
-      top: 25%;
+      top: 8%;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0, 255, 255, 0.07), transparent 65%);
+      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
       filter: blur(42px);
-      opacity: 0.4;
+      opacity: 0.45;
       pointer-events: none;
     }
 
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 60;
       padding: 18px 40px;
-      background: rgba(8, 12, 24, 0.58);
+      background: rgba(8,12,24,0.58);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .nav-shell {
@@ -116,7 +117,7 @@
       height: 64px;
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.18));
+      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
       flex-shrink: 0;
     }
 
@@ -131,14 +132,14 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
     .nav-links a,
     .nav-links button.linklike {
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.86);
+      color: rgba(255,255,255,0.86);
       font-size: 1rem;
       font-weight: 600;
       transition: color 0.2s ease, transform 0.2s ease;
@@ -159,86 +160,107 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      padding: 14px 26px;
+      padding: 14px 24px;
       border-radius: 16px;
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
+      color: #081018;
       font-weight: 800;
-      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      white-space: nowrap;
+      box-shadow: 0 0 18px rgba(142,241,255,0.16);
       border: none;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
     }
 
     .nav-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
-    }
-
-    .hidden {
-      display: none !important;
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
     }
 
     .page {
-      position: relative;
-      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 34px 20px 70px;
     }
 
     .hero {
-      min-height: 92vh;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 80px 50px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 60px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+      padding: 34px 0 18px;
     }
 
-    .hero-left {
-      flex: 1;
-      max-width: 720px;
+    .hero-card,
+    .hero-preview,
+    .trust-bar,
+    .section-shell,
+    .workflow-card,
+    .testimonial-card,
+    .pricing-card,
+    .cta-panel,
+    .faq-card {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
+    }
+
+    .hero-card {
+      padding: 36px;
     }
 
     .hero-badge {
       display: inline-block;
       padding: 10px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(120, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(120,255,255,0.18);
+      background: rgba(255,255,255,0.04);
       color: #d8ffff;
       font-size: 14px;
-      margin-bottom: 24px;
-      backdrop-filter: blur(8px);
+      margin-bottom: 16px;
     }
 
-    .hero-left h1 {
-      font-size: 4.35rem;
+    .hero h1 {
+      font-size: 4rem;
       line-height: 0.98;
-      margin-bottom: 22px;
       color: #f3efe4;
-      letter-spacing: -1.5px;
-    }
-
-    .hero-left h1 .accent {
-      color: #92ffb8;
-      text-shadow: 0 0 14px rgba(146, 255, 184, 0.12);
-    }
-
-    .hero-left p {
-      font-size: 1.14rem;
-      line-height: 1.8;
-      color: rgba(255, 255, 255, 0.86);
-      margin-bottom: 24px;
-      max-width: 680px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
       margin-bottom: 14px;
+      letter-spacing: -1.3px;
+    }
+
+    .hero h1 .accent {
+      color: #92ffb8;
+      text-shadow: 0 0 14px rgba(146,255,184,0.12);
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 760px;
+      line-height: 1.8;
+    }
+
+    .hero-points {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .hero-points div::before {
+      content: "•";
+      color: #8ef1ff;
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
     }
 
     .btn-primary,
@@ -246,518 +268,221 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 15px 26px;
+      padding: 14px 24px;
       border-radius: 16px;
       text-decoration: none;
       font-weight: 800;
-      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
     }
 
     .btn-primary {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-      box-shadow: 0 0 18px rgba(142, 241, 255, 0.16);
+      color: #081018;
+      box-shadow: 0 0 18px rgba(142,241,255,0.16);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142, 241, 255, 0.24);
+      box-shadow: 0 0 24px rgba(142,241,255,0.24);
     }
 
     .btn-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: white;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .btn-secondary:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.09);
     }
 
-    .hero-social-proof {
-      margin-top: 6px;
-      margin-bottom: 18px;
-      font-size: 0.92rem;
-      color: rgba(255,255,255,0.62);
-    }
-
-    .hero-trust {
-      color: rgba(255,255,255,0.72);
-      font-size: 0.95rem;
-      margin-bottom: 18px;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .hero-tags span {
-      padding: 9px 15px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.045);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 14px;
-    }
-
-    .hero-right {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 520px;
-    }
-
-    .logo-panel {
-      width: 100%;
-      max-width: 560px;
-      min-height: 530px;
+    .hero-preview {
+      padding: 26px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      gap: 20px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(120, 255, 255, 0.11);
-      box-shadow:
-        0 0 34px rgba(0, 255, 255, 0.05),
-        inset 0 0 24px rgba(255, 255, 255, 0.018);
-      backdrop-filter: blur(12px);
-      position: relative;
-      overflow: hidden;
-      padding: 30px;
+      min-height: 100%;
     }
 
-    .logo-panel::before {
-      content: "";
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(95, 244, 255, 0.14), transparent 68%);
-      filter: blur(10px);
-      top: 48px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: glowPulse 4s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .logo-panel::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.03) 32%, transparent 58%);
-      transform: translateX(-130%);
-      animation: panelSweep 8s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes glowPulse {
-      0%, 100% {
-        opacity: 0.55;
-        transform: translateX(-50%) scale(1);
-      }
-      50% {
-        opacity: 0.9;
-        transform: translateX(-50%) scale(1.04);
-      }
-    }
-
-    @keyframes panelSweep {
-      0% { transform: translateX(-130%); }
-      100% { transform: translateX(130%); }
-    }
-
-    .hero-logo {
-      width: 280px;
-      max-width: 82%;
-      height: auto;
-      display: block;
-      position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.18));
-    }
-
-    .panel-title {
-      position: relative;
-      z-index: 2;
-      font-size: 1.02rem;
-      font-weight: 700;
-      color: #dcffff;
-      text-align: center;
-      letter-spacing: 0.3px;
-    }
-
-    .app-preview {
-      width: 100%;
-      max-width: 430px;
-      position: relative;
-      z-index: 2;
-      border-radius: 22px;
-      background: rgba(6, 16, 30, 0.76);
-      border: 1px solid rgba(120, 255, 255, 0.12);
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
-      overflow: hidden;
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-
-    .app-preview.is-transitioning {
-      opacity: 0.78;
-      transform: translateY(4px);
-    }
-
-    .app-topbar {
+    .preview-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.03);
+      margin-bottom: 18px;
+      gap: 12px;
     }
 
-    .app-top-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .preview-top strong {
+      color: #f3efe4;
+      font-size: 1.05rem;
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.28);
-    }
-
-    .app-label {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.74);
-      font-weight: 600;
-      margin-left: 6px;
-    }
-
-    .app-badge {
-      padding: 6px 10px;
+    .preview-pill {
+      padding: 7px 12px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #081018;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-    }
-
-    .app-body {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .mock-field-label {
       font-size: 0.78rem;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.56);
-      margin-bottom: 6px;
-      font-weight: 700;
+      font-weight: 800;
+      background: rgba(142,241,255,0.12);
+      border: 1px solid rgba(142,241,255,0.18);
+      color: #dcffff;
     }
 
-    .mock-box {
-      border-radius: 16px;
+    .preview-window {
+      border-radius: 22px;
+      background: rgba(255,255,255,0.035);
       border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.04);
+      padding: 18px;
+    }
+
+    .preview-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.62);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .preview-input,
+    .preview-output {
+      border-radius: 16px;
       padding: 14px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
       color: rgba(255,255,255,0.84);
-      font-size: 1rem;
-      line-height: 1.55;
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      min-height: 84px;
+    }
+
+    .preview-output {
+      background: rgba(92,245,255,0.06);
+      border: 1px solid rgba(120,255,255,0.12);
+      min-height: 140px;
+    }
+
+    .typing {
+      display: inline-block;
       white-space: pre-wrap;
     }
 
-    .mock-box.output {
-      background: rgba(92, 245, 255, 0.06);
-      border-color: rgba(120, 255, 255, 0.12);
-    }
-
-    #typedInput,
-    #typedOutput {
-      min-height: 92px;
-    }
-
-    .typing-cursor::after {
-      content: "|";
+    .cursor {
       display: inline-block;
+      width: 8px;
       margin-left: 2px;
-      color: #8ef1ff;
-      animation: blinkCursor 0.8s infinite;
+      animation: blink 1s infinite;
+      color: #92ffb8;
     }
 
-    @keyframes blinkCursor {
+    @keyframes blink {
       0%, 49% { opacity: 1; }
       50%, 100% { opacity: 0; }
     }
 
-    .app-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 2px;
-    }
-
-    .app-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      cursor: default;
-    }
-
-    .app-btn.primary {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #0c1420;
-    }
-
-    .app-btn.secondary {
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.84);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .feature-row {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .feature-pill {
-      min-width: 110px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+    .trust-bar {
+      margin-top: 12px;
+      padding: 18px 24px;
       text-align: center;
-      backdrop-filter: blur(8px);
-    }
-
-    .feature-pill strong {
-      display: block;
-      color: #8ef1ff;
-      font-size: 0.95rem;
-      margin-bottom: 3px;
-    }
-
-    .feature-pill span {
-      display: block;
       color: rgba(255,255,255,0.78);
-      font-size: 0.8rem;
-      line-height: 1.35;
+      font-size: 0.98rem;
     }
 
     .section {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 85px 50px;
+      margin-top: 36px;
     }
 
-    .section-title {
-      font-size: 2.7rem;
-      margin-bottom: 14px;
+    .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      font-size: 2.3rem;
       color: #f3efe4;
+      margin-bottom: 8px;
     }
 
-    .section-subtitle {
+    .section-heading p {
+      color: rgba(255,255,255,0.78);
       max-width: 860px;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 1.08rem;
-      margin-bottom: 34px;
     }
 
-    .workflow-card,
-    .card,
-    .proof-card,
-    .seo-home-panel,
-    .featured-tool-card,
-    .testimonial-card,
-    .compare-card,
-    .advanced-card,
-    .focus-card,
-    .result-card {
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .workflow-card {
+      padding: 22px;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: rgba(142,241,255,0.14);
+      border: 1px solid rgba(142,241,255,0.18);
+      color: #dcffff;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .workflow-card h3 {
+      color: #f3efe4;
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+    }
+
+    .workflow-card p {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.96rem;
+    }
+
+    .featured-grid,
+    .group-grid,
+    .testimonials-grid,
+    .pricing-grid,
+    .faq-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .featured-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .group-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .tool-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
       padding: 24px;
       border-radius: 24px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
-      backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
     }
 
-    .workflow-grid,
-    .card-grid,
-    .proof-grid,
-    .advanced-grid,
-    .focus-grid,
-    .results-grid {
-      display: grid;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .workflow-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .card-grid,
-    .proof-grid,
-    .advanced-grid,
-    .focus-grid,
-    .results-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .workflow-card h3,
-    .card h3,
-    .proof-card h3,
-    .compare-card h3,
-    .advanced-card h3,
-    .focus-card h3,
-    .result-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #eaffff;
-    }
-
-    .workflow-card p,
-    .card p,
-    .proof-card p,
-    .compare-card p,
-    .advanced-card p,
-    .focus-card p,
-    .result-card p {
-      color: rgba(255,255,255,0.8);
-      font-size: 1rem;
-    }
-
-    .workflow-step-number {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      font-weight: 800;
-      color: #081018;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-    }
-
-    .featured-tool-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .featured-tool-copy {
-      flex: 1;
-      min-width: 280px;
-    }
-
-    .featured-eyebrow {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(120,255,200,0.15);
-      color: #9effd6;
-      font-size: 0.78rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .featured-tool-card h3 {
-      font-size: 1.8rem;
-      color: #f3efe4;
-      margin-bottom: 10px;
-    }
-
-    .featured-tool-card p {
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 14px;
-      max-width: 760px;
-    }
-
-    .featured-tool-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .mini-link {
-      color: #8ef1ff;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .mini-link:hover {
-      text-decoration: underline;
-    }
-
-    .featured-tool-side {
-      min-width: 220px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .featured-stat {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .featured-stat strong {
-      display: block;
-      color: #dcffff;
-      margin-bottom: 4px;
-      font-size: 1rem;
-    }
-
-    .featured-stat span {
-      display: block;
-      color: rgba(255,255,255,0.72);
-      font-size: 0.88rem;
-    }
-
-    .card-grid a.card,
-    .advanced-grid a.advanced-card {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card-grid a.card:hover,
-    .advanced-grid a.advanced-card:hover {
-      transform: translateY(-6px) scale(1.01);
+    .tool-card:hover {
+      transform: translateY(-6px);
       border-color: rgba(142,241,255,0.22);
       box-shadow: 0 0 26px rgba(142,241,255,0.08);
     }
 
-    .card-top,
-    .advanced-top {
+    .tool-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .tool-icon {
@@ -767,171 +492,111 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
+      font-size: 1.25rem;
     }
 
-    .plan-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .plan-badge {
+    .tool-tag {
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 0.2px;
-    }
-
-    .plan-badge.free {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.86);
-    }
-
-    .plan-badge.pro {
       background: linear-gradient(90deg, #89f7c8, #8ef1ff);
       color: #081018;
     }
 
-    .plan-badge.new {
-      background: rgba(146,255,184,0.14);
-      border: 1px solid rgba(146,255,184,0.18);
-      color: #b9ffd0;
-    }
-
-    .plan-badge.business {
-      background: rgba(0,255,255,0.12);
-      border: 1px solid rgba(142,241,255,0.18);
-      color: #baf7ff;
-    }
-
-    .tool-access {
-      color: rgba(255,255,255,0.64);
-      font-size: 0.85rem;
-      line-height: 1.5;
-      margin-top: 12px;
-    }
-
-    .upgrade-copy {
-      margin-top: 10px;
-      font-size: 0.84rem;
-      color: rgba(255,255,255,0.62);
-      line-height: 1.5;
-    }
-
-    .compare-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .compare-label {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .compare-label.before {
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.86);
-    }
-
-    .compare-label.after {
-      background: linear-gradient(90deg, rgba(137,247,200,0.2), rgba(142,241,255,0.2));
-      color: #dcffff;
-    }
-
-    .seo-home-panel {
-      color: rgba(255,255,255,0.82);
-      line-height: 1.75;
-    }
-
-    .seo-home-panel h2 {
-      font-size: 1.5rem;
+    .tool-card h3 {
       color: #f3efe4;
+      font-size: 1.16rem;
+      margin-bottom: 8px;
+    }
+
+    .tool-card p {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.96rem;
       margin-bottom: 10px;
     }
 
-    .seo-home-panel h3 {
-      font-size: 1.05rem;
-      color: #dcffff;
-      margin: 18px 0 10px;
+    .tool-note {
+      color: rgba(255,255,255,0.62);
+      font-size: 0.84rem;
     }
 
-    .seo-home-panel p,
-    .seo-home-panel ul {
-      margin-bottom: 14px;
+    .group-shell {
+      padding: 26px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .seo-home-panel ul {
-      margin-left: 20px;
-      color: rgba(255,255,255,0.8);
+    .group-shell h3 {
+      color: #f3efe4;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
     }
 
-    .seo-home-panel li {
-      margin-bottom: 8px;
+    .group-shell > p {
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 18px;
+    }
+
+    .mini-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.86);
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-weight: 700;
+      transition: background .2s ease, transform .2s ease, border-color .2s ease;
+    }
+
+    .mini-links a:hover {
+      background: rgba(142,241,255,0.08);
+      border-color: rgba(142,241,255,0.18);
+      transform: translateY(-1px);
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .testimonial-card {
+      padding: 24px;
+    }
+
+    .quote {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.86);
+      margin-bottom: 12px;
+    }
+
+    .author {
+      color: rgba(255,255,255,0.62);
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
     .pricing-grid {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
     }
 
     .pricing-card {
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
-      border-radius: 22px;
-      width: 300px;
+      padding: 28px;
       position: relative;
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
     }
 
-    .pricing-card h3 {
-      font-size: 1.35rem;
-      margin-bottom: 8px;
-      color: #f3efe4;
-    }
-
-    .pricing-desc {
-      color: rgba(255,255,255,0.76);
-      font-size: 0.95rem;
-      margin-bottom: 14px;
-      min-height: 48px;
-    }
-
-    .price {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin: 10px 0 16px;
-      color: #92ffb8;
-    }
-
-    .price small {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.64);
-      margin-left: 2px;
-    }
-
-    .coming {
-      font-size: 2rem;
-      font-weight: 800;
-      margin: 10px 0 16px;
-      color: #92ffb8;
+    .pricing-card.featured {
+      border-color: rgba(124,255,178,.38);
+      box-shadow: 0 16px 34px rgba(0,0,0,.26);
+      transform: translateY(-6px);
     }
 
     .popular-tag {
@@ -943,23 +608,46 @@
       padding: 5px 10px;
       font-size: 12px;
       border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .pricing-card h3 {
+      color: #f3efe4;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .pricing-desc {
+      color: rgba(255,255,255,0.76);
+      min-height: 46px;
+      margin-bottom: 14px;
+    }
+
+    .price {
+      font-size: 2.35rem;
+      color: #92ffb8;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .price small {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.62);
       font-weight: 700;
     }
 
     .pricing-card ul {
       list-style: none;
-      margin: 20px 0;
-      padding-left: 0;
       display: grid;
       gap: 10px;
-      text-align: left;
+      margin: 0 0 20px 0;
+      padding: 0;
     }
 
     .pricing-card li {
-      color: rgba(255, 255, 255, 0.84);
-      line-height: 1.5;
+      color: rgba(255,255,255,0.84);
       position: relative;
-      padding-left: 18px;
+      padding-left: 16px;
     }
 
     .pricing-card li::before {
@@ -970,67 +658,49 @@
       font-weight: 900;
     }
 
-    .pricing-btn {
-      width: 100%;
-      padding: 13px;
-      border-radius: 12px;
-      border: none;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 10px;
+    .cta-panel {
+      padding: 32px;
       text-align: center;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .pricing-btn.primary {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
+    .cta-panel h2 {
+      color: #f3efe4;
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
 
-    .pricing-btn.secondary {
-      background: rgba(255,255,255,0.15);
-      color: white;
+    .cta-panel p {
+      color: rgba(255,255,255,0.8);
+      max-width: 800px;
+      margin: 0 auto 18px;
     }
 
-    .pricing-note {
-      margin-top: 14px;
-      font-size: .82rem;
-      opacity: .72;
-      color: rgba(255,255,255,0.75);
-    }
-
-    .testimonials-shell {
-      display: grid;
-      gap: 22px;
+    .faq-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .testimonial-card h3 {
-      font-size: 1rem;
+    .faq-card {
+      padding: 22px;
+    }
+
+    .faq-card h3 {
       color: #f3efe4;
       margin-bottom: 8px;
+      font-size: 1.05rem;
     }
 
-    .testimonial-card p {
-      color: rgba(255,255,255,0.8);
-    }
-
-    .testimonial-role {
-      color: rgba(255,255,255,0.62);
-      font-size: 0.88rem;
-      margin-bottom: 10px;
+    .faq-card p {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.96rem;
     }
 
     .footer {
       max-width: 1320px;
       margin: 0 auto;
-      padding: 30px 50px 50px;
+      padding: 26px 20px 50px;
+      text-align: center;
       color: rgba(255,255,255,0.58);
       font-size: 0.95rem;
-      text-align: center;
     }
 
     .footer-links {
@@ -1050,96 +720,31 @@
       color: #8ef1ff;
     }
 
-    .floating-upgrade {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 90;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border: none;
-      border-radius: 18px;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
-      font-weight: 800;
-      font-size: 0.95rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.28), 0 0 24px rgba(142,241,255,0.18);
-      cursor: pointer;
-      opacity: 0;
-      transform: translateY(16px) scale(0.98);
-      pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .floating-upgrade.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    .floating-upgrade:hover {
-      box-shadow: 0 16px 34px rgba(0,0,0,0.32), 0 0 28px rgba(142,241,255,0.26);
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 1200px) {
-      .workflow-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .card-grid,
-      .proof-grid,
-      .testimonials-shell,
-      .advanced-grid,
-      .focus-grid,
-      .results-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 900px) {
-      .nav-shell {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
+    @media (max-width: 1150px) {
       .hero {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
+        grid-template-columns: 1fr;
       }
 
-      .hero-left {
-        max-width: 100%;
+      .featured-grid,
+      .group-grid,
+      .testimonials-grid,
+      .pricing-grid,
+      .faq-grid {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .hero-left p,
-      .section-subtitle {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-buttons,
-      .hero-tags,
-      .featured-tool-actions {
-        justify-content: center;
-      }
-
-      .hero-right {
-        min-height: auto;
-        width: 100%;
+      .workflow-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 760px) {
       .site-header {
         padding: 18px 16px;
       }
 
-      .brand-text {
-        font-size: 1.2rem;
+      .page {
+        padding: 26px 16px 60px;
       }
 
       .top-logo {
@@ -1147,67 +752,42 @@
         height: 52px;
       }
 
-      .hero,
-      .section,
-      .footer {
-        padding-left: 20px;
-        padding-right: 20px;
+      .brand-text {
+        font-size: 1.2rem;
       }
 
-      .hero-left h1 {
-        font-size: 3rem;
-        letter-spacing: -1px;
+      .hero-card,
+      .hero-preview,
+      .section-shell,
+      .group-shell,
+      .cta-panel,
+      .trust-bar {
+        padding: 22px;
       }
 
-      .logo-panel {
-        max-width: 100%;
-        min-height: 430px;
-        border-radius: 24px;
-        padding: 24px 18px;
+      .hero h1 {
+        font-size: 2.7rem;
       }
 
-      .hero-logo {
-        width: 240px;
+      .section-heading h2 {
+        font-size: 1.9rem;
       }
 
-      .section-title {
-        font-size: 2.1rem;
-      }
-
-      .workflow-grid,
-      .card-grid,
-      .proof-grid,
-      .compare-grid,
-      .testimonials-shell,
-      .advanced-grid,
-      .focus-grid,
-      .results-grid {
+      .featured-grid,
+      .group-grid,
+      .testimonials-grid,
+      .pricing-grid,
+      .faq-grid,
+      .workflow-grid {
         grid-template-columns: 1fr;
       }
 
-      .floating-upgrade {
-        right: 14px;
-        left: 14px;
-        bottom: 14px;
-        justify-content: center;
-        border-radius: 16px;
-        padding: 14px 16px;
-        font-size: 0.92rem;
-      }
-    }
-
-    @media (max-width: 520px) {
       .nav-links {
-        width: 100%;
         justify-content: center;
       }
 
       .nav-cta {
         width: 100%;
-      }
-
-      .hero-left h1 {
-        font-size: 2.45rem;
       }
     }
   </style>
@@ -1223,700 +803,336 @@
       </a>
 
       <nav class="nav-links">
-        <a href="#workflow">How It Works</a>
-        <a href="#paths">Choose Your Path</a>
         <a href="#tools">Tools</a>
+        <a href="#workflow">How It Works</a>
         <a href="dashboard.html">Dashboard</a>
         <a href="pricing.html">Pricing</a>
-        <a href="#about">About</a>
         <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
         <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
         <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
       </nav>
 
-      <button class="nav-cta auth-sensitive" id="mainCta" onclick="startCheckout()">Upgrade to Pro</button>
+      <a href="pricing.html" class="nav-cta auth-sensitive" id="navCta">Start Pro</a>
     </div>
   </header>
 
   <main class="page">
     <section class="hero">
-      <div class="hero-left">
-        <div class="hero-badge">AI workflows for getting hired, growing a business, and moving faster</div>
-
+      <div class="hero-card">
+        <div class="hero-badge">Practical AI tools for real workflows</div>
         <h1>
-          Stop guessing.
-          <br />
-          <span class="accent">Start making progress.</span>
+          Turn messy work into <span class="accent">clear results</span> faster.
         </h1>
-
         <p>
-          Utility Forge AI helps you move through real work faster with focused systems for job search, outreach, business growth, and content creation. Build stronger resumes, sharper messaging, cleaner websites, and better next steps without starting from scratch each time.
+          Utility Forge AI helps you get hired faster, improve emails, strengthen website copy, and create clearer content with focused tools that are easier to use than starting from scratch in a generic chat.
         </p>
 
-        <div class="hero-buttons">
-          <a href="dashboard.html" class="btn-primary auth-sensitive" id="heroPrimaryBtn">Start My Workflow</a>
-          <a href="#workflow" class="btn-secondary">See How It Works</a>
+        <div class="hero-points">
+          <div>Build stronger resumes, cover letters, and job-targeted applications</div>
+          <div>Rewrite emails, offers, and landing pages with clearer conversion-focused copy</div>
+          <div>Generate ideas, summaries, research, and content without getting stuck</div>
         </div>
 
-        <div class="hero-social-proof">
-          ⚡ Built for resumes, outreach, job applications, website reviews, offer clarity, and SEO content workflows
-        </div>
-
-        <div class="hero-trust">
-          Start free. Upgrade when you want unlimited access, stronger workflows, and less friction.
-        </div>
-
-        <div class="hero-tags">
-          <span>Job search</span>
-          <span>Resume bullets</span>
-          <span>Cover letters</span>
-          <span>Email outreach</span>
-          <span>Website audits</span>
-          <span>SEO growth</span>
+        <div class="hero-actions">
+          <a href="#tools" class="btn-primary">Explore Featured Tools</a>
+          <a href="dashboard.html" class="btn-secondary">Open Dashboard</a>
         </div>
       </div>
 
-      <div class="hero-right">
-        <div class="logo-panel">
-          <img src="logo-main.png" alt="Utility Forge AI main logo" class="hero-logo" />
-          <div class="panel-title">Live ForgeFlow preview across the platform</div>
+      <div class="hero-preview">
+        <div class="preview-top">
+          <strong>See the workflow</strong>
+          <span class="preview-pill">Live preview</span>
+        </div>
 
-          <div class="app-preview" id="appPreview">
-            <div class="app-topbar">
-              <div class="app-top-left">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="app-label" id="toolLabel">ForgeFlow Career Mode</span>
-              </div>
-              <span class="app-badge" id="toolBadge">System Active</span>
-            </div>
+        <div class="preview-window">
+          <div class="preview-label">Input</div>
+          <div class="preview-input" id="previewInput"></div>
 
-            <div class="app-body">
-              <div>
-                <div class="mock-field-label">Input</div>
-                <div class="mock-box" id="typedInput"></div>
-              </div>
-
-              <div class="app-actions">
-                <button class="app-btn primary" id="actionBtn">Start Flow</button>
-                <button class="app-btn secondary" id="toneBtn">Focused</button>
-              </div>
-
-              <div>
-                <div class="mock-field-label">Output</div>
-                <div class="mock-box output" id="typedOutput"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="feature-row">
-            <div class="feature-pill">
-              <strong>Faster</strong>
-              <span>Less restarting</span>
-            </div>
-            <div class="feature-pill">
-              <strong>Clearer</strong>
-              <span>Better direction</span>
-            </div>
-            <div class="feature-pill">
-              <strong>Useful</strong>
-              <span>Real workflows</span>
-            </div>
+          <div class="preview-label">Output</div>
+          <div class="preview-output">
+            <span class="typing" id="previewOutput"></span><span class="cursor">|</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="workflow" class="section">
-      <h2 class="section-title">How Utility Forge AI works</h2>
-      <p class="section-subtitle">
-        Utility Forge AI is built to move you through real workflows faster, not leave you guessing which prompt or tool to try next.
-      </p>
+    <section class="trust-bar">
+      Used by job seekers, freelancers, creators, and builders to improve resumes, emails, websites, and workflows faster.
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="section-heading">
+        <h2>How Utility Forge works</h2>
+        <p>
+          Instead of using one generic prompt for everything, move through a cleaner flow: start with your problem, use the right tool, and keep building from one useful output into the next.
+        </p>
+      </div>
 
       <div class="workflow-grid">
         <div class="workflow-card">
-          <div class="workflow-step-number">1</div>
-          <h3>Choose your goal</h3>
-          <p>Start with what you actually want to improve, whether that is getting hired, improving outreach, sharpening a website, or creating stronger content.</p>
+          <div class="step-badge">1</div>
+          <h3>Start with your goal</h3>
+          <p>Pick the workflow that matches what you want: get hired, improve outreach, or grow a business page.</p>
         </div>
 
         <div class="workflow-card">
-          <div class="workflow-step-number">2</div>
-          <h3>Use the right workflow</h3>
-          <p>Open focused tools designed for that exact job instead of trying to force everything through one generic AI prompt.</p>
+          <div class="step-badge">2</div>
+          <h3>Generate a stronger base</h3>
+          <p>Use the right tool to turn rough notes, job posts, offers, or page copy into something clearer and more usable.</p>
         </div>
 
         <div class="workflow-card">
-          <div class="workflow-step-number">3</div>
-          <h3>Build stronger output</h3>
-          <p>Turn rough notes, weak drafts, unclear offers, and messy ideas into cleaner, stronger, more useful output fast.</p>
+          <div class="step-badge">3</div>
+          <h3>Refine what matters</h3>
+          <p>Polish, rewrite, analyze, or tighten the result instead of restarting from scratch every time.</p>
         </div>
 
         <div class="workflow-card">
-          <div class="workflow-step-number">4</div>
-          <h3>Keep momentum</h3>
-          <p>Move from one step into the next without restarting from zero every time, so your workflow feels connected instead of scattered.</p>
+          <div class="step-badge">4</div>
+          <h3>Move to the next step faster</h3>
+          <p>Take that output into the next tool so the whole platform feels like a system, not random disconnected pages.</p>
         </div>
       </div>
     </section>
 
-    <section id="paths" class="section">
-      <h2 class="section-title">Choose your path</h2>
-      <p class="section-subtitle">
-        Start with the workflow that fits what you need right now.
-      </p>
-
-      <div class="focus-grid">
-        <div class="focus-card">
-          <h3>💼 Get hired faster</h3>
-          <p>Build stronger resumes, cover letters, LinkedIn profiles, outreach, and job-targeted applications with less rewriting.</p>
-        </div>
-
-        <div class="focus-card">
-          <h3>🚀 Grow a business</h3>
-          <p>Improve website messaging, offer clarity, competitor positioning, SEO direction, and conversion-focused content faster.</p>
-        </div>
-
-        <div class="focus-card">
-          <h3>⚡ Write and organize faster</h3>
-          <p>Summarize, research, brainstorm, and structure content when you need clean support without a slow setup process.</p>
-        </div>
+    <section class="section" id="tools">
+      <div class="section-heading">
+        <h2>Featured tools</h2>
+        <p>
+          These are the highest-value starting points for most users. They solve the clearest problems first and make the site feel less overwhelming.
+        </p>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="featured-tool-card">
-        <div class="featured-tool-copy">
-          <span class="featured-eyebrow">Best place to start</span>
-          <h3>Start with the workflow that matches your real goal</h3>
-          <p>
-            Utility Forge AI works best when you treat it like a system, not a random list of tools. If your goal is getting hired, start with resume, cover letter, LinkedIn, email, and job analysis. If your goal is business growth, move into website audits, competitor reviews, landing page rewrites, and SEO content.
-          </p>
-          <div class="featured-tool-actions">
-            <a href="resume-bullet-generator.html" class="btn-primary">Start Career Workflow</a>
-            <a href="pricing.html" class="mini-link">See full plan options</a>
-          </div>
-        </div>
-
-        <div class="featured-tool-side">
-          <div class="featured-stat">
-            <strong>Strongest fit</strong>
-            <span>Job seekers, freelancers, creators, founders, students, and professionals</span>
-          </div>
-          <div class="featured-stat">
-            <strong>Best starting point</strong>
-            <span>Career growth, business workflows, content support, outreach, and research</span>
-          </div>
-          <div class="featured-stat">
-            <strong>Built to expand</strong>
-            <span>More tools, stronger flows, and future business-ready features</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">What happens after you start</h2>
-      <p class="section-subtitle">
-        You are not just generating text. You are building momentum across real tasks that need to move forward.
-      </p>
-
-      <div class="results-grid">
-        <div class="result-card">
-          <h3>✔ Stronger applications</h3>
-          <p>Your resume, cover letter, and LinkedIn content become clearer, more targeted, and easier to use for real applications.</p>
-        </div>
-
-        <div class="result-card">
-          <h3>✔ Better outreach</h3>
-          <p>Your emails, follow-ups, and cold outreach become cleaner, more professional, and more useful in real conversations.</p>
-        </div>
-
-        <div class="result-card">
-          <h3>✔ Less wasted effort</h3>
-          <p>You stop restarting from a blank page and move through connected workflows that help you make progress faster.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="tools" class="section">
-      <h2 class="section-title">Popular tools</h2>
-      <p class="section-subtitle">
-        Start with the strongest entry points across career growth, business workflows, content creation, and productivity support.
-      </p>
-
-      <div class="card-grid">
-        <a class="card" href="resume-bullet-generator.html">
-          <div class="card-top">
+      <div class="featured-grid">
+        <a class="tool-card" href="resume-bullet-generator.html">
+          <div class="tool-top">
             <div class="tool-icon">📄</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Career</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
+            <span class="tool-tag">Get Hired</span>
           </div>
           <h3>Resume Bullet Generator</h3>
-          <p>Turn rough job duties into stronger, clearer, more professional bullet points.</p>
-          <div class="tool-access">One of the best tools for improving resume wording quickly.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
+          <p>Turn rough job duties into stronger, cleaner, more professional resume bullets.</p>
+          <div class="tool-note">Best for quickly improving resume wording and impact.</div>
         </a>
 
-        <a class="card" href="cover-letter-generator.html">
-          <div class="card-top">
+        <a class="tool-card" href="cover-letter-generator.html">
+          <div class="tool-top">
             <div class="tool-icon">🖊️</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Career</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
+            <span class="tool-tag">Get Hired</span>
           </div>
-          <h3>Cover Letter Builder</h3>
-          <p>Generate stronger cover letter drafts from your notes, experience, and target role.</p>
-          <div class="tool-access">Built for faster applications with less rewriting.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
+          <h3>Cover Letter Generator</h3>
+          <p>Create a cleaner, stronger cover letter draft from your experience and target role.</p>
+          <div class="tool-note">Great when you need a polished application draft fast.</div>
         </a>
 
-        <a class="card" href="linkedin-summary-generator.html">
-          <div class="card-top">
-            <div class="tool-icon">💼</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Career</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>LinkedIn Summary Generator</h3>
-          <p>Create a stronger summary and position yourself more clearly for recruiters and hiring managers.</p>
-          <div class="tool-access">Good for personal branding and profile improvement.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="email-polisher.html">
-          <div class="card-top">
-            <div class="tool-icon">✉️</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Popular</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Email Polisher</h3>
-          <p>Rewrite rough emails into cleaner, more professional messages for work, outreach, and communication.</p>
-          <div class="tool-access">Great for professional communication, follow-ups, and stronger tone.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="job-analyzer.html">
-          <div class="card-top">
+        <a class="tool-card" href="job-analyzer.html">
+          <div class="tool-top">
             <div class="tool-icon">🎯</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Career</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
+            <span class="tool-tag">Get Hired</span>
           </div>
           <h3>Job Analyzer</h3>
-          <p>Break job posts into skills, priorities, and keywords so you know what to emphasize.</p>
-          <div class="tool-access">Helpful before updating your resume or writing a cover letter.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
+          <p>Break job descriptions into skills, priorities, and likely keywords so you know what matters.</p>
+          <div class="tool-note">Helps tailor applications more intelligently.</div>
         </a>
 
-        <a class="card" href="cold-email-generator.html">
-          <div class="card-top">
-            <div class="tool-icon">📬</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Outreach</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
+        <a class="tool-card" href="email-polisher.html">
+          <div class="tool-top">
+            <div class="tool-icon">✉️</div>
+            <span class="tool-tag">Outreach</span>
           </div>
-          <h3>Cold Email Generator</h3>
-          <p>Create stronger networking, opportunity, and client outreach emails faster.</p>
-          <div class="tool-access">Useful for recruiters, hiring managers, leads, or new contacts.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
+          <h3>Email Polisher</h3>
+          <p>Rewrite rough emails into clearer, stronger, more professional messages.</p>
+          <div class="tool-note">Useful for recruiter emails, follow-ups, client replies, and more.</div>
         </a>
 
-        <a class="card" href="website-audit.html">
-          <div class="card-top">
+        <a class="tool-card" href="website-audit.html">
+          <div class="tool-top">
             <div class="tool-icon">🌐</div>
-            <div class="plan-badges">
-              <span class="plan-badge new">New</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
+            <span class="tool-tag">Grow Business</span>
           </div>
           <h3>Website Audit Tool</h3>
-          <p>Review website clarity, SEO direction, trust, and conversion opportunities faster.</p>
-          <div class="tool-access">Useful for founders, freelancers, agencies, and business growth workflows.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
+          <p>Review a website for clarity, SEO direction, trust, and conversion problems faster.</p>
+          <div class="tool-note">A strong starting point for improving weak site performance.</div>
         </a>
 
-        <a class="card" href="competitor-analyzer.html">
-          <div class="card-top">
-            <div class="tool-icon">📊</div>
-            <div class="plan-badges">
-              <span class="plan-badge new">New</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Competitor Analyzer</h3>
-          <p>Analyze competitor messaging, offers, positioning, and weak points with less guesswork.</p>
-          <div class="tool-access">Strong for founders, service businesses, and clearer market positioning.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="seo-blog-generator.html">
-          <div class="card-top">
-            <div class="tool-icon">🚀</div>
-            <div class="plan-badges">
-              <span class="plan-badge new">New</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>SEO Blog Generator</h3>
-          <p>Generate blog titles, outlines, and search-focused content faster for traffic growth.</p>
-          <div class="tool-access">Useful for creators, marketers, founders, and content systems.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="landing-page-rewriter.html">
-          <div class="card-top">
+        <a class="tool-card" href="landing-page-rewriter.html">
+          <div class="tool-top">
             <div class="tool-icon">🧩</div>
-            <div class="plan-badges">
-              <span class="plan-badge new">New</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
+            <span class="tool-tag">Grow Business</span>
           </div>
           <h3>Landing Page Rewriter</h3>
-          <p>Rewrite weak landing page copy into clearer, stronger messaging that is easier to understand and more likely to convert.</p>
-          <div class="tool-access">Strong for founders, service businesses, freelancers, and offer pages.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="offer-analyzer.html">
-          <div class="card-top">
-            <div class="tool-icon">💎</div>
-            <div class="plan-badges">
-              <span class="plan-badge new">New</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Offer Analyzer</h3>
-          <p>Review offer clarity, value, pricing logic, and differentiation before trying to sell it harder.</p>
-          <div class="tool-access">Useful for coaches, agencies, freelancers, consultants, and productized services.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="headline-generator.html">
-          <div class="card-top">
-            <div class="tool-icon">🏷️</div>
-            <div class="plan-badges">
-              <span class="plan-badge new">New</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Headline Generator</h3>
-          <p>Generate stronger homepage, landing page, service page, and offer headlines faster.</p>
-          <div class="tool-access">Useful for stronger first impressions and clearer positioning.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="text-summarizer.html">
-          <div class="card-top">
-            <div class="tool-icon">📝</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Bonus</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Text Summarizer</h3>
-          <p>Condense long text into shorter takeaways, notes, and clearer review points.</p>
-          <div class="tool-access">Useful for research, articles, notes, and study material.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="research-assistant.html">
-          <div class="card-top">
-            <div class="tool-icon">🔎</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Bonus</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Research Assistant</h3>
-          <p>Break down topics, organize notes, and structure research faster.</p>
-          <div class="tool-access">Helpful for interview prep, business research, and topic breakdowns.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
-        </a>
-
-        <a class="card" href="idea-generator.html">
-          <div class="card-top">
-            <div class="tool-icon">💡</div>
-            <div class="plan-badges">
-              <span class="plan-badge free">Bonus</span>
-              <span class="plan-badge pro">Pro</span>
-            </div>
-          </div>
-          <h3>Idea Generator</h3>
-          <p>Brainstorm stronger ideas, angles, and directions when you need fresh options.</p>
-          <div class="tool-access">Useful for side projects, business ideas, content thinking, and pivots.</div>
-          <div class="upgrade-copy">Free to try. Pro unlocks unlimited access.</div>
+          <p>Rewrite weak landing page copy into clearer, stronger messaging that is easier to understand.</p>
+          <div class="tool-note">Best for improving offers, service pages, and landing pages.</div>
         </a>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Why Utility Forge AI works</h2>
-      <p class="section-subtitle">
-        Utility Forge AI is built around focused outcomes, so you get more useful output with less friction and less guesswork.
-      </p>
-
-      <div class="proof-grid">
-        <div class="proof-card">
-          <h3>🎯 Built for real problems</h3>
-          <p>No generic blank-prompt experience. Each tool is built around a specific task people actually struggle with.</p>
-        </div>
-
-        <div class="proof-card">
-          <h3>⚡ Fast results</h3>
-          <p>Get usable output quickly without a long setup process, a steep learning curve, or endless prompt tweaking.</p>
-        </div>
-
-        <div class="proof-card">
-          <h3>💡 Better outcomes</h3>
-          <p>Write stronger applications, cleaner emails, clearer offers, better headlines, and more useful business content faster.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Advanced tools for serious growth</h2>
-      <p class="section-subtitle">
-        These tools are built for users who want more than basic writing help and are moving into growth-focused workflows.
-      </p>
-
-      <div class="advanced-grid">
-        <a class="advanced-card" href="website-audit.html">
-          <div class="advanced-top">
-            <div class="tool-icon">🌐</div>
-            <div class="plan-badges">
-              <span class="plan-badge pro">Pro</span>
-              <span class="plan-badge business">Business-ready</span>
-            </div>
-          </div>
-          <h3>Website Audit Tool</h3>
-          <p>Analyze website clarity, SEO direction, trust, and conversion issues holding growth back.</p>
-          <div class="tool-access">A strong premium tool for site owners, service businesses, and founders.</div>
-        </a>
-
-        <a class="advanced-card" href="competitor-analyzer.html">
-          <div class="advanced-top">
-            <div class="tool-icon">📊</div>
-            <div class="plan-badges">
-              <span class="plan-badge pro">Pro</span>
-              <span class="plan-badge business">Business-ready</span>
-            </div>
-          </div>
-          <h3>Competitor Analyzer</h3>
-          <p>Review competitor positioning, messaging, and strengths so you can improve your own strategy faster.</p>
-          <div class="tool-access">Useful for founders, marketers, agencies, and anyone building an offer.</div>
-        </a>
-
-        <a class="advanced-card" href="seo-blog-generator.html">
-          <div class="advanced-top">
-            <div class="tool-icon">🚀</div>
-            <div class="plan-badges">
-              <span class="plan-badge pro">Pro</span>
-              <span class="plan-badge business">Business-ready</span>
-            </div>
-          </div>
-          <h3>SEO Blog Generator</h3>
-          <p>Create SEO-focused blog titles, outlines, and content drafts to support traffic growth workflows.</p>
-          <div class="tool-access">Useful for traffic-focused users, content builders, and future business-tier expansion.</div>
-        </a>
-
-        <a class="advanced-card" href="landing-page-rewriter.html">
-          <div class="advanced-top">
-            <div class="tool-icon">🧩</div>
-            <div class="plan-badges">
-              <span class="plan-badge pro">Pro</span>
-              <span class="plan-badge business">Business-ready</span>
-            </div>
-          </div>
-          <h3>Landing Page Rewriter</h3>
-          <p>Turn weak page copy into clearer, stronger, more conversion-focused messaging.</p>
-          <div class="tool-access">Great for landing pages, service pages, and homepage sections.</div>
-        </a>
-
-        <a class="advanced-card" href="offer-analyzer.html">
-          <div class="advanced-top">
-            <div class="tool-icon">💎</div>
-            <div class="plan-badges">
-              <span class="plan-badge pro">Pro</span>
-              <span class="plan-badge business">Business-ready</span>
-            </div>
-          </div>
-          <h3>Offer Analyzer</h3>
-          <p>Break down offer clarity, value, pricing logic, and differentiation before changing your sales process.</p>
-          <div class="tool-access">Useful for service offers, packages, consulting, and productized work.</div>
-        </a>
-
-        <a class="advanced-card" href="headline-generator.html">
-          <div class="advanced-top">
-            <div class="tool-icon">🏷️</div>
-            <div class="plan-badges">
-              <span class="plan-badge pro">Pro</span>
-              <span class="plan-badge business">Business-ready</span>
-            </div>
-          </div>
-          <h3>Headline Generator</h3>
-          <p>Create clearer, stronger first-impression headlines for homepages, offers, and landing pages.</p>
-          <div class="tool-access">Strong for improving hooks, clarity, and page-level positioning.</div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">From rough notes to stronger output</h2>
-      <p class="section-subtitle">
-        Utility Forge AI helps turn vague, rushed, or basic input into clearer and more useful output.
-      </p>
-
-      <div class="compare-grid">
-        <div class="compare-card">
-          <span class="compare-label before">Before</span>
-          <h3>Rough note</h3>
-          <p>
-            “answered calls, helped customers, solved problems, and handled scheduling”
-          </p>
-        </div>
-
-        <div class="compare-card">
-          <span class="compare-label after">After</span>
-          <h3>Stronger output</h3>
-          <p>
-            “Delivered responsive customer support, resolved scheduling and service issues efficiently, and maintained organized front-end operations in a high-volume environment.”
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">What early users are saying</h2>
-      <p class="section-subtitle">
-        The strongest feedback so far is simple: the tools help people save time and produce stronger output faster.
-      </p>
-
-      <div class="testimonials-shell">
-        <div class="testimonial-card">
-          <h3>Job seeker</h3>
-          <div class="testimonial-role">Resume workflow</div>
-          <p>
-            “This saved me a ton of time rewriting my resume bullets. Way easier than trying to word everything myself.”
-          </p>
-        </div>
-
-        <div class="testimonial-card">
-          <h3>Professional</h3>
-          <div class="testimonial-role">Email writing</div>
-          <p>
-            “I used this for emails and it actually made them sound way more professional instantly.”
-          </p>
-        </div>
-
-        <div class="testimonial-card">
-          <h3>Creator</h3>
-          <div class="testimonial-role">Ideas and research</div>
-          <p>
-            “The tools helped me get cleaner starting points way faster than trying to do everything from scratch.”
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <h2 class="section-title">About Utility Forge AI</h2>
-      <p class="section-subtitle">
-        Utility Forge AI is built around one idea: useful AI should help you finish real work faster.
-      </p>
-
-      <div class="seo-home-panel">
+      <div class="section-heading">
+        <h2>Everything else is still here — just grouped better</h2>
         <p>
-          Instead of burying users in clutter, Utility Forge AI brings practical workflows into one place so writing, applying, summarizing, researching, outreach, content creation, and business growth tasks feel cleaner and easier. The platform began with strong career-focused tools, and it is growing into a broader workspace for people who want useful output without blank-page friction.
+          Keep the platform complete, but organize it so new users are not hit with too many equal choices at once.
         </p>
+      </div>
 
-        <h3>Who it is for</h3>
-        <p>
-          Utility Forge AI is built for job seekers, students, career changers, professionals, creators, freelancers, founders, and growing businesses that want help moving faster through real work.
-        </p>
+      <div class="group-grid">
+        <div class="group-shell">
+          <h3>Career tools</h3>
+          <p>Use these to improve profiles, applications, and job-search communication.</p>
+          <div class="mini-links">
+            <a href="linkedin-summary-generator.html">LinkedIn Summary Generator</a>
+            <a href="resume-bullet-generator.html">Resume Bullet Generator</a>
+            <a href="cover-letter-generator.html">Cover Letter Generator</a>
+            <a href="job-analyzer.html">Job Analyzer</a>
+            <a href="email-polisher.html">Email Polisher</a>
+          </div>
+        </div>
 
-        <h3>What makes it useful</h3>
-        <ul>
-          <li>Focused tools built for real workflows instead of generic blank-prompt experiences</li>
-          <li>Cleaner output with less friction and less overthinking</li>
-          <li>Support for career growth, outreach, research, summaries, and business workflows in one place</li>
-          <li>A better fit for users who want practical output fast</li>
-        </ul>
+        <div class="group-shell">
+          <h3>Business growth tools</h3>
+          <p>Use these to improve offers, messaging, websites, and content direction.</p>
+          <div class="mini-links">
+            <a href="website-audit.html">Website Audit Tool</a>
+            <a href="competitor-analyzer.html">Competitor Analyzer</a>
+            <a href="landing-page-rewriter.html">Landing Page Rewriter</a>
+            <a href="offer-analyzer.html">Offer Analyzer</a>
+            <a href="headline-generator.html">Headline Generator</a>
+            <a href="seo-blog-generator.html">SEO Blog Generator</a>
+          </div>
+        </div>
+
+        <div class="group-shell">
+          <h3>More utilities</h3>
+          <p>Use these when you want extra speed, brainstorming help, or structured thinking support.</p>
+          <div class="mini-links">
+            <a href="cold-email-generator.html">Cold Email Generator</a>
+            <a href="idea-generator.html">Idea Generator</a>
+            <a href="text-summarizer.html">Text Summarizer</a>
+            <a href="research-assistant.html">Research Assistant</a>
+            <a href="dashboard.html">Open Full Dashboard</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section" id="pricing-preview">
-      <h2 class="section-title">Simple pricing</h2>
-      <p class="section-subtitle">
-        Start free, test the tools on real work, and upgrade when you want unlimited access and more workflow power.
-      </p>
+    <section class="section">
+      <div class="section-heading">
+        <h2>What users care about most</h2>
+        <p>
+          Trust goes up when people can see how the tools help in real situations, even before you have giant public numbers.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="quote">“This cleaned up my resume bullets way faster than trying to word them all myself.”</div>
+          <div class="author">Job seeker workflow</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote">“The email tools helped me send messages I actually felt confident using.”</div>
+          <div class="author">Outreach workflow</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote">“The website and offer tools made weak copy feel a lot more focused and useful.”</div>
+          <div class="author">Business growth workflow</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="section-heading">
+        <h2>Simple pricing</h2>
+        <p>
+          Start free, test the workflows on real work, then upgrade when you want unlimited usage and smoother daily use.
+        </p>
+      </div>
 
       <div class="pricing-grid">
         <div class="pricing-card">
           <h3>Starter</h3>
-          <div class="pricing-desc">Best for testing the platform and handling quick daily tasks.</div>
+          <div class="pricing-desc">Best for trying the platform and handling quick daily tasks.</div>
           <div class="price">$0</div>
           <ul>
             <li>Access to all current tools</li>
-            <li>5 free runs per day, per tool</li>
-            <li>Dashboard access</li>
+            <li>Free daily usage limits</li>
+            <li>Standard input limits</li>
+            <li>Great for testing workflows first</li>
           </ul>
-          <a href="dashboard.html" class="pricing-btn secondary">Start Free</a>
-          <p class="pricing-note">Good for trying the platform before upgrading.</p>
+          <a href="dashboard.html" class="btn-secondary" style="width:100%; text-decoration:none;">Start Free</a>
         </div>
 
-        <div class="pricing-card">
+        <div class="pricing-card featured">
           <div class="popular-tag">Most Popular</div>
           <h3>Pro</h3>
-          <div class="pricing-desc">Best for repeat writing, career workflows, outreach, and growth-focused use.</div>
+          <div class="pricing-desc">Best for repeat use, higher volume, and uninterrupted workflows.</div>
           <div class="price">$9<small>/mo</small></div>
           <ul>
-            <li>Unlimited runs across all tools</li>
+            <li>Unlimited runs across tools</li>
             <li>Higher input limits</li>
-            <li>All current and future tools</li>
+            <li>Built for real weekly use</li>
+            <li>Better fit for job search, writing, content, and growth work</li>
           </ul>
-          <a href="pricing.html" class="pricing-btn primary">View Pro</a>
-          <p class="pricing-note">Best for users who want uninterrupted workflow access.</p>
+          <a href="pricing.html" class="btn-primary" style="width:100%; text-decoration:none;">Upgrade to Pro</a>
         </div>
 
         <div class="pricing-card">
           <h3>Business</h3>
-          <div class="pricing-desc">Built for advanced workflows, growth tools, and premium features as the platform expands.</div>
-          <div class="coming">Coming Soon</div>
+          <div class="pricing-desc">For more advanced workflows and future business-focused features.</div>
+          <div class="price">Soon</div>
           <ul>
-            <li>Advanced growth-focused tools</li>
-            <li>Saved workflows and reusable systems</li>
-            <li>Business-ready features and premium tools</li>
+            <li>Premium business-growth workflows</li>
+            <li>Saved systems and reusable processes</li>
+            <li>Future higher-tier tools</li>
+            <li>Built for more advanced usage</li>
           </ul>
-          <a href="pricing.html" class="pricing-btn secondary">See Plans</a>
-          <p class="pricing-note">Positioned for future business-ready features without cluttering the current experience.</p>
+          <a href="pricing.html" class="btn-secondary" style="width:100%; text-decoration:none;">See Pricing</a>
         </div>
       </div>
     </section>
 
-    <section class="section" style="text-align:center;">
-      <h2 class="section-title">Start improving your results today</h2>
-      <p class="section-subtitle">
-        Use the tools free, explore the workflows that fit you best, and upgrade when you want unlimited access.
-      </p>
+    <section class="section">
+      <div class="cta-panel">
+        <h2>Stop bouncing between random prompts</h2>
+        <p>
+          Use a cleaner system: start with the right tool, get a stronger output, then move directly into the next step without losing momentum.
+        </p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a href="dashboard.html" class="btn-primary">Open the Full Dashboard</a>
+          <a href="pricing.html" class="btn-secondary">See Pro Features</a>
+        </div>
+      </div>
+    </section>
 
-      <a href="#tools" class="btn-primary">Explore Tools</a>
+    <section class="section">
+      <div class="section-heading">
+        <h2>Common questions</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3>Is this just a bunch of AI tools?</h3>
+          <p>No. The goal is to make the tools work like a workflow system, so one output naturally leads into the next.</p>
+        </div>
+
+        <div class="faq-card">
+          <h3>Can I start free?</h3>
+          <p>Yes. Starter gives you access to all current tools so you can test the platform before upgrading.</p>
+        </div>
+
+        <div class="faq-card">
+          <h3>Who is this built for?</h3>
+          <p>Job seekers, freelancers, creators, founders, students, and businesses that want practical AI help without clutter.</p>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     © 2026 Utility Forge AI. All rights reserved.
-
     <div class="footer-links">
+      <a href="index.html">Home</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="pricing.html">Pricing</a>
       <a href="privacy-policy.html">Privacy Policy</a>
@@ -1925,94 +1141,39 @@
     </div>
   </footer>
 
-  <button class="floating-upgrade auth-sensitive" id="floatingUpgrade" onclick="startCheckout()">
-    <span>⚡</span>
-    <span>Upgrade to Pro — Unlimited Access</span>
-  </button>
-
   <script>
-    const previewTools = [
-      {
-        label: "ForgeFlow Career Mode",
-        badge: "System Active",
-        action: "Build Resume",
-        secondary: "ATS-Focused",
-        input: "Build stronger resume bullets from customer support and scheduling experience for a job application.",
-        output: "Forged clearer resume bullets that highlight customer support, problem solving, scheduling, and fast-paced front desk experience."
-      },
-      {
-        label: "Job Match Analysis",
-        badge: "Career Review",
-        action: "Analyze Job",
-        secondary: "Target Role",
-        input: "Break this job post into keywords, priorities, missing skills, and what should be emphasized in the application.",
-        output: "Identified the strongest role priorities, core keywords, and the exact experience areas that should be highlighted in the resume and cover letter."
-      },
-      {
-        label: "Outreach Workflow",
-        badge: "Follow-Up Ready",
-        action: "Write Outreach",
-        secondary: "Professional",
-        input: "Create a stronger follow-up email to a hiring manager after an application was submitted earlier this week.",
-        output: "Forged a cleaner follow-up email with stronger tone, clearer intent, and a more professional close."
-      },
-      {
-        label: "Website Growth Audit",
-        badge: "Growth Review",
-        action: "Audit Website",
-        secondary: "SEO Focus",
-        input: "Audit a local service business homepage for messaging, trust, SEO direction, and lead generation issues.",
-        output: "Found weak value positioning, thin trust signals, softer calls to action, and missed SEO opportunities around service-specific search intent."
-      },
-      {
-        label: "Competitor Positioning",
-        badge: "Market Insight",
-        action: "Analyze Competitor",
-        secondary: "Positioning",
-        input: "Review a competing agency website for messaging strength, trust signals, offer clarity, and weak points.",
-        output: "Compared the competitor's messaging, offer structure, and authority signals to reveal stronger positioning opportunities."
-      },
-      {
-        label: "Landing Page Rewrite",
-        badge: "Conversion Copy",
-        action: "Rewrite Page",
-        secondary: "Clarity Boost",
-        input: "Rewrite this homepage hero so the value is easier to understand and the main offer feels stronger fast.",
-        output: "Forged a cleaner hero section with clearer value, stronger focus, and a more direct reason for visitors to stay."
-      },
-      {
-        label: "SEO Content Flow",
-        badge: "Traffic Mode",
-        action: "Build Outline",
-        secondary: "Search Focus",
-        input: "Create an SEO blog outline targeting small businesses that need help improving their website conversion rates.",
-        output: "Generated a search-focused blog structure with a stronger angle, clearer sections, and a better traffic growth direction."
-      },
-      {
-        label: "Email Polish",
-        badge: "Ready to Send",
-        action: "Polish Email",
-        secondary: "Clean Tone",
-        input: "hi Sarah just following up to see if there are any updates on the interview process thanks",
-        output: "Hi Sarah, I hope you’re doing well. I wanted to follow up and see whether there have been any updates regarding the interview process. Thank you for your time."
-      }
-    ];
-
-    const toolLabel = document.getElementById("toolLabel");
-    const toolBadge = document.getElementById("toolBadge");
-    const typedInput = document.getElementById("typedInput");
-    const typedOutput = document.getElementById("typedOutput");
-    const actionBtn = document.getElementById("actionBtn");
-    const toneBtn = document.getElementById("toneBtn");
-    const appPreview = document.getElementById("appPreview");
-    const floatingUpgrade = document.getElementById("floatingUpgrade");
     const loginLink = document.getElementById("loginLink");
     const signupLink = document.getElementById("signupLink");
     const logoutBtn = document.getElementById("logoutBtn");
-    const mainCta = document.getElementById("mainCta");
-    const heroPrimaryBtn = document.getElementById("heroPrimaryBtn");
+    const navCta = document.getElementById("navCta");
+
+    const previewScenes = [
+      {
+        input: "Paste a job description",
+        output: "Job Analyzer → pulls out skills, keywords, and priorities so you know what to tailor."
+      },
+      {
+        input: "Paste rough job duties",
+        output: "Resume Bullet Generator → turns weak notes into stronger, more professional bullet points."
+      },
+      {
+        input: "Paste a rough email draft",
+        output: "Email Polisher → rewrites it into a clearer, stronger message you can actually send."
+      },
+      {
+        input: "Paste weak page copy",
+        output: "Landing Page Rewriter → makes it easier to understand, stronger, and more conversion-focused."
+      }
+    ];
 
     let previewIndex = 0;
+    let typingIndex = 0;
+    let deleting = false;
+    let currentText = "";
+    let currentScene = previewScenes[0];
+
+    const previewInput = document.getElementById("previewInput");
+    const previewOutput = document.getElementById("previewOutput");
 
     function getStoredAccount() {
       const raw = localStorage.getItem("uf_account");
@@ -2022,21 +1183,6 @@
       } catch {
         return null;
       }
-    }
-
-    function getGuestUserId() {
-      let id = localStorage.getItem("uf_user_id");
-      if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem("uf_user_id", id);
-      }
-      return id;
-    }
-
-    function getUserId() {
-      const account = getStoredAccount();
-      if (account?.id) return account.id;
-      return getGuestUserId();
     }
 
     async function hydrateSession() {
@@ -2068,11 +1214,12 @@
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
 
-      mainCta.textContent = isPro ? "Pro Active" : "Upgrade to Pro";
-      heroPrimaryBtn.textContent = loggedIn ? "Open Dashboard" : "Start My Workflow";
-
       if (isPro) {
-        floatingUpgrade.classList.remove("show");
+        navCta.textContent = "Pro Active";
+        navCta.href = "dashboard.html";
+      } else {
+        navCta.textContent = "Start Pro";
+        navCta.href = "pricing.html";
       }
     }
 
@@ -2089,7 +1236,6 @@
 
         const raw = await res.text();
         let data;
-
         try {
           data = JSON.parse(raw);
         } catch {
@@ -2115,101 +1261,44 @@
       window.location.href = "index.html";
     }
 
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    function animatePreview() {
+      currentScene = previewScenes[previewIndex];
+      previewInput.textContent = currentScene.input;
 
-    function toggleFloatingUpgrade() {
-      const account = getStoredAccount();
-      if (account?.pro) {
-        floatingUpgrade.classList.remove("show");
-        return;
-      }
+      if (!deleting) {
+        typingIndex++;
+        currentText = currentScene.output.slice(0, typingIndex);
+        previewOutput.textContent = currentText;
 
-      const shouldShow = window.scrollY > 500;
-      floatingUpgrade.classList.toggle("show", shouldShow);
-    }
-
-    async function typeText(element, text, speed = 18) {
-      element.textContent = "";
-      element.classList.add("typing-cursor");
-
-      for (let i = 0; i < text.length; i++) {
-        element.textContent += text[i];
-        await sleep(speed);
-      }
-
-      element.classList.remove("typing-cursor");
-    }
-
-    async function runPreviewCycle() {
-      while (true) {
-        const tool = previewTools[previewIndex];
-
-        appPreview.classList.add("is-transitioning");
-        await sleep(220);
-
-        toolLabel.textContent = tool.label;
-        toolBadge.textContent = tool.badge;
-        actionBtn.textContent = tool.action;
-        toneBtn.textContent = tool.secondary;
-
-        typedInput.textContent = "";
-        typedOutput.textContent = "";
-
-        appPreview.classList.remove("is-transitioning");
-
-        await sleep(300);
-        await typeText(typedInput, tool.input, 15);
-        await sleep(700);
-        await typeText(typedOutput, tool.output, 10);
-        await sleep(2600);
-
-        previewIndex = (previewIndex + 1) % previewTools.length;
-      }
-    }
-
-    async function startCheckout() {
-      try {
-        const response = await fetch("/api/checkout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ userId: getUserId() })
-        });
-
-        const raw = await response.text();
-        let data;
-
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          throw new Error(raw || "Server returned an invalid response.");
+        if (typingIndex >= currentScene.output.length) {
+          deleting = true;
+          setTimeout(animatePreview, 1700);
+          return;
         }
+      } else {
+        typingIndex--;
+        currentText = currentScene.output.slice(0, typingIndex);
+        previewOutput.textContent = currentText;
 
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert(data.error || "Unable to start checkout.");
+        if (typingIndex <= 0) {
+          deleting = false;
+          previewIndex = (previewIndex + 1) % previewScenes.length;
         }
-      } catch (error) {
-        console.error("Checkout error:", error);
-        alert(error.message || "Something went wrong starting checkout.");
       }
+
+      const speed = deleting ? 24 : 34;
+      setTimeout(animatePreview, speed);
     }
 
     logoutBtn.addEventListener("click", logout);
-    window.addEventListener("scroll", toggleFloatingUpgrade);
-    window.addEventListener("load", toggleFloatingUpgrade);
 
     (async function init() {
       await hydrateSession();
       updateAuthUI();
       await syncProUI();
-      toggleFloatingUpgrade();
+      previewInput.textContent = previewScenes[0].input;
+      animatePreview();
       document.body.classList.add("auth-ready");
-      runPreviewCycle();
     })();
   </script>
 </body>
