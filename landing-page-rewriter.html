@@ -58,6 +58,20 @@
       opacity: 0.15;
     }
 
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 860px;
+      height: 860px;
+      left: 50%;
+      top: 15%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
     .site-header {
       position: sticky;
       top: 0;
@@ -84,6 +98,7 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
+      min-width: 0;
     }
 
     .top-logo {
@@ -507,6 +522,33 @@
       .seo-detail-panel h2,
       .related-tools h2 { font-size: 1.25rem; }
     }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .page {
+        padding: 34px 16px 50px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -560,8 +602,8 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for stronger conversion copy</div>
-          <h2 class="title">Landing Page Rewriter</h2>
+          <div class="tool-badge">Growth workflow tool</div>
+          <h1 class="title">Landing Page Rewriter</h1>
           <p class="subtitle">Rewrite weak landing page copy into clearer, stronger messaging that is easier to understand and more likely to convert.</p>
         </div>
 
@@ -608,7 +650,10 @@
 
       <label class="result-label">Rewritten Copy</label>
       <div class="result-box" id="resultBox">Your rewritten landing page copy will appear here.</div>
-      <div class="tip">Tip: paste a headline, subheadline, offer section, or full service block for stronger results.</div>
+      <div class="tip">
+        Tip: paste a headline, subheadline, offer section, or full service block for stronger results.<br><br>
+        Pro tip: start with a hero section or core offer block first, then rewrite the rest in sections for cleaner output.
+      </div>
     </section>
 
     <section class="seo-detail-panel">
@@ -660,6 +705,7 @@
     const API_PATH = "/api/landing-page-rewriter";
     const toolName = "Landing Page";
     let loadingInterval = null;
+    let isRunning = false;
 
     const EXAMPLES = [
       "Rewrite this homepage hero for stronger clarity and conversion.",
@@ -734,10 +780,17 @@
     function updateAuthUI() {
       const account = getStoredAccount();
       const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
 
       loginLink.classList.toggle("hidden", loggedIn);
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      if (isPro) {
+        navUpgradeBtn.classList.add("hidden");
+      } else {
+        navUpgradeBtn.classList.remove("hidden");
+      }
     }
 
     function updateCount() {
@@ -842,6 +895,7 @@
             pro: true
           }));
           setUsageUI({ pro: true });
+          updateAuthUI();
         }
       } catch {}
     }
@@ -925,6 +979,9 @@
     });
 
     runBtn.addEventListener("click", async () => {
+      if (isRunning) return;
+      isRunning = true;
+
       const text = inputText.value.trim();
       const mode = modeSelect.value;
 
@@ -932,6 +989,7 @@
         resultBox.textContent = "Please enter landing page copy first.";
         setStatus("Please enter landing page copy first.", "error");
         hideUpgradeHint();
+        isRunning = false;
         return;
       }
 
@@ -942,7 +1000,11 @@
         const res = await fetch(API_PATH, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, mode, userId: getUserId() })
+          body: JSON.stringify({
+            text,
+            mode,
+            userId: getUserId()
+          })
         });
 
         const data = await safeJsonFromResponse(res);
@@ -971,6 +1033,7 @@
         setStatus(error.message || "Request failed.", "error");
       } finally {
         stopForgingState();
+        isRunning = false;
       }
     });
 
