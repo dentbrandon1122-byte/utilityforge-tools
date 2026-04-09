@@ -7,20 +7,20 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <meta
     name="description"
-    content="Open your Utility Forge AI dashboard for career tools, business growth tools, writing tools, SEO workflows, summaries, research, and outreach from one clean workspace."
+    content="Open your Utility Forge AI dashboard for job search workflows, business growth tools, writing tools, SEO workflows, summaries, research, and outreach from one clean workspace."
   />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://utilityforgeai.com/dashboard.html" />
 
   <meta property="og:title" content="Dashboard | Utility Forge AI" />
-  <meta property="og:description" content="Access your AI tools for career growth, business workflows, SEO, writing, research, and outreach from one clean dashboard." />
+  <meta property="og:description" content="Access your AI workflows for career growth, business workflows, SEO, writing, research, and outreach from one clean dashboard." />
   <meta property="og:image" content="logo-main.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://utilityforgeai.com/dashboard.html" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Dashboard | Utility Forge AI" />
-  <meta name="twitter:description" content="Manage your AI tools for career growth, business workflows, writing, SEO, summaries, research, and outreach from one place." />
+  <meta name="twitter:description" content="Manage your AI workflows for career growth, business workflows, writing, SEO, summaries, research, and outreach from one place." />
   <meta name="twitter:image" content="logo-main.png" />
 
   <style>
@@ -57,6 +57,20 @@
       opacity: 0.15;
     }
 
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      left: 50%;
+      top: 10%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.06), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
     .site-header {
       position: sticky;
       top: 0;
@@ -83,6 +97,7 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
+      min-width: 0;
     }
 
     .top-logo {
@@ -161,6 +176,7 @@
     }
 
     .hero-card,
+    .workflow-banner,
     .dashboard-copy,
     .seo-detail-panel,
     .empty-state,
@@ -211,8 +227,15 @@
       max-width: 760px;
     }
 
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
     .account-panel {
-      min-width: 290px;
+      min-width: 300px;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 22px;
@@ -229,6 +252,7 @@
       color: rgba(255,255,255,0.82);
       margin-bottom: 8px;
       font-size: 0.96rem;
+      word-break: break-word;
     }
 
     .plan-pill {
@@ -251,11 +275,10 @@
       color: #dcffff;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 22px;
+    .plan-pill.business {
+      background: rgba(0,255,255,0.12);
+      border-color: rgba(142,241,255,0.22);
+      color: #baf7ff;
     }
 
     .btn-primary,
@@ -292,6 +315,51 @@
     .btn-secondary:hover {
       transform: translateY(-2px);
       background: rgba(255,255,255,0.09);
+    }
+
+    .workflow-banner {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .workflow-banner-copy h2 {
+      font-size: 2rem;
+      color: #f3efe4;
+      margin-bottom: 10px;
+    }
+
+    .workflow-banner-copy p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 18px;
+      max-width: 760px;
+    }
+
+    .workflow-status {
+      display: grid;
+      gap: 12px;
+    }
+
+    .status-row {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .status-row strong {
+      display: block;
+      color: #dcffff;
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+
+    .status-row span {
+      display: block;
+      color: rgba(255,255,255,0.74);
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
     .path-strip {
@@ -430,6 +498,7 @@
       font-size: 1.3rem;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
     }
 
     .plan-badges {
@@ -465,6 +534,12 @@
       background: rgba(0,255,255,0.12);
       border: 1px solid rgba(142,241,255,0.18);
       color: #baf7ff;
+    }
+
+    .plan-badge.flow {
+      background: rgba(142,241,255,0.12);
+      border: 1px solid rgba(142,241,255,0.18);
+      color: #d7fcff;
     }
 
     .card h3 {
@@ -530,6 +605,10 @@
       .path-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .workflow-banner {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 800px) {
@@ -551,6 +630,7 @@
       }
 
       .hero-card,
+      .workflow-banner,
       .dashboard-copy,
       .seo-detail-panel,
       .empty-state,
@@ -607,11 +687,11 @@
           <div class="hero-badge">Your AI workflow dashboard</div>
           <h1 id="welcomeTitle">Welcome to your dashboard</h1>
           <p id="welcomeText">
-            Open your tools for job applications, business growth, content, research, writing, and outreach from one clean workspace.
+            Open your tools for job search, business growth, content, research, writing, and outreach from one clean workspace.
           </p>
 
           <div class="hero-actions">
-            <a href="#career-tools" class="btn-primary">Open Tools</a>
+            <a href="#career-tools" class="btn-primary">Start Career Flow</a>
             <button id="heroUpgradeBtn" class="btn-secondary">Upgrade to Pro</button>
           </div>
         </div>
@@ -621,6 +701,35 @@
           <div class="account-line" id="accountName">Guest</div>
           <div class="account-line" id="accountEmail">Not logged in</div>
           <div class="plan-pill" id="planPill">Starter Plan</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow-banner">
+      <div class="workflow-banner-copy">
+        <h2>Run your work like a system</h2>
+        <p>
+          Utility Forge works best when you move through connected steps instead of treating every task like a one-off tool click. Start with your goal, open the right workflow, and keep momentum from one tool into the next.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#business-tools" class="btn-secondary">Open Growth Tools</a>
+          <a href="#bonus-tools" class="btn-secondary">See Bonus Tools</a>
+        </div>
+      </div>
+
+      <div class="workflow-status">
+        <div class="status-row">
+          <strong>ForgeFlow Career Mode</strong>
+          <span>Resume bullets → cover letter → LinkedIn summary → job analysis → polished outreach</span>
+        </div>
+        <div class="status-row">
+          <strong>Growth Workflow</strong>
+          <span>Website audit → competitor review → landing page rewrite → offer refinement → SEO content direction</span>
+        </div>
+        <div class="status-row">
+          <strong>Quick Productivity Layer</strong>
+          <span>Cold email support, summaries, research help, and idea generation whenever you need them</span>
         </div>
       </div>
     </section>
@@ -703,7 +812,7 @@
           <div class="card-top">
             <div class="tool-icon">📄</div>
             <div class="plan-badges">
-              <span class="plan-badge">Core Tool</span>
+              <span class="plan-badge flow">Career Flow</span>
             </div>
           </div>
           <h3>Resume Bullet Generator</h3>
@@ -716,7 +825,7 @@
           <div class="card-top">
             <div class="tool-icon">🖊️</div>
             <div class="plan-badges">
-              <span class="plan-badge">Core Tool</span>
+              <span class="plan-badge flow">Career Flow</span>
             </div>
           </div>
           <h3>Cover Letter Builder</h3>
@@ -729,7 +838,7 @@
           <div class="card-top">
             <div class="tool-icon">💼</div>
             <div class="plan-badges">
-              <span class="plan-badge">Core Tool</span>
+              <span class="plan-badge flow">Career Flow</span>
             </div>
           </div>
           <h3>LinkedIn Summary Generator</h3>
@@ -742,7 +851,7 @@
           <div class="card-top">
             <div class="tool-icon">✉️</div>
             <div class="plan-badges">
-              <span class="plan-badge">Core Tool</span>
+              <span class="plan-badge flow">Career Flow</span>
             </div>
           </div>
           <h3>Email Polisher</h3>
@@ -755,7 +864,7 @@
           <div class="card-top">
             <div class="tool-icon">🎯</div>
             <div class="plan-badges">
-              <span class="plan-badge">Core Tool</span>
+              <span class="plan-badge flow">Career Flow</span>
             </div>
           </div>
           <h3>Job Analyzer</h3>
@@ -766,7 +875,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="business-tools">
       <h2 class="section-title">Business growth tools</h2>
       <p class="section-subtitle">
         Use these when you want stronger business positioning, traffic support, and clearer growth direction.
@@ -859,7 +968,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="bonus-tools">
       <h2 class="section-title">Bonus productivity tools</h2>
       <p class="section-subtitle">
         Use these anytime you need support beyond the main career and growth workflows.
@@ -1004,7 +1113,7 @@
       if (loggedIn) {
         const displayName = account.name || account.email || "User";
         welcomeTitle.textContent = `Welcome back, ${displayName}`;
-        welcomeText.textContent = "Your Utility Forge AI workspace is ready. Jump back in and keep your work moving.";
+        welcomeText.textContent = "Your Utility Forge AI workspace is ready. Jump back in and keep your workflow moving.";
         accountName.textContent = account.name ? account.name : "Account user";
         accountEmail.textContent = account.email || "Logged in";
         guestMessage.classList.add("hidden");
@@ -1019,11 +1128,13 @@
       if (isPro) {
         planPill.textContent = "Pro Plan";
         planPill.classList.add("pro");
+        planPill.classList.remove("business");
         upgradeBtn.textContent = "Pro Active";
         heroUpgradeBtn.classList.add("hidden");
       } else {
         planPill.textContent = "Starter Plan";
         planPill.classList.remove("pro");
+        planPill.classList.remove("business");
         upgradeBtn.textContent = "Upgrade to Pro";
         heroUpgradeBtn.classList.remove("hidden");
       }
