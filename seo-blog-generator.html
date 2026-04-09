@@ -58,6 +58,20 @@
       opacity: 0.15;
     }
 
+    .background::after {
+      content: "";
+      position: absolute;
+      width: 860px;
+      height: 860px;
+      left: 50%;
+      top: 15%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
+      filter: blur(42px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
     .site-header {
       position: sticky;
       top: 0;
@@ -84,6 +98,7 @@
       gap: 14px;
       text-decoration: none;
       color: #f3efe4;
+      min-width: 0;
     }
 
     .top-logo {
@@ -507,6 +522,33 @@
       .seo-detail-panel h2,
       .related-tools h2 { font-size: 1.25rem; }
     }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 18px 16px;
+      }
+
+      .top-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+
+      .page {
+        padding: 34px 16px 50px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .nav-cta {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -560,8 +602,8 @@
     <section class="card">
       <div class="top-row">
         <div class="top-copy">
-          <div class="tool-badge">Built for traffic-focused content creation</div>
-          <h2 class="title">SEO Blog Generator</h2>
+          <div class="tool-badge">Growth workflow tool</div>
+          <h1 class="title">SEO Blog Generator</h1>
           <p class="subtitle">Generate search-focused blog ideas, titles, outlines, and article drafts so you can publish useful content faster without staring at a blank page.</p>
         </div>
 
@@ -663,6 +705,7 @@
     const API_PATH = "/api/seo-blog-generator";
     const toolName = "SEO Blog";
     let loadingInterval = null;
+    let isRunning = false;
 
     const EXAMPLES = [
       "Generate an SEO outline for a blog about AI tools for small business websites.",
@@ -688,7 +731,6 @@
     const upgradeHint = document.getElementById("upgradeHint");
 
     let lastOutput = "";
-    let isRunning = false;
 
     function getGuestUserId() {
       let id = localStorage.getItem("uf_user_id");
@@ -738,10 +780,17 @@
     function updateAuthUI() {
       const account = getStoredAccount();
       const loggedIn = !!account?.id;
+      const isPro = !!account?.pro;
 
       loginLink.classList.toggle("hidden", loggedIn);
       signupLink.classList.toggle("hidden", loggedIn);
       logoutBtn.classList.toggle("hidden", !loggedIn);
+
+      if (isPro) {
+        navUpgradeBtn.classList.add("hidden");
+      } else {
+        navUpgradeBtn.classList.remove("hidden");
+      }
     }
 
     function updateCount() {
@@ -846,6 +895,7 @@
             pro: true
           }));
           setUsageUI({ pro: true });
+          updateAuthUI();
         }
       } catch {}
     }
