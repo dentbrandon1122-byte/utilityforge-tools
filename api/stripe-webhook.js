@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { buffer } from "micro";
-import { markProUser } from "../lib/proStore.js";
+import { markProUser, removeProUser } from "../lib/proStore.js";
 
 export const config = {
   api: {
@@ -46,6 +46,25 @@ export default async function handler(req, res) {
       if (userId) {
         console.log("Marking Pro user:", userId, "from event:", event.type);
         await markProUser(userId);
+      } else {
+        console.warn("No userId found in Stripe event:", event.type);
+      }
+    }
+
+    if (
+      event.type === "customer.subscription.deleted" ||
+      event.type === "invoice.payment_failed"
+    ) {
+      const object = event.data.object;
+
+      const userId =
+        object?.metadata?.userId ||
+        object?.subscription_details?.metadata?.userId ||
+        object?.lines?.data?.[0]?.metadata?.userId;
+
+      if (userId) {
+        console.log("Revoking Pro for user:", userId, "from event:", event.type);
+        await removeProUser(userId);
       } else {
         console.warn("No userId found in Stripe event:", event.type);
       }

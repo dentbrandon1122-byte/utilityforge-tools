@@ -1019,7 +1019,7 @@
         }
 
         lastOutput = data.result || "";
-        resultBox.innerHTML = (lastOutput || "No result returned.").replace(/\n/g, "<br>");
+        resultBox.innerText = lastOutput || "No result returned.";
         copyBtn.disabled = !lastOutput;
         setUsageUI(data);
         setStatus(data.pro ? `${toolName} forged successfully (Pro).` : `${toolName} forged successfully.`, "success");
