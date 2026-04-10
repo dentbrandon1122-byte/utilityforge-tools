@@ -1,1484 +1,830 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Tools for Career, Business, and Content Growth | Utility Forge AI</title>
-  <link rel="icon" href="logo.png" type="image/png" />
-  <meta
-    name="description"
-    content="Utility Forge AI helps you get hired faster, improve emails, strengthen websites, and create clearer content with practical AI tools built for real workflows."
-  />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://utilityforgeai.com/" />
-
-  <meta property="og:title" content="AI Tools for Career, Business, and Content Growth | Utility Forge AI" />
-  <meta
-    property="og:description"
-    content="Write stronger resumes, better emails, higher-converting websites, and clearer content with focused AI tools built for real workflows."
-  />
-  <meta property="og:image" content="logo-main.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://utilityforgeai.com/" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Tools for Career, Business, and Content Growth | Utility Forge AI" />
-  <meta
-    name="twitter:description"
-    content="Focused AI tools for job seekers, freelancers, creators, founders, and businesses that want results without guesswork."
-  />
-  <meta name="twitter:image" content="logo-main.png" />
-
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: #fff;
-      min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body:not(.auth-ready) .auth-sensitive {
-      visibility: hidden;
-    }
-
-    .hidden { display: none !important; }
-
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background:
-        radial-gradient(circle at top left, rgba(0,255,255,0.06), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(0,140,255,0.06), transparent 35%),
-        linear-gradient(180deg, #0a0f1d 0%, #0d1326 100%);
-    }
-
-    .background::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
-      background-size: 42px 42px;
-      opacity: 0.15;
-    }
-
-    .background::after {
-      content: "";
-      position: absolute;
-      width: 980px;
-      height: 980px;
-      left: 50%;
-      top: 8%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0,255,255,0.07), transparent 65%);
-      filter: blur(42px);
-      opacity: 0.45;
-      pointer-events: none;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 60;
-      padding: 18px 40px;
-      background: rgba(8,12,24,0.58);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .nav-shell {
-      max-width: 1320px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-      color: #f3efe4;
-      min-width: 0;
-    }
-
-    .top-logo {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 0 8px rgba(0,255,255,0.18));
-      flex-shrink: 0;
-    }
-
-    .brand-text {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: #f3efe4;
-      white-space: nowrap;
-      line-height: 1;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a,
-    .nav-links button.linklike {
-      text-decoration: none;
-      color: rgba(255,255,255,0.86);
-      font-size: 1rem;
-      font-weight: 600;
-      transition: color 0.2s ease, transform 0.2s ease;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .nav-links a:hover,
-    .nav-links button.linklike:hover {
-      color: #8df7ff;
-      transform: translateY(-1px);
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      padding: 14px 24px;
-      border-radius: 16px;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
-      font-weight: 800;
-      box-shadow: 0 0 18px rgba(142,241,255,0.16);
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142,241,255,0.24);
-    }
-
-    .page {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 34px 20px 70px;
-    }
-
-    .section {
-      margin-top: 34px;
-    }
-
-    .section-heading {
-      margin-bottom: 20px;
-    }
-
-    .section-heading h2 {
-      font-size: 2.25rem;
-      color: #f3efe4;
-      margin-bottom: 8px;
-    }
-
-    .section-heading p {
-      color: rgba(255,255,255,0.78);
-      max-width: 860px;
-    }
-
-    .glass-card,
-    .hero-card,
-    .hero-preview,
-    .trust-bar,
-    .workflow-card,
-    .testimonial-card,
-    .tool-card,
-    .group-shell,
-    .pricing-card,
-    .cta-panel,
-    .faq-card,
-    .compare-card,
-    .mini-start-card {
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      backdrop-filter: blur(12px);
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.015);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 26px;
-      align-items: stretch;
-      padding: 28px 0 12px;
-    }
-
-    .hero-card {
-      padding: 34px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-brand-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-
-    .hero-brand-logo {
-      width: 74px;
-      height: 74px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(0,255,255,0.18));
-      border-radius: 18px;
-      background: rgba(255,255,255,0.03);
-      padding: 8px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .hero-brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .hero-brand-text strong {
-      font-size: 1.1rem;
-      color: #f3efe4;
-      line-height: 1.1;
-    }
-
-    .hero-brand-text span {
-      color: rgba(255,255,255,0.66);
-      font-size: 0.92rem;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(120,255,255,0.18);
-      background: rgba(255,255,255,0.04);
-      color: #d8ffff;
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-size: 4rem;
-      line-height: 0.98;
-      color: #f3efe4;
-      margin-bottom: 14px;
-      letter-spacing: -1.3px;
-      max-width: 740px;
-    }
-
-    .hero h1 .accent {
-      color: #92ffb8;
-      text-shadow: 0 0 14px rgba(146,255,184,0.12);
-    }
-
-    .hero p {
-      font-size: 1.06rem;
-      color: rgba(255,255,255,0.82);
-      max-width: 760px;
-      line-height: 1.8;
-    }
-
-    .hero-points {
-      display: grid;
-      gap: 10px;
-      margin-top: 20px;
-      color: rgba(255,255,255,0.82);
-    }
-
-    .hero-points div::before {
-      content: "•";
-      color: #8ef1ff;
-      font-weight: 900;
-      margin-right: 8px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 24px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
-      box-shadow: 0 0 18px rgba(142,241,255,0.16);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(142,241,255,0.24);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.06);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.09);
-    }
-
-    .hero-preview {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 100%;
-    }
-
-    .preview-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-      gap: 12px;
-    }
-
-    .preview-top strong {
-      color: #f3efe4;
-      font-size: 1.05rem;
-    }
-
-    .preview-pill {
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      background: rgba(142,241,255,0.12);
-      border: 1px solid rgba(142,241,255,0.18);
-      color: #dcffff;
-    }
-
-    .preview-window {
-      border-radius: 22px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 18px;
-    }
-
-    .preview-label {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.62);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-    }
-
-    .preview-input,
-    .preview-output {
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.84);
-      min-height: 84px;
-    }
-
-    .preview-output {
-      background: rgba(92,245,255,0.06);
-      border: 1px solid rgba(120,255,255,0.12);
-      min-height: 150px;
-    }
-
-    .preview-footer {
-      margin-top: 6px;
-      font-size: 0.86rem;
-      color: rgba(255,255,255,0.64);
-    }
-
-    .typing {
-      display: inline-block;
-      white-space: pre-wrap;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 8px;
-      margin-left: 2px;
-      animation: blink 1s infinite;
-      color: #92ffb8;
-    }
-
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    .trust-bar {
-      margin-top: 12px;
-      padding: 18px 24px;
-      text-align: center;
-      color: rgba(255,255,255,0.78);
-      font-size: 0.98rem;
-    }
-
-    .start-here-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .mini-start-card {
-      padding: 22px;
-    }
-
-    .mini-start-card h3 {
-      color: #f3efe4;
-      margin-bottom: 8px;
-      font-size: 1.15rem;
-    }
-
-    .mini-start-card p {
-      color: rgba(255,255,255,0.78);
-      margin-bottom: 14px;
-      font-size: 0.96rem;
-    }
-
-    .mini-start-card a {
-      color: #8ef1ff;
-      text-decoration: none;
-      font-weight: 800;
-    }
-
-    .mini-start-card a:hover {
-      color: #b7fbff;
-      text-decoration: underline;
-    }
-
-    .workflow-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .workflow-card {
-      padding: 22px;
-    }
-
-    .step-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: rgba(142,241,255,0.14);
-      border: 1px solid rgba(142,241,255,0.18);
-      color: #dcffff;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .workflow-card h3 {
-      color: #f3efe4;
-      margin-bottom: 8px;
-      font-size: 1.15rem;
-    }
-
-    .workflow-card p {
-      color: rgba(255,255,255,0.78);
-      font-size: 0.96rem;
-    }
-
-    .testimonials-grid,
-    .featured-grid,
-    .group-grid,
-    .pricing-grid,
-    .faq-grid,
-    .compare-grid {
-      display: grid;
-      gap: 22px;
-    }
-
-    .testimonials-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .testimonial-card {
-      padding: 24px;
-    }
-
-    .quote {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.86);
-      margin-bottom: 12px;
-    }
-
-    .author {
-      color: rgba(255,255,255,0.62);
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .featured-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .tool-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      padding: 24px;
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(142,241,255,0.22);
-      box-shadow: 0 0 26px rgba(142,241,255,0.08);
-    }
-
-    .tool-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .tool-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 1.25rem;
-    }
-
-    .tool-tag {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, #89f7c8, #8ef1ff);
-      color: #081018;
-    }
-
-    .tool-card h3 {
-      color: #f3efe4;
-      font-size: 1.16rem;
-      margin-bottom: 8px;
-    }
-
-    .tool-card p {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.96rem;
-      margin-bottom: 10px;
-    }
-
-    .tool-note {
-      color: rgba(255,255,255,0.62);
-      font-size: 0.84rem;
-    }
-
-    .compare-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .compare-card {
-      padding: 24px;
-    }
-
-    .compare-card h3 {
-      color: #f3efe4;
-      margin-bottom: 10px;
-      font-size: 1.15rem;
-    }
-
-    .compare-card p {
-      color: rgba(255,255,255,0.8);
-    }
-
-    .group-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .group-shell {
-      padding: 20px;
-      border-radius: 24px;
-    }
-
-    .group-shell h3 {
-      color: #f3efe4;
-      font-size: 1.22rem;
-      margin-bottom: 8px;
-    }
-
-    .group-shell > p {
-      color: rgba(255,255,255,0.76);
-      margin-bottom: 14px;
-      font-size: 0.94rem;
-    }
-
-    .mini-links {
-      display: grid;
-      gap: 8px;
-    }
-
-    .mini-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.86);
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      font-weight: 700;
-      font-size: 0.92rem;
-      transition: background .2s ease, transform .2s ease, border-color .2s ease;
-    }
-
-    .mini-links a:hover {
-      background: rgba(142,241,255,0.08);
-      border-color: rgba(142,241,255,0.18);
-      transform: translateY(-1px);
-    }
-
-    .pricing-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items: stretch;
-    }
-
-    .pricing-card {
-      padding: 28px;
-      position: relative;
-    }
-
-    .pricing-card.featured {
-      border-color: rgba(124,255,178,.38);
-      box-shadow: 0 16px 34px rgba(0,0,0,.26);
-      transform: translateY(-6px);
-    }
-
-    .popular-tag {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: #7cffb2;
-      color: #000;
-      padding: 5px 10px;
-      font-size: 12px;
-      border-radius: 999px;
-      font-weight: 800;
-    }
-
-    .pricing-card h3 {
-      color: #f3efe4;
-      font-size: 1.35rem;
-      margin-bottom: 8px;
-    }
-
-    .pricing-desc {
-      color: rgba(255,255,255,0.76);
-      min-height: 46px;
-      margin-bottom: 14px;
-    }
-
-    .price {
-      font-size: 2.35rem;
-      color: #92ffb8;
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-
-    .price small {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.62);
-      font-weight: 700;
-    }
-
-    .pricing-card ul {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-      margin: 0 0 20px 0;
-      padding: 0;
-    }
-
-    .pricing-card li {
-      color: rgba(255,255,255,0.84);
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .pricing-card li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #8ef1ff;
-      font-weight: 900;
-    }
-
-    .cta-panel {
-      padding: 32px;
-      text-align: center;
-    }
-
-    .cta-panel h2 {
-      color: #f3efe4;
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .cta-panel p {
-      color: rgba(255,255,255,0.8);
-      max-width: 800px;
-      margin: 0 auto 18px;
-    }
-
-    .faq-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .faq-card {
-      padding: 22px;
-    }
-
-    .faq-card h3 {
-      color: #f3efe4;
-      margin-bottom: 8px;
-      font-size: 1.05rem;
-    }
-
-    .faq-card p {
-      color: rgba(255,255,255,0.78);
-      font-size: 0.96rem;
-    }
-
-    .footer {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 26px 20px 50px;
-      text-align: center;
-      color: rgba(255,255,255,0.58);
-      font-size: 0.95rem;
-    }
-
-    .footer-links {
-      margin-top: 12px;
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: rgba(255,255,255,0.82);
-      text-decoration: none;
-    }
-
-    .footer-links a:hover {
-      color: #8ef1ff;
-    }
-
-    @media (max-width: 1150px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .start-here-grid,
-      .featured-grid,
-      .group-grid,
-      .testimonials-grid,
-      .pricing-grid,
-      .faq-grid,
-      .compare-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .workflow-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .site-header {
-        padding: 18px 16px;
-      }
-
-      .page {
-        padding: 26px 16px 60px;
-      }
-
-      .top-logo {
-        width: 52px;
-        height: 52px;
-      }
-
-      .brand-text {
-        font-size: 1.2rem;
-      }
-
-      .hero-card,
-      .hero-preview,
-      .mini-start-card,
-      .workflow-card,
-      .testimonial-card,
-      .tool-card,
-      .group-shell,
-      .pricing-card,
-      .cta-panel,
-      .faq-card,
-      .compare-card,
-      .trust-bar {
-        padding: 22px;
-      }
-
-      .hero h1 {
-        font-size: 2.7rem;
-      }
-
-      .section-heading h2 {
-        font-size: 1.9rem;
-      }
-
-      .start-here-grid,
-      .featured-grid,
-      .group-grid,
-      .testimonials-grid,
-      .pricing-grid,
-      .faq-grid,
-      .compare-grid,
-      .workflow-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        justify-content: center;
-      }
-
-      .nav-cta {
-        width: 100%;
-      }
-
-      .hero-brand-row {
-        align-items: flex-start;
-      }
-
-      .hero-brand-logo {
-        width: 62px;
-        height: 62px;
-      }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Utility Forge AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --fire1:#FF6B1A;
+  --fire2:#FF9500;
+  --fire3:#FFB800;
+  --ember:#FF3D00;
+  --teal:#4DD9E8;
+  --teal2:#2BB5C8;
+  --teal3:#1A8FA0;
+  --steel:#C8D8E4;
+  --steel2:#B8C8D8;
+  --steel3:#7A90A8;
+  --iron:#202C3C;
+  --iron2:#1A2535;
+  --iron3:#141E2C;
+  --forge:#080C14;
+  --white:#F4F8FC;
+  --white2:rgba(244,248,252,0.88);
+  --white3:rgba(244,248,252,0.15);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--forge);color:var(--white);overflow-x:hidden;}
+.bg{position:fixed;inset:0;z-index:-1;}
+.bg-base{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,107,26,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 20% 80%, rgba(255,61,0,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 80% 70%, rgba(255,107,26,0.03) 0%, transparent 50%),
+    linear-gradient(180deg, #080C14 0%, #0B1018 40%, #0A0E1A 70%, #0D1020 100%);
+}
+.bg-forge-glow{
+  position:absolute;bottom:-300px;left:50%;transform:translateX(-50%);
+  width:800px;height:400px;
+  background:radial-gradient(ellipse, rgba(255,107,26,0.05) 0%, rgba(255,61,0,0.02) 40%, transparent 70%);
+  filter:blur(30px);pointer-events:none;
+}
+.bg-sparks{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.spark{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:var(--fire2);opacity:0;
+  animation:spark-fly var(--d,4s) var(--delay,0s) ease-out infinite;
+}
+@keyframes spark-fly{
+  0%{opacity:0;transform:translate(0,0) scale(1);}
+  20%{opacity:0.8;}
+  100%{opacity:0;transform:translate(var(--tx,20px),var(--ty,-120px)) scale(0);}
+}
+nav{
+  position:sticky;top:0;z-index:100;height:88px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;
+  background:rgba(8,12,20,0.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,107,26,0.08);position:relative;
+}
+nav::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,107,26,0.2),rgba(77,217,232,0.15),rgba(255,107,26,0.2),transparent);
+}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.brand-logo{
+  width:82px;height:82px;flex-shrink:0;
+  filter:drop-shadow(0 0 18px rgba(77,217,232,0.45)) drop-shadow(0 0 36px rgba(255,107,26,0.25));
+}
+.brand-logo img{width:100%;height:100%;object-fit:contain;}
+.brand-text{display:flex;flex-direction:column;gap:2px;}
+.brand-name{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:800;
+  letter-spacing:0.06em;text-transform:uppercase;color:var(--white);
+}
+.brand-sub{
+  font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:600;
+  letter-spacing:0.24em;text-transform:uppercase;
+  background:linear-gradient(90deg,var(--fire2),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;align-items:center;gap:36px;}
+.nav-links a{
+  font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--steel2);text-decoration:none;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{
+  font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;padding:11px 28px;
+  background:linear-gradient(135deg,var(--fire1),var(--fire2));
+  color:#fff;border:none;cursor:pointer;text-decoration:none;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  transition:all 0.22s;box-shadow:0 4px 20px rgba(255,107,26,0.25);
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(255,107,26,0.4);}
+.hero{
+  max-width:1340px;margin:0 auto;padding:48px 56px 60px;
+  display:grid;grid-template-columns:1fr 460px;gap:80px;align-items:center;min-height:auto;
+}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;}
+.eyebrow-bar{width:32px;height:2px;background:linear-gradient(90deg,var(--ember),var(--fire2));}
+.eyebrow-text{
+  font-family:'Rajdhani',sans-serif;font-size:0.8rem;font-weight:700;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--fire2);
+}
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3rem,5.5vw,5rem);font-weight:800;line-height:0.96;
+  text-transform:uppercase;margin-bottom:28px;
+}
+.h1-top{color:var(--white);display:block;}
+.h1-mid{
+  display:block;
+  background:linear-gradient(90deg,var(--fire1),var(--fire2),var(--fire3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(255,107,26,0.2));
+}
+.h1-bot{display:block;color:transparent;-webkit-text-stroke:1.5px rgba(77,217,232,0.5);}
+.hero-p{font-size:1.05rem;line-height:1.78;color:rgba(244,248,252,0.92);max-width:500px;margin-bottom:40px;}
+.hero-p strong{color:var(--white);font-weight:500;}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:52px;}
+.btn-primary{
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;padding:16px 38px;
+  background:linear-gradient(135deg,var(--fire1),var(--fire2));
+  color:#fff;border:none;cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:all 0.22s;box-shadow:0 4px 28px rgba(255,107,26,0.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(255,107,26,0.45);}
+.btn-secondary{
+  font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;padding:16px 28px;
+  background:transparent;border:1px solid rgba(200,216,228,0.15);
+  color:var(--steel2);text-decoration:none;transition:all 0.2s;
+}
+.btn-secondary:hover{border-color:var(--steel2);color:var(--white);}
+.hero-forge-stats{display:flex;gap:0;border:1px solid rgba(255,107,26,0.08);overflow:hidden;}
+.forge-stat{flex:1;padding:18px 20px;border-right:1px solid rgba(255,107,26,0.08);position:relative;}
+.forge-stat:last-child{border-right:none;}
+.forge-stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ember),var(--fire2));opacity:0.4;
+}
+.fs-num{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:700;
+  color:var(--fire2);display:block;margin-bottom:2px;
+}
+.fs-label{
+  font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--steel3);
+}
+.forge-panel{background:var(--iron);border:1px solid rgba(255,107,26,0.1);position:relative;overflow:hidden;}
+.forge-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--fire1),var(--teal2),var(--fire1),transparent);opacity:0.5;
+}
+.forge-panel::after{
+  content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);
+  width:300px;height:150px;
+  background:radial-gradient(ellipse,rgba(255,107,26,0.06),transparent 70%);pointer-events:none;
+}
+.fp-header{
+  padding:13px 20px;background:rgba(255,107,26,0.04);
+  border-bottom:1px solid rgba(255,107,26,0.08);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.fp-dots{display:flex;gap:6px;}
+.fpdot{width:10px;height:10px;border-radius:50%;}
+.fp-title{
+  font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--steel3);
+}
+.fp-live{
+  display:flex;align-items:center;gap:6px;
+  font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--fire2);
+}
+.fp-live-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--fire2);
+  animation:livepulse 1.5s ease-in-out infinite;
+}
+@keyframes livepulse{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,149,0,0.4);}
+  50%{opacity:0.7;box-shadow:0 0 0 4px rgba(255,149,0,0);}
+}
+.fp-body{padding:22px 20px;}
+.fp-step{
+  display:flex;gap:12px;margin-bottom:4px;
+  opacity:0;transform:translateY(6px);animation:stepin 0.35s ease forwards;
+}
+.fp-step:nth-child(1){animation-delay:0.2s;}
+.fp-step:nth-child(2){animation-delay:0.55s;}
+.fp-step:nth-child(3){animation-delay:0.9s;}
+.fp-step:nth-child(4){animation-delay:1.25s;}
+.fp-step:nth-child(5){animation-delay:1.6s;}
+@keyframes stepin{to{opacity:1;transform:translateY(0);}}
+.fp-step-l{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.fp-num{
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;
+  border:1px solid rgba(255,107,26,0.15);color:var(--steel3);
+  background:rgba(255,255,255,0.02);flex-shrink:0;
+}
+.fp-num.hot{
+  background:linear-gradient(135deg,var(--ember),var(--fire1));
+  border-color:var(--fire1);color:#fff;box-shadow:0 0 12px rgba(255,107,26,0.3);
+}
+.fp-connector{width:1px;height:20px;background:linear-gradient(to bottom,rgba(255,107,26,0.2),transparent);margin:3px auto;}
+.fp-info{padding-top:4px;flex:1;}
+.fp-step-name{font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;color:var(--white);margin-bottom:2px;letter-spacing:0.02em;}
+.fp-step-desc{font-size:0.76rem;color:#9AB0C4;line-height:1.45;}
+.fp-result{
+  margin-top:16px;padding:14px;
+  background:rgba(255,107,26,0.04);border:1px solid rgba(255,107,26,0.08);
+  border-left:2px solid var(--fire1);
+  opacity:0;animation:stepin 0.35s ease 2.1s forwards;
+}
+.fp-result-label{
+  font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--fire2);margin-bottom:8px;
+}
+.fp-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.fp-tag{
+  padding:3px 9px;background:rgba(255,107,26,0.06);border:1px solid rgba(255,107,26,0.15);
+  font-family:'Rajdhani',sans-serif;font-size:0.76rem;font-weight:600;color:var(--fire2);letter-spacing:0.04em;
+}
+.rule{
+  max-width:calc(1340px - 112px);margin:0 auto;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,107,26,0.12),rgba(77,217,232,0.08),rgba(255,107,26,0.12),transparent);
+}
+.section{max-width:1340px;margin:0 auto;padding:72px 56px;}
+.sec-eye{display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;}
+.sec-bar{width:24px;height:2px;background:linear-gradient(90deg,var(--ember),var(--fire2));}
+.sec-tag{font-family:'Rajdhani',sans-serif;font-size:0.76rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--fire2);}
+.sec-h2{
+  font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,3.8vw,3rem);
+  font-weight:700;text-transform:uppercase;line-height:1.05;color:var(--white);margin-bottom:14px;
+}
+.sec-sub{font-size:1rem;line-height:1.75;color:var(--white2);max-width:500px;}
+.wf-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:rgba(255,107,26,0.1);margin-top:56px;
+}
+.wf-card{background:var(--iron);padding:36px 28px;position:relative;transition:background 0.25s;border:1px solid rgba(255,107,26,0.06);}
+.wf-card:hover{background:var(--iron2);}
+.wf-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ember),var(--fire2));
+  transform:scaleX(0);transition:transform 0.3s;transform-origin:left;
+}
+.wf-card:hover::before{transform:scaleX(1);}
+.wf-big-n{
+  font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:800;
+  color:rgba(255,107,26,0.5);line-height:1;margin-bottom:14px;transition:color 0.25s;
+}
+.wf-card:hover .wf-big-n{color:rgba(255,107,26,0.8);}
+.wf-icon{font-size:2rem;display:block;margin-bottom:14px;}
+.wf-name{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.04em;color:var(--white);margin-bottom:12px;
+}
+.wf-desc{font-size:0.92rem;color:#B8CCD8;line-height:1.7;}
+.wf-connector{
+  display:none;
+  position:absolute;top:50%;right:-28px;transform:translateY(-50%);
+  width:36px;height:2px;
+  background:linear-gradient(90deg,var(--fire1),transparent);
+  z-index:3;
+}
+.testimonials{
+  max-width:1340px;margin:0 auto;padding:0 56px 72px;
+}
+.testimonials-inner{
+  border-top:1px solid rgba(255,107,26,0.08);
+  padding-top:48px;
+}
+.testimonials-label{
+  display:inline-flex;align-items:center;gap:12px;margin-bottom:32px;
+}
+.testimonials-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,107,26,0.08);
+}
+.tcard{
+  background:var(--iron);padding:30px 28px;position:relative;
+}
+.tcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ember),var(--fire2));opacity:0.3;
+}
+.tcard-quote{
+  font-size:0.95rem;line-height:1.75;color:#C8D8E4;
+  margin-bottom:20px;font-style:italic;
+}
+.tcard-quote::before{content:'"';color:var(--fire2);font-size:1.4rem;line-height:0;vertical-align:-0.3em;margin-right:4px;}
+.tcard-author{display:flex;align-items:center;gap:12px;}
+.tcard-avatar{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;
+  color:var(--navy);flex-shrink:0;
+}
+.tcard-name{
+  font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;
+  letter-spacing:0.06em;color:var(--white);
+}
+.tcard-role{font-size:0.76rem;color:var(--steel3);}
+.privacy-note{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:16px;padding:8px 14px;
+  background:rgba(77,217,232,0.04);
+  border:1px solid rgba(77,217,232,0.08);
+  font-family:'Rajdhani',sans-serif;font-size:0.76rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--teal3);
+}
+.privacy-icon{font-size:0.9rem;}
+.faq-section{max-width:1340px;margin:0 auto;padding:0 56px 72px;}
+.faq-inner{border-top:1px solid rgba(255,107,26,0.08);padding-top:48px;}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,107,26,0.08);margin-top:32px;}
+.faq-item{background:var(--iron);padding:28px 32px;}
+.faq-q{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.04em;color:var(--white);margin-bottom:10px;
+}
+.faq-q::before{content:'Q — ';color:var(--fire2);}
+.faq-a{font-size:0.9rem;color:#B8CCD8;line-height:1.7;}
+.tool-card-featured{
+  background:var(--iron2) !important;
+  outline:1px solid rgba(255,107,26,0.15);
+}
+.tool-card-featured .tc-cat{color:var(--fire2);}
+.start-here-badge{
+  display:inline-block;margin-bottom:10px;padding:3px 10px;
+  background:linear-gradient(90deg,var(--ember),var(--fire1));
+  font-family:'Rajdhani',sans-serif;font-size:0.65rem;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:#fff;
+}
+@media(max-width:900px){
+  .testimonials-grid{grid-template-columns:1fr;}
+  .faq-grid{grid-template-columns:1fr;}
+}
+.tools-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,107,26,0.1);margin-top:56px;
+}
+.tool-card{
+  background:var(--iron);padding:34px 30px;
+  position:relative;overflow:hidden;text-decoration:none;display:block;transition:background 0.22s;
+}
+.tool-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ember),var(--fire2));
+  transform:scaleX(0);transition:transform 0.3s;transform-origin:left;
+}
+.tool-card:hover{background:var(--iron2);}
+.tool-card:hover::after{transform:scaleX(1);}
+.tc-cat{
+  font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,107,26,0.4);margin-bottom:14px;
+}
+.tc-icon{font-size:1.6rem;display:block;margin-bottom:12px;}
+.tc-name{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.04em;color:var(--white);margin-bottom:10px;
+}
+.tc-desc{font-size:0.92rem;color:#B8CCD8;line-height:1.7;}
+.tc-arrow{position:absolute;top:30px;right:26px;font-size:1rem;color:rgba(255,107,26,0.2);transition:all 0.2s;}
+.tool-card:hover .tc-arrow{color:var(--fire2);transform:translate(2px,-2px);}
+.score-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.score-panel{background:var(--iron);border:1px solid rgba(255,107,26,0.1);padding:36px;position:relative;overflow:hidden;}
+.score-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--fire1),transparent);opacity:0.4;
+}
+.sp-label{font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--steel3);margin-bottom:22px;}
+.sp-main{display:flex;align-items:center;gap:24px;margin-bottom:22px;}
+.sp-ring{position:relative;width:96px;height:96px;flex-shrink:0;}
+.sp-ring svg{transform:rotate(-90deg);}
+circle.bg2{fill:none;stroke:rgba(255,107,26,0.08);stroke-width:7;}
+circle.fill2{
+  fill:none;stroke:url(#fg);stroke-width:7;stroke-linecap:round;
+  stroke-dasharray:251;stroke-dashoffset:32;animation:ring2 1.6s ease 0.4s both;
+}
+@keyframes ring2{from{stroke-dashoffset:251;}to{stroke-dashoffset:32;}}
+.sp-num{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:700;color:var(--fire2);
+}
+.sp-bars{flex:1;}
+.spb{margin-bottom:11px;}
+.spb-top{display:flex;justify-content:space-between;font-family:'Rajdhani',sans-serif;font-size:0.8rem;font-weight:600;color:var(--steel3);margin-bottom:5px;}
+.spb-top span:last-child{color:var(--fire2);}
+.spb-track{height:2px;background:rgba(255,107,26,0.06);}
+.spb-fill{height:100%;background:linear-gradient(90deg,var(--ember),var(--fire2));transform-origin:left;animation:barfill2 1.2s ease 0.8s both;}
+@keyframes barfill2{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+.sp-missing{padding:14px;background:rgba(255,61,0,0.04);border:1px solid rgba(255,61,0,0.08);border-left:2px solid var(--ember);}
+.sp-miss-label{font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ember);margin-bottom:8px;}
+.sp-miss-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.sp-miss-tag{padding:3px 9px;border:1px solid rgba(255,61,0,0.15);background:rgba(255,61,0,0.04);font-family:'Rajdhani',sans-serif;font-size:0.76rem;font-weight:600;color:#ff7a5a;letter-spacing:0.04em;}
+.pricing-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,107,26,0.1);margin-top:56px;max-width:760px;}
+.price-card{background:var(--iron);padding:44px 38px;position:relative;}
+.price-card.hot{background:var(--iron2);outline:1px solid rgba(255,107,26,0.2);}
+.price-badge{
+  position:absolute;top:-1px;left:38px;padding:5px 14px;
+  background:linear-gradient(90deg,var(--ember),var(--fire1));
+  font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:#fff;
+}
+.price-tier-label{font-family:'Rajdhani',sans-serif;font-size:0.76rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--steel3);margin-bottom:12px;}
+.price-amount{font-family:'Barlow Condensed',sans-serif;font-size:3.4rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:6px;}
+.price-amount span{font-size:1rem;color:var(--steel3);font-weight:400;}
+.price-pitch{font-size:0.88rem;color:#9AB0C4;margin-bottom:26px;line-height:1.6;}
+.price-list{list-style:none;margin-bottom:30px;}
+.price-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:rgba(244,248,252,0.88);margin-bottom:10px;}
+.price-list li::before{content:'▸';color:var(--fire2);font-size:0.76rem;flex-shrink:0;margin-top:2px;}
+.price-btn{display:block;width:100%;padding:13px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.2s;}
+.price-btn-out{border:1px solid rgba(200,216,228,0.35);color:var(--steel);background:transparent;}
+.price-btn-out:hover{border-color:var(--steel2);color:var(--white);background:rgba(200,216,228,0.05);}
+.price-btn-fire{
+  background:linear-gradient(135deg,var(--ember),var(--fire1),var(--fire2));
+  color:#fff;border:none;box-shadow:0 4px 20px rgba(255,107,26,0.25);
+  clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+}
+.price-btn-fire:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,107,26,0.4);}
+.cta-wrap{max-width:1340px;margin:0 auto;padding:0 56px 100px;}
+.cta-banner{
+  padding:64px 72px;background:var(--iron);border:1px solid rgba(255,107,26,0.1);
+  display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden;
+}
+.cta-banner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--fire1),var(--teal2),var(--fire1),transparent);opacity:0.4;
+}
+.cta-banner::after{
+  content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(255,107,26,0.05),transparent 65%);pointer-events:none;
+}
+.cta-h{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:700;text-transform:uppercase;color:var(--white);line-height:1.05;}
+.cta-h .fire{background:linear-gradient(90deg,var(--fire1),var(--fire3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-sub{font-size:0.95rem;color:rgba(244,248,252,0.88);margin-top:10px;max-width:460px;}
+footer{
+  border-top:1px solid rgba(255,107,26,0.06);max-width:1340px;margin:0 auto;padding:36px 56px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.foot-copy{font-family:'Rajdhani',sans-serif;font-size:0.76rem;font-weight:600;letter-spacing:0.12em;color:var(--steel3);text-transform:uppercase;}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap;}
+.foot-links a{font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--steel3);text-decoration:none;transition:color 0.2s;}
+.foot-links a:hover{color:var(--fire2);}
+@media(max-width:1080px){
+  .hero{grid-template-columns:1fr;min-height:auto;gap:56px;}
+  .wf-grid{grid-template-columns:1fr 1fr;}
+  .tools-grid{grid-template-columns:1fr 1fr;}
+  .score-layout{grid-template-columns:1fr;gap:48px;}
+}
+@media(max-width:700px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero,.section{padding:48px 20px;}
+  .wf-grid,.tools-grid,.pricing-wrap{grid-template-columns:1fr;}
+  .cta-wrap{padding:0 20px 72px;}
+  .cta-banner{padding:40px 28px;}
+  footer{padding:28px 20px;}
+}
+</style>
 </head>
 <body>
-  <div class="background"></div>
-
-  <header class="site-header">
-    <div class="nav-shell">
-      <a href="index.html" class="brand">
-        <img src="logo.png" alt="Utility Forge AI logo" class="top-logo" />
-        <span class="brand-text">Utility Forge AI</span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="#tools">Tools</a>
-        <a href="#workflow">How It Works</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="login.html" id="loginLink" class="auth-sensitive">Login</a>
-        <a href="signup.html" id="signupLink" class="auth-sensitive">Sign Up</a>
-        <button id="logoutBtn" class="linklike hidden auth-sensitive">Logout</button>
-      </nav>
-
-      <a href="pricing.html" class="nav-cta auth-sensitive" id="navCta">Start Pro</a>
+<div class="bg">
+  <div class="bg-base"></div>
+  <div class="bg-forge-glow"></div>
+  <div class="bg-sparks" id="sparks"></div>
+</div>
+<nav>
+  <a href="#" class="brand">
+    <div class="brand-logo">
+      <img src="https://utilityforgeai.com/logo.png" alt="Utility Forge AI"/>
     </div>
-  </header>
-
-  <main class="page">
-    <section class="hero">
-      <div class="hero-card">
-        <div class="hero-brand-row">
-          <img src="logo.png" alt="Utility Forge AI logo" class="hero-brand-logo" />
-          <div class="hero-brand-text">
-            <strong>Utility Forge AI</strong>
-            <span>Focused AI tools for real workflows</span>
-          </div>
-        </div>
-
-        <div class="hero-badge">Practical AI tools for real workflows</div>
-
-        <h1>
-          Turn messy work into <span class="accent">clear results</span> faster.
-        </h1>
-
-        <p>
-          Utility Forge AI helps you get hired faster, improve emails, strengthen website copy, and create clearer content with focused tools that are easier to use than starting from scratch in a generic chat.
-        </p>
-
-        <div class="hero-points">
-          <div>Build stronger resumes, cover letters, and job-targeted applications</div>
-          <div>Rewrite emails, offers, and landing pages with clearer conversion-focused copy</div>
-          <div>Generate ideas, summaries, research, and content without getting stuck</div>
-        </div>
-
-        <div class="hero-actions">
-          <a href="#tools" class="btn-primary">Explore Featured Tools</a>
-          <a href="dashboard.html" class="btn-secondary">Open Dashboard</a>
-        </div>
-      </div>
-
-      <div class="hero-preview">
-        <div class="preview-top">
-          <strong>See the workflow</strong>
-          <span class="preview-pill">Live preview</span>
-        </div>
-
-        <div class="preview-window">
-          <div class="preview-label">Input</div>
-          <div class="preview-input" id="previewInput"></div>
-
-          <div class="preview-label">Output</div>
-          <div class="preview-output">
-            <span class="typing" id="previewOutput"></span><span class="cursor">|</span>
-          </div>
-
-          <div class="preview-footer">Done in seconds with tool-specific workflows</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="trust-bar">
-      Used by job seekers, freelancers, creators, and builders to improve resumes, emails, websites, and workflows faster.
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Start here based on what you need</h2>
-        <p>
-          The fastest way to reduce overwhelm is to start from your goal instead of scanning every tool at once.
-        </p>
-      </div>
-
-      <div class="start-here-grid">
-        <div class="mini-start-card">
-          <h3>Start here for job seekers</h3>
-          <p>Use the tools that help you understand job posts, improve resumes, and build stronger application materials.</p>
-          <a href="job-analyzer.html">Open the job workflow →</a>
-        </div>
-
-        <div class="mini-start-card">
-          <h3>Start here for business owners</h3>
-          <p>Use the tools that improve site messaging, offers, pages, and growth direction without a full rebuild first.</p>
-          <a href="website-audit.html">Open the business workflow →</a>
-        </div>
-
-        <div class="mini-start-card">
-          <h3>Start here for quick writing help</h3>
-          <p>Use the tools that help with emails, summaries, research, brainstorming, and fast content support.</p>
-          <a href="email-polisher.html">Open the writing workflow →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="workflow">
-      <div class="section-heading">
-        <h2>How Utility Forge works</h2>
-        <p>
-          Instead of using one generic prompt for everything, move through a cleaner flow: start with your problem, use the right tool, and keep building from one useful output into the next.
-        </p>
-      </div>
-
-      <div class="workflow-grid">
-        <div class="workflow-card">
-          <div class="step-badge">1</div>
-          <h3>Start with your goal</h3>
-          <p>Pick the workflow that matches what you want: get hired, improve outreach, or grow a business page.</p>
-        </div>
-
-        <div class="workflow-card">
-          <div class="step-badge">2</div>
-          <h3>Generate a stronger base</h3>
-          <p>Use the right tool to turn rough notes, job posts, offers, or page copy into something clearer and more usable.</p>
-        </div>
-
-        <div class="workflow-card">
-          <div class="step-badge">3</div>
-          <h3>Refine what matters</h3>
-          <p>Polish, rewrite, analyze, or tighten the result instead of restarting from scratch every time.</p>
-        </div>
-
-        <div class="workflow-card">
-          <div class="step-badge">4</div>
-          <h3>Move to the next step faster</h3>
-          <p>Take that output into the next tool so the whole platform feels like a system, not random disconnected pages.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>What users care about most</h2>
-        <p>
-          Trust goes up when people can see how the tools help in real situations, even before you have giant public numbers.
-        </p>
-      </div>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="quote">“This cleaned up my resume bullets way faster than trying to word them all myself.”</div>
-          <div class="author">Job seeker workflow</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="quote">“The email tools helped me send messages I actually felt confident using.”</div>
-          <div class="author">Outreach workflow</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="quote">“The website and offer tools made weak copy feel a lot more focused and useful.”</div>
-          <div class="author">Business growth workflow</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Why use this instead of generic chat?</h2>
-        <p>
-          People already have access to general AI. The advantage here is a more focused path with less guessing and better starting points.
-        </p>
-      </div>
-
-      <div class="compare-grid">
-        <div class="compare-card">
-          <h3>Utility Forge AI</h3>
-          <p>
-            Focused workflows, cleaner starting points, and tools designed around real outcomes like job applications, email rewrites, landing page copy, and offer improvement.
-          </p>
-        </div>
-
-        <div class="compare-card">
-          <h3>Generic prompting</h3>
-          <p>
-            Flexible, but easier to get lost, easier to overprompt, and harder to build repeatable workflows when you just want a clear result fast.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="tools">
-      <div class="section-heading">
-        <h2>Featured tools</h2>
-        <p>
-          These are the strongest first-click tools for most users. They solve the clearest problems first and keep the homepage focused.
-        </p>
-      </div>
-
-      <div class="featured-grid">
-        <a class="tool-card" href="resume-bullet-generator.html">
-          <div class="tool-top">
-            <div class="tool-icon">📄</div>
-            <span class="tool-tag">Get Hired</span>
-          </div>
-          <h3>Resume Bullet Generator</h3>
-          <p>Turn rough job duties into stronger, cleaner, more professional resume bullets.</p>
-          <div class="tool-note">Best for quickly improving resume wording and impact.</div>
-        </a>
-
-        <a class="tool-card" href="cover-letter-generator.html">
-          <div class="tool-top">
-            <div class="tool-icon">🖊️</div>
-            <span class="tool-tag">Get Hired</span>
-          </div>
-          <h3>Cover Letter Generator</h3>
-          <p>Create a cleaner, stronger cover letter draft from your experience and target role.</p>
-          <div class="tool-note">Great when you need a polished application draft fast.</div>
-        </a>
-
-        <a class="tool-card" href="job-analyzer.html">
-          <div class="tool-top">
-            <div class="tool-icon">🎯</div>
-            <span class="tool-tag">Get Hired</span>
-          </div>
-          <h3>Job Analyzer</h3>
-          <p>Break job descriptions into skills, priorities, and likely keywords so you know what matters.</p>
-          <div class="tool-note">Helps tailor applications more intelligently.</div>
-        </a>
-
-        <a class="tool-card" href="email-polisher.html">
-          <div class="tool-top">
-            <div class="tool-icon">✉️</div>
-            <span class="tool-tag">Outreach</span>
-          </div>
-          <h3>Email Polisher</h3>
-          <p>Rewrite rough emails into clearer, stronger, more professional messages.</p>
-          <div class="tool-note">Useful for recruiter emails, follow-ups, client replies, and more.</div>
-        </a>
-
-        <a class="tool-card" href="website-audit.html">
-          <div class="tool-top">
-            <div class="tool-icon">🌐</div>
-            <span class="tool-tag">Grow Business</span>
-          </div>
-          <h3>Website Audit Tool</h3>
-          <p>Review a website for clarity, SEO direction, trust, and conversion problems faster.</p>
-          <div class="tool-note">A strong starting point for improving weak site performance.</div>
-        </a>
-
-        <a class="tool-card" href="landing-page-rewriter.html">
-          <div class="tool-top">
-            <div class="tool-icon">🧩</div>
-            <span class="tool-tag">Grow Business</span>
-          </div>
-          <h3>Landing Page Rewriter</h3>
-          <p>Rewrite weak landing page copy into clearer, stronger messaging that is easier to understand.</p>
-          <div class="tool-note">Best for improving offers, service pages, and landing pages.</div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Everything else is still here — just grouped better</h2>
-        <p>
-          Keep the platform complete, but organize it so new users are not hit with too many equal choices at once.
-        </p>
-      </div>
-
-      <div class="group-grid">
-        <div class="group-shell">
-          <h3>Career tools</h3>
-          <p>Use these to improve profiles, applications, and job-search communication.</p>
-          <div class="mini-links">
-            <a href="linkedin-summary-generator.html">LinkedIn Summary Generator</a>
-            <a href="resume-bullet-generator.html">Resume Bullet Generator</a>
-            <a href="cover-letter-generator.html">Cover Letter Generator</a>
-            <a href="job-analyzer.html">Job Analyzer</a>
-            <a href="email-polisher.html">Email Polisher</a>
-          </div>
-        </div>
-
-        <div class="group-shell">
-          <h3>Business growth tools</h3>
-          <p>Use these to improve offers, messaging, websites, and content direction.</p>
-          <div class="mini-links">
-            <a href="website-audit.html">Website Audit Tool</a>
-            <a href="competitor-analyzer.html">Competitor Analyzer</a>
-            <a href="landing-page-rewriter.html">Landing Page Rewriter</a>
-            <a href="offer-analyzer.html">Offer Analyzer</a>
-            <a href="headline-generator.html">Headline Generator</a>
-            <a href="seo-blog-generator.html">SEO Blog Generator</a>
-          </div>
-        </div>
-
-        <div class="group-shell">
-          <h3>More utilities</h3>
-          <p>Use these when you want extra speed, brainstorming help, or structured thinking support.</p>
-          <div class="mini-links">
-            <a href="cold-email-generator.html">Cold Email Generator</a>
-            <a href="idea-generator.html">Idea Generator</a>
-            <a href="text-summarizer.html">Text Summarizer</a>
-            <a href="research-assistant.html">Research Assistant</a>
-            <a href="dashboard.html">Open Full Dashboard</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="pricing">
-      <div class="section-heading">
-        <h2>Why Pro is worth it</h2>
-        <p>
-          Free is great for testing. Pro is for people who actually want to use the platform without hitting daily interruptions.
-        </p>
-      </div>
-
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>Starter</h3>
-          <div class="pricing-desc">Best for trying the platform and handling quick daily tasks.</div>
-          <div class="price">$0</div>
-          <ul>
-            <li>Access to all current tools</li>
-            <li>Free daily usage limits</li>
-            <li>Standard input limits</li>
-            <li>Great for testing workflows first</li>
-          </ul>
-          <a href="dashboard.html" class="btn-secondary" style="width:100%; text-decoration:none;">Start Free</a>
-        </div>
-
-        <div class="pricing-card featured">
-          <div class="popular-tag">Most Popular</div>
-          <h3>Pro</h3>
-          <div class="pricing-desc">Best for repeat use, higher volume, and uninterrupted workflows.</div>
-          <div class="price">$9<small>/mo</small></div>
-          <ul>
-            <li>Unlimited runs across tools</li>
-            <li>Higher input limits</li>
-            <li>Better for real workflows</li>
-            <li>No daily interruptions</li>
-            <li>Built for job search, writing, content, and growth work</li>
-          </ul>
-          <a href="pricing.html" class="btn-primary" style="width:100%; text-decoration:none;">Upgrade to Pro</a>
-        </div>
-
-        <div class="pricing-card">
-          <h3>Business</h3>
-          <div class="pricing-desc">For more advanced workflows and future business-focused features.</div>
-          <div class="price">Soon</div>
-          <ul>
-            <li>Premium business-growth workflows</li>
-            <li>Saved systems and reusable processes</li>
-            <li>Future higher-tier tools</li>
-            <li>Built for more advanced usage</li>
-          </ul>
-          <a href="pricing.html" class="btn-secondary" style="width:100%; text-decoration:none;">See Pricing</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="cta-panel">
-        <h2>Stop bouncing between random prompts</h2>
-        <p>
-          Use a cleaner system: start with the right tool, get a stronger output, then move directly into the next step without losing momentum.
-        </p>
-        <div class="hero-actions" style="justify-content:center;">
-          <a href="dashboard.html" class="btn-primary">Open the Full Dashboard</a>
-          <a href="pricing.html" class="btn-secondary">See Pro Features</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Common questions</h2>
-      </div>
-
-      <div class="faq-grid">
-        <div class="faq-card">
-          <h3>Is this just a bunch of AI tools?</h3>
-          <p>No. The goal is to make the tools work like a workflow system, so one output naturally leads into the next.</p>
-        </div>
-
-        <div class="faq-card">
-          <h3>Can I start free?</h3>
-          <p>Yes. Starter gives you access to all current tools so you can test the platform before upgrading.</p>
-        </div>
-
-        <div class="faq-card">
-          <h3>Who is this built for?</h3>
-          <p>Job seekers, freelancers, creators, founders, students, and businesses that want practical AI help without clutter.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    © 2026 Utility Forge AI. All rights reserved.
-    <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="contact.html">Contact</a>
+    <div class="brand-text">
+      <span class="brand-name">Utility Forge AI</span>
+      <span class="brand-sub">Precision Built for Job Seekers</span>
     </div>
-  </footer>
-
-  <script>
-    const loginLink = document.getElementById("loginLink");
-    const signupLink = document.getElementById("signupLink");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const navCta = document.getElementById("navCta");
-
-    const previewScenes = [
-      {
-        input: "Paste a job description",
-        output: "Job Analyzer → pulls out skills, keywords, and priorities so you know what to tailor."
-      },
-      {
-        input: "Paste rough job duties",
-        output: "Resume Bullet Generator → turns weak notes into stronger, more professional bullet points."
-      },
-      {
-        input: "Paste a rough email draft",
-        output: "Email Polisher → rewrites it into a clearer, stronger message you can actually send."
-      },
-      {
-        input: "Paste weak page copy",
-        output: "Landing Page Rewriter → makes it easier to understand, stronger, and more conversion-focused."
-      }
-    ];
-
-    let previewIndex = 0;
-    let typingIndex = 0;
-    let deleting = false;
-    let currentScene = previewScenes[0];
-
-    const previewInput = document.getElementById("previewInput");
-    const previewOutput = document.getElementById("previewOutput");
-
-    function getStoredAccount() {
-      const raw = localStorage.getItem("uf_account");
-      if (!raw) return null;
-      try {
-        return JSON.parse(raw);
-      } catch {
-        return null;
-      }
-    }
-
-    async function hydrateSession() {
-      try {
-        const res = await fetch("/api/session");
-        const data = await res.json();
-
-        if (data.loggedIn && data.user) {
-          localStorage.setItem("uf_account", JSON.stringify({
-            id: data.user.id,
-            email: data.user.email,
-            name: data.user.name || "",
-            pro: !!data.pro
-          }));
-        } else {
-          localStorage.removeItem("uf_account");
-        }
-      } catch {
-        localStorage.removeItem("uf_account");
-      }
-    }
-
-    function updateAuthUI() {
-      const account = getStoredAccount();
-      const loggedIn = !!account?.id;
-      const isPro = !!account?.pro;
-
-      loginLink.classList.toggle("hidden", loggedIn);
-      signupLink.classList.toggle("hidden", loggedIn);
-      logoutBtn.classList.toggle("hidden", !loggedIn);
-
-      if (isPro) {
-        navCta.textContent = "Pro Active";
-        navCta.href = "dashboard.html";
-      } else {
-        navCta.textContent = "Start Pro";
-        navCta.href = "pricing.html";
-      }
-    }
-
-    async function syncProUI() {
-      const account = getStoredAccount();
-      if (!account?.id) return;
-
-      try {
-        const res = await fetch("/api/pro-status", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: account.id })
-        });
-
-        const raw = await res.text();
-        let data;
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          return;
-        }
-
-        if (data.pro) {
-          localStorage.setItem("uf_account", JSON.stringify({
-            ...account,
-            pro: true
-          }));
-          updateAuthUI();
-        }
-      } catch {}
-    }
-
-    async function logout() {
-      try {
-        await fetch("/api/logout", { method: "POST" });
-      } catch {}
-
-      localStorage.removeItem("uf_account");
-      window.location.href = "index.html";
-    }
-
-    function animatePreview() {
-      currentScene = previewScenes[previewIndex];
-      previewInput.textContent = currentScene.input;
-
-      if (!deleting) {
-        typingIndex++;
-        previewOutput.textContent = currentScene.output.slice(0, typingIndex);
-
-        if (typingIndex >= currentScene.output.length) {
-          deleting = true;
-          setTimeout(animatePreview, 1500);
-          return;
-        }
-      } else {
-        typingIndex--;
-        previewOutput.textContent = currentScene.output.slice(0, typingIndex);
-
-        if (typingIndex <= 0) {
-          deleting = false;
-          previewIndex = (previewIndex + 1) % previewScenes.length;
-        }
-      }
-
-      const speed = deleting ? 20 : 30;
-      setTimeout(animatePreview, speed);
-    }
-
-    logoutBtn.addEventListener("click", logout);
-
-    (async function init() {
-      await hydrateSession();
-      updateAuthUI();
-      await syncProUI();
-      previewInput.textContent = previewScenes[0].input;
-      animatePreview();
-      document.body.classList.add("auth-ready");
-    })();
-  </script>
+  </a>
+  <div class="nav-links">
+    <a href="#workflow">The System</a>
+    <a href="#tools">Tools</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#">My Account</a>
+  </div>
+  <a href="#" class="nav-cta">Start Free →</a>
+</nav>
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">
+      <span class="eyebrow-bar"></span>
+      <span class="eyebrow-text">The Job Seeker's Unfair Advantage</span>
+    </div>
+    <h1 class="hero-h1">
+      <span class="h1-top">From job post</span>
+      <span class="h1-mid">to complete</span>
+      <span class="h1-bot">application.</span>
+    </h1>
+    <p class="hero-p">
+      Utility Forge AI is a <strong>precision-built system</strong> for job seekers.
+      Analyze any posting, tailor your resume, generate a targeted cover letter,
+      and walk into interviews ready — without starting from scratch every time.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Start Your Application →</a>
+      <a href="#workflow" class="btn-secondary">See How It Works</a>
+    </div>
+    <div class="hero-forge-stats">
+      <div class="forge-stat"><span class="fs-num">5+</span><span class="fs-label">Precision Tools</span></div>
+      <div class="forge-stat"><span class="fs-num">$0</span><span class="fs-label">To Start</span></div>
+      <div class="forge-stat"><span class="fs-num">1</span><span class="fs-label">Unified Flow</span></div>
+      <div class="forge-stat"><span class="fs-num">∞</span><span class="fs-label">With Pro</span></div>
+    </div>
+  </div>
+  <div class="forge-panel">
+    <div class="fp-header">
+      <div class="fp-dots">
+        <div class="fpdot" style="background:#FF5F57"></div>
+        <div class="fpdot" style="background:#FFBD2E"></div>
+        <div class="fpdot" style="background:#28C840"></div>
+      </div>
+      <span class="fp-title">Application Workflow</span>
+      <div class="fp-live"><div class="fp-live-dot"></div>FORGING</div>
+    </div>
+    <div class="fp-body">
+      <div class="fp-step">
+        <div class="fp-step-l"><div class="fp-num hot">01</div><div class="fp-connector"></div></div>
+        <div class="fp-info"><div class="fp-step-name">Job Description Analyzed</div><div class="fp-step-desc">Skills, keywords &amp; priorities extracted</div></div>
+      </div>
+      <div class="fp-step">
+        <div class="fp-step-l"><div class="fp-num hot">02</div><div class="fp-connector"></div></div>
+        <div class="fp-info"><div class="fp-step-name">Resume Scored &amp; Tailored</div><div class="fp-step-desc">Match score: 87/100 — bullets rewritten</div></div>
+      </div>
+      <div class="fp-step">
+        <div class="fp-step-l"><div class="fp-num hot">03</div><div class="fp-connector"></div></div>
+        <div class="fp-info"><div class="fp-step-name">Cover Letter Generated</div><div class="fp-step-desc">Targeted draft built from your resume</div></div>
+      </div>
+      <div class="fp-step">
+        <div class="fp-step-l"><div class="fp-num">04</div><div class="fp-connector"></div></div>
+        <div class="fp-info"><div class="fp-step-name">Interview Prep Ready</div><div class="fp-step-desc">10 likely questions + answer frameworks</div></div>
+      </div>
+      <div class="fp-step">
+        <div class="fp-step-l"><div class="fp-num">05</div></div>
+        <div class="fp-info"><div class="fp-step-name">Package Downloaded</div><div class="fp-step-desc">Resume + cover letter as Word docs</div></div>
+      </div>
+      <div class="fp-result">
+        <div class="fp-result-label">Keywords Forged In</div>
+        <div class="fp-tags">
+          <span class="fp-tag">React</span>
+          <span class="fp-tag">TypeScript</span>
+          <span class="fp-tag">REST APIs</span>
+          <span class="fp-tag">Agile</span>
+          <span class="fp-tag">CI/CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="rule"></div>
+<section class="section" id="workflow">
+  <div class="sec-eye"><span class="sec-bar"></span><span class="sec-tag">The System</span></div>
+  <h2 class="sec-h2">One flow.<br>Complete application.</h2>
+  <p class="sec-sub">Each step feeds directly into the next. No re-entering information. No starting over.</p>
+  <div class="wf-grid">
+    <div class="wf-card">
+      <div class="wf-big-n">01</div>
+      <span class="wf-icon">🎯</span>
+      <div class="wf-name">Paste the Job Post</div>
+      <div class="wf-desc">Drop in any job description. We extract skills, keywords, and what they actually want from a candidate.</div>
+      <div class="wf-arrow">▶</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-big-n">02</div>
+      <span class="wf-icon">📊</span>
+      <div class="wf-name">Score &amp; Tailor Resume</div>
+      <div class="wf-desc">Get a match score out of 100 then rewrite your bullets using the exact keywords that matter.</div>
+      <div class="wf-arrow">▶</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-big-n">03</div>
+      <span class="wf-icon">✉️</span>
+      <div class="wf-name">Generate Cover Letter</div>
+      <div class="wf-desc">A targeted draft built from your tailored resume. No blank page, no starting over from scratch.</div>
+      <div class="wf-arrow">▶</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-big-n">04</div>
+      <span class="wf-icon">🎤</span>
+      <div class="wf-name">Prep &amp; Apply</div>
+      <div class="wf-desc">Interview questions, LinkedIn messages, and downloadable docs. Walk in ready to close.</div>
+    </div>
+  </div>
+</section>
+<div class="rule"></div>
+<div class="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-label">
+      <span class="sec-bar"></span>
+      <span class="sec-tag">What Job Seekers Say</span>
+    </div>
+    <div class="testimonials-grid">
+      <div class="tcard">
+        <div class="tcard-quote">This cleaned up my resume bullets faster than anything I've tried. Got a callback within a week of applying with the new version.</div>
+        <div class="tcard-author">
+          <div class="tcard-avatar" style="background:linear-gradient(135deg,#FF6B1A,#FF9500);">JM</div>
+          <div><div class="tcard-name">Jamie M.</div><div class="tcard-role">Software Engineer — got hired at a fintech startup</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-quote">The job analyzer told me exactly what keywords I was missing. I rewrote my resume in 20 minutes and landed three interviews that week.</div>
+        <div class="tcard-author">
+          <div class="tcard-avatar" style="background:linear-gradient(135deg,#1A8FA0,#4DD9E8);">RL</div>
+          <div><div class="tcard-name">Rachel L.</div><div class="tcard-role">Marketing Manager — transitioned industries</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-quote">I used to spend 2 hours on each cover letter. Now it takes 10 minutes and actually sounds like me, not a robot.</div>
+        <div class="tcard-author">
+          <div class="tcard-avatar" style="background:linear-gradient(135deg,#FF3D00,#FF6B1A);">DK</div>
+          <div><div class="tcard-name">David K.</div><div class="tcard-role">Project Manager — landed a remote role</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="rule"></div>
+<section class="section">
+  <div class="score-layout">
+    <div>
+      <div class="sec-eye"><span class="sec-bar"></span><span class="sec-tag">Resume Scorer</span></div>
+      <h2 class="sec-h2">See your score.<br>Know your gaps.</h2>
+      <p class="sec-sub" style="margin-bottom:24px;">Most applicants apply blind. Our Resume Scorer gives you a match percentage before you submit so you can fix what's costing you interviews.</p>
+      <a href="#" class="btn-primary" style="display:inline-flex;margin-bottom:16px;">Score My Resume →</a>
+      <div class="privacy-note"><span class="privacy-icon">🔒</span> Your resume data is never stored or shared</div>
+    </div>
+    <div class="score-panel">
+      <div class="sp-label">Resume Match Analysis — Software Engineer</div>
+      <div class="sp-main">
+        <div class="sp-ring">
+          <svg width="96" height="96" viewBox="0 0 96 96">
+            <defs>
+              <linearGradient id="fg" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#FF3D00"/>
+                <stop offset="100%" stop-color="#FF9500"/>
+              </linearGradient>
+            </defs>
+            <circle class="bg2" cx="48" cy="48" r="40"/>
+            <circle class="fill2" cx="48" cy="48" r="40"/>
+          </svg>
+          <div class="sp-num">87</div>
+        </div>
+        <div class="sp-bars">
+          <div class="spb">
+            <div class="spb-top"><span>Keywords</span><span>92%</span></div>
+            <div class="spb-track"><div class="spb-fill" style="width:92%"></div></div>
+          </div>
+          <div class="spb">
+            <div class="spb-top"><span>Skills Match</span><span>84%</span></div>
+            <div class="spb-track"><div class="spb-fill" style="width:84%"></div></div>
+          </div>
+          <div class="spb">
+            <div class="spb-top"><span>Experience</span><span>79%</span></div>
+            <div class="spb-track"><div class="spb-fill" style="width:79%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-missing">
+        <div class="sp-miss-label">Missing Keywords</div>
+        <div class="sp-miss-tags">
+          <span class="sp-miss-tag">Kubernetes</span>
+          <span class="sp-miss-tag">GraphQL</span>
+          <span class="sp-miss-tag">AWS Lambda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="rule"></div>
+<section class="section" id="tools">
+  <div class="sec-eye"><span class="sec-bar"></span><span class="sec-tag">Precision Tools</span></div>
+  <h2 class="sec-h2">Built for one thing.<br>Getting you hired.</h2>
+  <div class="tools-grid">
+    <a href="#" class="tool-card tool-card-featured">
+      <div class="start-here-badge">Start Here</div>
+      <div class="tc-cat">Step 01 — Analyze</div>
+      <span class="tc-icon">🎯</span>
+      <div class="tc-name">Job Analyzer</div>
+      <div class="tc-desc">Break any job post into skills, priorities, and keywords. Know exactly what they want before you apply.</div>
+      <span class="tc-arrow">↗</span>
+    </a>
+    <a href="#" class="tool-card tool-card-featured">
+      <div class="start-here-badge">Start Here</div>
+      <div class="tc-cat">Step 02 — Score</div>
+      <span class="tc-icon">📊</span>
+      <div class="tc-name">Resume Scorer</div>
+      <div class="tc-desc">Get a match percentage against any job posting. See what's costing you interviews before you submit.</div>
+      <span class="tc-arrow">↗</span>
+    </a>
+    <a href="#" class="tool-card tool-card-featured">
+      <div class="start-here-badge">Start Here</div>
+      <div class="tc-cat">Step 03 — Write</div>
+      <span class="tc-icon">✉️</span>
+      <div class="tc-name">Cover Letter Generator</div>
+      <div class="tc-desc">A targeted cover letter built from your tailored resume. Sounds like you, not like AI.</div>
+      <span class="tc-arrow">↗</span>
+    </a>
+    <a href="#" class="tool-card">
+      <div class="tc-cat">Step 02 — Tailor</div>
+      <span class="tc-icon">📄</span>
+      <div class="tc-name">Resume Bullet Generator</div>
+      <div class="tc-desc">Turn rough job duties into sharp, keyword-matched bullets that pass ATS and impress hiring managers.</div>
+      <span class="tc-arrow">↗</span>
+    </a>
+    <a href="#" class="tool-card">
+      <div class="tc-cat">Step 04 — Prep</div>
+      <span class="tc-icon">🎤</span>
+      <div class="tc-name">Interview Prep</div>
+      <div class="tc-desc">The 10 most likely questions for your role with answer frameworks. Walk in ready to close.</div>
+      <span class="tc-arrow">↗</span>
+    </a>
+    <a href="#" class="tool-card">
+      <div class="tc-cat">Step 04 — Outreach</div>
+      <span class="tc-icon">💼</span>
+      <div class="tc-name">LinkedIn Optimizer</div>
+      <div class="tc-desc">Rewrite your headline and about section. Craft recruiter messages that actually get responses.</div>
+      <span class="tc-arrow">↗</span>
+    </a>
+  </div>
+</section>
+<div class="rule"></div>
+<section class="section" id="pricing">
+  <div class="sec-eye"><span class="sec-bar"></span><span class="sec-tag">Pricing</span></div>
+  <h2 class="sec-h2">Simple. Honest.<br>Worth it.</h2>
+  <div class="pricing-wrap">
+    <div class="price-card">
+      <div class="price-tier-label">Starter</div>
+      <div class="price-amount">$0 <span>/ mo</span></div>
+      <div class="price-pitch">Try every tool. No credit card needed.</div>
+      <ul class="price-list">
+        <li>Access to all tools</li>
+        <li>5 runs per tool per day</li>
+        <li>Standard output quality</li>
+        <li>Great for testing the system</li>
+      </ul>
+      <a href="#" class="price-btn price-btn-out">Start Free</a>
+    </div>
+    <div class="price-card hot">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-tier-label">Pro</div>
+      <div class="price-amount">$9 <span>/ mo</span></div>
+      <div class="price-pitch">For serious job seekers applying to multiple roles.</div>
+      <ul class="price-list">
+        <li>Unlimited runs on all tools</li>
+        <li>Download as Word &amp; PDF</li>
+        <li>Save application packages</li>
+        <li>Interview prep tool</li>
+        <li>No daily interruptions</li>
+      </ul>
+      <a href="#" class="price-btn price-btn-fire">Upgrade to Pro</a>
+    </div>
+  </div>
+</section>
+<div class="faq-section">
+  <div class="faq-inner">
+    <div class="sec-eye"><span class="sec-bar"></span><span class="sec-tag">Common Questions</span></div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel anytime?</div>
+        <div class="faq-a">Yes, absolutely. Cancel anytime from your account page with no questions asked. You keep Pro access until the end of your billing period.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What counts as a run?</div>
+        <div class="faq-a">One run is one use of a tool — one resume scored, one cover letter generated, one email polished. Free users get 5 runs per tool per day. Pro users get unlimited.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my resume data private?</div>
+        <div class="faq-a">Yes. Your resume and job description data is sent to generate your result and is never stored, sold, or used to train AI models. Your information stays yours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How is this different from ChatGPT?</div>
+        <div class="faq-a">ChatGPT is a blank canvas — you have to know the right prompts. Utility Forge AI is a purpose-built system with each tool optimised for a specific job seeker outcome. Less guessing, better results.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cta-wrap">
+  <div class="cta-banner">
+    <div>
+      <div class="cta-h">Stop applying blind.<br><span class="fire">Start forging.</span></div>
+      <div class="cta-sub">Join job seekers using Utility Forge AI to go from job post to complete application faster than ever.</div>
+    </div>
+    <a href="#" class="btn-primary" style="flex-shrink:0;font-size:1rem;padding:18px 48px;">Open the System →</a>
+  </div>
+</div>
+<footer>
+  <div class="foot-copy">© 2026 Utility Forge AI — All rights reserved</div>
+  <div class="foot-links">
+    <a href="#">Dashboard</a>
+    <a href="#">Pricing</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+<script>
+const sparksEl = document.getElementById('sparks');
+for(let i = 0; i < 24; i++){
+  const s = document.createElement('div');
+  s.className = 'spark';
+  const x = 10 + Math.random() * 80;
+  const y = 20 + Math.random() * 70;
+  const tx = (Math.random() - 0.5) * 100;
+  const ty = -(60 + Math.random() * 140);
+  const d = 3 + Math.random() * 5;
+  const delay = Math.random() * 7;
+  s.style.cssText = `left:${x}%;top:${y}%;--tx:${tx}px;--ty:${ty}px;--d:${d}s;--delay:${delay}s;`;
+  sparksEl.appendChild(s);
+}
+</script>
 </body>
 </html>
